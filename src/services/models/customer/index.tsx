@@ -1,4 +1,5 @@
-import { get } from "../../methods/get";
+import { get } from "@/services/methods/get";
+
 
 export default async function CustomerService() {
   async function findAll(
@@ -10,7 +11,7 @@ export default async function CustomerService() {
     );
     return { customers: response.customers, total: response.total };
   }
-
+  
   async function getCustomerById(
     id: string,
     token: string,
