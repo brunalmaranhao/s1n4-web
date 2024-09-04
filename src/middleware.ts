@@ -6,10 +6,10 @@ export function middleware(request: NextRequest) {
 
   if (currentUser) {
     const decoded = decodeToken(currentUser);
-    if(request.nextUrl.pathname.startsWith("/login")){
-      if(decoded?.role.startsWith("INTERNAL")){
+    if (request.nextUrl.pathname.startsWith("/login")) {
+      if (decoded?.role.startsWith("INTERNAL")) {
         return Response.redirect(new URL("/admin", request.url));
-      }else{
+      } else {
         return Response.redirect(new URL("/user", request.url));
       }
     }
@@ -19,8 +19,6 @@ export function middleware(request: NextRequest) {
     ) {
       return Response.redirect(new URL("/user", request.url));
     }
-
-    
   }
 
   if (
@@ -30,8 +28,6 @@ export function middleware(request: NextRequest) {
   ) {
     return Response.redirect(new URL("/login", request.url));
   }
-
-  
 }
 
 export const config = {

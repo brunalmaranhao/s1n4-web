@@ -34,20 +34,23 @@ export default function Login() {
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24 gap-6">
-        <h3>Login</h3>
-        <form onSubmit={handleSubmit(handleLogin)} className="flex flex-col gap-6">
-          <div className="flex flex-col">
-            <label>Email</label>
-            <Input {...register("email")} type="email" />
-            <p className="text-red-400 text-sm">{errors.email?.message}</p>
-          </div>
-          <div className="flex flex-col">
-            <label>Senha</label>
-            <Input {...register("password")} type="password" />
-            <p className="text-red-400 text-sm">{errors.password?.message}</p>
-          </div>
-          <Button type="submit">{loading ? "Carregando" : "Entrar"}</Button>
-        </form>
+      <h3>Login</h3>
+      <form
+        onSubmit={handleSubmit(handleLogin)}
+        className="flex flex-col gap-6"
+      >
+        <div className="flex flex-col">
+          <label>Email</label>
+          <Input {...register("email")} type="email" />
+          <p className="text-red-400 text-sm">{errors.email?.message}</p>
+        </div>
+        <div className="flex flex-col">
+          <label>Senha</label>
+          <Input {...register("password")} type="password" />
+          <p className="text-red-400 text-sm">{errors.password?.message}</p>
+        </div>
+        <Button type="submit">{loading ? "Carregando" : "Entrar"}</Button>
+      </form>
     </main>
   );
 }

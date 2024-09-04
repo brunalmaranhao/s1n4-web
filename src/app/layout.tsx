@@ -18,9 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={inter.className}>
-      <Providers>{children}</Providers>
-      <Toaster position="bottom-center" />
+      <body className={`${inter.className}`}>
+        <Providers>{children}</Providers>
+        <Toaster position="bottom-center" />
       </body>
     </html>
   );
