@@ -1,19 +1,3 @@
-declare interface ICustomer {
-  id: string;
-  name: string;
-  cnpj: string;
-  corporateName: string;
-  status: "ACTIVE" | "INACTIVE";
-  address?: string;
-  accumulatedInvestment?: string;
-  contractDuration?: string;
-  contractObjective?: string;
-  contractValue?: string;
-  contractedServices?: string;
-  zipCode?: string;
-  actions?: string | null;
-}
-
 declare interface IGetCustomerByIdResponse {
   customer: {
     name: string;
@@ -32,4 +16,43 @@ declare interface IGetCustomerByIdResponse {
     createdAt?: Date;
     updatedAt?: Date | null;
   };
+}
+
+declare interface ICustomer {
+  id: string;
+  name: string;
+  cnpj: string;
+  corporateName: string;
+  status: "ACTIVE" | "INACTIVE";
+  address?: string;
+  accumulatedInvestment?: string;
+  contractDuration?: string;
+  contractObjective?: string;
+  contractValue?: string;
+  contractedServices?: string;
+  zipCode?: string;
+  actions?: string | null;
+}
+
+declare interface INewCustomer {
+  name: string;
+  cnpj: string;
+  corporateName: string;
+  accumulatedInvestment?: string;
+  contractDuration?: string;
+  contractObjective?: string;
+  contractValue?: string;
+  expenditureProjection?: string;
+  address?: ICustomerAddress;
+}
+
+declare interface ICustomerAddress {
+  street?: string;
+  number?: string;
+  complement?: string;
+  neighborhood?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  zipCode?: string;
 }

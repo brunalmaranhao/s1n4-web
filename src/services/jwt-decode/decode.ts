@@ -2,7 +2,13 @@ import jwt from "jsonwebtoken";
 
 type TokenProps = {
   sub: string;
-  role: "ADMIN" | "USER";
+  role:
+    | "INTERNAL_MANAGEMENT"
+    | "INTERNAL_PARTNERS"
+    | " INTERNAL_FINANCIAL_LEGAL"
+    | "CLIENT_RESPONSIBLE"
+    | "CLIENT_OWNER"
+    | "CLIENT_USER";
   iat: number;
 };
 

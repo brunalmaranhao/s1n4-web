@@ -29,3 +29,22 @@ declare interface IGetUserState {
   createdAt: Date;
   updatedAt: Date;
 }
+
+
+enum RoleEnum {
+  CLIENT_RESPONSIBLE = "CLIENT_RESPONSIBLE",
+  CLIENT_OWNER = "CLIENT_OWNER",
+  CLIENT_USER = "CLIENT_USER",
+}
+
+
+
+declare interface INewUserCustomer{
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  confirmPassword: string
+  role: RoleEnum;
+  actions?: string | null
+}
