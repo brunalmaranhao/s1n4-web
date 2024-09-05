@@ -17,7 +17,7 @@ interface WizardHeaderProps {
 
 const WizardHeader: React.FC<WizardHeaderProps> = ({ currentStep }) => {
   const steps: Step[] = [
-    { id: 1, label: "1. Detalhes da empresa", sublabel: "Incompleto" },
+    { id: 1, label: "1. Detalhes da empresa", sublabel: "" },
     {
       id: 2,
       label: "2. Usuários",
@@ -40,7 +40,7 @@ const WizardHeader: React.FC<WizardHeaderProps> = ({ currentStep }) => {
  
 
   return (
-    <div className="flex justify-between pb-2">
+    <div className="flex justify-between pb-2 md:flex-row flex-col">
       {steps.map((step) => (
         <div
           key={step.id}

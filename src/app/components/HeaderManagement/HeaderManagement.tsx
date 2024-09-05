@@ -1,11 +1,12 @@
 "use client";
 import { Button } from "@nextui-org/react";
 import TabsManagement from "../TabsManagement/TabsManagement";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import FilterProjectsByCustomer from "../FilterProjectsByCustomer/FilterProjectsByCustomer";
 import Notification from "../Notification/Notification";
 
 export default function HeaderManagement() {
+  const { push } = useRouter();
   const pathsWithTab = [
     "/admin/management/customers",
     "/admin/management/projects",
@@ -25,7 +26,12 @@ export default function HeaderManagement() {
 
         {label === "Clientes" && pathsWithTab.includes(pathname) && (
           <div>
-            <Button color="primary">Novo Cliente</Button>
+            <Button
+              color="primary"
+              onPress={() => push("/admin/management/customers/new")}
+            >
+              Novo Cliente
+            </Button>
           </div>
         )}
         {label === "Projetos" && pathsWithTab.includes(pathname) && (
