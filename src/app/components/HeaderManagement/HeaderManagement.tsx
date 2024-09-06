@@ -1,9 +1,9 @@
 "use client";
 import { Button } from "@nextui-org/react";
-import TabsManagement from "../TabsManagement/TabsManagement";
 import { usePathname, useRouter } from "next/navigation";
 import FilterProjectsByCustomer from "../FilterProjectsByCustomer/FilterProjectsByCustomer";
 import Notification from "../Notification/Notification";
+import TabsManagement from "./TabsManagement/TabsManagement";
 
 export default function HeaderManagement() {
   const { push } = useRouter();

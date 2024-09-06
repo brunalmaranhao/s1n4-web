@@ -11,7 +11,11 @@ export const schemaNewCustomer = yup
     address: yup
       .object({
         street: yup.string().optional(),
-        number: yup.string().optional(),
+        number: yup.string().when("street", ([street]) => {
+          return street
+            ? yup.string().required("Campo Número é obrigatório.")
+            : yup.string().optional();
+        }),
         complement: yup.string().optional(),
         neighborhood: yup.string().optional(),
         city: yup.string().optional(),
