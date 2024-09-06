@@ -11,7 +11,7 @@ export default function NewCustomer() {
         <MdArrowBack
           className="cursor-pointer"
           size={22}
-          onClick={() => back()}
+          onClick={() => window.location.href = '/admin/management/customers/'}
         />
         <h3 className="text-lg">Novo Cliente</h3>
       </div>

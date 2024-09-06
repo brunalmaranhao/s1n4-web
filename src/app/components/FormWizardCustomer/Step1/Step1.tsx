@@ -12,14 +12,13 @@ import toast from "react-hot-toast";
 import { useFormWizardContext } from "@/context/FormWizardCustomerContext";
 
 const Step1 = () => {
-  const { handleNext,  step } = useFormWizardContext();
+  const { handleNext, step } = useFormWizardContext();
   const [loadingCep, setLoadingCep] = useState(false);
   const { setNewCustomer } = useFormWizardContext();
   const { back } = useRouter();
   const [showAddressFields, setShowAddressFields] = useState(false);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
- 
   const {
     register,
     handleSubmit,
@@ -33,6 +32,25 @@ const Step1 = () => {
     shouldFocusError: false,
   });
 
+  useEffect(() => {
+    console.log(getValues("address.zipCode"));
+    if (
+      !getValues("address.zipCode") ||
+      getValues("address.zipCode") === "_____-___"
+    ) {
+      resetAddressFields();
+    }
+  }, [getValues("address.zipCode")]);
+
+  function resetAddressFields() {
+    setShowAddressFields(false);
+    setValue("address.zipCode", "");
+    setValue("address.neighborhood", "");
+    setValue("address.city", "");
+    setValue("address.street", "");
+    setValue("address.state", "");
+    setValue("address.country", "");
+  }
 
   async function handleGetAddressFromCep() {
     const cep = getValues("address.zipCode");
@@ -41,18 +59,12 @@ const Step1 = () => {
       try {
         const url = `https://viacep.com.br/ws/${cep}/json/`;
         const response = await fetch(url);
-
         const data = await response.json();
         console.log(data.erro);
         if (data.erro) {
           setShowAddressFields(false);
+          resetAddressFields();
           toast.error("Erro ao buscar endereço");
-          setValue("address.zipCode", "");
-          setValue("address.neighborhood", "");
-          setValue("address.city", "");
-          setValue("address.street", "");
-          setValue("address.state", "");
-          setValue("address.country", "");
         } else {
           setValue("address.neighborhood", data.bairro);
           setValue("address.city", data.localidade);
@@ -70,9 +82,8 @@ const Step1 = () => {
     }
   }
 
-
   async function handleOnNext(data: INewCustomer) {
-    setLoading(true)
+    setLoading(true);
     try {
       const { validateCustomer } = await CustomerService();
       await validateCustomer(data.name, data.corporateName, data.cnpj);
@@ -81,12 +92,12 @@ const Step1 = () => {
     } catch (error) {
       const customError = handleAxiosError(error);
       toast.error(customError.message);
-    }finally{
-        setLoading(false)
+    } finally {
+      setLoading(false);
     }
   }
   return (
-    <div className={`${step === 1 ? 'flex': 'hidden'} flex-col`}>
+    <div className={`${step === 1 ? "flex" : "hidden"} flex-col`}>
       <h2>Detalhes da empresa</h2>
       <form
         onSubmit={handleSubmit(handleOnNext)}
@@ -178,7 +189,16 @@ const Step1 = () => {
               control={control}
               name={"address.zipCode"}
               render={({ field }) => (
-                <InputMask mask="99999-999" {...field} type="text">
+                <InputMask
+                  mask="99999-999"
+                  {...field}
+                  type="text"
+                  onBlur={() => {
+                    if (!errors.address?.zipCode) {
+                      handleGetAddressFromCep();
+                    }
+                  }}
+                >
                   <Input
                     placeholder={"99999-999"}
                     className="max-w-[220px]"
@@ -230,10 +250,17 @@ const Step1 = () => {
                 />
 
                 <Input
-                  label="Número (Opcional)"
+                  label="Número"
                   type="string"
                   {...register("address.number")}
                   size="sm"
+                  isInvalid={
+                    errors.address?.number &&
+                    !!errors.address?.number.message
+                  }
+                  errorMessage={
+                    errors.address?.number && errors.address?.number.message
+                  }
                 />
                 <Input
                   label="Complemento (Opcional)"
@@ -295,7 +322,7 @@ const Step1 = () => {
             Cancelar
           </Button>
           <Button color="primary" type="submit" disabled={!!loading}>
-            {loading ? <Spinner color="white" size="sm" /> : 'Avançar'}
+            {loading ? <Spinner color="white" size="sm" /> : "Avançar"}
           </Button>
         </div>
       </form>

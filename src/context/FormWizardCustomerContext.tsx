@@ -22,6 +22,7 @@ type FormWizardCustomerContextType = {
   handleAddUser: (user: INewUserCustomer) => void;
   handleAddReport: (report: INewReport) => void
   handleAddResponsible: (responsible: INewResponsible) => void
+  reset: () => void
 };
 
 const FormWizardCustomerContext = createContext<
@@ -37,8 +38,12 @@ export const FormWizardCustomerProvider: React.FC<{ children: ReactNode }> = ({
   const [reports, setReports] = useState<INewReport[]>([]);
   const [responsibles, setResponsibles] = useState<INewResponsible[]>([]);
 
+  function reset(){
+    setStep(1)
+  }
+
   const handleNext = () => {
-    if (step < 4) setStep(step + 1);
+    if (step < 5) setStep(step + 1);
   };
 
   const handleBack = () => {
@@ -72,7 +77,8 @@ export const FormWizardCustomerProvider: React.FC<{ children: ReactNode }> = ({
     handleAddReport,
     responsibles,
     setResponsibles,
-    handleAddResponsible
+    handleAddResponsible,
+    reset
   };
 
   return (

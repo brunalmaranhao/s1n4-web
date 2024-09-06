@@ -4,12 +4,12 @@ import TableNewResponsibles from "./TableNewResponsibles/TableNewResponsibles";
 import ModalCreateResponsible from "./ModalCreateResponsible/ModalCreateResponsible";
 
 const Step4 = () => {
-  const { handleBack, step} = useFormWizardContext();
+  const { handleBack, step, handleNext} = useFormWizardContext();
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   return (
     <div className={`${step === 4 ? "flex" : "hidden"} flex-col gap-3`}>
     <div className="flex justify-between items-center w-full">
-      <h2>2. Outras configurações</h2>
+      <h2>4. Outras configurações</h2>
       <Button color="primary" variant="bordered"  onPress={onOpen}>Criar responsável</Button>
     </div>
 
@@ -19,7 +19,7 @@ const Step4 = () => {
       <Button onClick={handleBack} color="primary" variant="light">
         Voltar
       </Button>
-      <Button  color="primary">
+      <Button  color="primary" onPress={() => handleNext()}>
         Finalizar
       </Button>
     </div>

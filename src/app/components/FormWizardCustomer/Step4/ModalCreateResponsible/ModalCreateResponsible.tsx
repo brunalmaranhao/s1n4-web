@@ -1,5 +1,3 @@
-import { EyeFilledIcon } from "@/app/components/EyeFilledIcon/EyeFilledIcon";
-import { EyeSlashFilledIcon } from "@/app/components/EyeSlashFilledIcon/EyeSlashFilledIcon";
 import { useFormWizardContext } from "@/context/FormWizardCustomerContext";
 import { schemaNewResponsible } from "@/schemas/responsible";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -100,7 +98,7 @@ export default function ModalCreateResponsible({
         {(onClose) => (
           <>
             <ModalHeader className="flex flex-col gap-1">
-              Criar Usuário
+              Criar Parte Reponsável
             </ModalHeader>
             <form onSubmit={handleSubmit(handleCreateResponsible)}>
               <ModalBody className="flex flex-col gap-2">
