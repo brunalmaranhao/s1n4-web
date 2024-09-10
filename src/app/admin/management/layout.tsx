@@ -1,6 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
-import HeaderManagement from "@/app/components/HeaderManagement/HeaderManagement";
+import HeaderManagement from "@/components/HeaderManagement/HeaderManagement";
 
 export const metadata: Metadata = {
   title: "Gerenciar",

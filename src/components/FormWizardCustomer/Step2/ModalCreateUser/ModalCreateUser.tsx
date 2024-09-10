@@ -1,5 +1,5 @@
-import { EyeFilledIcon } from "@/app/components/EyeFilledIcon/EyeFilledIcon";
-import { EyeSlashFilledIcon } from "@/app/components/EyeSlashFilledIcon/EyeSlashFilledIcon";
+import { EyeFilledIcon } from "@/components/EyeFilledIcon/EyeFilledIcon";
+import { EyeSlashFilledIcon } from "@/components/EyeSlashFilledIcon/EyeSlashFilledIcon";
 import { useFormWizardContext } from "@/context/FormWizardCustomerContext";
 import { schemaNewUserCustomer } from "@/schemas/user";
 import { yupResolver } from "@hookform/resolvers/yup";

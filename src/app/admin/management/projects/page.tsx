@@ -1,7 +1,17 @@
-export default function Projects(){
-    return (
-        <div className="min-h-screen w-full">
-            Projetos
-        </div>
-    )
+"use client";
+
+import ModalCreateProject from "@/components/ModalCreateProject/ModalCreateProject";
+import ProjectsComponent from "@/components/ProjectsComponent/ProjectsComponent";
+import { useProjectContext } from "@/context/ProjectContext";
+
+export default function Projects() {
+  const { isOpenModalCreateProject, onClose } = useProjectContext();
+
+  return (
+    <div className="min-h-screen w-full">
+        <ProjectsComponent />
+
+      <ModalCreateProject isOpen={isOpenModalCreateProject} onClose={onClose} />
+    </div>
+  );
 }

@@ -76,7 +76,6 @@ const ProcessingScreen = () => {
         return response;
       } catch (error) {
         setFinished(true);
-
         updateItemSaved("customer", true, true);
         throw error;
       }

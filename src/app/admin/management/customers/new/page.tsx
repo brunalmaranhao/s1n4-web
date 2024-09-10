@@ -1,7 +1,7 @@
 "use client";
 import { MdArrowBack } from "react-icons/md";
 import { useRouter } from "next/navigation";
-import FormWizarCustomer from "@/app/components/FormWizardCustomer/FormWizardCustomer";
+import FormWizarCustomer from "@/components/FormWizardCustomer/FormWizardCustomer";
 
 export default function NewCustomer() {
   const { back } = useRouter();
