@@ -1,11 +1,13 @@
 "use client";
 import { Button } from "@nextui-org/react";
 import { usePathname, useRouter } from "next/navigation";
+import TabsManagement from "./TabsManagement/TabsManagement";
+import { useProjectContext } from "@/context/ProjectContext";
 import FilterProjectsByCustomer from "../FilterProjectsByCustomer/FilterProjectsByCustomer";
 import Notification from "../Notification/Notification";
-import TabsManagement from "./TabsManagement/TabsManagement";
 
 export default function HeaderManagement() {
+  const {onOpen} = useProjectContext()
   const { push } = useRouter();
   const pathsWithTab = [
     "/admin/management/customers",
@@ -38,7 +40,7 @@ export default function HeaderManagement() {
           <div className="flex flex-row gap-3 items-center flex-wrap">
             <h4>Filtrar por</h4>
             <FilterProjectsByCustomer />
-            <Button color="primary">Novo Projeto</Button>
+            <Button color="primary" onPress={() => onOpen()}>Novo Projeto</Button>
           </div>
         )}
       </div>

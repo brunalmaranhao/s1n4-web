@@ -7,6 +7,7 @@ export default function TabsManagement() {
   const router = useRouter();
  const pathname = usePathname()
   const handleTabChange = (key: Key) => {    
+    console.log(key)
     router.push(`/admin/management/${key}`);
   };
   return (
@@ -22,7 +23,7 @@ export default function TabsManagement() {
           tab: "w-full px-0 h-12",
           tabContent: "group-data-[selected=true]:text-[#06b6d4] w-full",
         }}
-        // selectedKey={pathname}
+        selectedKey={pathname.includes("projects") ? "projects" : "customers"}
         onSelectionChange={handleTabChange}
       >
         <Tab
