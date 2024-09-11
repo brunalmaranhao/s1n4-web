@@ -64,11 +64,32 @@ export default async function ProjectsService() {
     await put<{ projectId: string }, string>(`/project/update/${id}`, payload);
   }
 
+  async function update(
+    id: string,
+    name: string,    
+    customerId: string,
+    deadline?: Date,
+  ): Promise<void> {
+    const payload = JSON.stringify({ name, deadline, customerId });
+    await put<{ projectId: string }, string>(`/project/update/${id}`, payload);
+  }
+
+  async function fetchProjectsByCustomer(
+    customerId: string
+  ): Promise<IProject[]> {
+    const response = await get<{ projects: IProject[] }>(
+      `/customer/${customerId}/projects`
+    );
+    return response.projects;
+  }
+
   return {
     fetchAllProjects,
     getProjectById,
     fetchProjects,
     createProject,
     updateStatus,
+    fetchProjectsByCustomer,
+    update,
   };
 }

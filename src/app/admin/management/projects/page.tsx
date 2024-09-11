@@ -1,6 +1,7 @@
 "use client";
 
-import ModalCreateProject from "@/components/ModalCreateProject/ModalCreateProject";
+import ModalCreateProject from "@/components/ProjectsComponent/ModalCreateProject/ModalCreateProject";
+import ModalEditProject from "@/components/ProjectsComponent/ModalEdit/ModalEditProject";
 import ProjectsComponent from "@/components/ProjectsComponent/ProjectsComponent";
 import { useProjectContext } from "@/context/ProjectContext";
 
@@ -12,6 +13,7 @@ export default function Projects() {
         <ProjectsComponent />
 
       <ModalCreateProject isOpen={isOpenModalCreateProject} onClose={onClose} />
+      <ModalEditProject />
     </div>
   );
 }

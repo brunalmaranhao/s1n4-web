@@ -12,6 +12,16 @@ export default async function CustomerService() {
     return { customers: response.customers, total: response.total };
   }
 
+  async function findAllActives(): Promise<{
+    customers: ICustomer[];
+    total: number;
+  }> {
+    const response = await get<{ customers: ICustomer[]; total: number }>(
+      `customer/all/active`
+    );
+    return { customers: response.customers, total: response.total };
+  }
+
   async function validateCustomer(
     name: string,
     corporateName: string,
@@ -100,5 +110,6 @@ export default async function CustomerService() {
     validateCustomer,
     createCustomer,
     createCustomerAddress,
+    findAllActives,
   };
 }
