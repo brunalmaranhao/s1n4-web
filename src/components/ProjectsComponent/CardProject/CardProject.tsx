@@ -1,4 +1,5 @@
 import { MdMoreHoriz, MdMoreVert } from "react-icons/md";
+import ActionsCardProject from "./ActionsCardProject/ActionsCardProject";
 
 type CardProjectProps = {
   handleDragStart: (project: IProject) => void;
@@ -18,7 +19,7 @@ export default function CardProject({
     >
       <div className="flex flex-row justify-between">
         <p className="text-xs">{project.customer.corporateName}</p>
-        <MdMoreVert className="cursor-pointer" />
+        <ActionsCardProject project={project} />
       </div>
       <p className="text-md">{project.name}</p>
     </div>

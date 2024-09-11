@@ -10,9 +10,6 @@ export default function ProjectsComponent() {
   const [highlightedColumn, setHighlightedColumn] =
     useState<StatusProject | null>(null);
 
-  useEffect(() => {
-    fetchAllProjects();
-  }, []);
 
   async function handleUpdateStatusProject(id: string, status: StatusProject) {
     try {
@@ -65,8 +62,8 @@ export default function ProjectsComponent() {
 
   return (
     <div className="w-full flex items-center justify-center">
-      <div className="flex flex-row max-w-[760px] w-full justify-between">
-        <div className="w-full">
+      <div className="flex md:flex-row flex-col  gap-3 max-w-[760px] w-full md:justify-between md:items-start items-center">
+        <div className="md:max-w-[260px] max-w-[220px] w-full">
           <CardStatus
             allowDrop={allowDrop}
             handleDragStart={handleDragStart}
@@ -78,7 +75,7 @@ export default function ProjectsComponent() {
             handleDragLeave={handleDragLeave}
           />
         </div>
-        <div className="w-full">
+        <div className="md:max-w-[260px] max-w-[220px] w-full">
           <CardStatus
             allowDrop={allowDrop}
             handleDragStart={handleDragStart}
@@ -90,7 +87,7 @@ export default function ProjectsComponent() {
             handleDragLeave={handleDragLeave}
           />
         </div>
-        <div className="w-full">
+        <div className="md:max-w-[260px] max-w-[220px] w-full">
           <CardStatus
             allowDrop={allowDrop}
             handleDragStart={handleDragStart}

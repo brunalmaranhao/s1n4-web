@@ -29,9 +29,9 @@ export default function ModalCreateProject({
   isOpen,
   onClose,
 }: ModalCreateProjectProps) {
-  const {fetchAllProjects} = useProjectContext()
+  const {fetchAllProjects, customers , fetchCustomer} = useProjectContext()
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [customers, setCustomers] = useState<ICustomer[]>([]);
+ 
   const toggleVisibility = () => setIsVisible(!isVisible);
   const [loading, setLoading] = useState(false);
 
@@ -56,15 +56,7 @@ export default function ModalCreateProject({
     }
   }, []);
 
-  async function fetchCustomer() {
-    try {
-      const { findAll } = await CustomerService();
-      const response = await findAll(1, 100);
-      setCustomers(response.customers);
-    } catch (error) {
-      toast.error("Ocorreu um erro ao buscar clientes.");
-    }
-  }
+ 
 
   async function handleCreateProject(data: INewProject) {
     setLoading(true)
