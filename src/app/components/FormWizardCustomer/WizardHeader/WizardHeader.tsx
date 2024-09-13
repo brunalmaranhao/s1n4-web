@@ -32,12 +32,12 @@ const WizardHeader: React.FC<WizardHeaderProps> = ({ currentStep }) => {
   ];
 
   const getIcon = (stepId: number) => {
-    if (stepId < currentStep) return <MdOutlineDone className="text-[#25A249]" size={22} />; 
-    if (stepId === currentStep) return <MdOutlineDataSaverOff className="text-[#001D6C]" size={22} />; 
-    return <MdOutlineFiberManualRecord className="text-[#697077]" size={22} />; 
+    if (stepId < currentStep)
+      return <MdOutlineDone className="text-[#25A249]" size={22} />;
+    if (stepId === currentStep)
+      return <MdOutlineDataSaverOff className="text-[#001D6C]" size={22} />;
+    return <MdOutlineFiberManualRecord className="text-[#697077]" size={22} />;
   };
-
- 
 
   return (
     <div className="flex justify-between pb-2">
@@ -48,10 +48,7 @@ const WizardHeader: React.FC<WizardHeaderProps> = ({ currentStep }) => {
             step.id <= currentStep ? "bg-gray-300" : "bg-gray-100"
           } 
          
-          ${
-            step.id <= currentStep ? "text-black" : "text-gray-500"
-            
-          }`}
+          ${step.id <= currentStep ? "text-black" : "text-gray-500"}`}
         >
           <div
             className={`absolute top-0 left-0 right-0 h-1 transition-width duration-500 ease-in-out ${
@@ -59,7 +56,7 @@ const WizardHeader: React.FC<WizardHeaderProps> = ({ currentStep }) => {
             }`}
             style={{ width: step.id <= currentStep ? "100%" : "0%" }}
           />
-           <div
+          <div
             className={`absolute top-0 left-0 right-0 h-1 transition-width duration-500 ease-in-out ${
               step.id > currentStep && "bg-gray-300"
             }`}

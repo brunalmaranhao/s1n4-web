@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const Step2 = ({ onNext, onBack }: any) => {
   const [userDetails, setUserDetails] = useState({
-    name: 'Jane Doe',
-    email: 'loremipsum@email.com',
+    name: "Jane Doe",
+    email: "loremipsum@email.com",
   });
 
   const handleInputChange = (e: any) => {

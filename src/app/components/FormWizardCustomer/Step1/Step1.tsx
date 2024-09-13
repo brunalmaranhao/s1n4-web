@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const Step1 = ({ onNext }: any) => {
   const [companyDetails, setCompanyDetails] = useState({});

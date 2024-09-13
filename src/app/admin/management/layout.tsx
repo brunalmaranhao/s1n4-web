@@ -14,10 +14,10 @@ export default function ManagementLayout({
 }>) {
   return (
     <main className="flex flex-col justify-center items-center">
-    <div className={`xl:max-w-[1200px] w-full`}>
-      <HeaderManagement />
-      <div>{children}</div>
-    </div>
+      <div className={`xl:max-w-[1200px] w-full`}>
+        <HeaderManagement />
+        <div>{children}</div>
+      </div>
     </main>
   );
 }

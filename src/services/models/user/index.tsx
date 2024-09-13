@@ -13,7 +13,18 @@ export default async function UserService() {
     });
   }
 
+  async function fetchActiveUsers(
+    token: string,
+  ): Promise<IGetActiveUsersResponse> {
+    return await get<IGetActiveUsersResponse>(`/user/active`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
   return {
     getUserById,
+    fetchActiveUsers,
   };
 }
