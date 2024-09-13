@@ -27,7 +27,7 @@ export const schemaNewCustomer = yup
           .test(
             "is-valid-cep",
             "CEP inválido",
-            (value) => !value || /^\d{5}-\d{3}$/.test(value)
+            (value) => !value || /^\d{5}-\d{3}$/.test(value),
           ),
       })
       .optional(),

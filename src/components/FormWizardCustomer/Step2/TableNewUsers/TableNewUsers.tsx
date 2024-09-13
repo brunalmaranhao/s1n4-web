@@ -45,7 +45,11 @@ export default function TableNewUsers() {
   const { users, setUsers } = useFormWizardContext();
 
   const renderCell = React.useCallback(
-    (customer: INewUserCustomer, columnKey: Key, usersSaved: INewUserCustomer[]) => {
+    (
+      customer: INewUserCustomer,
+      columnKey: Key,
+      usersSaved: INewUserCustomer[],
+    ) => {
       let column = columnKey as ColumnKeys;
       const cellValue = customer[column];
       switch (columnKey) {
@@ -70,12 +74,12 @@ export default function TableNewUsers() {
           return <p className="text-black">{cellValue}</p>;
       }
     },
-    []
+    [],
   );
 
-  function remove(item: INewUserCustomer, usersSaved:INewUserCustomer[] ) {
+  function remove(item: INewUserCustomer, usersSaved: INewUserCustomer[]) {
     const updatedUsers = usersSaved.filter((user) => user.email !== item.email);
-    setUsers(updatedUsers)
+    setUsers(updatedUsers);
   }
 
   return (

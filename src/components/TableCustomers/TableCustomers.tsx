@@ -113,7 +113,7 @@ export default function TableCustomers() {
           return <p className="text-black">{cellValue}</p>;
       }
     },
-    []
+    [],
   );
 
   const onNextPage = React.useCallback(() => {
@@ -196,7 +196,6 @@ export default function TableCustomers() {
           bottomContentPlacement="outside"
           classNames={{
             wrapper: "w-full",
-        
           }}
           selectedKeys={selectedKeys}
           selectionMode="multiple"

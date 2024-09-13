@@ -15,12 +15,11 @@ type ActionsCardProjectProps = {
 export default function ActionsCardProject({
   project,
 }: ActionsCardProjectProps) {
-  
-  const {onOpenModalEdit, setSelectedProjectEdit} = useProjectContext() 
+  const { onOpenModalEdit, setSelectedProjectEdit } = useProjectContext();
 
-  function handleEdit(){
-    setSelectedProjectEdit(project)
-    onOpenModalEdit()
+  function handleEdit() {
+    setSelectedProjectEdit(project);
+    onOpenModalEdit();
   }
 
   return (
@@ -35,7 +34,11 @@ export default function ActionsCardProject({
         variant="light"
         aria-label="Static Actions"
       >
-        <DropdownItem key={"edit"} className="text-black" onPress={() => handleEdit()}>
+        <DropdownItem
+          key={"edit"}
+          className="text-black"
+          onPress={() => handleEdit()}
+        >
           Editar
         </DropdownItem>
         <DropdownItem key={"delete"} className="text-black">

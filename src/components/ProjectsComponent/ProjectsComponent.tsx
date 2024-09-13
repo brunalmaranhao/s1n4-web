@@ -10,7 +10,6 @@ export default function ProjectsComponent() {
   const [highlightedColumn, setHighlightedColumn] =
     useState<StatusProject | null>(null);
 
-
   async function handleUpdateStatusProject(id: string, status: StatusProject) {
     try {
       const { updateStatus } = await ProjectsService();
@@ -39,10 +38,10 @@ export default function ProjectsComponent() {
 
   function handleDragEnter(
     event: DragEvent<HTMLDivElement>,
-    status: StatusProject
+    status: StatusProject,
   ) {
-    const relatedTarget = event.relatedTarget as Node | null; 
-    const currentTarget = event.currentTarget as Node; 
+    const relatedTarget = event.relatedTarget as Node | null;
+    const currentTarget = event.currentTarget as Node;
 
     if (relatedTarget && currentTarget.contains(relatedTarget)) {
       return;
@@ -51,8 +50,8 @@ export default function ProjectsComponent() {
   }
 
   function handleDragLeave(event: DragEvent<HTMLDivElement>) {
-    const relatedTarget = event.relatedTarget as Node | null; 
-    const currentTarget = event.currentTarget as Node; 
+    const relatedTarget = event.relatedTarget as Node | null;
+    const currentTarget = event.currentTarget as Node;
 
     if (relatedTarget && currentTarget.contains(relatedTarget)) {
       return;

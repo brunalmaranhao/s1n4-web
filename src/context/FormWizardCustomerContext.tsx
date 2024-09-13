@@ -3,12 +3,10 @@ import React, { createContext, useContext, ReactNode, useState } from "react";
 
 type FormWizardCustomerContextType = {
   newCustomer?: INewCustomer;
-  reports: INewReport[]
-  responsibles: INewResponsible[]
-  setResponsibles: React.Dispatch<
-  React.SetStateAction<INewResponsible[]>>
-  setReports: React.Dispatch<
-  React.SetStateAction<INewReport[]>>
+  reports: INewReport[];
+  responsibles: INewResponsible[];
+  setResponsibles: React.Dispatch<React.SetStateAction<INewResponsible[]>>;
+  setReports: React.Dispatch<React.SetStateAction<INewReport[]>>;
   setNewCustomer: React.Dispatch<
     React.SetStateAction<INewCustomer | undefined>
   >;
@@ -16,13 +14,11 @@ type FormWizardCustomerContextType = {
   handleNext: () => void;
   handleBack: () => void;
   users: INewUserCustomer[];
-  setUsers: React.Dispatch<
-  React.SetStateAction<INewUserCustomer[]>
->;
+  setUsers: React.Dispatch<React.SetStateAction<INewUserCustomer[]>>;
   handleAddUser: (user: INewUserCustomer) => void;
-  handleAddReport: (report: INewReport) => void
-  handleAddResponsible: (responsible: INewResponsible) => void
-  reset: () => void
+  handleAddReport: (report: INewReport) => void;
+  handleAddResponsible: (responsible: INewResponsible) => void;
+  reset: () => void;
 };
 
 const FormWizardCustomerContext = createContext<
@@ -38,8 +34,8 @@ export const FormWizardCustomerProvider: React.FC<{ children: ReactNode }> = ({
   const [reports, setReports] = useState<INewReport[]>([]);
   const [responsibles, setResponsibles] = useState<INewResponsible[]>([]);
 
-  function reset(){
-    setStep(1)
+  function reset() {
+    setStep(1);
   }
 
   const handleNext = () => {
@@ -62,7 +58,6 @@ export const FormWizardCustomerProvider: React.FC<{ children: ReactNode }> = ({
     setResponsibles((prevState) => [...prevState, responsible]);
   };
 
-
   const contextValue: FormWizardCustomerContextType = {
     newCustomer,
     setNewCustomer,
@@ -78,7 +73,7 @@ export const FormWizardCustomerProvider: React.FC<{ children: ReactNode }> = ({
     responsibles,
     setResponsibles,
     handleAddResponsible,
-    reset
+    reset,
   };
 
   return (
@@ -92,7 +87,7 @@ export const useFormWizardContext = () => {
   const context = useContext(FormWizardCustomerContext);
   if (!context) {
     throw new Error(
-      "useFormWizardContextContext deve ser usado dentro de um FormWizardCustomerProvider"
+      "useFormWizardContextContext deve ser usado dentro de um FormWizardCustomerProvider",
     );
   }
   return context;

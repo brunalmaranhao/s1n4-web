@@ -29,9 +29,9 @@ export default function ModalCreateProject({
   isOpen,
   onClose,
 }: ModalCreateProjectProps) {
-  const {fetchAllProjects, customers , fetchCustomer} = useProjectContext()
+  const { fetchAllProjects, customers, fetchCustomer } = useProjectContext();
   const [isVisible, setIsVisible] = useState<boolean>(false);
- 
+
   const toggleVisibility = () => setIsVisible(!isVisible);
   const [loading, setLoading] = useState(false);
 
@@ -56,27 +56,19 @@ export default function ModalCreateProject({
     }
   }, []);
 
- 
-
   async function handleCreateProject(data: INewProject) {
-    setLoading(true)
+    setLoading(true);
     try {
       const { createProject } = await ProjectsService();
-      await createProject(
-        data.name,
-        data.customer,
-        data.deadline
-      );
-      
-      onClose()
-      fetchAllProjects()
+      await createProject(data.name, data.customer, data.deadline);
 
+      onClose();
+      fetchAllProjects();
     } catch (error) {
       const customError = handleAxiosError(error);
-      toast.error(customError.message)
-    }finally{
-      setLoading(false)
-      
+      toast.error(customError.message);
+    } finally {
+      setLoading(false);
     }
   }
 

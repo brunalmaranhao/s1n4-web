@@ -43,34 +43,37 @@ export default function ProjectsOverview() {
   };
 
   return (
-    <div>
+    <div className="flex w-full">
       {isLoading ? (
         <Spinner />
       ) : (
-        <div className="flex items-center justify-center space-x-4">
-          <CircularProgress
-            label=""
-            aria-label=""
-            size="lg"
-            value={projectsPercentage}
-            color="success"
-            showValueLabel={true}
-            strokeWidth={4}
-            classNames={{
-              svg: "w-36 h-36 drop-shadow-md",
-              indicator: "stroke-[#697077]",
-              track: "stroke-[#DDE1E6]",
-              value: "text-3xl font-semibold text-[#697077]",
-            }}
-          />
-          <div className="flex flex-col">
-            <div className="flex space-x-2">
-              <div className="w-5 h-5 bg-[#697077] rounded-full" />
-              <h1>Concluídos</h1>
-            </div>
-            <div className="flex space-x-2">
-              <div className="w-5 h-5 bg-[#DDE1E6] rounded-full" />
-              <h1>Em andamento </h1>
+        <div className="w-full flex flex-col items-centersss space-x-4 p-4 bg-white border-solid border-[1px] border-[#DDE1E6] pr-8">
+          <h1 className="text-[18px] font-bold mb-4">Projetos</h1>
+          <div className="flex justify-start items-center space-x-6">
+            <CircularProgress
+              // label="Projetos"
+              aria-label=""
+              size="lg"
+              value={projectsPercentage}
+              color="success"
+              showValueLabel={true}
+              strokeWidth={4}
+              classNames={{
+                svg: "w-36 h-36 drop-shadow-md",
+                indicator: "stroke-[#697077]",
+                track: "stroke-[#DDE1E6]",
+                value: "text-3xl font-semibold text-[#697077]",
+              }}
+            />
+            <div className="flex flex-col space-y-2">
+              <div className="flex space-x-4">
+                <div className="w-5 h-5 bg-[#697077] rounded-full" />
+                <h1>Concluídos</h1>
+              </div>
+              <div className="flex space-x-4">
+                <div className="w-5 h-5 bg-[#DDE1E6] rounded-full" />
+                <h1>Em andamento </h1>
+              </div>
             </div>
           </div>
         </div>

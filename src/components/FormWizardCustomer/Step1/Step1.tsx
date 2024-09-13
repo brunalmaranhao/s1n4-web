@@ -255,8 +255,7 @@ const Step1 = () => {
                   {...register("address.number")}
                   size="sm"
                   isInvalid={
-                    errors.address?.number &&
-                    !!errors.address?.number.message
+                    errors.address?.number && !!errors.address?.number.message
                   }
                   errorMessage={
                     errors.address?.number && errors.address?.number.message

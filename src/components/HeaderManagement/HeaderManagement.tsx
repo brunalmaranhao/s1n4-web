@@ -7,7 +7,7 @@ import FilterProjectsByCustomer from "../FilterProjectsByCustomer/FilterProjects
 import Notification from "../Notification/Notification";
 
 export default function HeaderManagement() {
-  const {onOpen} = useProjectContext()
+  const { onOpen } = useProjectContext();
   const { push } = useRouter();
   const pathsWithTab = [
     "/admin/management/customers",
@@ -40,7 +40,9 @@ export default function HeaderManagement() {
           <div className="flex flex-row gap-3 items-center flex-wrap">
             <h4>Filtrar por</h4>
             <FilterProjectsByCustomer />
-            <Button color="primary" onPress={() => onOpen()}>Novo Projeto</Button>
+            <Button color="primary" onPress={() => onOpen()}>
+              Novo Projeto
+            </Button>
           </div>
         )}
       </div>

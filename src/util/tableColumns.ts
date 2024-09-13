@@ -5,7 +5,7 @@ export type ColumnKeys =
   | "contractDuration"
   | "contractValue"
   | "status"
-  | 'actions';
+  | "actions";
 
 export const columnsCustomer = [
   { name: "Clientes", uid: "name", sortable: false },

@@ -10,7 +10,7 @@ export default function Projects() {
 
   return (
     <div className="min-h-screen w-full">
-        <ProjectsComponent />
+      <ProjectsComponent />
 
       <ModalCreateProject isOpen={isOpenModalCreateProject} onClose={onClose} />
       <ModalEditProject />

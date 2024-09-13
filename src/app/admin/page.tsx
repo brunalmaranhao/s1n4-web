@@ -6,8 +6,9 @@ import { useEffect, useState } from "react";
 import { fetchBirthdaysOfTheMonth, getUserById } from "./actions";
 import { parseCookies } from "nookies";
 import { decodeToken } from "@/services/jwt-decode/decode";
-import ProjectsOverview from "@/components/ProjectsOverview/ProjectsOverview";
-import ProjectUpdatesAdmin from "@/components/ProjectUpdatesAdmin/ProjectUpdatesAdmin";
+import ProjectsOverview from "@/app/components/ProjectsOverview/ProjectsOverview";
+import Header from "../components/Header/Header";
+import ProjectUpdatesAdmin from "../components/ProjectUpdatesAdmin/ProjectUpdatesAdmin";
 
 export default function AdminHome() {
   const [responsiblesState, setResponsiblesState] = useState<
@@ -19,7 +20,6 @@ export default function AdminHome() {
   const [responsiblesBrithdayIsLoading, setResponsiblesBirthdayIsLoading] =
     useState<boolean>(false);
 
-  const { handleSignOut } = useAuthContext();
   const { "sina:x-token": sessionKey } = parseCookies();
 
   const decoded = decodeToken(sessionKey);
@@ -33,6 +33,12 @@ export default function AdminHome() {
   const handleResponsibleBirthdaysOfTheMonth = async (token: string) => {
     const result = await fetchBirthdaysOfTheMonth(token);
     return result.responsibles;
+  };
+
+  const roleTranslations: { [key: string]: string } = {
+    INTERNAL_MANAGEMENT: "Gestão Interna",
+    INTERNAL_PARTNERS: "Parceiros Internos",
+    INTERNAL_FINANCIAL_LEGAL: "Financeiro/Jurídico",
   };
 
   useEffect(() => {
@@ -56,44 +62,49 @@ export default function AdminHome() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-[#F2F4F8] text-black">
-      <div>Admin Home</div>
-      <h1>Olá!</h1>
-      {userIsLoading ? (
-        <Spinner />
-      ) : (
-        <div className="flex flex-col">
-          <h2 className="text-black text-[28px] font-bold">
-            {userState?.firstName} {userState?.lastName}
-          </h2>
-          <h2>{userState?.role}</h2>
-        </div>
-      )}
+    <main className="flex min-h-screen items-center bg-[#F2F4F8] text-black">
+      <Header />
+      <div className="flex flex-col w-full min-h-screen gap-5 px-8">
+        <h1 className="text-[#21272A] text-[42px] font-bold">Olá!</h1>
+        {userIsLoading ? (
+          <Spinner />
+        ) : (
+          <div className="flex flex-col bg-white p-4 border-solid border-[1px] border-[#DDE1E6]">
+            <h2 className="text-black text-[28px] font-bold">
+              {userState?.firstName} {userState?.lastName}
+            </h2>
+            <h2 className="text-[#697077] text-[16px] font-normal">
+              {roleTranslations[userState?.role || ""]}
+            </h2>
+          </div>
+        )}
 
-      <div className="flex justify-center items-center space-x-12">
-        <ProjectsOverview />
-        <div className="flex flex-col">
-          <p>Próximos aniversariantes:</p>
-          {responsiblesBrithdayIsLoading ? (
-            <Spinner />
-          ) : (
-            responsiblesState.map((responsible, index) => (
-              <div key={index}>
-                <h1>
-                  {responsible.firstName} {responsible.lastName}
-                </h1>
-                <h1>{responsible.birthdate.toLocaleString("pt-BR")}</h1>
-              </div>
-            ))
-          )}
+        <div className="flex justify-center items-center gap-4">
+          <ProjectsOverview />
+          <div className="flex flex-col w-full h-56 bg-white border-solid border-[1px] border-[#DDE1E6] p-4 overflow-scroll space-y-4">
+            <p className="text-[#21272A] text-[18px] font-bold">
+              Próximos aniversariantes:
+            </p>
+            {responsiblesBrithdayIsLoading ? (
+              <Spinner />
+            ) : (
+              responsiblesState.map((responsible, index) => (
+                <div key={index} className="flex flex-col space-y-2">
+                  <h1 className="text-[16px] font-normal">
+                    {responsible.firstName} {responsible.lastName}
+                  </h1>
+                  <h1>{responsible.birthdate.toLocaleString("pt-BR")}</h1>
+                </div>
+              ))
+            )}
+          </div>
         </div>
+
+        <ProjectUpdatesAdmin
+          email={userState?.email || ""}
+          role={userState?.role || ""}
+        />
       </div>
-
-      <ProjectUpdatesAdmin
-        email={userState?.email || ""}
-        role={userState?.role || ""}
-      />
-      <Button onPress={handleSignOut}>Sair</Button>
     </main>
   );
 }

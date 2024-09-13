@@ -7,7 +7,10 @@ type CardStatusProps = {
   projects?: IProject[];
   handleDragStart: (project: IProject) => void;
   status: StatusProject;
-  handleDragEnter: (event: DragEvent<HTMLDivElement>,value: StatusProject) => void;
+  handleDragEnter: (
+    event: DragEvent<HTMLDivElement>,
+    value: StatusProject,
+  ) => void;
   handleDragLeave: (event: DragEvent<HTMLDivElement>) => void;
   highlightedColumn: StatusProject | null;
 };
@@ -45,13 +48,17 @@ export default function CardStatus({
       }`}
       onDrop={() => handleDrop(status)}
       onDragOver={allowDrop}
-      onDragEnter={(e) => handleDragEnter(e,status)}
+      onDragEnter={(e) => handleDragEnter(e, status)}
       onDragLeave={handleDragLeave}
     >
       <p className="text-white">{label?.label}</p>
       <div className="flex flex-col gap-1">
-        {projects?.map((project) => (
-          <CardProject handleDragStart={handleDragStart} project={project} />
+        {projects?.map((project, index) => (
+          <CardProject
+            key={index}
+            handleDragStart={handleDragStart}
+            project={project}
+          />
         ))}
       </div>
     </div>
