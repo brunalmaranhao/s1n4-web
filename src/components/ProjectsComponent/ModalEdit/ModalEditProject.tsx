@@ -75,7 +75,7 @@ export default function ModalEditProject() {
           selectedProjectEdit?.id,
           data.name,
           data.customer,
-          data.deadline
+          data.deadline,
         );
 
         onOpenChangeModalEdit();

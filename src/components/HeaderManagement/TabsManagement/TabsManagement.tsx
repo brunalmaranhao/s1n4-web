@@ -5,9 +5,9 @@ import { Key } from "react";
 
 export default function TabsManagement() {
   const router = useRouter();
- const pathname = usePathname()
-  const handleTabChange = (key: Key) => {    
-    console.log(key)
+  const pathname = usePathname();
+  const handleTabChange = (key: Key) => {
+    console.log(key);
     router.push(`/admin/management/${key}`);
   };
   return (
@@ -28,7 +28,7 @@ export default function TabsManagement() {
       >
         <Tab
           key="customers"
-            className="w-full"
+          className="w-full"
           title={
             <div className="flex items-center space-x-2">
               <span>Clientes</span>

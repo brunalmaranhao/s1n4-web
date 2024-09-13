@@ -1,7 +1,7 @@
 import { useFormWizardContext } from "@/context/FormWizardCustomerContext";
 import { schemaNewResponsible } from "@/schemas/responsible";
 import { yupResolver } from "@hookform/resolvers/yup";
-import InputMask from 'react-input-mask'
+import InputMask from "react-input-mask";
 import {
   Button,
   Input,
@@ -28,8 +28,6 @@ export default function ModalCreateResponsible({
 }: ModalCreateResponsibleProps) {
   const { handleAddResponsible, responsibles } = useFormWizardContext();
 
-  
-
   const {
     register,
     handleSubmit,
@@ -45,9 +43,9 @@ export default function ModalCreateResponsible({
 
   useEffect(() => {
     if (isOpen) {
-      reset()
-      setValue('phone', '')
-    };
+      reset();
+      setValue("phone", "");
+    }
   }, [isOpen]);
 
   const roleOptions = [
@@ -67,10 +65,10 @@ export default function ModalCreateResponsible({
 
   function handleCreateResponsible(data: INewResponsible) {
     const existResponsibleSameEmail = responsibles.find(
-      (responsible) => responsible.email === data.email
+      (responsible) => responsible.email === data.email,
     );
     const existResponsibleSamePhone = responsibles.find(
-      (responsible) => responsible.phone === data.phone
+      (responsible) => responsible.phone === data.phone,
     );
     if (existResponsibleSameEmail) {
       toast.error("Já existe um responsável com esse email.");

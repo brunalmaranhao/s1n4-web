@@ -15,8 +15,8 @@ const Wizard: React.FC = () => {
       <WizardHeader currentStep={step} />
       <div className="p-5">
         <Step1 />
-        <Step2  />
-        <Step3/>
+        <Step2 />
+        <Step3 />
         <Step4 />
         <ProcessingScreen />
       </div>

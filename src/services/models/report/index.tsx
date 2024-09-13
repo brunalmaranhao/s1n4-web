@@ -5,7 +5,7 @@ export default async function ReportService() {
     name: string,
     pbiWorkspaceId: string,
     pbiReportId: string,
-    customerId: string
+    customerId: string,
   ): Promise<string> {
     const payload = JSON.stringify({
       name,
@@ -15,7 +15,7 @@ export default async function ReportService() {
     });
     const response = await post<{ reportId: string }, string>(
       `/report`,
-      payload
+      payload,
     );
     return response.reportId;
   }

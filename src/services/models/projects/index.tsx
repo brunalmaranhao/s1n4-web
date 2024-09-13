@@ -5,7 +5,7 @@ import { del } from "@/services/methods/delete";
 
 export default async function ProjectsService() {
   async function fetchAllProjects(
-    token: string
+    token: string,
   ): Promise<IFetchAllProjectsResponse> {
     return await get<IFetchAllProjectsResponse>(`/project`, {
       headers: {
@@ -16,17 +16,17 @@ export default async function ProjectsService() {
 
   async function fetchProjects(
     page: number,
-    size: number
+    size: number,
   ): Promise<IProject[]> {
     const response = await get<{ projects: IProject[] }>(
-      `/project?page=${page}&size=${size}`
+      `/project?page=${page}&size=${size}`,
     );
     return response.projects;
   }
 
   async function getProjectById(
     id: string,
-    token: string
+    token: string,
   ): Promise<IGetProjectByIdResponse> {
     return await get<IGetProjectByIdResponse>(`project/id/${id}`, {
       headers: {
@@ -38,7 +38,7 @@ export default async function ProjectsService() {
   async function createProject(
     name: string,
     customerId: string,
-    deadline?: Date
+    deadline?: Date,
   ): Promise<string> {
     const projectData = {
       name,
@@ -47,19 +47,19 @@ export default async function ProjectsService() {
     };
     const payload = JSON.stringify(
       Object.fromEntries(
-        Object.entries(projectData).filter(([_, value]) => value)
-      )
+        Object.entries(projectData).filter(([_, value]) => value),
+      ),
     );
     const response = await post<{ projectId: string }, string>(
       `/project`,
-      payload
+      payload,
     );
     return response.projectId;
   }
 
   async function updateStatus(
     id: string,
-    statusProject: StatusProject
+    statusProject: StatusProject,
   ): Promise<void> {
     const payload = JSON.stringify({ statusProject });
     await put<{ projectId: string }, string>(`/project/update/${id}`, payload);
@@ -79,10 +79,10 @@ export default async function ProjectsService() {
     await del<void>(`/project/${id}`);
   }
   async function fetchProjectsByCustomer(
-    customerId: string
+    customerId: string,
   ): Promise<IProject[]> {
     const response = await get<{ projects: IProject[] }>(
-      `/customer/${customerId}/projects`
+      `/customer/${customerId}/projects`,
     );
     return response.projects;
   }

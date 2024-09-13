@@ -1,10 +1,10 @@
 import * as yup from "yup";
 
 enum RoleEnum {
-    CLIENT_RESPONSIBLE = "CLIENT_RESPONSIBLE",
-    CLIENT_OWNER = "CLIENT_OWNER",
-    CLIENT_USER = "CLIENT_USER",
-  }
+  CLIENT_RESPONSIBLE = "CLIENT_RESPONSIBLE",
+  CLIENT_OWNER = "CLIENT_OWNER",
+  CLIENT_USER = "CLIENT_USER",
+}
 
 export const schemaNewUserCustomer = yup
   .object({

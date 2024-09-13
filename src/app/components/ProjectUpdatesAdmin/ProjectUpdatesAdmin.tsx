@@ -3,6 +3,12 @@ import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import ProjectUpdateCard from "../ProjectUpdateCard/ProjectUpdateCard";
 import { Spinner } from "@nextui-org/react";
+import { Roboto } from "next/font/google";
+
+const robotoBold = Roboto({
+  weight: "700",
+  subsets: ["latin"],
+});
 
 interface UserInfoprops {
   email: string;
@@ -32,8 +38,12 @@ export default function ProjectUpdatesAdmin({ email, role }: UserInfoprops) {
   }, []);
 
   return (
-    <div>
-      <h1>Feed de atualizações (caixa de entrada)</h1>
+    <div className="bg-white border-solid border-[1px] border-[#DDE1E6] p-4">
+      <h1
+        className={`${robotoBold.className} text-[18px] font-bold text-[#21272A] mb-4`}
+      >
+        Feed de atualizações (caixa de entrada)
+      </h1>
       {isLoading ? (
         <Spinner />
       ) : (

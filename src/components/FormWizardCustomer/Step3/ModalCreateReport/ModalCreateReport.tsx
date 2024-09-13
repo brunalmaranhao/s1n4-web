@@ -42,7 +42,7 @@ export default function ModalCreateReport({
 
   function handleCreateReport(data: INewReport) {
     const existReport = reports?.find(
-      (report) => report.reportId === data.reportId
+      (report) => report.reportId === data.reportId,
     );
     if (existReport) {
       toast.error("Já existe um relatório com esse ID.");

@@ -124,7 +124,7 @@ export const useProjectContext = () => {
   const context = useContext(ProjectContext);
   if (!context) {
     throw new Error(
-      "useProjectContext deve ser usado dentro de um ProjectProvider"
+      "useProjectContext deve ser usado dentro de um ProjectProvider",
     );
   }
   return context;

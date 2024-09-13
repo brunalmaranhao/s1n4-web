@@ -16,34 +16,33 @@ type FeedbackItemProps = {
 // responsibles: { finished: false, error: false },
 
 export default function FeedbackItem({ error, label }: FeedbackItemProps) {
-  const {reset} = useFormWizardContext()
+  const { reset } = useFormWizardContext();
   const { push } = useRouter();
   const dictionary = [
     {
       key: "customer",
-      label: "Cliente"
+      label: "Cliente",
     },
     {
       key: "address",
-      label: "Endereço"
+      label: "Endereço",
     },
     {
       key: "users",
-      label: "Usuários"
+      label: "Usuários",
     },
     {
       key: "reports",
-      label: "Relatórios"
+      label: "Relatórios",
     },
     {
       key: "responsibles",
-      label: "Responsáveis"
+      label: "Responsáveis",
     },
-  ]
+  ];
 
-  const title = dictionary.find((item) => item.key === label)
+  const title = dictionary.find((item) => item.key === label);
 
-  
   return (
     <>
       {error ? (
@@ -56,7 +55,10 @@ export default function FeedbackItem({ error, label }: FeedbackItemProps) {
             <Button
               className="max-w-[220px]"
               color="primary"
-              onPress={() => {reset();push("/admin/management/customers")}}
+              onPress={() => {
+                reset();
+                push("/admin/management/customers");
+              }}
             >
               Voltar
             </Button>

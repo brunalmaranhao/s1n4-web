@@ -66,12 +66,14 @@ export default function TableNewReports() {
           return <p className="text-black">{cellValue}</p>;
       }
     },
-    []
+    [],
   );
 
-  function remove(item: INewReport, reportsSaved:INewReport[] ) {
-    const updatedReports = reportsSaved.filter((report) => report.reportId !== item.reportId);
-    setReports(updatedReports)
+  function remove(item: INewReport, reportsSaved: INewReport[]) {
+    const updatedReports = reportsSaved.filter(
+      (report) => report.reportId !== item.reportId,
+    );
+    setReports(updatedReports);
   }
 
   return (

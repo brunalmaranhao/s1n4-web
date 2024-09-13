@@ -64,7 +64,7 @@ export default function TableNewResponsibles() {
     (
       responsible: INewResponsible,
       columnKey: Key,
-      responsibleSaved: INewResponsible[]
+      responsibleSaved: INewResponsible[],
     ) => {
       let column = columnKey as ColumnKeys;
       const cellValue = responsible[column];
@@ -100,12 +100,12 @@ export default function TableNewResponsibles() {
           return <p className="text-black">{cellValue?.toString()}</p>;
       }
     },
-    []
+    [],
   );
 
   function remove(item: INewResponsible, responsiblesSaved: INewResponsible[]) {
     const updatedResponsibles = responsiblesSaved.filter(
-      (responsible) => responsible.email !== item.email
+      (responsible) => responsible.email !== item.email,
     );
     setResponsibles(updatedResponsibles);
   }
@@ -117,9 +117,7 @@ export default function TableNewResponsibles() {
       </TableHeader>
       <TableBody
         items={responsibles}
-        emptyContent={
-          "Não existem partes responsáveis adicionadas."
-        }
+        emptyContent={"Não existem partes responsáveis adicionadas."}
       >
         {(item) => (
           <TableRow key={item.email}>

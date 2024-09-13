@@ -6,13 +6,15 @@ import TableNewUsers from "./TableNewUsers/TableNewUsers";
 
 const Step2 = () => {
   const { handleNext, handleBack, step } = useFormWizardContext();
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
     <div className={`${step === 2 ? "flex" : "hidden"} flex-col gap-3`}>
       <div className="flex justify-between items-center w-full">
         <h2>2. Usuários</h2>
-        <Button color="primary" variant="bordered"  onPress={onOpen}>Criar usuário</Button>
+        <Button color="primary" variant="bordered" onPress={onOpen}>
+          Criar usuário
+        </Button>
       </div>
 
       <TableNewUsers />

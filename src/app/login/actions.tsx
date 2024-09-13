@@ -12,7 +12,7 @@ export async function createSession(data: ILogin): Promise<ISession> {
       access_token: response.access_token,
     };
   } catch (error) {
-    console.log(error)
+    console.log(error);
     const customError = handleAxiosError(error);
     return { isError: true, error: customError.message };
   }
