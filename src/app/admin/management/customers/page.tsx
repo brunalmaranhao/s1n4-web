@@ -1,4 +1,4 @@
-import TableCustomers from "@/app/components/TableCustomers/TableCustomers";
+import TableCustomers from "@/components/TableCustomers/TableCustomers";
 
 export default function Customers() {
   return (

@@ -21,3 +21,19 @@ declare interface IResponsibles {
   responsiblePartiesRole: "INFLUENCERS" | "CODE" | "RISKMANAGEMENT" | "OWNER";
   customerId: string;
 }
+
+enum RoleReponsibleEnum {
+  INFLUENCERS = "INFLUENCERS",
+  RISKMANAGEMENT = "RISKMANAGEMENT",
+  OWNER = "OWNER",
+  CODE = "CODE",
+}
+declare interface INewResponsible {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  birthdate: Date;
+  role: RoleReponsibleEnum;
+  actions?: string | null;
+}

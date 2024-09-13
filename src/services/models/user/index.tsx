@@ -1,3 +1,4 @@
+import { post } from "@/services/methods/post";
 import { get } from "../../methods/get";
 
 export default async function UserService() {
@@ -13,6 +14,26 @@ export default async function UserService() {
     });
   }
 
+  async function createUserCustomer(
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+    customerId: string,
+    role: RoleEnum,
+  ): Promise<string> {
+    const payload = JSON.stringify({
+      firstName,
+      lastName,
+      email,
+      password,
+      customerId,
+      role,
+    });
+    const response = await post<{ userId: string }, string>(`/user`, payload);
+    return response.userId;
+  }
+
   async function fetchActiveUsers(
     token: string,
   ): Promise<IGetActiveUsersResponse> {
@@ -25,6 +46,7 @@ export default async function UserService() {
 
   return {
     getUserById,
+    createUserCustomer,
     fetchActiveUsers,
   };
 }

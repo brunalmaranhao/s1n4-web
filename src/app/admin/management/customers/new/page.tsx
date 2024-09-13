@@ -1,7 +1,7 @@
 "use client";
 import { MdArrowBack } from "react-icons/md";
 import { useRouter } from "next/navigation";
-import FormWizarCustomer from "@/app/components/FormWizardCustomer/FormWizardCustomer";
+import FormWizarCustomer from "@/components/FormWizardCustomer/FormWizardCustomer";
 
 export default function NewCustomer() {
   const { back } = useRouter();
@@ -11,7 +11,9 @@ export default function NewCustomer() {
         <MdArrowBack
           className="cursor-pointer"
           size={22}
-          onClick={() => back()}
+          onClick={() =>
+            (window.location.href = "/admin/management/customers/")
+          }
         />
         <h3 className="text-lg">Novo Cliente</h3>
       </div>
