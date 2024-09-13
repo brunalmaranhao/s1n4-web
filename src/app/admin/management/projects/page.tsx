@@ -2,6 +2,7 @@
 
 import ModalCreateProject from "@/components/ProjectsComponent/ModalCreateProject/ModalCreateProject";
 import ModalEditProject from "@/components/ProjectsComponent/ModalEdit/ModalEditProject";
+import ModalRemoveProject from "@/components/ProjectsComponent/ModalRemove/ModalRemoveProject";
 import ProjectsComponent from "@/components/ProjectsComponent/ProjectsComponent";
 import { useProjectContext } from "@/context/ProjectContext";
 
@@ -14,6 +15,7 @@ export default function Projects() {
 
       <ModalCreateProject isOpen={isOpenModalCreateProject} onClose={onClose} />
       <ModalEditProject />
+      <ModalRemoveProject />
     </div>
   );
 }
