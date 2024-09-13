@@ -19,6 +19,9 @@ type ProjectContextType = {
   isOpenModalEdit: boolean;
   onOpenChangeModalEdit: () => void;
   onOpenModalEdit: () => void;
+  isOpenModalRemove: boolean;
+  onOpenChangeModalRemove: () => void;
+  onOpenModalRemove: () => void;
   projects?: IProject[];
   fetchAllProjects: () => void;
   customers: ICustomer[];
@@ -26,6 +29,10 @@ type ProjectContextType = {
   fetchProjectsByCustomer: (customerId: string) => void;
   selectedProjectEdit?: IProject;
   setSelectedProjectEdit: React.Dispatch<
+    React.SetStateAction<IProject | undefined>
+  >;
+  selectedProjectRemove?: IProject;
+  setSelectedProjectRemove: React.Dispatch<
     React.SetStateAction<IProject | undefined>
   >;
 };
@@ -41,9 +48,17 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     onOpen: onOpenModalEdit,
     onOpenChange: onOpenChangeModalEdit,
   } = useDisclosure();
+  const {
+    isOpen: isOpenModalRemove,
+    onOpen: onOpenModalRemove,
+    onOpenChange: onOpenChangeModalRemove,
+  } = useDisclosure();
   const [projects, setProjects] = useState<IProject[] | undefined>();
   const [customers, setCustomers] = useState<ICustomer[]>([]);
   const [selectedProjectEdit, setSelectedProjectEdit] = useState<
+    IProject | undefined
+  >();
+  const [selectedProjectRemove, setSelectedProjectRemove] = useState<
     IProject | undefined
   >();
 
@@ -91,6 +106,11 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     onOpenModalEdit,
     selectedProjectEdit,
     setSelectedProjectEdit,
+    selectedProjectRemove,
+    setSelectedProjectRemove,
+    isOpenModalRemove,
+    onOpenModalRemove,
+    onOpenChangeModalRemove,
   };
 
   return (

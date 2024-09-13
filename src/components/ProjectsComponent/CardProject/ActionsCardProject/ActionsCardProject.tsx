@@ -15,11 +15,19 @@ type ActionsCardProjectProps = {
 export default function ActionsCardProject({
   project,
 }: ActionsCardProjectProps) {
-  const { onOpenModalEdit, setSelectedProjectEdit } = useProjectContext();
+
+  
+  const {onOpenModalEdit, setSelectedProjectEdit, onOpenModalRemove, setSelectedProjectRemove} = useProjectContext() 
+
 
   function handleEdit() {
     setSelectedProjectEdit(project);
     onOpenModalEdit();
+  }
+
+  function handleRemove(){
+    setSelectedProjectRemove(project)
+    onOpenModalRemove()
   }
 
   return (
@@ -41,7 +49,7 @@ export default function ActionsCardProject({
         >
           Editar
         </DropdownItem>
-        <DropdownItem key={"delete"} className="text-black">
+        <DropdownItem key={"delete"} className="text-black" onPress={() => handleRemove()} >
           Remover
         </DropdownItem>
       </DropdownMenu>

@@ -1,6 +1,7 @@
 import { post } from "@/services/methods/post";
 import { get } from "../../methods/get";
 import { put } from "@/services/methods/put";
+import { del } from "@/services/methods/delete";
 
 export default async function ProjectsService() {
   async function fetchAllProjects(
@@ -68,12 +69,15 @@ export default async function ProjectsService() {
     id: string,
     name: string,
     customerId: string,
-    deadline?: Date,
+    deadline?: Date
   ): Promise<void> {
     const payload = JSON.stringify({ name, deadline, customerId });
     await put<{ projectId: string }, string>(`/project/update/${id}`, payload);
   }
 
+  async function remove(id: string): Promise<void> {
+    await del<void>(`/project/${id}`);
+  }
   async function fetchProjectsByCustomer(
     customerId: string,
   ): Promise<IProject[]> {
@@ -91,5 +95,6 @@ export default async function ProjectsService() {
     updateStatus,
     fetchProjectsByCustomer,
     update,
+    remove,
   };
 }

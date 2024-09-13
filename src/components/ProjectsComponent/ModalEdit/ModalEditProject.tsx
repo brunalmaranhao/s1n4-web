@@ -61,16 +61,12 @@ export default function ModalEditProject() {
         console.log(selectedProjectEdit.customerId);
         setValue("name", selectedProjectEdit.name);
         setValue("customer", selectedProjectEdit.customerId);
-        if (selectedProjectEdit?.deadline) {
-          const formated = parseISO(selectedProjectEdit?.deadline.toString());
-          setValue("deadline", formated);
-          console.log(selectedProjectEdit?.deadline);
-        }
       }
     }
   }, [customers, selectedProjectEdit]);
 
   async function handleEditProject(data: INewProject) {
+    console.log(data);
     if (selectedProjectEdit?.id) {
       setLoading(true);
       try {
@@ -117,16 +113,36 @@ export default function ModalEditProject() {
                   errorMessage={errors.name?.message}
                   size="sm"
                 />
-                <Input
-                  size="sm"
-                  type="date"
-                  label="Prazo Final"
-                  className="text-black"
-                  placeholder="DD/MM/YYYY"
-                  errorMessage={errors.deadline?.message}
-                  isInvalid={!!errors.deadline?.message}
-                  {...(register("deadline"), { valueAsDate: true })}
+                <Controller
+                  control={control}
+                  name="deadline"
+                  defaultValue={
+                    selectedProjectEdit?.deadline
+                      ? parseISO(selectedProjectEdit.deadline.toString())
+                      : undefined
+                  }
+                  render={({ field }) => (
+                    <Input
+                      {...field}
+                      size="sm"
+                      type="date"
+                      label="Prazo Final"
+                      className="text-black"
+                      placeholder="DD/MM/YYYY"
+                      errorMessage={errors.deadline?.message}
+                      isInvalid={!!errors.deadline?.message}
+                      value={
+                        field.value ? format(field.value, "yyyy-MM-dd") : ""
+                      }
+                      onChange={(e) =>
+                        field.onChange(
+                          e.target.value ? parseISO(e.target.value) : undefined
+                        )
+                      }
+                    />
+                  )}
                 />
+
                 <Controller
                   control={control}
                   name={"customer"}
