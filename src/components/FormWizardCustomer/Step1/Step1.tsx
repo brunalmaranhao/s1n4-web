@@ -97,7 +97,7 @@ const Step1 = () => {
     }
   }
   return (
-    <div className={`${step === 1 ? "flex" : "hidden"} flex-col`}>
+    <div className={`${step === 1 ? "flex" : "hidden"} flex-col text-black`}>
       <h2>Detalhes da empresa</h2>
       <form
         onSubmit={handleSubmit(handleOnNext)}
@@ -110,6 +110,7 @@ const Step1 = () => {
             isInvalid={!!errors.name?.message}
             errorMessage={errors.name?.message}
             size="sm"
+            variant="bordered"
           />
           <Input
             label="Razão Social"
@@ -117,6 +118,7 @@ const Step1 = () => {
             isInvalid={!!errors.corporateName?.message}
             errorMessage={errors.corporateName?.message}
             size="sm"
+            variant="bordered"
           />
         </div>
         <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
@@ -132,6 +134,7 @@ const Step1 = () => {
                   errorMessage={errors.cnpj?.message}
                   size="sm"
                   label="CNPJ"
+                  variant="bordered"
                 />
               </InputMask>
             )}
@@ -148,11 +151,13 @@ const Step1 = () => {
             label="Objetivo do Contrato (Opcional)"
             {...register("contractObjective")}
             size="sm"
+            variant="bordered"
           />
           <Input
             label="Investimento Acumulado (Opcional)"
             {...register("accumulatedInvestment")}
             size="sm"
+            variant="bordered"
           />
         </div>
         <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
@@ -160,18 +165,21 @@ const Step1 = () => {
             label="Duração do Contrato (Opcional)"
             {...register("contractDuration")}
             size="sm"
+            variant="bordered"
           />
           <Input
             label="Valor do Contrato (Opcional)"
             type="number"
             {...register("contractValue")}
             size="sm"
+            variant="bordered"
           />
           <Input
             label="Projeção de Gastos (Opcional)"
             type="number"
             {...register("expenditureProjection")}
             size="sm"
+            variant="bordered"
           />
         </div>
         <div className="flex flex-col gap-4">
@@ -202,6 +210,7 @@ const Step1 = () => {
                   <Input
                     placeholder={"99999-999"}
                     className="max-w-[220px]"
+                    variant="bordered"
                     isInvalid={
                       errors.address?.zipCode &&
                       !!errors.address?.zipCode.message
@@ -245,6 +254,7 @@ const Step1 = () => {
                       size="sm"
                       {...field}
                       isDisabled
+                      variant="bordered"
                     />
                   )}
                 />
@@ -260,12 +270,14 @@ const Step1 = () => {
                   errorMessage={
                     errors.address?.number && errors.address?.number.message
                   }
+                  variant="bordered"
                 />
                 <Input
                   label="Complemento (Opcional)"
                   type="string"
                   {...register("address.complement")}
                   size="sm"
+                  variant="bordered"
                 />
               </div>
               <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
@@ -280,6 +292,7 @@ const Step1 = () => {
                       size="sm"
                       {...field}
                       isDisabled
+                      variant="bordered"
                     />
                   )}
                 />
@@ -294,6 +307,7 @@ const Step1 = () => {
                       size="sm"
                       {...field}
                       isDisabled
+                      variant="bordered"
                     />
                   )}
                 />
@@ -308,6 +322,7 @@ const Step1 = () => {
                       size="sm"
                       {...field}
                       isDisabled
+                      variant="bordered"
                     />
                   )}
                 />

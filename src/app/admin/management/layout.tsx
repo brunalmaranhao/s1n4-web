@@ -13,7 +13,7 @@ export default function ManagementLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="flex flex-col justify-center items-center">
+    <main className="flex flex-col justify-center items-center w-full">
       <div className={`xl:max-w-[1200px] w-full`}>
         <HeaderManagement />
         <div>{children}</div>

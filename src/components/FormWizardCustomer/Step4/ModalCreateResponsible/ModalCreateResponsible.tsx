@@ -83,23 +83,25 @@ export default function ModalCreateResponsible({
     onClose();
   }
 
+  const inputVariant = "bordered"
+
   return (
     <Modal
       scrollBehavior="outside"
       isOpen={isOpen}
       onOpenChange={onClose}
       size="xl"
-      className="bg-slate-900"
+      className="bg-[#F2F4F8]"
       backdrop="blur"
     >
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1">
+            <ModalHeader className="flex flex-col gap-1 text-black">
               Criar Parte Reponsável
             </ModalHeader>
             <form onSubmit={handleSubmit(handleCreateResponsible)}>
-              <ModalBody className="flex flex-col gap-2">
+              <ModalBody className="flex flex-col gap-2 text-black">
                 <div className="flex flex-row gap-2 flex-wrap w-full">
                   <Input
                     label="Nome"
@@ -108,6 +110,7 @@ export default function ModalCreateResponsible({
                     errorMessage={errors.firstName?.message}
                     size="sm"
                     className="max-w-[260px]"
+                    variant={inputVariant}
                   />
                   <Input
                     label="Sobrenome"
@@ -116,6 +119,7 @@ export default function ModalCreateResponsible({
                     errorMessage={errors.lastName?.message}
                     size="sm"
                     className="max-w-[260px]"
+                    variant={inputVariant}
                   />
                 </div>
                 <Input
@@ -125,6 +129,7 @@ export default function ModalCreateResponsible({
                   isInvalid={!!errors.email?.message}
                   errorMessage={errors.email?.message}
                   size="sm"
+                  variant={inputVariant}
                 />
                 <Controller
                   control={control}
@@ -139,6 +144,7 @@ export default function ModalCreateResponsible({
                         labelPlacement="inside"
                         errorMessage={errors.phone?.message}
                         isInvalid={!!errors.phone?.message}
+                        variant={inputVariant}
                       />
                     </InputMask>
                   )}
@@ -151,6 +157,7 @@ export default function ModalCreateResponsible({
                   placeholder="DD/MM/YYYY"
                   errorMessage={errors.birthdate?.message}
                   isInvalid={!!errors.birthdate?.message}
+                  variant={inputVariant}
                   {...register("birthdate")}
                 />
 
@@ -164,7 +171,7 @@ export default function ModalCreateResponsible({
                       label="Função"
                       placeholder="Selecione uma função"
                       className="max-w-xs"
-                      variant="flat"
+                      variant={inputVariant}
                       classNames={{
                         popoverContent: "text-black",
                         selectorIcon: "text-black",

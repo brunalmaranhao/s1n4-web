@@ -46,7 +46,7 @@ export default function FeedbackItem({ error, label }: FeedbackItemProps) {
   return (
     <>
       {error ? (
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 text-black">
           <div className="flex flex-row items-center gap-3">
             <MdOutlineCancel />
             <p>Ocorreu um erro ao salvar {title?.label.toLowerCase()}.</p>
@@ -65,7 +65,7 @@ export default function FeedbackItem({ error, label }: FeedbackItemProps) {
           )}
         </div>
       ) : (
-        <div className="flex flex-row gap-3 items-center">
+        <div className="flex flex-row gap-3 items-center text-black">
           <MdDone />
           <p>{title?.label} salvo com sucesso.</p>
         </div>

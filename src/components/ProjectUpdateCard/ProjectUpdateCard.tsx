@@ -1,5 +1,6 @@
 import { getCustomerById, getProjectById } from "@/app/admin/actions";
 import { Image } from "@nextui-org/react";
+import { format } from "date-fns";
 import { Roboto } from "next/font/google";
 import { useEffect, useState } from "react";
 
@@ -11,51 +12,24 @@ import { useEffect, useState } from "react";
 interface ProjectUpdateCardProps {
   email: string;
   role: string;
-  projectId: string;
+  projectUpdate: IProjectUpdatesState;
   key: number;
-  acessToken: string;
-  date: string;
-  description: string;
+ 
 }
 
 export default function ProjectUpdateCard({
   email,
   role,
-  projectId,
+  projectUpdate,
   key,
-  acessToken,
-  date,
-  description,
 }: ProjectUpdateCardProps) {
-  const [projectNameState, setProjectNameState] = useState<string>("");
-  const [customerNameState, setCustomerNameState] = useState<string>("");
 
-  const handleProjectById = async (id: string, token: string) => {
-    const result = await getProjectById(id, token);
-    return result.project;
-  };
-
-  const handleCustomerById = async (id: string, token: string) => {
-    const result = await getCustomerById(id, token);
-    return result.customer;
-  };
 
   const roleTranslations: { [key: string]: string } = {
     INTERNAL_MANAGEMENT: "Gestão Interna",
     INTERNAL_PARTNERS: "Parceiros Internos",
     INTERNAL_FINANCIAL_LEGAL: "Financeiro/Jurídico",
   };
-
-  useEffect(() => {
-    handleProjectById(projectId, acessToken).then((data) => {
-      setProjectNameState(data?.name || "");
-      handleCustomerById(data?.customerId || "", acessToken).then(
-        (response) => {
-          setCustomerNameState(response?.corporateName || "");
-        },
-      );
-    });
-  }, []);
 
   return (
     <div key={key} className="flex flex-col space-y-2 mb-4">
@@ -77,12 +51,12 @@ export default function ProjectUpdateCard({
           </div>
 
           <h1 className="text-[16px] text-[#697077] font-normal">
-            {projectNameState} - {customerNameState}
+            {projectUpdate.project.name} - {projectUpdate.project.customer.name}
           </h1>
         </div>
-        <h1>{date}</h1>
+        <h1>{format(projectUpdate.date, "dd/MM/yyyy 'às' HH:mm")}</h1>
       </div>
-      <h1>{description}</h1>
+      <h1>{projectUpdate.description}</h1>
     </div>
   );
 }

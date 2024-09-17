@@ -7,7 +7,6 @@ import {
 } from "./actions";
 import { Key, useEffect, useState } from "react";
 import { parseCookies } from "nookies";
-import Header from "@/components/Header/Header";
 import {
   Button,
   Dropdown,
@@ -22,6 +21,8 @@ import { SlArrowDown } from "react-icons/sl";
 import OverviewTabContent from "@/components/OverviewTabContent/OverviewTabContent";
 import TabsAndFilters from "@/components/TabsAndFilters/TabsAndFilters";
 import FilterCustomersAndProjects from "@/components/FilterCustomersAndProjects/FilterCustomersAndProjects";
+import Menu from "@/components/Menu/Menu";
+import Notification from "@/components/Notification/Notification";
 
 export default function Dashboard() {
   const [selectedTab, setSelectedTab] = useState<Key>("");
@@ -30,12 +31,15 @@ export default function Dashboard() {
     setSelectedTab(key);
   };
   return (
-    <div className="bg-[#F2F4F8] flex text-black">
-      <Header />
+    <div className="bg-[#F2F4F8] flex text-black w-full">
       <div className="p-6 w-full">
-        <h1 className="text-[42px] text-[#21272A] font-bold">
-          Dashboard - Visão geral
-        </h1>
+        <div className="flex justify-between">
+          <h1 className="text-[42px] text-[#21272A] font-bold">
+            Dashboard - Visão geral
+          </h1>
+          <Notification />
+        </div>
+
         <div className="flex flex-row items-center justify-between w-full">
           <TabsAndFilters onTabChange={handleTabChange} />
           <FilterCustomersAndProjects />

@@ -65,29 +65,32 @@ export default function ModalCreateProjectUpdate() {
     }
   }
 
+  const inputVariant = "bordered"
+
   return (
     <Modal
       scrollBehavior="outside"
       isOpen={isOpen}
       onOpenChange={onClose}
       size="xl"
-      className="bg-slate-900"
+      className="bg-[#F2F4F8]"
       backdrop="blur"
     >
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1">
+            <ModalHeader className="flex flex-col gap-1 text-black">
             Adicionar atualização ao projeto {selectedProjectCreateProjectUpdate?.name}
             </ModalHeader>
             <form onSubmit={handleSubmit(handleCreateProjectUpdate)}>
-              <ModalBody className="flex flex-col gap-6">
+              <ModalBody className="flex flex-col gap-6 text-black">
                 <Input
                   label="Descrição"
                   {...register("description")}
                   isInvalid={!!errors.description?.message}
                   errorMessage={errors.description?.message}
                   size="sm"
+                  variant={inputVariant}
                 />
               </ModalBody>
               <ModalFooter>

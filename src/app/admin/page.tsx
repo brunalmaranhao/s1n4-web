@@ -7,7 +7,7 @@ import { fetchBirthdaysOfTheMonth, getUserById } from "./actions";
 import { parseCookies } from "nookies";
 import { decodeToken } from "@/services/jwt-decode/decode";
 import ProjectsOverview from "@/components/ProjectsOverview/ProjectsOverview";
-import Header from "../../components/Header/Header";
+
 import ProjectUpdatesAdmin from "@/components/ProjectUpdatesAdmin/ProjectUpdatesAdmin";
 
 export default function AdminHome() {
@@ -63,7 +63,6 @@ export default function AdminHome() {
 
   return (
     <main className="flex min-h-screen items-center bg-[#F2F4F8] text-black">
-      <Header />
       <div className="flex flex-col w-full min-h-screen gap-5 px-8">
         <h1 className="text-[#21272A] text-[42px] font-bold">Olá!</h1>
         {userIsLoading ? (

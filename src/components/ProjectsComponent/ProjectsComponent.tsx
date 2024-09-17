@@ -61,8 +61,8 @@ export default function ProjectsComponent() {
 
   return (
     <div className="w-full flex items-center justify-center">
-      <div className="flex md:flex-row flex-col  gap-3 max-w-[760px] w-full md:justify-between md:items-start items-center">
-        <div className="md:max-w-[260px] max-w-[220px] w-full">
+      <div className="flex md:flex-row flex-col  gap-3 max-w-[1024px] w-full md:justify-between md:items-start items-center">
+        <div className="md:max-w-[520px] max-w-[220px] w-full">
           <CardStatus
             allowDrop={allowDrop}
             handleDragStart={handleDragStart}
@@ -74,7 +74,7 @@ export default function ProjectsComponent() {
             handleDragLeave={handleDragLeave}
           />
         </div>
-        <div className="md:max-w-[260px] max-w-[220px] w-full">
+        <div className="md:max-w-[320px] max-w-[220px] w-full">
           <CardStatus
             allowDrop={allowDrop}
             handleDragStart={handleDragStart}
@@ -86,7 +86,7 @@ export default function ProjectsComponent() {
             handleDragLeave={handleDragLeave}
           />
         </div>
-        <div className="md:max-w-[260px] max-w-[220px] w-full">
+        <div className="md:max-w-[320px] max-w-[220px] w-full">
           <CardStatus
             allowDrop={allowDrop}
             handleDragStart={handleDragStart}

@@ -53,23 +53,25 @@ export default function ModalCreateReport({
     onClose();
   }
 
+  const inputVariant = "bordered"
+
   return (
     <Modal
       scrollBehavior="outside"
       isOpen={isOpen}
       onOpenChange={onClose}
       size="xl"
-      className="bg-slate-900"
+      className="bg-[#F2F4F8]"
       backdrop="blur"
     >
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1">
+            <ModalHeader className="flex flex-col gap-1 text-black">
               Criar Relatório
             </ModalHeader>
             <form onSubmit={handleSubmit(handleCreateReport)}>
-              <ModalBody className="flex flex-col gap-2">
+              <ModalBody className="flex flex-col gap-2 text-black">
                 <Input
                   label="Nome"
                   {...register("name")}
@@ -77,6 +79,7 @@ export default function ModalCreateReport({
                   errorMessage={errors.name?.message}
                   size="sm"
                   className="max-w-[260px]"
+                  variant={inputVariant}
                 />
                 <Input
                   label="PowerBi Workspace Id"
@@ -85,6 +88,7 @@ export default function ModalCreateReport({
                   isInvalid={!!errors.workspaceId?.message}
                   errorMessage={errors.workspaceId?.message}
                   size="sm"
+                  variant={inputVariant}
                 />
                 <Input
                   label="PowerBi Report Id"
@@ -93,6 +97,7 @@ export default function ModalCreateReport({
                   isInvalid={!!errors.reportId?.message}
                   errorMessage={errors.reportId?.message}
                   size="sm"
+                  variant={inputVariant}
                 />
               </ModalBody>
               <ModalFooter>

@@ -3,6 +3,7 @@ import { Inter, Roboto } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Toaster } from "react-hot-toast";
+import Menu from "@/components/Menu/Menu";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -21,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={`${roboto.className}`}>
+      <body className={`${roboto.className} w-full`}>
         <Providers>{children}</Providers>
         <Toaster position="bottom-center" />
       </body>

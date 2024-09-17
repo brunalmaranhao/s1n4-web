@@ -35,6 +35,8 @@ export default function ModalCreateUser({
     if (isOpen) reset();
   }, [isOpen]);
 
+  const inputVariant = "bordered"
+
   const {
     register,
     handleSubmit,
@@ -79,17 +81,17 @@ export default function ModalCreateUser({
       isOpen={isOpen}
       onOpenChange={onClose}
       size="xl"
-      className="bg-slate-900"
+      className="bg-[#F2F4F8]"
       backdrop="blur"
     >
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1">
+            <ModalHeader className="flex flex-col gap-1 text-black">
               Criar Usuário
             </ModalHeader>
             <form onSubmit={handleSubmit(handleCreateUser)}>
-              <ModalBody className="flex flex-col gap-2">
+              <ModalBody className="flex flex-col gap-2 text-black">
                 <div className="flex flex-row gap-2 flex-wrap w-full">
                   <Input
                     label="Nome"
@@ -98,6 +100,7 @@ export default function ModalCreateUser({
                     errorMessage={errors.firstName?.message}
                     size="sm"
                     className="max-w-[260px]"
+                    variant={inputVariant}
                   />
                   <Input
                     label="Sobrenome"
@@ -106,6 +109,7 @@ export default function ModalCreateUser({
                     errorMessage={errors.lastName?.message}
                     size="sm"
                     className="max-w-[260px]"
+                    variant={inputVariant}
                   />
                 </div>
                 <Input
@@ -115,6 +119,7 @@ export default function ModalCreateUser({
                   isInvalid={!!errors.email?.message}
                   errorMessage={errors.email?.message}
                   size="sm"
+                  variant={inputVariant}
                 />
                 <Input
                   label="Senha"
@@ -123,6 +128,7 @@ export default function ModalCreateUser({
                   isInvalid={!!errors.password?.message}
                   errorMessage={errors.password?.message}
                   size="sm"
+                  variant={inputVariant}
                   endContent={
                     <button
                       className="focus:outline-none"
@@ -144,6 +150,7 @@ export default function ModalCreateUser({
                   isInvalid={!!errors.confirmPassword?.message}
                   errorMessage={errors.confirmPassword?.message}
                   size="sm"
+                  variant={inputVariant}
                   endContent={
                     <button
                       className="focus:outline-none"
@@ -168,7 +175,7 @@ export default function ModalCreateUser({
                       label="Função"
                       placeholder="Selecione uma função"
                       className="max-w-xs"
-                      variant="flat"
+                      variant={inputVariant}
                       classNames={{
                         popoverContent: "text-black",
                         selectorIcon: "text-black",

@@ -25,6 +25,7 @@ export default function ProjectUpdatesAdmin({ email, role }: UserInfoprops) {
 
   const handleProjectUpdates = async (token: string) => {
     const result = await fetchAllProjectUpdates(token);
+    console.log(result)
     return result.updates;
   };
 
@@ -51,11 +52,8 @@ export default function ProjectUpdatesAdmin({ email, role }: UserInfoprops) {
           <ProjectUpdateCard
             email={email}
             role={role}
-            projectId={projectUpdate.project}
+            projectUpdate={projectUpdate}
             key={index}
-            acessToken={sessionKey}
-            date={projectUpdate.date.toString()}
-            description={projectUpdate.description}
           />
         ))
       )}
