@@ -38,7 +38,7 @@ export default function ModalNotification() {
       isOpen={isOpen}
       onOpenChange={onClose}
       size="xl"
-      className="bg-slate-900"
+      className="bg-[#F2F4F8] text-black"
       backdrop="blur"
     >
       <ModalContent>

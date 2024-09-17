@@ -45,7 +45,7 @@ export default function Notification() {
     <>
       <Dropdown>
         <DropdownTrigger>
-          <button>
+          <button className="outline-none">
             <Badge
               content={countUnread}
               color="danger"
@@ -53,7 +53,7 @@ export default function Notification() {
               showOutline={false}
               isInvisible={countUnread === 0}
             >
-              <MdNotifications size={22} />
+              <MdNotifications size={22} color="black" />
             </Badge>
           </button>
         </DropdownTrigger>

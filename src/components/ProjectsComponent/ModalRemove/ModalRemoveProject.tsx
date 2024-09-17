@@ -44,22 +44,24 @@ export default function ModalRemoveProject() {
     }
   }
 
+  
+
   return (
     <Modal
       scrollBehavior="outside"
       isOpen={isOpenModalRemove}
       onOpenChange={onOpenChangeModalRemove}
       size="xl"
-      className="bg-slate-900"
+      className="bg-[#F2F4F8]"
       backdrop="blur"
     >
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1">
+            <ModalHeader className="flex flex-col gap-1 text-black">
               Remover Projeto
             </ModalHeader>
-              <ModalBody className="flex flex-col gap-2 justify-center items-center">
+              <ModalBody className="flex flex-col gap-2 justify-center items-center text-black">
                <div className="flex flex-col ">
                   <p>Você tem certeza que deseja excluir o projeto {selectedProjectRemove?.name}?</p>
                </div>

@@ -7,6 +7,7 @@ import {
   DropdownTrigger,
 } from "@nextui-org/react";
 import { useEffect, useMemo, useState } from "react";
+import { SlArrowDown } from "react-icons/sl";
 
 export default function FilterProjectsByCustomer() {
   const {
@@ -47,18 +48,21 @@ export default function FilterProjectsByCustomer() {
 
   return (
     <Dropdown backdrop="blur">
-      <DropdownTrigger>
-        <Button variant="bordered" color="primary" className="capitalize">
-          {selectedValue}
-        </Button>
-      </DropdownTrigger>
+       <DropdownTrigger>
+          <Button
+            className="bg-white text-[16px] font-medium"
+            endContent={<SlArrowDown />}
+          >
+            {selectedValue}
+          </Button>
+        </DropdownTrigger>
       <DropdownMenu
         selectionMode="single"
         selectedKeys={selectedKeys}
         onSelectionChange={handleSelectionChange}
         variant="light"
         aria-label="Static Actions"
-        className="h-[200px] overflow-auto"
+        className="max-h-[320px] overflow-auto scrollbar-thin scrollbar-thumb-rounded-lg scrollbar-thumb-gray-700"
       >
         {customers.map((item) => (
           <DropdownItem key={item.id} className="text-black">

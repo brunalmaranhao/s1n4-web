@@ -18,9 +18,9 @@ export default function HeaderManagement() {
     ? "Clientes"
     : "Projetos";
   return (
-    <div className="flex flex-col w-full px-4 py-8 gap-6">
+    <div className="flex flex-col w-full gap-6">
       <div className="flex flex-row justify-between w-full">
-        <h1 className="text-3xl">Gerenciar - {label} </h1>
+        <h1 className="text-[42px] text-[#21272A] font-bold">Gerenciar - {label} </h1>
         <Notification />
       </div>
       <div className="flex flex-row justify-between w-full flex-wrap gap-6">
@@ -38,7 +38,7 @@ export default function HeaderManagement() {
         )}
         {label === "Projetos" && pathsWithTab.includes(pathname) && (
           <div className="flex flex-row gap-3 items-center flex-wrap">
-            <h4>Filtrar por</h4>
+            <h1 className="text-nowrap font-medium text-black">Filtrar por </h1>
             <FilterProjectsByCustomer />
             <Button color="primary" onPress={() => onOpen()}>
               Novo Projeto

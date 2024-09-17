@@ -28,7 +28,7 @@ import { ColumnKeys, columnsCustomer } from "@/util/tableColumns";
 export default function TableCustomers() {
   const [customers, setCustomers] = useState<ICustomer[]>([]);
   const [total, setTotal] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
     column: "contractValue",
     direction: "ascending",
@@ -185,7 +185,7 @@ export default function TableCustomers() {
   }, [total, page, pages]);
 
   return (
-    <div className="w-full p-4">
+    <div className="w-full">
       {loading ? (
         <Spinner />
       ) : (

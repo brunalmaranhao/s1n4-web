@@ -1,3 +1,4 @@
+'use client'
 import { useAuthContext } from "@/context/AuthContext";
 import {
   Button,
@@ -12,13 +13,13 @@ import {
   NavbarItem,
 } from "@nextui-org/react";
 
-export default function Header() {
+export default function Menu() {
   const { handleSignOut } = useAuthContext();
 
   return (
     <Navbar
       isBordered={true}
-      className="bg-white w-[256px] min-h-screen"
+      className="bg-white w-[256px] h-screen md:flex hidden"
       classNames={{
         base: "bg-red-400",
         wrapper: "h-screen w-full flex flex-col justify-start mt-[65px]",
