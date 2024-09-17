@@ -6,9 +6,9 @@ import { useEffect, useState } from "react";
 import { fetchBirthdaysOfTheMonth, getUserById } from "./actions";
 import { parseCookies } from "nookies";
 import { decodeToken } from "@/services/jwt-decode/decode";
-import ProjectsOverview from "@/app/components/ProjectsOverview/ProjectsOverview";
-import Header from "../components/Header/Header";
-import ProjectUpdatesAdmin from "../components/ProjectUpdatesAdmin/ProjectUpdatesAdmin";
+import ProjectsOverview from "@/components/ProjectsOverview/ProjectsOverview";
+import Header from "../../components/Header/Header";
+import ProjectUpdatesAdmin from "@/components/ProjectUpdatesAdmin/ProjectUpdatesAdmin";
 
 export default function AdminHome() {
   const [responsiblesState, setResponsiblesState] = useState<

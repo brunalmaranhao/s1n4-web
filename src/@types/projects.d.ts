@@ -56,3 +56,9 @@ declare interface INewProject {
   deadline?: Date;
   customer: string;
 }
+
+
+declare interface INewProjectUpdate {
+  description: string;
+
+}

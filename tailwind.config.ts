@@ -18,6 +18,6 @@ const config: Config = {
     },
   },
   darkMode: "selector",
-  plugins: [nextui()],
+  plugins: [nextui(), require('tailwind-scrollbar')],
 };
 export default config;

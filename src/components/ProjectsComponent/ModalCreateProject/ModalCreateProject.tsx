@@ -20,16 +20,14 @@ import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-interface ModalCreateProjectProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export default function ModalCreateProject({
-  isOpen,
-  onClose,
-}: ModalCreateProjectProps) {
-  const { fetchAllProjects, customers, fetchCustomer } = useProjectContext();
+export default function ModalCreateProject() {
+  const {
+    fetchAllProjects,
+    customers,
+    fetchCustomer,
+    isOpenModalCreateProject: isOpen,
+    onClose,
+  } = useProjectContext();
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
