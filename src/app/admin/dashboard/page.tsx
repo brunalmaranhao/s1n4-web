@@ -7,7 +7,7 @@ import {
 } from "./actions";
 import { Key, useEffect, useState } from "react";
 import { parseCookies } from "nookies";
-import Header from "@/app/components/Header/Header";
+import Header from "@/components/Header/Header";
 import {
   Button,
   Dropdown,
@@ -18,11 +18,10 @@ import {
   Tab,
   Tabs,
 } from "@nextui-org/react";
-import TabsManagement from "@/app/components/TabsManagement/TabsManagement";
-import TabsAndFilters from "@/app/components/TabsAndFilters/TabsAndFilters";
 import { SlArrowDown } from "react-icons/sl";
-import FilterCustomersAndProjects from "@/app/components/FilterCustomersAndProjects/FilterCustomersAndProjects";
-import OverviewTabContent from "@/app/components/OverviewTabContent/OverviewTabContent";
+import OverviewTabContent from "@/components/OverviewTabContent/OverviewTabContent";
+import TabsAndFilters from "@/components/TabsAndFilters/TabsAndFilters";
+import FilterCustomersAndProjects from "@/components/FilterCustomersAndProjects/FilterCustomersAndProjects";
 
 export default function Dashboard() {
   const [selectedTab, setSelectedTab] = useState<Key>("");

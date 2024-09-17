@@ -4,7 +4,7 @@ import { api } from "../../api";
 
 export const patch = async <Response, Body>(
   url: string,
-  body: Body,
+  body?: Body,
   config?: AxiosRequestConfig,
 ) => {
   try {

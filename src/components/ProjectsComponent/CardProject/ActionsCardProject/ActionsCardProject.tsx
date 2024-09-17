@@ -15,19 +15,28 @@ type ActionsCardProjectProps = {
 export default function ActionsCardProject({
   project,
 }: ActionsCardProjectProps) {
-
-  
-  const {onOpenModalEdit, setSelectedProjectEdit, onOpenModalRemove, setSelectedProjectRemove} = useProjectContext() 
-
+  const {
+    onOpenModalEdit,
+    setSelectedProjectEdit,
+    onOpenModalRemove,
+    setSelectedProjectRemove,
+    setSelectedProjectCreateProjectUpdate,
+    onOpenModalCreateProjectUpdate
+  } = useProjectContext();
 
   function handleEdit() {
     setSelectedProjectEdit(project);
     onOpenModalEdit();
   }
 
-  function handleRemove(){
-    setSelectedProjectRemove(project)
-    onOpenModalRemove()
+  function handleRemove() {
+    setSelectedProjectRemove(project);
+    onOpenModalRemove();
+  }
+
+  function handleCreateProjectUpdate() {
+    setSelectedProjectCreateProjectUpdate(project);
+    onOpenModalCreateProjectUpdate();
   }
 
   return (
@@ -42,6 +51,13 @@ export default function ActionsCardProject({
         variant="light"
         aria-label="Static Actions"
       >
+         <DropdownItem
+          key={"projectUpdate"}
+          className="text-black"
+          onPress={() => handleCreateProjectUpdate()}
+        >
+          Adicionar Atualização
+        </DropdownItem>
         <DropdownItem
           key={"edit"}
           className="text-black"
@@ -49,7 +65,11 @@ export default function ActionsCardProject({
         >
           Editar
         </DropdownItem>
-        <DropdownItem key={"delete"} className="text-black" onPress={() => handleRemove()} >
+        <DropdownItem
+          key={"delete"}
+          className="text-black"
+          onPress={() => handleRemove()}
+        >
           Remover
         </DropdownItem>
       </DropdownMenu>

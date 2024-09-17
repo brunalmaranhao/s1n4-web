@@ -22,6 +22,9 @@ type ProjectContextType = {
   isOpenModalRemove: boolean;
   onOpenChangeModalRemove: () => void;
   onOpenModalRemove: () => void;
+  isOpenModalCreateProjectUpdate: boolean;
+  onOpenChangeModalCreateProjectUpdate: () => void;
+  onOpenModalCreateProjectUpdate: () => void;
   projects?: IProject[];
   fetchAllProjects: () => void;
   customers: ICustomer[];
@@ -33,6 +36,10 @@ type ProjectContextType = {
   >;
   selectedProjectRemove?: IProject;
   setSelectedProjectRemove: React.Dispatch<
+    React.SetStateAction<IProject | undefined>
+  >;
+  selectedProjectCreateProjectUpdate?: IProject;
+  setSelectedProjectCreateProjectUpdate: React.Dispatch<
     React.SetStateAction<IProject | undefined>
   >;
 };
@@ -53,6 +60,14 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     onOpen: onOpenModalRemove,
     onOpenChange: onOpenChangeModalRemove,
   } = useDisclosure();
+
+  const {
+    isOpen: isOpenModalCreateProjectUpdate,
+    onOpen: onOpenModalCreateProjectUpdate,
+    onOpenChange: onOpenChangeModalCreateProjectUpdate,
+  } = useDisclosure();
+
+
   const [projects, setProjects] = useState<IProject[] | undefined>();
   const [customers, setCustomers] = useState<ICustomer[]>([]);
   const [selectedProjectEdit, setSelectedProjectEdit] = useState<
@@ -61,6 +76,11 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
   const [selectedProjectRemove, setSelectedProjectRemove] = useState<
     IProject | undefined
   >();
+
+  const [
+    selectedProjectCreateProjectUpdate,
+    setSelectedProjectCreateProjectUpdate,
+  ] = useState<IProject | undefined>();
 
   async function fetchAllProjects() {
     try {
@@ -111,6 +131,11 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     isOpenModalRemove,
     onOpenModalRemove,
     onOpenChangeModalRemove,
+    isOpenModalCreateProjectUpdate,
+    onOpenChangeModalCreateProjectUpdate,
+    onOpenModalCreateProjectUpdate,
+    selectedProjectCreateProjectUpdate,
+    setSelectedProjectCreateProjectUpdate,
   };
 
   return (
@@ -124,7 +149,7 @@ export const useProjectContext = () => {
   const context = useContext(ProjectContext);
   if (!context) {
     throw new Error(
-      "useProjectContext deve ser usado dentro de um ProjectProvider",
+      "useProjectContext deve ser usado dentro de um ProjectProvider"
     );
   }
   return context;
