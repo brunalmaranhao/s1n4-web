@@ -1,9 +1,9 @@
 import { fetchAllProjectUpdates } from "@/app/admin/actions";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
+import ProjectUpdateCard from "../ProjectUpdateCard/ProjectUpdateCard";
 import { Spinner } from "@nextui-org/react";
 import { Roboto } from "next/font/google";
-import ProjectUpdateCard from "../ProjectUpdateCard/ProjectUpdateCard";
 
 const robotoBold = Roboto({
   weight: "700",
@@ -25,7 +25,6 @@ export default function ProjectUpdatesAdmin({ email, role }: UserInfoprops) {
 
   const handleProjectUpdates = async (token: string) => {
     const result = await fetchAllProjectUpdates(token);
-    console.log(result)
     return result.updates;
   };
 
@@ -52,8 +51,11 @@ export default function ProjectUpdatesAdmin({ email, role }: UserInfoprops) {
           <ProjectUpdateCard
             email={email}
             role={role}
-            projectUpdate={projectUpdate}
+            projectId={projectUpdate.project}
             key={index}
+            acessToken={sessionKey}
+            date={projectUpdate.date.toString()}
+            description={projectUpdate.description}
           />
         ))
       )}

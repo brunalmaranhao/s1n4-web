@@ -108,20 +108,20 @@ export default async function CustomerService() {
   async function getAllCustomers(
     token: string
   ): Promise<{ customers: ICustomer[]; total: number }> {
-    return await get<{ customers: ICustomer[]; total: number }>(
-      `customer/active`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    return await get<{
+      customers: ICustomer[];
+      total: number;
+    }>(`customer/active`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 
   async function fetchCustomersWithUsers(
-    token: string
-  ): Promise<{ customersWithUsers: ICustomerWithUsers[] }> {
-    return await get<{ customersWithUsers: ICustomerWithUsers[] }>(
+    token: string,
+  ): Promise<{ customersWithUsers: ICustomer[] }> {
+    return await get<{ customersWithUsers: ICustomer[] }>(
       `/customer-with-users`,
       {
         headers: {

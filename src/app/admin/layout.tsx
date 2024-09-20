@@ -1,6 +1,10 @@
-import Menu from "@/components/Menu/Menu";
+
 import type { Metadata } from "next";
-import { Inter, Roboto } from "next/font/google";
+import { Roboto } from "next/font/google";
+import "../globals.css";
+
+import Header from "@/components/Header/Header";
+
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -18,10 +22,9 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex flex-row w-full bg-[#F2F4F8]">
-      <Menu />
-
-      {children}
+    <div className="bg-[#F2F4F8] h-full w-full flex items-center">
+      <Header />
+      <div className="flex w-full min-h-screen">{children}</div>
     </div>
   );
 }

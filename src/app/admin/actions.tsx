@@ -41,10 +41,10 @@ export async function fetchBirthdaysOfTheMonth(token: string) {
 export async function fetchAllProjects(token: string) {
   try {
     const { fetchAllProjects } = await ProjectsService();
-    const response = await fetchAllProjects(token);
+    const { projects } = await fetchAllProjects(token, 1, 20);
     return {
       isError: false,
-      projects: response.projects,
+      projects: projects,
     };
   } catch (error) {
     const customError = handleAxiosError(error);

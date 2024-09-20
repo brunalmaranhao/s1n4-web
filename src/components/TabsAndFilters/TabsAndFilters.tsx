@@ -1,11 +1,5 @@
-import {
-  fetchActiveUsers,
-  fetchCustomersWithUsers,
-  findAllCustomers,
-} from "@/app/admin/dashboard/actions";
-import { Spinner, Tab, Tabs } from "@nextui-org/react";
-import { parseCookies } from "nookies";
-import { Key, useEffect, useState } from "react";
+import { Tab, Tabs } from "@nextui-org/react";
+import { Key, useState } from "react";
 
 interface TabsAndFiltersProps {
   onTabChange: (key: Key) => void;

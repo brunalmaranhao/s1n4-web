@@ -1,10 +1,10 @@
 declare interface ICustomer {
-  id: string;
-  name: string;
-  cnpj: string;
-  corporateName: string;
-  status: "ACTIVE" | "INACTIVE";
-  address?: string;
+  id?: string;
+  name?: string;
+  cnpj?: string;
+  corporateName?: string;
+  status?: "ACTIVE" | "INACTIVE";
+  address?: ICustomerAddress;
   accumulatedInvestment?: string;
   contractDuration?: string;
   contractObjective?: string;
@@ -12,6 +12,8 @@ declare interface ICustomer {
   contractedServices?: string;
   zipCode?: string;
   actions?: string | null;
+  users?: ICustomerUsers[];
+  projects?: IProject[];
 }
 
 declare interface ICustomerUsers {
@@ -32,46 +34,17 @@ declare interface ICustomerUsers {
   customerId?: string | null;
 }
 
-declare interface ICustomerWithUsers {
-  id: string;
-  name: string;
-  cnpj: string;
-  corporateName: string;
-  status: "ACTIVE" | "INACTIVE";
-  address?: string;
-  accumulatedInvestment?: string;
-  contractDuration?: string;
-  contractObjective?: string;
-  contractValue?: string;
-  contractedServices?: string;
-  zipCode?: string;
-  actions?: string | null;
-  users: ICustomerUsers[];
-}
-
 declare interface IActiveCustomersResponse {
   customersLength?: number;
+  customers?: ICustomer[];
   error?: string;
   isError: boolean;
 }
 
 declare interface ICustomersWithUsersResponse {
-  customersWithUsers?: ICustomerWithUsers[];
+  customersWithUsers?: ICustomer[];
   error?: string;
   isError: boolean;
-}
-
-declare interface IActiveCustomers {
-  id: string;
-  name: string;
-  cnpj: string;
-  corporateName: string;
-  address: string | null | undefined;
-  accumulatedInvestment: number | null | undefined;
-  contractDuration: string | null | undefined;
-  contractObjective: string | null | undefined;
-  contractValue: number | null | undefined;
-  contractedServices: string | null | undefined;
 }
 
 declare interface IGetCustomerByIdResponse {
@@ -92,34 +65,6 @@ declare interface IGetCustomerByIdResponse {
     createdAt?: Date;
     updatedAt?: Date | null;
   };
-}
-
-declare interface ICustomer {
-  id: string;
-  name: string;
-  cnpj: string;
-  corporateName: string;
-  status: "ACTIVE" | "INACTIVE";
-  address?: string;
-  accumulatedInvestment?: string;
-  contractDuration?: string;
-  contractObjective?: string;
-  contractValue?: string;
-  contractedServices?: string;
-  zipCode?: string;
-  actions?: string | null;
-}
-
-declare interface INewCustomer {
-  name: string;
-  cnpj: string;
-  corporateName: string;
-  accumulatedInvestment?: string;
-  contractDuration?: string;
-  contractObjective?: string;
-  contractValue?: string;
-  expenditureProjection?: string;
-  address?: ICustomerAddress;
 }
 
 declare interface ICustomerAddress {

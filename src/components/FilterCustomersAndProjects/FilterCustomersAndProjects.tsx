@@ -5,42 +5,122 @@ import {
   DropdownMenu,
   DropdownItem,
   DatePicker,
+  Tooltip,
 } from "@nextui-org/react";
 import { SlArrowDown } from "react-icons/sl";
 import { GoArrowRight } from "react-icons/go";
+import { findAllCustomers } from "@/app/admin/dashboard/actions";
+import React, { useEffect, useState } from "react";
+import { parseCookies } from "nookies";
+import { fetchAllProjects } from "@/app/admin/actions";
+import { SlEqualizer } from "react-icons/sl";
 
-export default function FilterCustomersAndProjects() {
+interface IFilterCustomersAndProjectsProps {
+  onClientSelect: (client: ICustomer | undefined) => void;
+}
+
+export default function FilterCustomersAndProjects({
+  onClientSelect,
+}: IFilterCustomersAndProjectsProps) {
+  const { "sina:x-token": sessionKey } = parseCookies();
+
+  const [clientList, setClientList] = useState<ICustomer[]>([]);
+  const [projectsList, setProjectslist] = useState<IProject[]>([]);
+  const [filteredClient, setFilteredClient] = useState<string>("");
+  const [filteredProject, setFilteredProject] = useState<string>("");
+
+  const handleClientList = async (token: string) => {
+    const { customers } = await findAllCustomers(token);
+    return customers;
+  };
+
+  const handleProjectsList = async (token: string) => {
+    const { projects } = await fetchAllProjects(token);
+    return projects;
+  };
+
+  const handleClientFilter = (
+    event: React.MouseEvent<HTMLLIElement, MouseEvent>,
+    client: ICustomer,
+  ) => {
+    const clientName = event.currentTarget.innerText;
+    setFilteredClient(clientName);
+    onClientSelect(client);
+  };
+
+  const handleProjectsFilter = (
+    event: React.MouseEvent<HTMLLIElement, MouseEvent>,
+  ) => {
+    const projectName = event.currentTarget.innerText;
+    setFilteredProject(projectName);
+  };
+
+  const handleClearFilter = () => {
+    setFilteredClient("");
+    setFilteredProject("");
+    onClientSelect(undefined);
+  };
+
+  useEffect(() => {
+    const fetchClients = async () => {
+      const customersList = await handleClientList(sessionKey);
+      setClientList(customersList || []);
+      const projectsList = await handleProjectsList(sessionKey);
+      setProjectslist(projectsList || []);
+    };
+    fetchClients();
+  }, []);
+
   return (
     <div className="flex items-center space-x-6">
-      <h1 className="text-nowrap font-medium">Filtrar por </h1>
-      <Dropdown>
+      <div className="flex items-center">
+        <Tooltip content="Limpar Filtro" className="text-black">
+          <Button className="bg-transparent" onClick={handleClearFilter}>
+            <SlEqualizer size={25} />
+          </Button>
+        </Tooltip>
+        <h1 className="text-nowrap font-medium">Filtrar por </h1>
+      </div>
+      <Dropdown backdrop="blur">
         <DropdownTrigger>
           <Button
             className="bg-white w-full text-[16px] font-medium"
             endContent={<SlArrowDown />}
           >
-            Cliente
+            {filteredClient ? filteredClient : "Cliente"}
           </Button>
         </DropdownTrigger>
         <DropdownMenu>
-          <DropdownItem className="text-black">
-            Lista de clientes aqui
-          </DropdownItem>
+          {clientList.map((client, index) => (
+            <DropdownItem
+              onClick={(event) => handleClientFilter(event, client)}
+              key={index}
+              className="text-black"
+            >
+              {client.corporateName}
+            </DropdownItem>
+          ))}
         </DropdownMenu>
       </Dropdown>
-      <Dropdown>
+      <Dropdown backdrop="blur">
         <DropdownTrigger>
           <Button
             className="bg-white w-full text-[16px] font-medium"
             endContent={<SlArrowDown />}
           >
-            Projeto
+            {filteredProject ? filteredProject : "Projetos"}
           </Button>
         </DropdownTrigger>
         <DropdownMenu>
-          <DropdownItem className="text-black">
-            Lista de projetos aqui
-          </DropdownItem>
+          {projectsList.map((project, index) => (
+            <DropdownItem
+              onClick={(event) => handleProjectsFilter(event)}
+              key={index}
+              className="text-black"
+            >
+              {project.name}
+            </DropdownItem>
+          ))}
         </DropdownMenu>
       </Dropdown>
       <DatePicker
