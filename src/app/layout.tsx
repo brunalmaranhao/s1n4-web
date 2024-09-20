@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import Header from "@/components/Header/Header";
 import { AuthProvider } from "@/context/AuthContext";
 
+
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
@@ -23,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={`${roboto.className}`}>
+      <body className={`${roboto.className} w-full`}>
         <Providers>{children}</Providers>
         <Toaster position="bottom-center" />
       </body>

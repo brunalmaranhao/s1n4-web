@@ -17,3 +17,11 @@ export const schemaNewProject = yup
     customer: yup.string().required("Campo Cliente é obrigatório."),
   })
   .required();
+
+
+  export const schemaNewProjectUpdate = yup
+  .object({
+    description: yup.string().required("Campo Descrição é obrigatório."),
+    
+  })
+  .required();

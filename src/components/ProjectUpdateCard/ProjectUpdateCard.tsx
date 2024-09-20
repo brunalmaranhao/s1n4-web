@@ -1,5 +1,6 @@
 import { getCustomerById, getProjectById } from "@/app/admin/actions";
 import { Image } from "@nextui-org/react";
+import { format } from "date-fns";
 import { Roboto } from "next/font/google";
 import { useEffect, useState } from "react";
 
@@ -77,12 +78,12 @@ export default function ProjectUpdateCard({
           </div>
 
           <h1 className="text-[16px] text-[#697077] font-normal">
-            {projectNameState} - {customerNameState}
+            {projectUpdate.project.name} - {projectUpdate.project.customer.name}
           </h1>
         </div>
-        <h1>{date}</h1>
+        <h1>{format(projectUpdate.date, "dd/MM/yyyy 'às' HH:mm")}</h1>
       </div>
-      <h1>{description}</h1>
+      <h1>{projectUpdate.description}</h1>
     </div>
   );
 }

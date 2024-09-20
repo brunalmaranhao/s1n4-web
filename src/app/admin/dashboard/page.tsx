@@ -1,5 +1,6 @@
 "use client";
 
+
 import FilterCustomersAndProjects from "@/components/FilterCustomersAndProjects/FilterCustomersAndProjects";
 import Header from "@/components/Header/Header";
 import OverviewTabContent from "@/components/OverviewTabContent/OverviewTabContent";
@@ -7,6 +8,7 @@ import ProjectsOverview from "@/components/ProjectsOverview/ProjectsOverview";
 import TabsAndFilters from "@/components/TabsAndFilters/TabsAndFilters";
 
 import { Key, useState } from "react";
+
 
 export default function Dashboard() {
   const [selectedTab, setSelectedTab] = useState<Key>("");
@@ -27,9 +29,13 @@ export default function Dashboard() {
   return (
     <div className="bg-[#F2F4F8] flex text-black w-full">
       <div className="p-6 w-full">
-        <h1 className="text-[42px] text-[#21272A] font-bold">
-          Dashboard - Visão geral
-        </h1>
+        <div className="flex justify-between">
+          <h1 className="text-[42px] text-[#21272A] font-bold">
+            Dashboard - Visão geral
+          </h1>
+          <Notification />
+        </div>
+
         <div className="flex flex-row items-center justify-between w-full">
           <TabsAndFilters onTabChange={handleTabChange} />
           <FilterCustomersAndProjects onClientSelect={handleSelectedClient} />

@@ -1,5 +1,4 @@
 import { Tab, Tabs } from "@nextui-org/react";
-
 import { Key, useState } from "react";
 
 interface TabsAndFiltersProps {

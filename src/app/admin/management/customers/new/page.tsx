@@ -10,12 +10,13 @@ export default function NewCustomer() {
       <div className="flex flex-row items-center gap-4 mb-5">
         <MdArrowBack
           className="cursor-pointer"
+          color="black"
           size={22}
           onClick={() =>
             (window.location.href = "/admin/management/customers/")
           }
         />
-        <h3 className="text-lg">Novo Cliente</h3>
+        <h3 className="text-lg text-black">Novo Cliente</h3>
       </div>
       <FormWizarCustomer />
     </div>

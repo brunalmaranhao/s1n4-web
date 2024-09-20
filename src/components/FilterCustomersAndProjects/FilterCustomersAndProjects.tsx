@@ -81,7 +81,6 @@ export default function FilterCustomersAndProjects({
         </Tooltip>
         <h1 className="text-nowrap font-medium">Filtrar por </h1>
       </div>
-
       <Dropdown backdrop="blur">
         <DropdownTrigger>
           <Button

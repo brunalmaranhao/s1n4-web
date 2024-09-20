@@ -7,7 +7,7 @@ const Step4 = () => {
   const { handleBack, step, handleNext } = useFormWizardContext();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   return (
-    <div className={`${step === 4 ? "flex" : "hidden"} flex-col gap-3`}>
+    <div className={`${step === 4 ? "flex" : "hidden"} flex-col gap-3 text-black`}>
       <div className="flex justify-between items-center w-full">
         <h2>4. Outras configurações</h2>
         <Button color="primary" variant="bordered" onPress={onOpen}>

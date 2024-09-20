@@ -70,7 +70,7 @@ const ProcessingScreen = () => {
           newCustomer.contractValue,
           newCustomer.accumulatedInvestment,
           newCustomer.expenditureProjection,
-          newCustomer.contractObjective,
+          newCustomer.contractObjective
         );
         updateItemSaved("customer", true, false);
         return response;
@@ -103,7 +103,7 @@ const ProcessingScreen = () => {
           newCustomer?.address?.country,
           newCustomer?.address?.zipCode,
           customerId,
-          newCustomer?.address?.complement,
+          newCustomer?.address?.complement
         );
         updateItemSaved("address", true, false);
       } catch (error) {
@@ -124,9 +124,9 @@ const ProcessingScreen = () => {
             user.email,
             user.password,
             customerId,
-            user.role,
-          ),
-        ),
+            user.role
+          )
+        )
       );
       updateItemSaved("users", true, false);
     } catch (error) {
@@ -144,9 +144,9 @@ const ProcessingScreen = () => {
             report.name,
             report.workspaceId,
             report.reportId,
-            customerId,
-          ),
-        ),
+            customerId
+          )
+        )
       );
       updateItemSaved("reports", true, false);
     } catch (error) {
@@ -167,9 +167,9 @@ const ProcessingScreen = () => {
             responsible.phone,
             customerId,
             responsible.birthdate,
-            responsible.role,
-          ),
-        ),
+            responsible.role
+          )
+        )
       );
       updateItemSaved("responsibles", true, false);
     } catch (error) {
@@ -181,17 +181,9 @@ const ProcessingScreen = () => {
   return (
     <div className={`${step === 5 ? "flex" : "hidden"} flex-col gap-3`}>
       {finished ? (
-        <div className="flex flex-row items-center w-full gap-3">
+        <div className="flex flex-row items-center w-full gap-3 text-black">
           <MdDone size={22} />
           <h2 className="text-lg">Processamento finalizado.</h2>
-          <Button
-            color="success"
-            onPress={() =>
-              (window.location.href = "/admin/management/customers/")
-            }
-          >
-            Voltar
-          </Button>
         </div>
       ) : (
         <div className="flex flex-row items-center w-full gap-3">
@@ -209,9 +201,18 @@ const ProcessingScreen = () => {
                 label={key}
                 error={itemsSaved[key].error}
               />
-            ),
+            )
         )}
       </div>
+      <Button
+      className="max-w-[320px] self-center"
+      size="sm"
+        variant="bordered"
+        color="primary"
+        onPress={() => (window.location.href = "/admin/management/customers/")}
+      >
+        Voltar
+      </Button>
     </div>
   );
 };

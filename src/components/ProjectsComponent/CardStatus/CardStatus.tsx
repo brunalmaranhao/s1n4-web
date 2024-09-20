@@ -43,15 +43,15 @@ export default function CardStatus({
 
   return (
     <div
-      className={`bg-slate-800 p-4 max-w-[220px] w-full rounded-md min-h-[100px] ${
-        highlightedColumn === status ? "border-4 border-blue-500" : ""
+      className={`bg-[#DDE1E6] text-black p-4 max-w-[520px] w-full rounded-md min-h-[100px] ${
+        highlightedColumn === status ? "border-4 border-white" : ""
       }`}
       onDrop={() => handleDrop(status)}
       onDragOver={allowDrop}
       onDragEnter={(e) => handleDragEnter(e, status)}
       onDragLeave={handleDragLeave}
     >
-      <p className="text-white">{label?.label}</p>
+      <p>{label?.label}</p>
       <div className="flex flex-col gap-1">
         {projects?.map((project, index) => (
           <CardProject

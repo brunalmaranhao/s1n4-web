@@ -20,16 +20,14 @@ import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-interface ModalCreateProjectProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export default function ModalCreateProject({
-  isOpen,
-  onClose,
-}: ModalCreateProjectProps) {
-  const { fetchAllProjects, customers, fetchCustomer } = useProjectContext();
+export default function ModalCreateProject() {
+  const {
+    fetchAllProjects,
+    customers,
+    fetchCustomer,
+    isOpenModalCreateProject: isOpen,
+    onClose,
+  } = useProjectContext();
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
@@ -72,29 +70,32 @@ export default function ModalCreateProject({
     }
   }
 
+  const inputVariant = "bordered"
+  
   return (
     <Modal
       scrollBehavior="outside"
       isOpen={isOpen}
       onOpenChange={onClose}
       size="xl"
-      className="bg-slate-900"
+       className="bg-[#F2F4F8]"
       backdrop="blur"
     >
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1">
+            <ModalHeader className="flex flex-col gap-1 text-black">
               Criar Projeto
             </ModalHeader>
             <form onSubmit={handleSubmit(handleCreateProject)}>
-              <ModalBody className="flex flex-col gap-2 justify-center items-center">
+              <ModalBody className="flex flex-col gap-2 justify-center items-center text-black">
                 <Input
                   label="Nome"
                   {...register("name")}
                   isInvalid={!!errors.name?.message}
                   errorMessage={errors.name?.message}
                   size="sm"
+                  variant={inputVariant}
                 />
                 <Input
                   size="sm"
@@ -105,6 +106,7 @@ export default function ModalCreateProject({
                   errorMessage={errors.deadline?.message}
                   isInvalid={!!errors.deadline?.message}
                   {...register("deadline")}
+                  variant={inputVariant}
                 />
                 <Controller
                   control={control}
@@ -115,12 +117,13 @@ export default function ModalCreateProject({
                       errorMessage={errors.customer?.message}
                       label="Cliente"
                       placeholder="Selecione um cliente"
-                      variant="flat"
+                      variant={inputVariant}
                       classNames={{
                         popoverContent: "text-black",
                         selectorIcon: "text-black",
                       }}
                       {...field}
+                      
                     >
                       {customers.map((customer) => (
                         <SelectItem key={customer.id} value={customer.id}>
