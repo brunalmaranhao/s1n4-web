@@ -3,6 +3,8 @@ import { Inter, Roboto } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Toaster } from "react-hot-toast";
+import Header from "@/components/Header/Header";
+import { AuthProvider } from "@/context/AuthContext";
 
 const roboto = Roboto({
   subsets: ["latin"],

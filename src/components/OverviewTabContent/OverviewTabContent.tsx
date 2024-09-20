@@ -7,15 +7,21 @@ import { Spinner } from "@nextui-org/react";
 import { parseCookies } from "nookies";
 import { useState, useEffect } from "react";
 
-export default function OverviewTabContent() {
+interface OverviewTabProps {
+  selectedClient: ICustomer | undefined;
+}
+
+export default function OverviewTabContent({
+  selectedClient,
+}: OverviewTabProps) {
   const { "sina:x-token": sessionKey } = parseCookies();
 
   const [activeUsersLength, setActiveUsersLength] = useState<number>(0);
   const [activeCustomerLength, setActiveCustomersLength] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [customersState, setCustomersState] = useState<ICustomerWithUsers[]>(
-    [],
-  );
+  const [customersState, setCustomersState] = useState<ICustomer[]>([]);
+
+  // console.log(selectedClient);
 
   const handleFetchActiveUsers = async (token: string) => {
     const { users } = await fetchActiveUsers(token);
@@ -40,7 +46,9 @@ export default function OverviewTabContent() {
       setActiveUsersLength(users?.length || 0);
       const customers = await handleFetchCustomersWithUsers(sessionKey);
       const sortedCustomers =
-        customers?.sort((a, b) => b.users.length - a.users.length) || [];
+        customers?.sort(
+          (a, b) => (b.users?.length || 0) - (a.users?.length || 0),
+        ) || [];
       setCustomersState(sortedCustomers || []);
     };
     setIsLoading(true);
@@ -58,39 +66,46 @@ export default function OverviewTabContent() {
               Total de usuários
             </h1>
             <h1 className="text-2xl font-bold text-[#21272A]">
-              {activeUsersLength}
+              {selectedClient === undefined
+                ? activeUsersLength
+                : (selectedClient?.users?.length ?? 0)}
             </h1>
           </div>
-          <div className="p-4 flex flex-col bg-white border-solid border-[1px] border-[#DDE1E6]">
-            <h1 className="text-base font-thin text-[#697077]">
-              Total de clientes
-            </h1>
-            <h1 className="text-2xl font-bold text-[#21272A]">
-              {activeCustomerLength}
-            </h1>
-          </div>
+
+          {selectedClient === undefined && (
+            <div className="p-4 flex flex-col bg-white border-solid border-[1px] border-[#DDE1E6]">
+              <h1 className="text-base font-thin text-[#697077]">
+                Total de clientes
+              </h1>
+              <h1 className="text-2xl font-bold text-[#21272A]">
+                {activeCustomerLength}
+              </h1>
+            </div>
+          )}
         </div>
       )}
 
-      <div className="bg-white p-4 border-solid border-[1px] border-[#DDE1E6]">
-        <div className="flex justify-between font-bold text-lg mb-2">
-          <span>Clientes</span>
-          <span>Usuários</span>
+      {selectedClient === undefined && (
+        <div className="bg-white p-4 border-solid border-[1px] border-[#DDE1E6]">
+          <div className="flex justify-between font-bold text-lg mb-2">
+            <span>Clientes</span>
+            <span>Usuários</span>
+          </div>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            customersState.map((customer, index) => (
+              <div
+                key={index}
+                className="flex space-x-4 justify-between py-2 border-b last:border-none"
+              >
+                <h1>{customer.corporateName}</h1>
+                <h1>{customer.users?.length ?? 0}</h1>
+              </div>
+            ))
+          )}
         </div>
-        {isLoading ? (
-          <Spinner />
-        ) : (
-          customersState.map((customer, index) => (
-            <div
-              key={index}
-              className="flex space-x-4 justify-between py-2 border-b last:border-none"
-            >
-              <h1>{customer.corporateName}</h1>
-              <h1>{customer.users.length}</h1>
-            </div>
-          ))
-        )}
-      </div>
+      )}
     </div>
   );
 }

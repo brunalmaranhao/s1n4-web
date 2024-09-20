@@ -6,27 +6,28 @@ type StatusProject =
   | "DONE"
   | "IN_PROGRESS";
 
+declare interface IProject {
+  id: string;
+  name: string;
+  customerId: string;
+  deadline: Date | null | undefined;
+  statusProject: StatusProject;
+  createdAt: Date;
+  updatedAt: Date | null | undefined;
+  customer: ICustomer;
+}
+
 declare interface IFetchAllProjectsResponse {
   projects: {
     id: string;
     name: string;
     customerId: string;
     deadline: Date | null | undefined;
-    status: StatusProject;
+    statusProject: StatusProject;
     createdAt: Date;
     updatedAt: Date | null | undefined;
+    customer: ICustomer;
   }[];
-}
-
-declare interface IProject {
-  id: string;
-  name: string;
-  customerId: string;
-  deadline: Date | null | undefined;
-  status: StatusProject;
-  createdAt: Date;
-  updatedAt: Date | null | undefined;
-  customer: ICustomer;
 }
 
 declare interface IFetchAllProjectsState {
@@ -34,7 +35,7 @@ declare interface IFetchAllProjectsState {
   name: string;
   customerId: string;
   deadline: Date | null | undefined;
-  status: StatusProject;
+  statusProject: StatusProject;
   createdAt: Date;
   updatedAt: Date | null | undefined;
 }
@@ -45,7 +46,7 @@ declare interface IGetProjectByIdResponse {
     name: string;
     customerId: string;
     deadline: Date | null | undefined;
-    status: StatusProject;
+    statusProject: StatusProject;
     createdAt: Date;
     updatedAt: Date | null | undefined;
   };

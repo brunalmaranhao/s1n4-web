@@ -1,14 +1,13 @@
 "use client";
 
-import { useAuthContext } from "@/context/AuthContext";
-import { Button, CircularProgress, Spinner } from "@nextui-org/react";
-import { useEffect, useState } from "react";
+import { Spinner } from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
 import { fetchBirthdaysOfTheMonth, getUserById } from "./actions";
 import { parseCookies } from "nookies";
 import { decodeToken } from "@/services/jwt-decode/decode";
-import ProjectsOverview from "@/app/components/ProjectsOverview/ProjectsOverview";
-import Header from "../components/Header/Header";
-import ProjectUpdatesAdmin from "../components/ProjectUpdatesAdmin/ProjectUpdatesAdmin";
+import Header from "@/components/Header/Header";
+import ProjectsOverview from "@/components/ProjectsOverview/ProjectsOverview";
+import ProjectUpdatesAdmin from "@/components/ProjectUpdatesAdmin/ProjectUpdatesAdmin";
 
 export default function AdminHome() {
   const [responsiblesState, setResponsiblesState] = useState<
@@ -62,8 +61,7 @@ export default function AdminHome() {
   }, []);
 
   return (
-    <main className="flex min-h-screen items-center bg-[#F2F4F8] text-black">
-      <Header />
+    <main className="flex items-center text-black w-full">
       <div className="flex flex-col w-full min-h-screen gap-5 px-8">
         <h1 className="text-[#21272A] text-[42px] font-bold">Olá!</h1>
         {userIsLoading ? (

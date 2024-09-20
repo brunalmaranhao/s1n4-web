@@ -1,48 +1,48 @@
 "use client";
 
-import {
-  fetchActiveUsers,
-  fetchCustomersWithUsers,
-  findAllCustomers,
-} from "./actions";
-import { Key, useEffect, useState } from "react";
-import { parseCookies } from "nookies";
-import Header from "@/app/components/Header/Header";
-import {
-  Button,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-  Spinner,
-  Tab,
-  Tabs,
-} from "@nextui-org/react";
-import TabsManagement from "@/app/components/TabsManagement/TabsManagement";
-import TabsAndFilters from "@/app/components/TabsAndFilters/TabsAndFilters";
-import { SlArrowDown } from "react-icons/sl";
-import FilterCustomersAndProjects from "@/app/components/FilterCustomersAndProjects/FilterCustomersAndProjects";
-import OverviewTabContent from "@/app/components/OverviewTabContent/OverviewTabContent";
+import FilterCustomersAndProjects from "@/components/FilterCustomersAndProjects/FilterCustomersAndProjects";
+import Header from "@/components/Header/Header";
+import OverviewTabContent from "@/components/OverviewTabContent/OverviewTabContent";
+import ProjectsOverview from "@/components/ProjectsOverview/ProjectsOverview";
+import TabsAndFilters from "@/components/TabsAndFilters/TabsAndFilters";
+
+import { Key, useState } from "react";
 
 export default function Dashboard() {
   const [selectedTab, setSelectedTab] = useState<Key>("");
+  const [selectedClient, setSelectedClient] = useState<ICustomer | undefined>(
+    undefined,
+  );
+
+  console.log(selectedClient);
 
   const handleTabChange = (key: Key) => {
     setSelectedTab(key);
   };
+
+  const handleSelectedClient = (client: ICustomer | undefined) => {
+    setSelectedClient(client);
+  };
+
   return (
-    <div className="bg-[#F2F4F8] flex text-black">
-      <Header />
+    <div className="bg-[#F2F4F8] flex text-black w-full">
       <div className="p-6 w-full">
         <h1 className="text-[42px] text-[#21272A] font-bold">
           Dashboard - Visão geral
         </h1>
         <div className="flex flex-row items-center justify-between w-full">
           <TabsAndFilters onTabChange={handleTabChange} />
-          <FilterCustomersAndProjects />
+          <FilterCustomersAndProjects onClientSelect={handleSelectedClient} />
         </div>
         <div className="flex flex-col">
-          {selectedTab === "overview" && <OverviewTabContent />}
+          {selectedTab === "overview" && (
+            <>
+              <OverviewTabContent selectedClient={selectedClient} />
+              <div className="w-[380px] mt-6">
+                <ProjectsOverview selectedClient={selectedClient} />
+              </div>
+            </>
+          )}
           {selectedTab === "reports" && <div>Conteúdo de Relatórios</div>}
         </div>
       </div>

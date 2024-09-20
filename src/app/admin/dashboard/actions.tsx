@@ -27,6 +27,7 @@ export async function findAllCustomers(
 
     return {
       isError: false,
+      customers,
       customersLength: total,
     };
   } catch (error) {

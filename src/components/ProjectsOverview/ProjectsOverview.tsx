@@ -3,42 +3,71 @@ import { CircularProgress, Spinner } from "@nextui-org/react";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 
-export default function ProjectsOverview() {
+interface ProjectsOverviewProps {
+  selectedClient?: ICustomer | undefined;
+}
+
+export default function ProjectsOverview({
+  selectedClient,
+}: ProjectsOverviewProps) {
   const { "sina:x-token": sessionKey } = parseCookies();
 
-  const [allProjectsState, setAllProjectsState] = useState<
-    IFetchAllProjectsState[] | []
-  >([]);
+  const [allProjectsState, setAllProjectsState] = useState<IProject[]>([]);
   const [projectsPercentage, setProjectsPercentage] = useState(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleFetchAllProjects = async (token: string) => {
-    const result = await fetchAllProjects(token);
-    return result.projects;
+    const { projects } = await fetchAllProjects(token);
+    return projects;
   };
+
+  console.log(selectedClient);
 
   useEffect(() => {
     setIsLoading(true);
-    handleFetchAllProjects(sessionKey)
-      .then((data) => {
-        setAllProjectsState(data || []);
-        const allProjectsLength = data?.length || 0;
-        const doneProjects =
-          data?.filter((project) => project.status === "DONE") || [];
-        handleProjectsPercentage(allProjectsLength, doneProjects.length);
-      })
-      .finally(() => setIsLoading(false));
-  }, []);
+    const fetchData = async () => {
+      let data: IProject[] | undefined = [];
+      if (selectedClient) {
+        data = selectedClient.projects;
+        console.log("cliente selecionado");
+        console.log("projetos do cliente selecionado");
+        console.log(data);
+      } else {
+        data = await handleFetchAllProjects(sessionKey);
+        console.log("fetch de todos os projetos realizado");
+        console.log(data);
+      }
+
+      setAllProjectsState(data || []);
+      const allProjectsLength = data?.length || 0;
+      console.log("allprojectslength:");
+      console.log(allProjectsLength);
+      const doneProjects = data?.filter(
+        (project) => project.statusProject === "DONE",
+      );
+      console.log("done projects: ");
+      console.log(doneProjects);
+
+      handleProjectsPercentage(allProjectsLength, doneProjects?.length || 0);
+    };
+
+    fetchData().finally(() => setIsLoading(false));
+  }, [selectedClient, sessionKey]);
 
   const handleProjectsPercentage = (
     allProjectsLength: number,
     doneProjects: number,
   ) => {
+    console.log("handleprojectsPercentage:");
+    console.log("allProjectsLength:");
+    console.log(allProjectsLength);
     if (allProjectsLength === 0) {
       setProjectsPercentage(0);
     } else {
       const percentage = (doneProjects / allProjectsLength) * 100;
       setProjectsPercentage(percentage);
+      console.log("percentage:");
+      console.log(percentage);
     }
   };
 
@@ -47,11 +76,10 @@ export default function ProjectsOverview() {
       {isLoading ? (
         <Spinner />
       ) : (
-        <div className="w-full flex flex-col items-centersss space-x-4 p-4 bg-white border-solid border-[1px] border-[#DDE1E6] pr-8">
+        <div className="w-full flex flex-col items-center space-x-4 p-4 bg-white border-solid border-[1px] border-[#DDE1E6] pr-8">
           <h1 className="text-[18px] font-bold mb-4">Projetos</h1>
           <div className="flex justify-start items-center space-x-6">
             <CircularProgress
-              // label="Projetos"
               aria-label=""
               size="lg"
               value={projectsPercentage}

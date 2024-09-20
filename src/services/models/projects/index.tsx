@@ -5,12 +5,17 @@ import { put } from "@/services/methods/put";
 export default async function ProjectsService() {
   async function fetchAllProjects(
     token: string,
+    page: number,
+    size: number,
   ): Promise<IFetchAllProjectsResponse> {
-    return await get<IFetchAllProjectsResponse>(`/project`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    return await get<IFetchAllProjectsResponse>(
+      `/project?page=${page}&size=${size}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       },
-    });
+    );
   }
 
   async function fetchProjects(
