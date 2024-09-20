@@ -32,9 +32,9 @@ export const schemaNewCustomer = yup
       })
       .optional(),
     contractDuration: yup.string().optional(),
-    accumulatedInvestment: yup.string().optional(),
-    contractValue: yup.string().optional(),
-    expenditureProjection: yup.string().optional(),
+    accumulatedInvestment: yup.number().optional(),
+    contractValue: yup.number().optional(),
+    expenditureProjection: yup.number().optional(),
     contractObjective: yup.string().optional(),
   })
   .required();

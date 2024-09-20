@@ -158,6 +158,12 @@ const Step1 = () => {
             {...register("accumulatedInvestment")}
             size="sm"
             variant="bordered"
+            type="number"
+            startContent={
+              <div className="pointer-events-none flex items-center">
+                <span className="text-default-400 text-small">R$</span>
+              </div>
+            }
           />
         </div>
         <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
@@ -166,6 +172,12 @@ const Step1 = () => {
             {...register("contractDuration")}
             size="sm"
             variant="bordered"
+            type="number"
+            endContent={
+              <div className="pointer-events-none flex items-center">
+                <span className="text-default-400 text-small">Meses</span>
+              </div>
+            }
           />
           <Input
             label="Valor do Contrato (Opcional)"
@@ -173,6 +185,11 @@ const Step1 = () => {
             {...register("contractValue")}
             size="sm"
             variant="bordered"
+            startContent={
+              <div className="pointer-events-none flex items-center">
+                <span className="text-default-400 text-small">R$</span>
+              </div>
+            }
           />
           <Input
             label="Projeção de Gastos (Opcional)"
@@ -180,6 +197,11 @@ const Step1 = () => {
             {...register("expenditureProjection")}
             size="sm"
             variant="bordered"
+            startContent={
+              <div className="pointer-events-none flex items-center">
+                <span className="text-default-400 text-small">R$</span>
+              </div>
+            }
           />
         </div>
         <div className="flex flex-col gap-4">
