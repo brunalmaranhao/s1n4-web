@@ -57,7 +57,10 @@ export default function Notification() {
             </Badge>
           </button>
         </DropdownTrigger>
-        <DropdownMenu aria-label="Static Actions" className="max-h-[320px] overflow-auto scrollbar-thin scrollbar-thumb-rounded-lg scrollbar-thumb-gray-700">
+        <DropdownMenu
+          aria-label="Static Actions"
+          className="max-h-[320px] overflow-auto scrollbar-thin scrollbar-thumb-rounded-lg scrollbar-thumb-gray-700"
+        >
           {notifications.map((item) => (
             <DropdownItem
               showDivider

@@ -51,11 +51,8 @@ export default function ProjectUpdatesAdmin({ email, role }: UserInfoprops) {
           <ProjectUpdateCard
             email={email}
             role={role}
-            projectId={projectUpdate.project}
+            projectUpdate={projectUpdate}
             key={index}
-            acessToken={sessionKey}
-            date={projectUpdate.date.toString()}
-            description={projectUpdate.description}
           />
         ))
       )}

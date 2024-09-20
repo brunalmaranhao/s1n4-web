@@ -48,14 +48,14 @@ export default function FilterProjectsByCustomer() {
 
   return (
     <Dropdown backdrop="blur">
-       <DropdownTrigger>
-          <Button
-            className="bg-white text-[16px] font-medium"
-            endContent={<SlArrowDown />}
-          >
-            {selectedValue}
-          </Button>
-        </DropdownTrigger>
+      <DropdownTrigger>
+        <Button
+          className="bg-white text-[16px] font-medium"
+          endContent={<SlArrowDown />}
+        >
+          {selectedValue}
+        </Button>
+      </DropdownTrigger>
       <DropdownMenu
         selectionMode="single"
         selectedKeys={selectedKeys}

@@ -74,7 +74,7 @@ export default async function ProjectsService() {
     id: string,
     name: string,
     customerId: string,
-    deadline?: Date
+    deadline?: Date,
   ): Promise<void> {
     const payload = JSON.stringify({ name, deadline, customerId });
     await put<{ projectId: string }, string>(`/project/update/${id}`, payload);

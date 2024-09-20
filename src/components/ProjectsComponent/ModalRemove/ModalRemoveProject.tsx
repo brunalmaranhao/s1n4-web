@@ -20,11 +20,9 @@ export default function ModalRemoveProject() {
     selectedProjectRemove,
     isOpenModalRemove,
     onOpenChangeModalRemove,
-    setSelectedProjectRemove
-   
+    setSelectedProjectRemove,
   } = useProjectContext();
   const [loading, setLoading] = useState(false);
-
 
   async function handleRemoveProject() {
     if (selectedProjectRemove?.id) {
@@ -33,8 +31,8 @@ export default function ModalRemoveProject() {
         const { remove } = await ProjectsService();
         await remove(selectedProjectRemove.id);
         fetchAllProjects();
-        onOpenChangeModalRemove();       
-        setSelectedProjectRemove(undefined) 
+        onOpenChangeModalRemove();
+        setSelectedProjectRemove(undefined);
       } catch (error) {
         const customError = handleAxiosError(error);
         toast.error(customError.message);
@@ -43,8 +41,6 @@ export default function ModalRemoveProject() {
       }
     }
   }
-
-  
 
   return (
     <Modal
@@ -61,23 +57,31 @@ export default function ModalRemoveProject() {
             <ModalHeader className="flex flex-col gap-1 text-black">
               Remover Projeto
             </ModalHeader>
-              <ModalBody className="flex flex-col gap-2 justify-center items-center text-black">
-               <div className="flex flex-col ">
-                  <p>Você tem certeza que deseja excluir o projeto {selectedProjectRemove?.name}?</p>
-               </div>
-              </ModalBody>
-              <ModalFooter>
-                <Button
-                  color="danger"
-                  variant="light"
-                  onPress={onOpenChangeModalRemove}
-                >
-                  Cancelar
-                </Button>
-                <Button disabled={loading} color="danger" type="button" onPress={() => handleRemoveProject()}>
-                  {loading ? <Spinner /> : 'Excluir'}
-                </Button>
-              </ModalFooter>
+            <ModalBody className="flex flex-col gap-2 justify-center items-center text-black">
+              <div className="flex flex-col ">
+                <p>
+                  Você tem certeza que deseja excluir o projeto{" "}
+                  {selectedProjectRemove?.name}?
+                </p>
+              </div>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                color="danger"
+                variant="light"
+                onPress={onOpenChangeModalRemove}
+              >
+                Cancelar
+              </Button>
+              <Button
+                disabled={loading}
+                color="danger"
+                type="button"
+                onPress={() => handleRemoveProject()}
+              >
+                {loading ? <Spinner /> : "Excluir"}
+              </Button>
+            </ModalFooter>
           </>
         )}
       </ModalContent>

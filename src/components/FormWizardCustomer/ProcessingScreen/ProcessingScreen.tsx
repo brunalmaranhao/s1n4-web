@@ -70,7 +70,7 @@ const ProcessingScreen = () => {
           newCustomer.contractValue,
           newCustomer.accumulatedInvestment,
           newCustomer.expenditureProjection,
-          newCustomer.contractObjective
+          newCustomer.contractObjective,
         );
         updateItemSaved("customer", true, false);
         return response;
@@ -103,7 +103,7 @@ const ProcessingScreen = () => {
           newCustomer?.address?.country,
           newCustomer?.address?.zipCode,
           customerId,
-          newCustomer?.address?.complement
+          newCustomer?.address?.complement,
         );
         updateItemSaved("address", true, false);
       } catch (error) {
@@ -124,9 +124,9 @@ const ProcessingScreen = () => {
             user.email,
             user.password,
             customerId,
-            user.role
-          )
-        )
+            user.role,
+          ),
+        ),
       );
       updateItemSaved("users", true, false);
     } catch (error) {
@@ -144,9 +144,9 @@ const ProcessingScreen = () => {
             report.name,
             report.workspaceId,
             report.reportId,
-            customerId
-          )
-        )
+            customerId,
+          ),
+        ),
       );
       updateItemSaved("reports", true, false);
     } catch (error) {
@@ -167,9 +167,9 @@ const ProcessingScreen = () => {
             responsible.phone,
             customerId,
             responsible.birthdate,
-            responsible.role
-          )
-        )
+            responsible.role,
+          ),
+        ),
       );
       updateItemSaved("responsibles", true, false);
     } catch (error) {
@@ -201,12 +201,12 @@ const ProcessingScreen = () => {
                 label={key}
                 error={itemsSaved[key].error}
               />
-            )
+            ),
         )}
       </div>
       <Button
-      className="max-w-[320px] self-center"
-      size="sm"
+        className="max-w-[320px] self-center"
+        size="sm"
         variant="bordered"
         color="primary"
         onPress={() => (window.location.href = "/admin/management/customers/")}

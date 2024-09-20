@@ -9,7 +9,9 @@ const Step2 = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
-    <div className={`${step === 2 ? "flex" : "hidden"} flex-col gap-3 text-black`}>
+    <div
+      className={`${step === 2 ? "flex" : "hidden"} flex-col gap-3 text-black`}
+    >
       <div className="flex justify-between items-center w-full">
         <h2>2. Usuários</h2>
         <Button color="primary" variant="bordered" onPress={onOpen}>

@@ -35,7 +35,7 @@ export default function ModalCreateUser({
     if (isOpen) reset();
   }, [isOpen]);
 
-  const inputVariant = "bordered"
+  const inputVariant = "bordered";
 
   const {
     register,

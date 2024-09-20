@@ -21,7 +21,7 @@ export default function ActionsCardProject({
     onOpenModalRemove,
     setSelectedProjectRemove,
     setSelectedProjectCreateProjectUpdate,
-    onOpenModalCreateProjectUpdate
+    onOpenModalCreateProjectUpdate,
   } = useProjectContext();
 
   function handleEdit() {
@@ -51,7 +51,7 @@ export default function ActionsCardProject({
         variant="light"
         aria-label="Static Actions"
       >
-         <DropdownItem
+        <DropdownItem
           key={"projectUpdate"}
           className="text-black"
           onPress={() => handleCreateProjectUpdate()}

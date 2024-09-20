@@ -53,7 +53,7 @@ export default function ModalCreateReport({
     onClose();
   }
 
-  const inputVariant = "bordered"
+  const inputVariant = "bordered";
 
   return (
     <Modal

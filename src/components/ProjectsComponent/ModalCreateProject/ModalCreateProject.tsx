@@ -70,15 +70,15 @@ export default function ModalCreateProject() {
     }
   }
 
-  const inputVariant = "bordered"
-  
+  const inputVariant = "bordered";
+
   return (
     <Modal
       scrollBehavior="outside"
       isOpen={isOpen}
       onOpenChange={onClose}
       size="xl"
-       className="bg-[#F2F4F8]"
+      className="bg-[#F2F4F8]"
       backdrop="blur"
     >
       <ModalContent>
@@ -123,7 +123,6 @@ export default function ModalCreateProject() {
                         selectorIcon: "text-black",
                       }}
                       {...field}
-                      
                     >
                       {customers.map((customer) => (
                         <SelectItem key={customer.id} value={customer.id}>

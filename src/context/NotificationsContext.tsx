@@ -14,7 +14,9 @@ type NotificationContextType = {
   fetchNotifications: () => void;
 };
 
-const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
+const NotificationContext = createContext<NotificationContextType | undefined>(
+  undefined,
+);
 
 export const NotificationProvider: React.FC<{ children: ReactNode }> = ({
   children,
@@ -27,15 +29,14 @@ export const NotificationProvider: React.FC<{ children: ReactNode }> = ({
   >();
 
   async function fetchNotifications() {
-    
     try {
       const { fetchNotifications } = await NotificationsService();
       const response = await fetchNotifications();
 
       const unreadNotifications = response.filter(
-        (item) => item.readAt === null
+        (item) => item.readAt === null,
       );
-      console.log(unreadNotifications.length)
+      console.log(unreadNotifications.length);
       setNotifications(response);
       setCountUnread(unreadNotifications.length);
     } catch (error) {
@@ -75,7 +76,7 @@ export const useNotificationContext = () => {
   const context = useContext(NotificationContext);
   if (!context) {
     throw new Error(
-      "useNotificationContext deve ser usado dentro de um NotificationProvider"
+      "useNotificationContext deve ser usado dentro de um NotificationProvider",
     );
   }
   return context;
