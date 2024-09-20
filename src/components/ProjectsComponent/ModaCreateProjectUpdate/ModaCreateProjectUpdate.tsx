@@ -52,7 +52,7 @@ export default function ModalCreateProjectUpdate() {
         const { createProjectUpdate } = await ProjectUpdatesService();
         await createProjectUpdate(
           data.description,
-          selectedProjectCreateProjectUpdate?.id
+          selectedProjectCreateProjectUpdate?.id,
         );
         fetchNotifications();
         onClose();
@@ -65,7 +65,7 @@ export default function ModalCreateProjectUpdate() {
     }
   }
 
-  const inputVariant = "bordered"
+  const inputVariant = "bordered";
 
   return (
     <Modal
@@ -80,7 +80,8 @@ export default function ModalCreateProjectUpdate() {
         {(onClose) => (
           <>
             <ModalHeader className="flex flex-col gap-1 text-black">
-            Adicionar atualização ao projeto {selectedProjectCreateProjectUpdate?.name}
+              Adicionar atualização ao projeto{" "}
+              {selectedProjectCreateProjectUpdate?.name}
             </ModalHeader>
             <form onSubmit={handleSubmit(handleCreateProjectUpdate)}>
               <ModalBody className="flex flex-col gap-6 text-black">

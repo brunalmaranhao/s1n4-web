@@ -7,8 +7,6 @@ import ModalRemoveProject from "@/components/ProjectsComponent/ModalRemove/Modal
 import ProjectsComponent from "@/components/ProjectsComponent/ProjectsComponent";
 
 export default function Projects() {
-  
-
   return (
     <div className="min-h-screen w-full">
       <ProjectsComponent />
@@ -17,7 +15,6 @@ export default function Projects() {
       <ModalEditProject />
       <ModalRemoveProject />
       <ModalCreateProjectUpdate />
-      
     </div>
   );
 }

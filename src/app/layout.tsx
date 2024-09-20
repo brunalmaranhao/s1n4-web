@@ -6,7 +6,6 @@ import { Toaster } from "react-hot-toast";
 import Header from "@/components/Header/Header";
 import { AuthProvider } from "@/context/AuthContext";
 
-
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["400", "500", "700"],

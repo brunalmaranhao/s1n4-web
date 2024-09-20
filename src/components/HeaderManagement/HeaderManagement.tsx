@@ -20,7 +20,9 @@ export default function HeaderManagement() {
   return (
     <div className="flex flex-col w-full gap-6">
       <div className="flex flex-row justify-between w-full">
-        <h1 className="text-[42px] text-[#21272A] font-bold">Gerenciar - {label} </h1>
+        <h1 className="text-[42px] text-[#21272A] font-bold">
+          Gerenciar - {label}{" "}
+        </h1>
         <Notification />
       </div>
       <div className="flex flex-row justify-between w-full flex-wrap gap-6">

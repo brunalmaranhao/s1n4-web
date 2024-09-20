@@ -1,15 +1,15 @@
-declare interface IProjectUpdatesProjectCustomer{
-  id: string
-  name: string
-  corporateName: string  
+declare interface IProjectUpdatesProjectCustomer {
+  id: string;
+  name: string;
+  corporateName: string;
 }
-declare interface IProjectUpdatesProject{
-  id: string
-  name: string
-  deadline: string
-  statusProject: string
-  createdAt: Date
-  customer: IProjectUpdatesProjectCustomer
+declare interface IProjectUpdatesProject {
+  id: string;
+  name: string;
+  deadline: string;
+  statusProject: string;
+  createdAt: Date;
+  customer: IProjectUpdatesProjectCustomer;
 }
 
 declare interface IFetchAllProjectUpdatesResponse {

@@ -58,8 +58,6 @@ declare interface INewProject {
   customer: string;
 }
 
-
 declare interface INewProjectUpdate {
   description: string;
-
 }

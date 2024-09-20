@@ -83,7 +83,7 @@ export default function ModalCreateResponsible({
     onClose();
   }
 
-  const inputVariant = "bordered"
+  const inputVariant = "bordered";
 
   return (
     <Modal

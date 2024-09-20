@@ -67,7 +67,6 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     onOpenChange: onOpenChangeModalCreateProjectUpdate,
   } = useDisclosure();
 
-
   const [projects, setProjects] = useState<IProject[] | undefined>();
   const [customers, setCustomers] = useState<ICustomer[]>([]);
   const [selectedProjectEdit, setSelectedProjectEdit] = useState<
@@ -149,7 +148,7 @@ export const useProjectContext = () => {
   const context = useContext(ProjectContext);
   if (!context) {
     throw new Error(
-      "useProjectContext deve ser usado dentro de um ProjectProvider"
+      "useProjectContext deve ser usado dentro de um ProjectProvider",
     );
   }
   return context;

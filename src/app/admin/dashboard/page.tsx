@@ -1,14 +1,12 @@
 "use client";
 
-
 import FilterCustomersAndProjects from "@/components/FilterCustomersAndProjects/FilterCustomersAndProjects";
-import Header from "@/components/Header/Header";
 import OverviewTabContent from "@/components/OverviewTabContent/OverviewTabContent";
 import ProjectsOverview from "@/components/ProjectsOverview/ProjectsOverview";
 import TabsAndFilters from "@/components/TabsAndFilters/TabsAndFilters";
+import Notification from "@/components/Notification/Notification";
 
 import { Key, useState } from "react";
-
 
 export default function Dashboard() {
   const [selectedTab, setSelectedTab] = useState<Key>("");

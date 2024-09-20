@@ -89,7 +89,7 @@ export default function ModalEditProject() {
     }
   }
 
-  const inputVariant = "bordered"
+  const inputVariant = "bordered";
 
   return (
     <Modal
@@ -140,7 +140,7 @@ export default function ModalEditProject() {
                       }
                       onChange={(e) =>
                         field.onChange(
-                          e.target.value ? parseISO(e.target.value) : undefined
+                          e.target.value ? parseISO(e.target.value) : undefined,
                         )
                       }
                     />

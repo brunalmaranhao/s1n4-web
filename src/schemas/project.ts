@@ -18,10 +18,8 @@ export const schemaNewProject = yup
   })
   .required();
 
-
-  export const schemaNewProjectUpdate = yup
+export const schemaNewProjectUpdate = yup
   .object({
     description: yup.string().required("Campo Descrição é obrigatório."),
-    
   })
   .required();
