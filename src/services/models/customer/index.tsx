@@ -37,10 +37,10 @@ export default async function CustomerService() {
     corporateName: string,
     cnpj: string,
     contractDuration?: string,
-    contractValue?: string,
-    accumulatedInvestment?: string,
-    expenditureProjection?: string,
-    contractObjective?: string,
+    contractValue?: number,
+    accumulatedInvestment?: number,
+    expenditureProjection?: number,
+    contractObjective?: string
   ): Promise<string> {
     const customerData = {
       name,
@@ -52,6 +52,7 @@ export default async function CustomerService() {
       expenditureProjection,
       contractObjective,
     };
+
     const payload = JSON.stringify(
       Object.fromEntries(
         Object.entries(customerData).filter(([_, value]) => value),

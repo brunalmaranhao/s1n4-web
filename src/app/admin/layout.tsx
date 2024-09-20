@@ -3,6 +3,7 @@ import { Roboto } from "next/font/google";
 import "../globals.css";
 
 import Header from "@/components/Header/Header";
+import Menu from "@/components/Menu/Menu";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -20,8 +21,8 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="bg-[#F2F4F8] h-full w-full flex items-center">
-      <Header />
+    <div className="bg-[#F2F4F8]  w-full flex">
+      <Menu />
       <div className="flex w-full min-h-screen">{children}</div>
     </div>
   );
