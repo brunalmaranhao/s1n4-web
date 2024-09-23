@@ -40,7 +40,7 @@ export default async function CustomerService() {
     contractValue?: number,
     accumulatedInvestment?: number,
     expenditureProjection?: number,
-    contractObjective?: string
+    contractObjective?: string,
   ): Promise<string> {
     const customerData = {
       name,

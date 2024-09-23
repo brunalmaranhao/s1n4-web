@@ -6,7 +6,7 @@ export default async function ReportService() {
     name: string,
     pbiWorkspaceId: string,
     pbiReportId: string,
-    customerId: string
+    customerId: string,
   ): Promise<string> {
     const payload = JSON.stringify({
       name,
@@ -16,32 +16,34 @@ export default async function ReportService() {
     });
     const response = await post<{ reportId: string }, string>(
       `/report`,
-      payload
+      payload,
     );
     return response.reportId;
   }
 
   async function fetchReports(
     page: number,
-    size: number
-  ): Promise<{reports: ReportDetailsResponse[], total: number}> {
-    const response = await get<{ reportsEmbeds: ReportDetailsResponse[], total: number }>(
-      `/pbi-reports/all?page=${page}&size=${size}`
-    );
+    size: number,
+  ): Promise<{ reports: ReportDetailsResponse[]; total: number }> {
+    const response = await get<{
+      reportsEmbeds: ReportDetailsResponse[];
+      total: number;
+    }>(`/pbi-reports/all?page=${page}&size=${size}`);
 
-    return {reports: response.reportsEmbeds, total: response.total};
+    return { reports: response.reportsEmbeds, total: response.total };
   }
 
   async function fetchReportsByCustomerId(
     customerId: string,
     page: number,
-    size: number
-  ): Promise<{reports: ReportDetailsResponse[], total: number}> {
-    const response = await get<{ reportsEmbeds: ReportDetailsResponse[], total: number }>(
-      `/pbi-reports/${customerId}?page=${page}&size=${size}`
-    );
+    size: number,
+  ): Promise<{ reports: ReportDetailsResponse[]; total: number }> {
+    const response = await get<{
+      reportsEmbeds: ReportDetailsResponse[];
+      total: number;
+    }>(`/pbi-reports/${customerId}?page=${page}&size=${size}`);
 
-    return {reports: response.reportsEmbeds, total: response.total};
+    return { reports: response.reportsEmbeds, total: response.total };
   }
 
   return {
