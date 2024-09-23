@@ -19,7 +19,7 @@ export default function FilterReportsByCustomer() {
     fetchReportsByCustomerId,
     fetchReports,
     setSelectedCustomer,
-    loading
+    loading,
   } = useReportContext();
   const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
 
@@ -70,7 +70,6 @@ export default function FilterReportsByCustomer() {
           selectionMode="single"
           selectedKeys={selectedKeys}
           onSelectionChange={handleSelectionChange}
-          
           variant="light"
           aria-label="Static Actions"
           className="max-h-[320px] overflow-auto scrollbar-thin scrollbar-thumb-rounded-lg scrollbar-thumb-gray-700"
@@ -82,7 +81,7 @@ export default function FilterReportsByCustomer() {
           ))}
         </DropdownMenu>
       </Dropdown>
-      {selectedValue !== "Cliente" && !loading &&  (
+      {selectedValue !== "Cliente" && !loading && (
         <MdCancel
           className="cursor-pointer ml-[-8px]"
           size={22}

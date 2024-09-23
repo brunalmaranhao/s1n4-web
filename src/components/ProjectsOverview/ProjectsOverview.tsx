@@ -21,32 +21,22 @@ export default function ProjectsOverview({
     return projects;
   };
 
-  console.log(selectedClient);
-
   useEffect(() => {
     setIsLoading(true);
     const fetchData = async () => {
       let data: IProject[] | undefined = [];
       if (selectedClient) {
         data = selectedClient.projects;
-        console.log("cliente selecionado");
-        console.log("projetos do cliente selecionado");
-        console.log(data);
       } else {
         data = await handleFetchAllProjects(sessionKey);
-        console.log("fetch de todos os projetos realizado");
-        console.log(data);
       }
 
       setAllProjectsState(data || []);
       const allProjectsLength = data?.length || 0;
-      console.log("allprojectslength:");
-      console.log(allProjectsLength);
+
       const doneProjects = data?.filter(
         (project) => project.statusProject === "DONE",
       );
-      console.log("done projects: ");
-      console.log(doneProjects);
 
       handleProjectsPercentage(allProjectsLength, doneProjects?.length || 0);
     };
@@ -58,16 +48,11 @@ export default function ProjectsOverview({
     allProjectsLength: number,
     doneProjects: number,
   ) => {
-    console.log("handleprojectsPercentage:");
-    console.log("allProjectsLength:");
-    console.log(allProjectsLength);
     if (allProjectsLength === 0) {
       setProjectsPercentage(0);
     } else {
       const percentage = (doneProjects / allProjectsLength) * 100;
       setProjectsPercentage(percentage);
-      console.log("percentage:");
-      console.log(percentage);
     }
   };
 

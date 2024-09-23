@@ -11,7 +11,7 @@ type ReportContextType = {
   fetchReportsByCustomerId: (
     customerId: string,
     page: number,
-    size: number
+    size: number,
   ) => void;
   loading: boolean;
   page: number;
@@ -55,7 +55,7 @@ export const ReportProvider: React.FC<{ children: ReactNode }> = ({
   async function fetchReportsByCustomerId(
     customerId: string,
     page: number,
-    size: number
+    size: number,
   ) {
     setLoading(true);
     try {
@@ -105,7 +105,7 @@ export const useReportContext = () => {
   const context = useContext(ReportContext);
   if (!context) {
     throw new Error(
-      "useReportContext deve ser usado dentro de um ReportProvider"
+      "useReportContext deve ser usado dentro de um ReportProvider",
     );
   }
   return context;

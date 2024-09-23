@@ -13,7 +13,7 @@ import FilterReportsByCustomer from "@/components/FilterReportsByCustomer/Filter
 export default function Dashboard() {
   const [selectedTab, setSelectedTab] = useState<Key>("");
   const [selectedClient, setSelectedClient] = useState<ICustomer | undefined>(
-    undefined
+    undefined,
   );
 
   const handleTabChange = (key: Key) => {
@@ -40,7 +40,7 @@ export default function Dashboard() {
           {selectedTab === "overview" ? (
             <FilterCustomersAndProjects onClientSelect={handleSelectedClient} />
           ) : (
-            <FilterReportsByCustomer   />
+            <FilterReportsByCustomer />
           )}
         </div>
         <div className="flex flex-col">

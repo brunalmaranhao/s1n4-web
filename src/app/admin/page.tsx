@@ -8,6 +8,7 @@ import { decodeToken } from "@/services/jwt-decode/decode";
 import Header from "@/components/Header/Header";
 import ProjectsOverview from "@/components/ProjectsOverview/ProjectsOverview";
 import ProjectUpdatesAdmin from "@/components/ProjectUpdatesAdmin/ProjectUpdatesAdmin";
+import { format } from "date-fns";
 
 export default function AdminHome() {
   const [responsiblesState, setResponsiblesState] = useState<
@@ -91,7 +92,7 @@ export default function AdminHome() {
                   <h1 className="text-[16px] font-normal">
                     {responsible.firstName} {responsible.lastName}
                   </h1>
-                  <h1>{responsible.birthdate.toLocaleString("pt-BR")}</h1>
+                  <h1>{format(responsible.birthdate, "dd/MM")}</h1>
                 </div>
               ))
             )}
