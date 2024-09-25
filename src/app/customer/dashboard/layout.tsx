@@ -1,13 +1,13 @@
 import React from "react";
 import type { Metadata } from "next";
-import HeaderManagement from "@/components/HeaderManagement/HeaderManagement";
+import HeaderDashboardCustomer from "@/components/HeaderDashboardCustomer/HeaderDashboardCustomer";
 
 export const metadata: Metadata = {
   title: "Gerenciar",
   description: "Grupo Sina",
 };
 
-export default function ManagementLayout({
+export default function CustomerDashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -15,7 +15,7 @@ export default function ManagementLayout({
   return (
     <main className="flex flex-col items-center w-full">
       <div className={`xl:max-w-[1200px] w-full`}>
-        <HeaderManagement />
+        <HeaderDashboardCustomer />
         <div>{children}</div>
       </div>
     </main>

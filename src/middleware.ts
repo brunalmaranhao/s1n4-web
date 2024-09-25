@@ -10,21 +10,21 @@ export function middleware(request: NextRequest) {
       if (decoded?.role.startsWith("INTERNAL")) {
         return Response.redirect(new URL("/admin", request.url));
       } else {
-        return Response.redirect(new URL("/user", request.url));
+        return Response.redirect(new URL("/customer", request.url));
       }
     }
     if (
       !decoded?.role.startsWith("INTERNAL") &&
       request.nextUrl.pathname.startsWith("/admin")
     ) {
-      return Response.redirect(new URL("/user", request.url));
+      return Response.redirect(new URL("/customer", request.url));
     }
   }
 
   if (
     !currentUser &&
     (request.nextUrl.pathname.startsWith("/admin") ||
-      request.nextUrl.pathname.startsWith("/user"))
+      request.nextUrl.pathname.startsWith("/customer"))
   ) {
     return Response.redirect(new URL("/login", request.url));
   }
