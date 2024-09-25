@@ -8,6 +8,7 @@ import CustomerService from "@/services/models/customer";
 type ReportContextType = {
   reports: ReportDetailsResponse[];
   fetchReports: (page: number, size: number) => void;
+  fetchReportsByUser:(page: number, size: number) => void;
   fetchReportsByCustomerId: (
     customerId: string,
     page: number,
@@ -70,6 +71,23 @@ export const ReportProvider: React.FC<{ children: ReactNode }> = ({
     }
   }
 
+  async function fetchReportsByUser(
+    page: number,
+    size: number
+  ) {
+    setLoading(true);
+    try {
+      const { fetchReportsByUser } = await ReportService();
+      const response = await fetchReportsByUser(page, size);
+      setReports(response.reports);
+      setTotal(response.total);
+    } catch (error) {
+      toast.error("Ocorreu um erro ao buscar os relatórios,");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function fetchCustomer() {
     try {
       const { findAllActives } = await CustomerService();
@@ -92,6 +110,7 @@ export const ReportProvider: React.FC<{ children: ReactNode }> = ({
     rowsPerPage,
     selectedCustomer,
     setSelectedCustomer,
+    fetchReportsByUser
   };
 
   return (

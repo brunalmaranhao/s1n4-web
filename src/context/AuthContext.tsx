@@ -47,7 +47,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       if (decode?.role?.startsWith("INTERNAL")) {
         window.location.href = "/admin";
       } else if (decode?.role?.startsWith("CLIENT")) {
-        window.location.href = "/user";
+        window.location.href = "/customer";
       }
     }
   }
