@@ -7,36 +7,49 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Input,
   Button,
   DropdownTrigger,
   Dropdown,
   DropdownMenu,
   DropdownItem,
   Chip,
-  User,
   Pagination,
   SortDescriptor,
   Spinner,
 } from "@nextui-org/react";
 import { VerticalDotsIcon } from "@/assets/verticalDotIcon";
-import CustomerService from "@/services/models/customer";
-import { handleAxiosError } from "@/services/error";
-import toast from "react-hot-toast";
 import { ColumnKeys, columnsCustomer } from "@/util/tableColumns";
+import { useCustomerContext } from "@/context/CustomerContext";
+import { AddNoteIcon } from "@/assets/AddNoteIcon";
+import { EditDocumentIcon } from "@/assets/EditDocumentIcon";
+import { DeleteDocumentIcon } from "@/assets/DeleteDocumentIcon";
+import { ViewIcon } from "@/assets/ViewIcon";
 
 export default function TableCustomers() {
-  const [customers, setCustomers] = useState<ICustomer[]>([]);
-  const [total, setTotal] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const {
+    fetchCustomers,
+    loading,
+    page,
+    setPage,
+    total,
+    rowsPerPage,
+    customers,
+    onOpenModalEdit,
+    setSelectedCustomerEdit,
+    onOpenChangeModalRemove,
+    setSelectedCustomerRemove,
+    onOpenModalAddReport,
+    onOpenModalAddUser,
+    onOpenModalAddResponsible,
+  } = useCustomerContext();
+
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
     column: "contractValue",
     direction: "ascending",
   });
   const [selectedKeys, setSelectedKeys] = React.useState<any>(new Set([]));
-  const [page, setPage] = React.useState(1);
-  const [loading, setLoading] = useState(true);
-
+  const iconClasses =
+    "text-xl text-default-500 pointer-events-none flex-shrink-0";
   const headerColumns = React.useMemo(() => {
     return columnsCustomer;
   }, []);
@@ -44,21 +57,6 @@ export default function TableCustomers() {
   useEffect(() => {
     if (page > 0) fetchCustomers(page);
   }, [page]);
-
-  async function fetchCustomers(pageNumber: number) {
-    setLoading(true);
-    try {
-      const { findAll } = await CustomerService();
-      const response = await findAll(pageNumber, rowsPerPage);
-      setCustomers(response.customers);
-      setTotal(response.total);
-    } catch (error) {
-      const customError = handleAxiosError(error);
-      toast.error(customError.message);
-    } finally {
-      setLoading(false);
-    }
-  }
 
   const pages = Math.ceil(total / rowsPerPage);
 
@@ -78,6 +76,7 @@ export default function TableCustomers() {
 
   const renderCell = React.useCallback(
     (customer: ICustomer, columnKey: Key) => {
+      console.log(customer);
       let column = columnKey as ColumnKeys;
       const cellValue = customer[column];
       switch (columnKey) {
@@ -102,9 +101,55 @@ export default function TableCustomers() {
                   </Button>
                 </DropdownTrigger>
                 <DropdownMenu className="text-black">
-                  <DropdownItem>Visualizar</DropdownItem>
-                  <DropdownItem>Editar</DropdownItem>
-                  <DropdownItem>Deletar</DropdownItem>
+                  <DropdownItem startContent={<ViewIcon className={iconClasses} />}>Visualizar</DropdownItem>
+
+                  <DropdownItem
+                    startContent={<AddNoteIcon className={iconClasses} />}
+                    onClick={() => {
+                      setSelectedCustomerEdit(customer);
+                      onOpenModalAddReport();
+                    }}
+                  >
+                    Adicionar Relatório
+                  </DropdownItem>
+                  <DropdownItem
+                    startContent={<AddNoteIcon className={iconClasses} />}
+                    onClick={() => {
+                      setSelectedCustomerEdit(customer);
+                      onOpenModalAddUser();
+                    }}
+                  >
+                    Adicionar Usuário
+                  </DropdownItem>
+                  <DropdownItem
+                    startContent={<AddNoteIcon className={iconClasses} />}
+                    onClick={() => {
+                      setSelectedCustomerEdit(customer);
+                      onOpenModalAddResponsible();
+                    }}
+                  >
+                    Adicionar Parte Responsável
+                  </DropdownItem>
+                  <DropdownItem
+                    startContent={<EditDocumentIcon className={iconClasses} />}
+                    onClick={() => {
+                      setSelectedCustomerEdit(customer);
+                      onOpenModalEdit();
+                    }}
+                  >
+                    Editar
+                  </DropdownItem>
+                  <DropdownItem
+                    startContent={
+                      <DeleteDocumentIcon className={iconClasses} />
+                    }
+                    onClick={() => {
+                      onOpenChangeModalRemove();
+                      setSelectedCustomerRemove(customer);
+                    }}
+                  >
+                    Deletar
+                  </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
             </div>
@@ -113,7 +158,7 @@ export default function TableCustomers() {
           return <p className="text-black">{cellValue}</p>;
       }
     },
-    [],
+    []
   );
 
   const onNextPage = React.useCallback(() => {
