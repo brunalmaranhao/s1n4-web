@@ -27,7 +27,7 @@ export const schemaNewCustomer = yup
           .test(
             "is-valid-cep",
             "CEP inválido",
-            (value) => !value || /^\d{5}-\d{3}$/.test(value),
+            (value) => !value || /^\d{5}-\d{3}$/.test(value)
           ),
       })
       .optional(),
@@ -38,3 +38,25 @@ export const schemaNewCustomer = yup
     contractObjective: yup.string().optional(),
   })
   .required();
+
+  export const schemaEditCustomer = yup
+  .object({
+    contractDuration: yup.string().optional(),
+    accumulatedInvestment: yup.number().optional(),
+    contractValue: yup.number().optional(),
+    expenditureProjection: yup.number().optional(),
+    contractObjective: yup.string().optional(),
+  })
+  .test(
+    'at-least-one-field',
+    'Pelo menos um campo deve ser preenchido',
+    (values) => {
+      return (
+        !!values.contractDuration ||
+        !!values.accumulatedInvestment ||
+        !!values.contractValue ||
+        !!values.expenditureProjection ||
+        !!values.contractObjective
+      );
+    }
+  );

@@ -5,16 +5,32 @@ declare interface ICustomer {
   corporateName?: string;
   status?: "ACTIVE" | "INACTIVE";
   address?: ICustomerAddress;
-  accumulatedInvestment?: string;
+  accumulatedInvestment?: number;
   contractDuration?: string;
   contractObjective?: string;
-  contractValue?: string;
+  contractValue?: number;
   contractedServices?: string;
   zipCode?: string;
   actions?: string | null;
   users?: ICustomerUsers[];
   projects?: IProject[];
+  expenditureProjection?: number
 }
+
+declare interface INewCustomer{
+  name: string;
+  cnpj: string;
+  corporateName: string;
+  address?: ICustomerAddress;
+  accumulatedInvestment?: number;
+  contractDuration?: string;
+  contractObjective?: string;
+  contractValue?: number;
+  contractedServices?: string;
+  expenditureProjection?: number
+}
+
+
 
 declare interface ICustomerUsers {
   firstName: string;
@@ -77,3 +93,13 @@ declare interface ICustomerAddress {
   country?: string;
   zipCode?: string;
 }
+
+
+declare interface IEditCustomer{
+  contractDuration?: string
+  accumulatedInvestment?: number
+  contractValue?: number
+  expenditureProjection?: number
+  contractObjective?: string
+}
+
