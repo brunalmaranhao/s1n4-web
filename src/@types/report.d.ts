@@ -11,8 +11,8 @@ declare interface ReportDetailsProps {
   embedUrl: string;
 }
 declare interface ReportDetailsResponse {
-  accessToken: { token: string; expiration: string };
-  embedUrl: ReportDetailsProps[];
-  expiry: string;
-  status: 200;
+  accessToken?: { token: string; expiration: string };
+  embedUrl?: ReportDetailsProps[];
+  expiry?: string;
+  isError: boolean;
 }
