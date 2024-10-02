@@ -1,4 +1,4 @@
-import { fetchCustomerReports } from "@/app/user/actions";
+import { fetchCustomerReports } from "@/app/customer/actions";
 import { decodeToken } from "@/services/jwt-decode/decode";
 import {
   Table,
@@ -17,6 +17,7 @@ import {
 } from "@nextui-org/react";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
+import Notification from "../Notification/Notification";
 
 interface IReportTableProps {
   customerId: string;
@@ -56,6 +57,7 @@ export default function CustomerReportsTable({
       ) : (
         <div className="bg-white p-4 border-solid border-[1px] border-[#DDE1E6]">
           <h1 className="pb-4 text-[18px] font-bold">Relatórios cadastrados</h1>
+
           <Table aria-label="Example static collection table">
             <TableHeader>
               <TableColumn>NOME</TableColumn>
