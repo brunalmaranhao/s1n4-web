@@ -28,6 +28,8 @@ export default function ReportTabContent() {
   const resizerRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  console.log(reports);
+
   useEffect(() => {
     if (selectedCustomer) {
       fetchReportsByCustomerId(selectedCustomer, page, rowsPerPage);
@@ -44,7 +46,8 @@ export default function ReportTabContent() {
     return reportMap.get(id);
   };
 
-  const fullScreen = (id: string) => {
+  const fullScreen = (id?: string) => {
+    if (!id) return;
     const reportFullScreen = getReportById(id);
 
     if (reportFullScreen) {
@@ -78,52 +81,68 @@ export default function ReportTabContent() {
                 style={{ height: `${containerHeight}px` }}
                 ref={containerRef}
               >
-                <PowerBIEmbed
-                  embedConfig={{
-                    type: "report",
-                    id: item.embedUrl[0].reportId,
-                    embedUrl: item.embedUrl[0].embedUrl,
-                    accessToken: item.accessToken.token,
-                    tokenType: models.TokenType.Embed,
-                    settings: VISUAL_SETTINGS,
-                  }}
-                  eventHandlers={
-                    new Map([
-                      ["loaded", function () {}],
-                      [
-                        "rendered",
-                        function () {
-                          console.log("Report rendered");
-                        },
-                      ],
-                      [
-                        "error",
-                        function (event: any) {
-                          console.log(event.detail);
-                        },
-                      ],
-                      ["visualClicked", () => console.log("visual clicked")],
-                      ["pageChanged", (event) => console.log(event)],
-                    ])
-                  }
-                  cssClassName={"h-full"}
-                  getEmbeddedComponent={(embeddedReport) => {
-                    // Adiciona o relatório embutido no Map com o id associado
-                    addReportToMap(
-                      item.embedUrl[0].reportId,
-                      embeddedReport as Report,
-                    );
-                  }}
-                />
-                <div
-                  ref={resizerRef}
-                  // onMouseDown={handleMouseDown}
-                  className="absolute bottom-0 left-0 right-0 h-auto p-2 flex justify-end  bg-gray-300"
-                >
-                  <button onClick={() => fullScreen(item.embedUrl[0].reportId)}>
-                    <MdFullscreen />
-                  </button>
-                </div>
+                {item.accessToken && item.embedUrl && item.embedUrl[0] ? (
+                  <>
+                    <PowerBIEmbed
+                      embedConfig={{
+                        type: "report",
+                        id: item.embedUrl[0].reportId,
+                        embedUrl: item.embedUrl[0].embedUrl,
+                        accessToken: item.accessToken.token,
+                        tokenType: models.TokenType.Embed,
+                        settings: VISUAL_SETTINGS,
+                      }}
+                      eventHandlers={
+                        new Map([
+                          ["loaded", function () {}],
+                          [
+                            "rendered",
+                            function () {
+                              console.log("Report rendered");
+                            },
+                          ],
+                          [
+                            "error",
+                            function (event: any) {
+                              console.log(event.detail);
+                            },
+                          ],
+                          [
+                            "visualClicked",
+                            () => console.log("visual clicked"),
+                          ],
+                          ["pageChanged", (event) => console.log(event)],
+                        ])
+                      }
+                      cssClassName={"h-full"}
+                      getEmbeddedComponent={(embeddedReport) => {
+                        if (item.embedUrl)
+                          addReportToMap(
+                            item.embedUrl[0].reportId,
+                            embeddedReport as Report
+                          );
+                      }}
+                    />
+
+                    <div
+                      ref={resizerRef}
+                      // onMouseDown={handleMouseDown}
+                      className="absolute bottom-0 left-0 right-0 h-auto p-2 flex justify-end  bg-gray-300"
+                    >
+                      {item.embedUrl && item.embedUrl.length > 0  && (
+                        <button
+                          onClick={() => fullScreen(item.embedUrl ? item.embedUrl[0].reportId : undefined)}
+                        >
+                          <MdFullscreen />
+                        </button>
+                      )}
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-black flex items-center justify-center w-full">
+                    Erro ao obter dados do relatório
+                  </div>
+                )}
               </div>
             ))}
           </div>
