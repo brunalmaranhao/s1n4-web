@@ -1,5 +1,7 @@
+import { del } from "@/services/methods/delete";
 import { get } from "@/services/methods/get";
 import { post } from "@/services/methods/post";
+import { put } from "@/services/methods/put";
 
 export default async function CustomerService() {
   async function findAll(
@@ -131,6 +133,28 @@ export default async function CustomerService() {
     );
   }
 
+  async function update(
+    id: string,
+    contractDuration?: string,
+    contractValue?: number,
+    accumulatedInvestment?: number,
+    expenditureProjection?: number,
+    contractObjective?: string,
+  ): Promise<void> {
+    const payload = JSON.stringify({
+      contractDuration,
+      contractValue,
+      accumulatedInvestment,
+      expenditureProjection,
+      contractObjective,
+    });
+    await put(`/customer/update/${id}`, payload);
+  }
+
+  async function remove(id: string): Promise<void> {
+    await del<void>(`/customer/${id}`);
+  }
+
   async function fetchCustomerReports(
     token: string,
     customerId: string,
@@ -153,6 +177,8 @@ export default async function CustomerService() {
     createCustomer,
     createCustomerAddress,
     findAllActives,
+    update,
+    remove,
     fetchCustomerReports,
   };
 }

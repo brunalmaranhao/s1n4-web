@@ -26,7 +26,9 @@ type ProjectContextType = {
   onOpenChangeModalCreateProjectUpdate: () => void;
   onOpenModalCreateProjectUpdate: () => void;
   projects?: IProject[];
+  projectsUser?: IProject[];
   fetchAllProjects: () => void;
+  fetchProjectsByUser: () => void;
   customers: ICustomer[];
   fetchCustomer: () => void;
   fetchProjectsByCustomer: (customerId: string) => void;
@@ -68,6 +70,7 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
   } = useDisclosure();
 
   const [projects, setProjects] = useState<IProject[] | undefined>();
+  const [projectsUser, setProjectsUser] = useState<IProject[] | undefined>();
   const [customers, setCustomers] = useState<ICustomer[]>([]);
   const [selectedProjectEdit, setSelectedProjectEdit] = useState<
     IProject | undefined
@@ -86,6 +89,16 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
       const { fetchProjects } = await ProjectsService();
       const response = await fetchProjects(1, 100);
       setProjects(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function fetchProjectsByUser() {
+    try {
+      const { fetchProjectsByUser } = await ProjectsService();
+      const response = await fetchProjectsByUser();
+      setProjectsUser(response);
     } catch (error) {
       console.log(error);
     }
@@ -135,6 +148,8 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     onOpenModalCreateProjectUpdate,
     selectedProjectCreateProjectUpdate,
     setSelectedProjectCreateProjectUpdate,
+    fetchProjectsByUser,
+    projectsUser,
   };
 
   return (
