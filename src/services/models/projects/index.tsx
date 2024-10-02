@@ -30,9 +30,7 @@ export default async function ProjectsService() {
   }
 
   async function fetchProjectsByUser(): Promise<IProject[]> {
-    const response = await get<{ projects: IProject[] }>(
-      `/projects/customer`,
-    );
+    const response = await get<{ projects: IProject[] }>(`/projects/customer`);
     return response.projects;
   }
 
@@ -108,6 +106,6 @@ export default async function ProjectsService() {
     fetchProjectsByCustomer,
     update,
     remove,
-    fetchProjectsByUser
+    fetchProjectsByUser,
   };
 }

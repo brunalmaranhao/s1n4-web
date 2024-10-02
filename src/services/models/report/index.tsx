@@ -48,19 +48,20 @@ export default async function ReportService() {
 
   async function fetchReportsByUser(
     page: number,
-    size: number
-  ): Promise<{reports: ReportDetailsResponse[], total: number}> {
-    const response = await get<{ reportsEmbeds: ReportDetailsResponse[], total: number }>(
-      `/pbi-reports?page=${page}&size=${size}`
-    );
+    size: number,
+  ): Promise<{ reports: ReportDetailsResponse[]; total: number }> {
+    const response = await get<{
+      reportsEmbeds: ReportDetailsResponse[];
+      total: number;
+    }>(`/pbi-reports?page=${page}&size=${size}`);
 
-    return {reports: response.reportsEmbeds, total: response.total};
+    return { reports: response.reportsEmbeds, total: response.total };
   }
 
   return {
     createReport,
     fetchReports,
     fetchReportsByCustomerId,
-    fetchReportsByUser
+    fetchReportsByUser,
   };
 }

@@ -21,7 +21,7 @@ export default function ModalRemoveCustomer() {
     isOpenModalRemove,
     onOpenChangeModalRemove,
     page,
-    setSelectedCustomerRemove
+    setSelectedCustomerRemove,
   } = useCustomerContext();
   const [loading, setLoading] = useState(false);
 
@@ -34,7 +34,7 @@ export default function ModalRemoveCustomer() {
         fetchCustomers(page);
         onOpenChangeModalRemove();
         setSelectedCustomerRemove(undefined);
-        toast.success("Cliente removido com sucesso.")
+        toast.success("Cliente removido com sucesso.");
       } catch (error) {
         const customError = handleAxiosError(error);
         toast.error(customError.message);
@@ -66,10 +66,11 @@ export default function ModalRemoveCustomer() {
                   {selectedCustomerRemove?.name}?
                 </p>
                 <b className="mt-3 text-xs">
-                   - Os usuários do cliente perderão acesso ao sistema.
+                  - Os usuários do cliente perderão acesso ao sistema.
                 </b>
                 <b className="text-xs">
-                   - Os projetos, relatórios e partes responsáveis do cliente não estarão mais visíveis.
+                  - Os projetos, relatórios e partes responsáveis do cliente não
+                  estarão mais visíveis.
                 </b>
               </div>
             </ModalBody>

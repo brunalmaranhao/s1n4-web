@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { EyeFilledIcon } from "@/components/EyeFilledIcon/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "@/components/EyeSlashFilledIcon/EyeSlashFilledIcon";
 import { useCustomerContext } from "@/context/CustomerContext";
@@ -73,11 +73,11 @@ export default function ModalAddUser() {
           data.email,
           data.password,
           selectedCustomerEdit?.id,
-          data.role
+          data.role,
         );
 
         onOpenChangeModalAddUser();
-        toast.success("Usuário adicionado com sucesso.")
+        toast.success("Usuário adicionado com sucesso.");
       } catch (error) {
         const customError = handleAxiosError(error);
         toast.error(customError.message);

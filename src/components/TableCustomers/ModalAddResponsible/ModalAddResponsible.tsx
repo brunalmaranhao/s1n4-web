@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { schemaNewResponsible } from "@/schemas/responsible";
 import { yupResolver } from "@hookform/resolvers/yup";
 import InputMask from "react-input-mask";
@@ -77,11 +77,11 @@ export default function ModalAddResponsible() {
           data.phone,
           selectedCustomerEdit?.id,
           data.birthdate,
-          data.role
+          data.role,
         );
 
         onOpenChangeModalAddResponsible();
-        toast.success("Parte responsável adicionado com sucesso.")
+        toast.success("Parte responsável adicionado com sucesso.");
       } catch (error) {
         const customError = handleAxiosError(error);
         toast.error(customError.message);
@@ -106,7 +106,7 @@ export default function ModalAddResponsible() {
         {(onClose) => (
           <>
             <ModalHeader className="flex flex-col gap-1 text-black">
-              Adicionar Parte Responsável  - {selectedCustomerEdit?.name}
+              Adicionar Parte Responsável - {selectedCustomerEdit?.name}
             </ModalHeader>
             <form onSubmit={handleSubmit(handleCreateResponsible)}>
               <ModalBody className="flex flex-col gap-2 text-black">

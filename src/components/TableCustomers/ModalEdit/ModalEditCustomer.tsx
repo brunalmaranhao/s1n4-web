@@ -48,20 +48,20 @@ export default function ModalEditCustomer() {
     },
   });
 
-  console.log(errors)
+  console.log(errors);
 
   useEffect(() => {
     if (selectedCustomerEdit) {
       setValue(
         "accumulatedInvestment",
-        selectedCustomerEdit.accumulatedInvestment
+        selectedCustomerEdit.accumulatedInvestment,
       );
       setValue("contractDuration", selectedCustomerEdit.contractDuration);
       setValue("contractObjective", selectedCustomerEdit.contractObjective);
       setValue("contractValue", selectedCustomerEdit.contractValue);
       setValue(
         "expenditureProjection",
-        selectedCustomerEdit.expenditureProjection || undefined
+        selectedCustomerEdit.expenditureProjection || undefined,
       );
     }
   }, [selectedCustomerEdit]);
@@ -77,7 +77,7 @@ export default function ModalEditCustomer() {
           data.contractValue,
           data.accumulatedInvestment,
           data.expenditureProjection,
-          data.contractObjective
+          data.contractObjective,
         );
 
         onOpenChangeModalEdit();

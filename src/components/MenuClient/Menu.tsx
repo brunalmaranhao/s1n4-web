@@ -46,7 +46,7 @@ export default function MenuClient() {
             <h1>Dashboard</h1>
           </Link>
         </NavbarItem>
-      
+
         <NavbarItem className="w-full">
           <Link
             className="space-x-2 text-[#21272A] text-[16px] font-medium"

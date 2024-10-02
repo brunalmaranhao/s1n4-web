@@ -8,7 +8,7 @@ import CustomerService from "@/services/models/customer";
 type ReportContextType = {
   reports: ReportDetailsResponse[];
   fetchReports: (page: number, size: number) => void;
-  fetchReportsByUser:(page: number, size: number) => void;
+  fetchReportsByUser: (page: number, size: number) => void;
   fetchReportsByCustomerId: (
     customerId: string,
     page: number,
@@ -71,10 +71,7 @@ export const ReportProvider: React.FC<{ children: ReactNode }> = ({
     }
   }
 
-  async function fetchReportsByUser(
-    page: number,
-    size: number
-  ) {
+  async function fetchReportsByUser(page: number, size: number) {
     setLoading(true);
     try {
       const { fetchReportsByUser } = await ReportService();
@@ -110,7 +107,7 @@ export const ReportProvider: React.FC<{ children: ReactNode }> = ({
     rowsPerPage,
     selectedCustomer,
     setSelectedCustomer,
-    fetchReportsByUser
+    fetchReportsByUser,
   };
 
   return (

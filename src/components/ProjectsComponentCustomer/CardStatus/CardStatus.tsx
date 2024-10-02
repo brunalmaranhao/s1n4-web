@@ -6,10 +6,7 @@ type CardStatusProps = {
   status: StatusProject;
 };
 
-export default function CardStatus({
-  projects,
-  status,
-}: CardStatusProps) {
+export default function CardStatus({ projects, status }: CardStatusProps) {
   const labelStatus = [
     {
       key: "WAITING",
@@ -33,10 +30,7 @@ export default function CardStatus({
       <p>{label?.label}</p>
       <div className="flex flex-col gap-1">
         {projects?.map((project, index) => (
-          <CardProject
-            key={index}
-            project={project}
-          />
+          <CardProject key={index} project={project} />
         ))}
       </div>
     </div>

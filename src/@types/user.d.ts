@@ -95,3 +95,29 @@ declare interface IGetActiveUsersResponse {
     updatedAt: Date | null | undefined;
   }[];
 }
+
+declare interface ICustomerUserByIdResponse {
+  user: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    role: "CLIENT_RESPONSIBLE" | "CLIENT_OWNER" | "CLIENT_USER";
+    status: "ACTIVE" | "INACTIVE";
+    customerId: string | undefined;
+    createdAt: Date;
+    updatedAt: Date | undefined;
+  };
+}
+
+declare interface ICustomerUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: "CLIENT_RESPONSIBLE" | "CLIENT_OWNER" | "CLIENT_USER";
+  status: "ACTIVE" | "INACTIVE";
+  customerId: string | undefined;
+  createdAt: Date;
+  updatedAt: Date | undefined;
+}

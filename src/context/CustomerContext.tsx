@@ -43,17 +43,16 @@ type CustomerContextType = {
     React.SetStateAction<ICustomer | undefined>
   >;
 
-  setPage: React.Dispatch<
-    React.SetStateAction<number>
-  >;
-  total: number
-  page: number
-  loading: boolean
-  rowsPerPage: number
-
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  total: number;
+  page: number;
+  loading: boolean;
+  rowsPerPage: number;
 };
 
-const CustomerContext = createContext<CustomerContextType | undefined>(undefined);
+const CustomerContext = createContext<CustomerContextType | undefined>(
+  undefined,
+);
 
 export const CustomerProvider: React.FC<{ children: ReactNode }> = ({
   children,
@@ -91,8 +90,6 @@ export const CustomerProvider: React.FC<{ children: ReactNode }> = ({
   const [page, setPage] = React.useState(1);
   const [loading, setLoading] = useState(true);
 
-
-
   const [customers, setCustomers] = useState<ICustomer[]>([]);
   const [selectedCustomerEdit, setSelectedCustomerEdit] = useState<
     ICustomer | undefined
@@ -105,8 +102,6 @@ export const CustomerProvider: React.FC<{ children: ReactNode }> = ({
     selectedCustomerCreateCustomerUpdate,
     setSelectedCustomerCreateCustomerUpdate,
   ] = useState<ICustomer | undefined>();
-
- 
 
   async function fetchCustomers(pageNumber: number) {
     setLoading(true);
@@ -123,7 +118,6 @@ export const CustomerProvider: React.FC<{ children: ReactNode }> = ({
     }
   }
   const contextValue: CustomerContextType = {
-   
     customers,
     isOpenModalEdit,
     onOpenChangeModalEdit,
@@ -152,7 +146,6 @@ export const CustomerProvider: React.FC<{ children: ReactNode }> = ({
     isOpenModalAddResponsible,
     onOpenModalAddResponsible,
     onOpenChangeModalAddResponsible,
-    
   };
 
   return (

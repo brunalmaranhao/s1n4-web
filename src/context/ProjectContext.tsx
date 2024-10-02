@@ -149,7 +149,7 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     selectedProjectCreateProjectUpdate,
     setSelectedProjectCreateProjectUpdate,
     fetchProjectsByUser,
-    projectsUser
+    projectsUser,
   };
 
   return (

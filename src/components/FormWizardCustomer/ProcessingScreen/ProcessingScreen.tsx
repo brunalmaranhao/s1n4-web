@@ -127,7 +127,7 @@ const ProcessingScreen = () => {
             user.role,
           ),
         ),
-      )
+      );
       updateItemSaved("users", true, false);
     } catch (error) {
       updateItemSaved("users", true, true);

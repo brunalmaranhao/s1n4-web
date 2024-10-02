@@ -68,7 +68,9 @@ export default function ProjectsComponent() {
             handleDragStart={handleDragStart}
             status={"WAITING"}
             handleDrop={handleDrop}
-            projects={projects?.filter((item) => item.statusProject === "WAITING")}
+            projects={projects?.filter(
+              (item) => item.statusProject === "WAITING",
+            )}
             highlightedColumn={highlightedColumn}
             handleDragEnter={handleDragEnter}
             handleDragLeave={handleDragLeave}
@@ -80,7 +82,9 @@ export default function ProjectsComponent() {
             handleDragStart={handleDragStart}
             status={"IN_PROGRESS"}
             handleDrop={handleDrop}
-            projects={projects?.filter((item) => item.statusProject === "IN_PROGRESS")}
+            projects={projects?.filter(
+              (item) => item.statusProject === "IN_PROGRESS",
+            )}
             highlightedColumn={highlightedColumn}
             handleDragEnter={handleDragEnter}
             handleDragLeave={handleDragLeave}

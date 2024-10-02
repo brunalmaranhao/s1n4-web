@@ -1,4 +1,3 @@
-
 type CardProjectProps = {
   project: IProject;
 };

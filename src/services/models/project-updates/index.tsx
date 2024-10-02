@@ -20,8 +20,23 @@ export default async function ProjectUpdatesService() {
     await post(`/project-updates`, payload);
   }
 
+  async function fetchCustomerProjectUpdates(
+    token: string,
+    customerId: string,
+  ): Promise<ICustomerProjectUpdatesResponse> {
+    return await get<ICustomerProjectUpdatesResponse>(
+      `/project-updates/customer/${customerId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+  }
+
   return {
     fetchAllProjectUpdates,
     createProjectUpdate,
+    fetchCustomerProjectUpdates,
   };
 }

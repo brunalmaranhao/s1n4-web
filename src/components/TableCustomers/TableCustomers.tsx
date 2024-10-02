@@ -101,7 +101,11 @@ export default function TableCustomers() {
                   </Button>
                 </DropdownTrigger>
                 <DropdownMenu className="text-black">
-                  <DropdownItem startContent={<ViewIcon className={iconClasses} />}>Visualizar</DropdownItem>
+                  <DropdownItem
+                    startContent={<ViewIcon className={iconClasses} />}
+                  >
+                    Visualizar
+                  </DropdownItem>
 
                   <DropdownItem
                     startContent={<AddNoteIcon className={iconClasses} />}
@@ -158,7 +162,7 @@ export default function TableCustomers() {
           return <p className="text-black">{cellValue}</p>;
       }
     },
-    []
+    [],
   );
 
   const onNextPage = React.useCallback(() => {

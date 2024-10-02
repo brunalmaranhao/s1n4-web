@@ -51,11 +51,11 @@ export default function ModalAddReport() {
           data.name,
           data.workspaceId,
           data.reportId,
-          selectedCustomerEdit?.id
+          selectedCustomerEdit?.id,
         );
 
         onOpenChangeModalAddReport();
-        toast.success("Relatório adicionado com sucesso.")
+        toast.success("Relatório adicionado com sucesso.");
       } catch (error) {
         const customError = handleAxiosError(error);
         toast.error(customError.message);

@@ -41,8 +41,6 @@ export default function CardStatus({
   ];
   const label = labelStatus.find((item) => item.key === status);
 
- 
-
   return (
     <div
       className={`bg-[#DDE1E6] text-black p-4 max-w-[520px] w-full rounded-md min-h-[100px] ${

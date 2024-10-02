@@ -103,7 +103,7 @@ export default function ReportTabContentCustomer() {
                     // Adiciona o relatório embutido no Map com o id associado
                     addReportToMap(
                       item.embedUrl[0].reportId,
-                      embeddedReport as Report
+                      embeddedReport as Report,
                     );
                   }}
                 />
