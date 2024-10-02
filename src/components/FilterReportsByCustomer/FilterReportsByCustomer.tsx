@@ -44,7 +44,6 @@ export default function FilterReportsByCustomer() {
   }, [selectedKeys, customers]);
 
   const handleSelectionChange = (keys: "all" | Set<React.Key>) => {
-    console.log(keys);
     setSelectedKeys(new Set(Array.from(keys) as string[]));
   };
 

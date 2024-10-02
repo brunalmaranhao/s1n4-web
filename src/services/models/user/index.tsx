@@ -44,9 +44,21 @@ export default async function UserService() {
     });
   }
 
+  async function fetchCustomerUser(
+    token: string,
+    id: string,
+  ): Promise<ICustomerUserByIdResponse> {
+    return await get<ICustomerUserByIdResponse>(`/user/id/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
   return {
     getUserById,
     createUserCustomer,
     fetchActiveUsers,
+    fetchCustomerUser,
   };
 }

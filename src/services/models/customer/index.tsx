@@ -98,7 +98,6 @@ export default async function CustomerService() {
     id: string,
     token: string,
   ): Promise<IGetCustomerByIdResponse> {
-    const payload = JSON.stringify(id);
     return await get<IGetCustomerByIdResponse>(`/customer/id/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -132,6 +131,19 @@ export default async function CustomerService() {
     );
   }
 
+  async function fetchCustomerReports(
+    token: string,
+    customerId: string,
+  ): Promise<{ reports: ICustomerReports[] }> {
+    return await get<{
+      reports: ICustomerReports[];
+    }>(`/reports/${customerId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
   return {
     findAll,
     getCustomerById,
@@ -141,5 +153,6 @@ export default async function CustomerService() {
     createCustomer,
     createCustomerAddress,
     findAllActives,
+    fetchCustomerReports,
   };
 }

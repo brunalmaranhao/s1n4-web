@@ -31,3 +31,27 @@ declare interface IProjectUpdatesState {
   date: Date;
   updateAt: Date | null | undefined;
 }
+
+declare interface ICustomerProjectUpdatesResponse {
+  updates: IProjectUpdates[];
+}
+
+declare interface IProjectUpdates {
+  id: string;
+  userId: string;
+  project: IProject | null | undefined;
+  description: string;
+  date: Date;
+  updateAt: Date | null | undefined;
+  user: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    role: "CLIENT_RESPONSIBLE" | "CLIENT_OWNER" | " CLIENT_USER";
+    status: "ACTIVE" | "INACTIVE";
+    customerId: string | null;
+    createdAt: Date;
+    updatedAt: Date | null;
+  };
+}

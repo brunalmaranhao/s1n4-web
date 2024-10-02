@@ -48,23 +48,7 @@ declare interface ICustomersWithUsersResponse {
 }
 
 declare interface IGetCustomerByIdResponse {
-  customer: {
-    name: string;
-    corporateName: string;
-    cnpj: string;
-    address?: string | null;
-    zipCode?: string | null;
-    contractDuration?: string | null;
-    contractValue?: number | null;
-    paymentMethods?: "CREDIT_CARD" | "PIX" | null;
-    accumulatedInvestment?: number | null;
-    expenditureProjection?: number | null;
-    contractObjective?: string | null;
-    contractedServices?: string | null;
-    status?: "ACTIVE" | "INACTIVE";
-    createdAt?: Date;
-    updatedAt?: Date | null;
-  };
+  customer: ICustomer;
 }
 
 declare interface ICustomerAddress {
@@ -76,4 +60,19 @@ declare interface ICustomerAddress {
   state?: string;
   country?: string;
   zipCode?: string;
+}
+
+declare interface ICustomerReports {
+  id: string;
+  name: string;
+  customerId: string;
+  pbiReportId: string;
+  pbiWorkspaceId: string;
+  createdAt: Date;
+}
+
+declare interface ICustomerReportDetails {
+  reportId: string;
+  reportName: string;
+  embedUrl: string;
 }
