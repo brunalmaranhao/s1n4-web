@@ -1,9 +1,9 @@
-import { fetchCustomerProjectUpdates } from "@/app/user/actions";
 import { Spinner } from "@nextui-org/react";
 import { Roboto } from "next/font/google";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import CustomerProjectUpdatesCard from "../CustomerProjectUpdatesCard/CustomerProjectUpdatesCard";
+import { fetchCustomerProjectUpdates } from "@/app/customer/actions";
 
 const robotoBold = Roboto({
   weight: "700",

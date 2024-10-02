@@ -9,6 +9,7 @@ import Header from "@/components/Header/Header";
 import ProjectsOverview from "@/components/ProjectsOverview/ProjectsOverview";
 import ProjectUpdatesAdmin from "@/components/ProjectUpdatesAdmin/ProjectUpdatesAdmin";
 import { format } from "date-fns";
+import Notification from "@/components/Notification/Notification";
 
 export default function AdminHome() {
   const [responsiblesState, setResponsiblesState] = useState<
@@ -64,7 +65,10 @@ export default function AdminHome() {
   return (
     <main className="flex items-center text-black w-full">
       <div className="flex flex-col w-full min-h-screen gap-5 px-8">
-        <h1 className="text-[#21272A] text-[42px] font-bold">Olá!</h1>
+        <div className="flex justify-between">
+          <h1 className="text-[#21272A] text-[42px] font-bold">Olá!</h1>
+          <Notification />
+        </div>
         {userIsLoading ? (
           <Spinner />
         ) : (
@@ -86,6 +90,8 @@ export default function AdminHome() {
             </p>
             {responsiblesBrithdayIsLoading ? (
               <Spinner />
+            ) : responsiblesState.length === 0 ? (
+              <h1>Não existem aniversariantes este mês.</h1>
             ) : (
               responsiblesState.map((responsible, index) => (
                 <div key={index} className="flex flex-col space-y-2">
