@@ -4,7 +4,7 @@ import { get } from "../../methods/get";
 export default async function UserService() {
   async function getUserById(
     id: string,
-    token: string,
+    token: string
   ): Promise<IGetUserResponse> {
     const payload = JSON.stringify(id);
     return await get<IGetUserResponse>(`/user/id/${id}`, {
@@ -14,13 +14,17 @@ export default async function UserService() {
     });
   }
 
+  async function fetchLoggedUser(): Promise<IGetUserResponse> {
+    return await get<IGetUserResponse>(`/user`);
+  }
+
   async function createUserCustomer(
     firstName: string,
     lastName: string,
     email: string,
     password: string,
     customerId: string,
-    role: RoleEnum,
+    role: RoleEnum
   ): Promise<string> {
     const payload = JSON.stringify({
       firstName,
@@ -35,7 +39,7 @@ export default async function UserService() {
   }
 
   async function fetchActiveUsers(
-    token: string,
+    token: string
   ): Promise<IGetActiveUsersResponse> {
     return await get<IGetActiveUsersResponse>(`/user/active`, {
       headers: {
@@ -46,7 +50,7 @@ export default async function UserService() {
 
   async function fetchCustomerUser(
     token: string,
-    id: string,
+    id: string
   ): Promise<ICustomerUserByIdResponse> {
     return await get<ICustomerUserByIdResponse>(`/user/id/${id}`, {
       headers: {
@@ -60,5 +64,6 @@ export default async function UserService() {
     createUserCustomer,
     fetchActiveUsers,
     fetchCustomerUser,
+    fetchLoggedUser
   };
 }
