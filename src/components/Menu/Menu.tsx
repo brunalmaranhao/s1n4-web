@@ -83,7 +83,7 @@ export default function Menu() {
           <Link
             className="space-x-2 text-[#21272A] text-[16px] font-medium"
             color="foreground"
-            href="#"
+            href="/admin/my-account"
           >
             <Image src="/users.svg" alt="homeicon" />
             <h1>Minha conta</h1>

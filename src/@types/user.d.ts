@@ -7,11 +7,15 @@ declare interface IGetUserResponse {
     role:
       | "INTERNAL_MANAGEMENT"
       | "INTERNAL_PARTNERS"
-      | " INTERNAL_FINANCIAL_LEGAL";
+      | " INTERNAL_FINANCIAL_LEGAL"
+      | "CLIENT_USER"
+      | "CLIENT_OWNER"
+      | "CLIENT_RESPONSIBLE";
     status: "ACTIVE" | "INACTIVE";
     customerId: string | undefined;
     createdAt: Date;
     updatedAt: Date;
+    customer: ICustomer;
   };
 }
 
