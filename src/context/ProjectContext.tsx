@@ -44,6 +44,10 @@ type ProjectContextType = {
   setSelectedProjectCreateProjectUpdate: React.Dispatch<
     React.SetStateAction<IProject | undefined>
   >;
+  selectedCustomerFilter?: string
+  setSelectedCustomerFilter: React.Dispatch<
+  React.SetStateAction<string | undefined>
+>;
 };
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
@@ -69,6 +73,7 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     onOpenChange: onOpenChangeModalCreateProjectUpdate,
   } = useDisclosure();
 
+  const [selectedCustomerFilter, setSelectedCustomerFilter] = useState<string | undefined>();
   const [projects, setProjects] = useState<IProject[] | undefined>();
   const [projectsUser, setProjectsUser] = useState<IProject[] | undefined>();
   const [customers, setCustomers] = useState<ICustomer[]>([]);
@@ -150,6 +155,8 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     setSelectedProjectCreateProjectUpdate,
     fetchProjectsByUser,
     projectsUser,
+    setSelectedCustomerFilter,
+    selectedCustomerFilter
   };
 
   return (

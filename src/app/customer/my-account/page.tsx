@@ -1,7 +1,7 @@
 "use client";
 import UserService from "@/services/models/user";
 import { roleName } from "@/util/roleName";
-import { Chip, Input, Spinner } from "@nextui-org/react";
+import { Button, Chip, Input, Link, Spinner } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -60,7 +60,7 @@ export default function MyAccount() {
         <Spinner />
         </div>
       ) : (
-        <div className="flex flex-col h-full w-full text-black mt-20">
+        <div className="flex flex-col h-full w-full items-center text-black mt-20">
           {profileInfo.map((profile) => (
             <div
               key={profile.label}
@@ -74,6 +74,8 @@ export default function MyAccount() {
               )}
             </div>
           ))}
+          <Link href="/customer/my-account/reset-password"><Button className="max-w-[320px]">Trocar senha</Button></Link>
+          
         </div>
       )}
     </div>

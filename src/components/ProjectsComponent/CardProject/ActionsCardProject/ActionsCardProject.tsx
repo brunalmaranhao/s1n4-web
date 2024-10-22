@@ -70,7 +70,7 @@ export default function ActionsCardProject({
           className="text-black"
           onPress={() => handleRemove()}
         >
-          Remover
+          Desativar
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>

@@ -1,5 +1,6 @@
 import { post } from "@/services/methods/post";
 import { get } from "../../methods/get";
+import { del } from "@/services/methods/delete";
 
 export default async function ProjectUpdatesService() {
   async function fetchAllProjectUpdates(
@@ -33,10 +34,15 @@ export default async function ProjectUpdatesService() {
       },
     );
   }
+  async function remove(id: string): Promise<void> {
+    await del<void>(`/report/${id}`);
+  }
 
   return {
     fetchAllProjectUpdates,
     createProjectUpdate,
     fetchCustomerProjectUpdates,
+    remove
+
   };
 }

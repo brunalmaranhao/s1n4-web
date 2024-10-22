@@ -90,7 +90,7 @@ export default function TableNewResponsibles() {
                   <DropdownItem
                     onPress={() => remove(responsible, responsibleSaved)}
                   >
-                    Deletar
+                    Desativar
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>

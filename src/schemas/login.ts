@@ -9,3 +9,4 @@ export const schemaLogin = yup
     password: yup.string().required("Campo Senha é obrigatório."),
   })
   .required();
+

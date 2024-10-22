@@ -15,4 +15,6 @@ declare interface ReportDetailsResponse {
   embedUrl?: ReportDetailsProps[];
   expiry?: string;
   isError: boolean;
+  name?: string
+  id?: string
 }
