@@ -1,5 +1,6 @@
 import { post } from "@/services/methods/post";
 import { get } from "../../methods/get";
+import { put } from "@/services/methods/put";
 
 export default async function UserService() {
   async function getUserById(
@@ -59,11 +60,43 @@ export default async function UserService() {
     });
   }
 
+  async function forgotPassword(email: string): Promise<void> {
+    const payload = JSON.stringify({
+      email,
+    });
+    await post(`/user/forgot-password`, payload);
+  }
+
+  async function updatePasswordPublic(
+    email: string,
+    password: string,
+    token: string
+  ): Promise<void> {
+    const payload = JSON.stringify({
+      email,
+      password,
+      token,
+    });
+    await put(`/user/update-password`, payload);
+  }
+
+  async function updatePasswordPrivate(
+    password: string,
+  ): Promise<void> {
+    const payload = JSON.stringify({
+      password,
+    });
+    await put(`/user/update-password-private`, payload);
+  }
+
   return {
     getUserById,
     createUserCustomer,
     fetchActiveUsers,
     fetchCustomerUser,
-    fetchLoggedUser
+    fetchLoggedUser,
+    forgotPassword,
+    updatePasswordPublic,
+    updatePasswordPrivate
   };
 }

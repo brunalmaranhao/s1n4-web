@@ -57,12 +57,12 @@ export default function ModalRemoveCustomer() {
         {(onClose) => (
           <>
             <ModalHeader className="flex flex-col gap-1 text-black">
-              Remover Cliente
+              Desativar Cliente
             </ModalHeader>
             <ModalBody className="flex flex-col gap-2 justify-center items-center text-black">
               <div className="flex flex-col ">
                 <p>
-                  Você tem certeza que deseja excluir o cliente{" "}
+                  Você tem certeza que deseja desativar o cliente{" "}
                   {selectedCustomerRemove?.name}?
                 </p>
                 <b className="mt-3 text-xs">
@@ -88,7 +88,7 @@ export default function ModalRemoveCustomer() {
                 type="button"
                 onPress={() => handleRemoveCustomer()}
               >
-                {loading ? <Spinner size="sm" color="white" /> : "Excluir"}
+                {loading ? <Spinner size="sm" color="white" /> : "Desativar"}
               </Button>
             </ModalFooter>
           </>

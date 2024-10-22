@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import { fetchBirthdaysOfTheMonth, getUserById } from "./actions";
 import { parseCookies } from "nookies";
 import { decodeToken } from "@/services/jwt-decode/decode";
-import Header from "@/components/Header/Header";
 import ProjectsOverview from "@/components/ProjectsOverview/ProjectsOverview";
 import ProjectUpdatesAdmin from "@/components/ProjectUpdatesAdmin/ProjectUpdatesAdmin";
 import { format } from "date-fns";

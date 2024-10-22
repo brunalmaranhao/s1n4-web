@@ -152,7 +152,7 @@ export default function TableCustomers() {
                       setSelectedCustomerRemove(customer);
                     }}
                   >
-                    Deletar
+                    Desativar
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>

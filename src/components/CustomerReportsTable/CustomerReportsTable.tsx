@@ -80,7 +80,7 @@ export default function CustomerReportsTable({
                         <DropdownMenu className="text-black">
                           <DropdownItem>Visualizar</DropdownItem>
                           <DropdownItem>Editar</DropdownItem>
-                          <DropdownItem>Deletar</DropdownItem>
+                          <DropdownItem>Desativar</DropdownItem>
                         </DropdownMenu>
                       </Dropdown>
                     </div>

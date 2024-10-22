@@ -1,3 +1,4 @@
+import { del } from "@/services/methods/delete";
 import { get } from "@/services/methods/get";
 import { post } from "@/services/methods/post";
 
@@ -58,10 +59,24 @@ export default async function ReportService() {
     return { reports: response.reportsEmbeds, total: response.total };
   }
 
+  async function remove(id: string): Promise<void> {
+    await del<void>(`/report/${id}`);
+  }
+  async function fetchProjectsByCustomer(
+    customerId: string,
+  ): Promise<IProject[]> {
+    const response = await get<{ projects: IProject[] }>(
+      `/customer/${customerId}/projects`,
+    );
+    return response.projects;
+  }
+
+
   return {
     createReport,
     fetchReports,
     fetchReportsByCustomerId,
     fetchReportsByUser,
+    remove
   };
 }
