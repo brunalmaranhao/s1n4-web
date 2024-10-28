@@ -15,6 +15,7 @@ import { MdCheck, MdNotifications } from "react-icons/md";
 import ModalNotification from "./ModalNotification/ModalNotification";
 import { GoDotFill } from "react-icons/go";
 import { useNotificationContext } from "@/context/NotificationsContext";
+import { useTheme } from "next-themes";
 
 export default function Notification() {
   const {
@@ -23,6 +24,8 @@ export default function Notification() {
     handleSelectedNotification,
     notifications,
   } = useNotificationContext();
+
+  const { theme } = useTheme();
 
   const now = new Date();
   const oneDayInMs = 24 * 60 * 60 * 1000;
@@ -52,8 +55,14 @@ export default function Notification() {
               shape="rectangle"
               showOutline={false}
               isInvisible={countUnread === 0}
+              classNames={{
+                badge: "bg-[#F57B00] text-white",
+              }}
             >
-              <MdNotifications size={22} color="black" />
+              <MdNotifications
+                size={22}
+                color={theme === "light" ? "black" : "white"}
+              />
             </Badge>
           </button>
         </DropdownTrigger>
@@ -65,7 +74,7 @@ export default function Notification() {
             <DropdownItem
               showDivider
               key={item.id}
-              className="text-black"
+              className="text-black dark:text-white"
               onPress={() => handleSelectedNotification(item)}
             >
               <div className="flex flex-row items-center gap-3">

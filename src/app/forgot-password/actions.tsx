@@ -4,7 +4,9 @@ import { handleAxiosError } from "@/services/error";
 import { ForgotPasswordProps } from "./page";
 import UserService from "@/services/models/user";
 
-export async function forgotPassword(data: ForgotPasswordProps): Promise<{isError: boolean, error?: string}> {
+export async function forgotPassword(
+  data: ForgotPasswordProps,
+): Promise<{ isError: boolean; error?: string }> {
   try {
     const { forgotPassword } = await UserService();
     const response = await forgotPassword(data.email);

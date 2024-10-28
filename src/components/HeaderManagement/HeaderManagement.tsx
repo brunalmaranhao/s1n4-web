@@ -40,7 +40,9 @@ export default function HeaderManagement() {
         )}
         {label === "Projetos" && pathsWithTab.includes(pathname) && (
           <div className="flex flex-row gap-3 items-center flex-wrap">
-            <h1 className="text-nowrap font-medium text-black">Filtrar por </h1>
+            <h1 className="text-nowrap font-medium text-black dark:text-white">
+              Filtrar por{" "}
+            </h1>
             <FilterProjectsByCustomer />
             <Button color="primary" onPress={() => onOpen()}>
               Novo Projeto

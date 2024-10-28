@@ -42,7 +42,6 @@ export default async function ProjectUpdatesService() {
     fetchAllProjectUpdates,
     createProjectUpdate,
     fetchCustomerProjectUpdates,
-    remove
-
+    remove,
   };
 }

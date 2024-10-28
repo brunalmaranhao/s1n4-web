@@ -57,14 +57,14 @@ export default function MyAccount() {
       <h1 className="text-[42px] text-[#21272A] font-bold">Minha Conta</h1>
       {loading ? (
         <div className="flex w-full items-center justify-center">
-        <Spinner />
+          <Spinner />
         </div>
       ) : (
         <div className="flex flex-col h-full w-full items-center text-black mt-20">
           {profileInfo.map((profile) => (
             <div
               key={profile.label}
-              className={`${profile.value && 'border-1'} py-3 w-full flex flex-col items-center`}
+              className={`${profile.value && "border-1"} py-3 w-full flex flex-col items-center`}
             >
               {profile.value && (
                 <div className="flex items-center gap-5">
@@ -74,8 +74,9 @@ export default function MyAccount() {
               )}
             </div>
           ))}
-          <Link href="/customer/my-account/reset-password"><Button className="max-w-[320px]">Trocar senha</Button></Link>
-          
+          <Link href="/customer/my-account/reset-password">
+            <Button className="max-w-[320px]">Trocar senha</Button>
+          </Link>
         </div>
       )}
     </div>

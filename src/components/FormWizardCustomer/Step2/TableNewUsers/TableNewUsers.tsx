@@ -64,7 +64,7 @@ export default function TableNewUsers() {
                 </DropdownTrigger>
                 <DropdownMenu className="text-black">
                   <DropdownItem onPress={() => remove(customer, usersSaved)}>
-                  Desativar
+                    Desativar
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>

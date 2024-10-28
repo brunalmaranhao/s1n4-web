@@ -22,7 +22,6 @@ export default function Header() {
       isBordered={true}
       className="bg-white w-[256px] min-h-screen"
       classNames={{
-        base: "bg-red-400",
         wrapper: "h-screen w-full flex flex-col justify-start mt-[65px]",
       }}
     >

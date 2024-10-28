@@ -6,7 +6,7 @@ import UserService from "@/services/models/user";
 export async function updatePassword(
   email: string,
   password: string,
-  token: string
+  token: string,
 ): Promise<{ isError: boolean; error?: string }> {
   try {
     const { updatePasswordPublic } = await UserService();

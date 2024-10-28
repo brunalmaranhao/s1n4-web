@@ -31,15 +31,14 @@ export default function UpdatePassword() {
     try {
       const { updatePasswordPrivate } = await UserService();
       await updatePasswordPrivate(data.password);
-      setHasPasswordChanged(true)
+      setHasPasswordChanged(true);
     } catch (error) {
       console.log(error);
       const customError = handleAxiosError(error);
-      toast.error(customError.message)      
-    }finally{
-      setLoading(false)
+      toast.error(customError.message);
+    } finally {
+      setLoading(false);
     }
-    
   }
 
   return (
@@ -56,12 +55,20 @@ export default function UpdatePassword() {
         >
           <div className="flex flex-col">
             <label>Senha</label>
-            <Input {...register("password")} type="password" variant="bordered" />
+            <Input
+              {...register("password")}
+              type="password"
+              variant="bordered"
+            />
             <p className="text-red-400 text-sm">{errors.password?.message}</p>
           </div>
           <div className="flex flex-col">
             <label>Confirmar Senha</label>
-            <Input {...register("confirmPassword")} type="password" variant="bordered" />
+            <Input
+              {...register("confirmPassword")}
+              type="password"
+              variant="bordered"
+            />
             <p className="text-red-400 text-sm">
               {errors.confirmPassword?.message}
             </p>

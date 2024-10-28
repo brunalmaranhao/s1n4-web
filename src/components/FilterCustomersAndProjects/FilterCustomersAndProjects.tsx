@@ -74,17 +74,19 @@ export default function FilterCustomersAndProjects({
   return (
     <div className="flex items-center space-x-6">
       <div className="flex items-center">
-        <Tooltip content="Limpar Filtro" className="text-black">
+        <Tooltip content="Limpar Filtro" className="text-black dark:text-white">
           <Button className="bg-transparent" onClick={handleClearFilter}>
             <SlEqualizer size={25} />
           </Button>
         </Tooltip>
-        <h1 className="text-nowrap font-medium">Filtrar por </h1>
+        <h1 className="text-nowrap font-medium text-black dark:text-white">
+          Filtrar por{" "}
+        </h1>
       </div>
-      <Dropdown backdrop="blur">
+      <Dropdown backdrop="blur" className="">
         <DropdownTrigger>
           <Button
-            className="bg-white w-full text-[16px] font-medium"
+            className="bg-white w-full text-[16px] font-medium text-black"
             endContent={<SlArrowDown />}
           >
             {filteredClient ? filteredClient : "Cliente"}
@@ -95,7 +97,7 @@ export default function FilterCustomersAndProjects({
             <DropdownItem
               onClick={(event) => handleClientFilter(event, client)}
               key={index}
-              className="text-black"
+              className="text-black dark:text-white"
             >
               {client.corporateName}
             </DropdownItem>
@@ -105,7 +107,7 @@ export default function FilterCustomersAndProjects({
       <Dropdown backdrop="blur">
         <DropdownTrigger>
           <Button
-            className="bg-white w-full text-[16px] font-medium"
+            className="bg-white w-full text-[16px] font-medium text-black"
             endContent={<SlArrowDown />}
           >
             {filteredProject ? filteredProject : "Projetos"}
@@ -116,7 +118,7 @@ export default function FilterCustomersAndProjects({
             <DropdownItem
               onClick={(event) => handleProjectsFilter(event)}
               key={index}
-              className="text-black"
+              className="text-black dark:text-white"
             >
               {project.name}
             </DropdownItem>

@@ -37,7 +37,7 @@ export default function ReportTabContentCustomer() {
   };
 
   const fullScreen = (id?: string) => {
-    if(!id) return
+    if (!id) return;
     const reportFullScreen = getReportById(id);
 
     if (reportFullScreen) {
@@ -109,7 +109,7 @@ export default function ReportTabContentCustomer() {
                         if (item.embedUrl)
                           addReportToMap(
                             item.embedUrl[0].reportId,
-                            embeddedReport as Report
+                            embeddedReport as Report,
                           );
                       }}
                     />
@@ -125,7 +125,7 @@ export default function ReportTabContentCustomer() {
                             fullScreen(
                               item.embedUrl
                                 ? item.embedUrl[0].reportId
-                                : undefined
+                                : undefined,
                             )
                           }
                         >
