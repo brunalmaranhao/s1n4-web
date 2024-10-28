@@ -32,7 +32,9 @@ export default function Login({
   useEffect(() => {
     if (resetPassword) {
       setTimeout(() => {
-        toast.success("Senha alterada com sucesso. Faça o login para entrar.",{id: "success"});
+        toast.success("Senha alterada com sucesso. Faça o login para entrar.", {
+          id: "success",
+        });
       }, 0);
     }
   }, [resetPassword]);

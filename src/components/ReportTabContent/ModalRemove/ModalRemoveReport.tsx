@@ -62,8 +62,8 @@ export default function ModalRemoveReport({
             <ModalBody className="flex flex-col gap-2 justify-center items-center text-black">
               <div className="flex flex-col ">
                 <p>
-                  Você tem certeza que deseja desativar o relatório {report?.name}
-                  ?
+                  Você tem certeza que deseja desativar o relatório{" "}
+                  {report?.name}?
                 </p>
               </div>
             </ModalBody>

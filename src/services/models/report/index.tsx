@@ -71,12 +71,11 @@ export default async function ReportService() {
     return response.projects;
   }
 
-
   return {
     createReport,
     fetchReports,
     fetchReportsByCustomerId,
     fetchReportsByUser,
-    remove
+    remove,
   };
 }

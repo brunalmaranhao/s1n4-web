@@ -5,7 +5,7 @@ import { put } from "@/services/methods/put";
 export default async function UserService() {
   async function getUserById(
     id: string,
-    token: string
+    token: string,
   ): Promise<IGetUserResponse> {
     const payload = JSON.stringify(id);
     return await get<IGetUserResponse>(`/user/id/${id}`, {
@@ -25,7 +25,7 @@ export default async function UserService() {
     email: string,
     password: string,
     customerId: string,
-    role: RoleEnum
+    role: RoleEnum,
   ): Promise<string> {
     const payload = JSON.stringify({
       firstName,
@@ -40,7 +40,7 @@ export default async function UserService() {
   }
 
   async function fetchActiveUsers(
-    token: string
+    token: string,
   ): Promise<IGetActiveUsersResponse> {
     return await get<IGetActiveUsersResponse>(`/user/active`, {
       headers: {
@@ -51,7 +51,7 @@ export default async function UserService() {
 
   async function fetchCustomerUser(
     token: string,
-    id: string
+    id: string,
   ): Promise<ICustomerUserByIdResponse> {
     return await get<ICustomerUserByIdResponse>(`/user/id/${id}`, {
       headers: {
@@ -70,7 +70,7 @@ export default async function UserService() {
   async function updatePasswordPublic(
     email: string,
     password: string,
-    token: string
+    token: string,
   ): Promise<void> {
     const payload = JSON.stringify({
       email,
@@ -80,9 +80,7 @@ export default async function UserService() {
     await put(`/user/update-password`, payload);
   }
 
-  async function updatePasswordPrivate(
-    password: string,
-  ): Promise<void> {
+  async function updatePasswordPrivate(password: string): Promise<void> {
     const payload = JSON.stringify({
       password,
     });
@@ -97,6 +95,6 @@ export default async function UserService() {
     fetchLoggedUser,
     forgotPassword,
     updatePasswordPublic,
-    updatePasswordPrivate
+    updatePasswordPrivate,
   };
 }

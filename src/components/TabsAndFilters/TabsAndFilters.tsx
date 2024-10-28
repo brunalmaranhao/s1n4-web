@@ -1,4 +1,5 @@
 import { Tab, Tabs } from "@nextui-org/react";
+import { useTheme } from "next-themes";
 import { Key, useState } from "react";
 
 interface TabsAndFiltersProps {
@@ -7,6 +8,8 @@ interface TabsAndFiltersProps {
 
 export default function TabsAndFilters({ onTabChange }: TabsAndFiltersProps) {
   const [selectedTab, setSelectedTab] = useState<Key>("");
+
+  const { theme } = useTheme();
 
   const handleTabChange = (key: Key) => {
     setSelectedTab(key);
@@ -22,7 +25,7 @@ export default function TabsAndFilters({ onTabChange }: TabsAndFiltersProps) {
         base: "my-6",
         tabList:
           "gap-6 w-full relative rounded-none p-0 border-b border-divider",
-        cursor: "w-full bg-[#001D6C]",
+        cursor: "w-full bg-[#F57B00] dark:bg-[#F57B00]",
         tab: "w-full px-0 h-12",
         tabContent:
           "group-data-[selected=true]:text-[#001D6C] w-full text-[#21272A]",
@@ -35,7 +38,15 @@ export default function TabsAndFilters({ onTabChange }: TabsAndFiltersProps) {
         className="w-full"
         title={
           <div className="flex items-center space-x-2">
-            <span className="font-medium">Visão geral</span>
+            <span
+              className={`font-medium ${
+                selectedTab === "overview"
+                  ? "text-[#F57B00]"
+                  : "text-black dark:text-white"
+              }`}
+            >
+              Visão geral
+            </span>
           </div>
         }
       ></Tab>
@@ -43,7 +54,15 @@ export default function TabsAndFilters({ onTabChange }: TabsAndFiltersProps) {
         key="reports"
         title={
           <div className="flex items-center space-x-2">
-            <span className="font-medium">Relatórios</span>
+            <span
+              className={`font-medium ${
+                selectedTab === "reports"
+                  ? "text-[#F57B00]"
+                  : "text-black dark:text-white"
+              }`}
+            >
+              Relatórios
+            </span>
           </div>
         }
       ></Tab>

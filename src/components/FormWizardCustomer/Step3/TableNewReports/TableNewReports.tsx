@@ -56,7 +56,7 @@ export default function TableNewReports() {
                 </DropdownTrigger>
                 <DropdownMenu className="text-black">
                   <DropdownItem onPress={() => remove(report, reportsSaved)}>
-                  Desativar
+                    Desativar
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>

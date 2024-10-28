@@ -134,7 +134,7 @@ export default function ReportTabContent() {
                         if (item.embedUrl)
                           addReportToMap(
                             item.embedUrl[0].reportId,
-                            embeddedReport as Report
+                            embeddedReport as Report,
                           );
                       }}
                     />
@@ -150,7 +150,7 @@ export default function ReportTabContent() {
                     <button
                       onClick={() =>
                         fullScreen(
-                          item.embedUrl ? item.embedUrl[0].reportId : undefined
+                          item.embedUrl ? item.embedUrl[0].reportId : undefined,
                         )
                       }
                     >

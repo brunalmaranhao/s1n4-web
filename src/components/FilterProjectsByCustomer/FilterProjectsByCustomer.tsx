@@ -15,7 +15,7 @@ export default function FilterProjectsByCustomer() {
     fetchCustomer,
     fetchAllProjects,
     fetchProjectsByCustomer,
-    setSelectedCustomerFilter
+    setSelectedCustomerFilter,
   } = useProjectContext();
   const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
 
@@ -23,10 +23,10 @@ export default function FilterProjectsByCustomer() {
     const selectedId = Array.from(selectedKeys)[0];
     if (selectedId) {
       fetchProjectsByCustomer(selectedId);
-      setSelectedCustomerFilter(selectedId)
+      setSelectedCustomerFilter(selectedId);
       return;
     }
-    setSelectedCustomerFilter(undefined)
+    setSelectedCustomerFilter(undefined);
     fetchAllProjects();
   }, [selectedKeys]);
 

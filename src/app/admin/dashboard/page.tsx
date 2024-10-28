@@ -9,12 +9,18 @@ import Notification from "@/components/Notification/Notification";
 import { Key, useState } from "react";
 import ReportTabContent from "@/components/ReportTabContent/ReportTabContent";
 import FilterReportsByCustomer from "@/components/FilterReportsByCustomer/FilterReportsByCustomer";
+import { useTheme } from "next-themes";
+import { Switch } from "@nextui-org/react";
+import { SunIcon } from "@/components/SunIcon/SunIcon";
+import { MoonIcon } from "@/components/MoonIcon/MoonIcon";
 
 export default function Dashboard() {
   const [selectedTab, setSelectedTab] = useState<Key>("");
   const [selectedClient, setSelectedClient] = useState<ICustomer | undefined>(
     undefined,
   );
+
+  const { theme, setTheme } = useTheme();
 
   const handleTabChange = (key: Key) => {
     setSelectedTab(key);
@@ -25,14 +31,27 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="bg-[#F2F4F8] flex text-black w-full">
+    <div className="bg-[#F2F4F8] dark:bg-[#000] flex text-black w-full">
       <div className="p-6 w-full">
         <div className="flex justify-between">
-          <h1 className="text-[42px] text-[#21272A] font-bold">
+          <h1 className="text-[42px] text-[#21272A] dark:text-white font-bold">
             Dashboard -{" "}
             {selectedTab === "overview" ? "Visão Geral" : "Relatórios"}
           </h1>
-          <Notification />
+          <div className="flex items-center gap-4">
+            <Switch
+              defaultSelected
+              size="lg"
+              // color="warning"
+              startContent={<SunIcon />}
+              endContent={<MoonIcon />}
+              onChange={() => setTheme(theme === "light" ? "dark" : "light")}
+              classNames={{
+                wrapper: "group-data-[selected=true]:bg-[#F57B00]",
+              }}
+            ></Switch>
+            <Notification />
+          </div>
         </div>
 
         <div className="flex flex-row items-center justify-between w-full">

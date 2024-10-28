@@ -61,11 +61,11 @@ export default function OverviewTabContent({
         <Spinner />
       ) : (
         <div className="flex space-x-4">
-          <div className="p-4 flex flex-col bg-white border-solid border-[1px] border-[#DDE1E6]">
-            <h1 className="text-base font-thin text-[#697077]">
+          <div className="p-4 flex flex-col bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#DDE1E6] dark:border-[#1E1E1E]">
+            <h1 className="text-base font-thin text-[#697077] dark:text-white">
               Total de usuários
             </h1>
-            <h1 className="text-2xl font-bold text-[#21272A]">
+            <h1 className="text-2xl font-bold text-[#21272A] dark:text-white">
               {selectedClient === undefined
                 ? activeUsersLength
                 : (selectedClient?.users?.length ?? 0)}
@@ -73,11 +73,11 @@ export default function OverviewTabContent({
           </div>
 
           {selectedClient === undefined && (
-            <div className="p-4 flex flex-col bg-white border-solid border-[1px] border-[#DDE1E6]">
-              <h1 className="text-base font-thin text-[#697077]">
+            <div className="p-4 flex flex-col bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#DDE1E6] dark:border-[#1E1E1E]">
+              <h1 className="text-base font-thin text-[#697077] dark:text-white">
                 Total de clientes
               </h1>
-              <h1 className="text-2xl font-bold text-[#21272A]">
+              <h1 className="text-2xl font-bold text-[#21272A] dark:text-white">
                 {activeCustomerLength}
               </h1>
             </div>
@@ -86,10 +86,10 @@ export default function OverviewTabContent({
       )}
 
       {selectedClient === undefined && (
-        <div className="bg-white p-4 border-solid border-[1px] border-[#DDE1E6]">
+        <div className="bg-white dark:bg-[#1E1E1E] p-4 border-solid border-[1px] border-[#DDE1E6] dark:border-[#1E1E1E]">
           <div className="flex justify-between font-bold text-lg mb-2">
-            <span>Clientes</span>
-            <span>Usuários</span>
+            <span className="text-black dark:text-white">Clientes</span>
+            <span className="text-black dark:text-white">Usuários</span>
           </div>
           {isLoading ? (
             <Spinner />
@@ -99,8 +99,12 @@ export default function OverviewTabContent({
                 key={index}
                 className="flex space-x-4 justify-between py-2 border-b last:border-none"
               >
-                <h1>{customer.corporateName}</h1>
-                <h1>{customer.users?.length ?? 0}</h1>
+                <h1 className="text-black dark:text-white">
+                  {customer.corporateName}
+                </h1>
+                <h1 className="text-black dark:text-white">
+                  {customer.users?.length ?? 0}
+                </h1>
               </div>
             ))
           )}
