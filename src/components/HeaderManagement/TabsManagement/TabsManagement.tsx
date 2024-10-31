@@ -24,7 +24,7 @@ export default function TabsManagement() {
           tabContent:
             "group-data-[selected=true]:text-[#001D6C] w-full text-[#21272A]",
         }}
-        selectedKey={pathname.includes("projects") ? "projects" : "customers"}
+        selectedKey={pathname.includes("projects") ? "projects" : pathname.includes("customers") ? "customers" : 'financial'}
         onSelectionChange={handleTabChange}
       >
         <Tab
@@ -41,6 +41,15 @@ export default function TabsManagement() {
           title={
             <div className="flex items-center space-x-2">
               <span>Projetos</span>
+            </div>
+          }
+        ></Tab>
+
+        <Tab
+          key="financial"
+          title={
+            <div className="flex items-center space-x-2">
+              <span>Financeiro</span>
             </div>
           }
         ></Tab>

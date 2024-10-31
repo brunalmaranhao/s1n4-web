@@ -2,6 +2,7 @@
 
 import { AuthProvider } from "@/context/AuthContext";
 import { CustomerProvider } from "@/context/CustomerContext";
+import { FinancialProvider } from "@/context/FinancialContext";
 import { FormWizardCustomerProvider } from "@/context/FormWizardCustomerContext";
 import { NotificationProvider } from "@/context/NotificationsContext";
 import { ProjectProvider } from "@/context/ProjectContext";
@@ -18,7 +19,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
             <ProjectProvider>
               <ReportProvider>
                 <NotificationProvider>
-                  <NextUIProvider>{children}</NextUIProvider>
+                <FinancialProvider>
+                    <NextUIProvider>{children}</NextUIProvider>
+                </FinancialProvider>
                 </NotificationProvider>
               </ReportProvider>
             </ProjectProvider>

@@ -1,3 +1,4 @@
+
 export type ColumnKeys =
   | "name"
   | "cnpj"
@@ -14,5 +15,28 @@ export const columnsCustomer = [
   { name: "Duração", uid: "contractDuration", sortable: false },
   { name: "Valor do contrato", uid: "contractValue", sortable: true },
   { name: "Status", uid: "status", sortable: false },
+  { name: "Ações", uid: "actions", sortable: false },
+];
+
+
+export type ColumnKeysBudgetExpenses =
+  | "title"
+  | "description"
+  | "amount"
+  | "project"
+  | "customer"
+  | "actions"
+  | "budget"
+  
+  ;
+
+
+export const columnsBudgetExpenses = [
+  { name: "Título", uid: "title", sortable: false },
+  { name: "Descrição", uid: "description", sortable: false },
+  { name: "Valor", uid: "amount", sortable: true },
+  { name: "Orçamento do Projeto", uid: "budget", sortable: true },
+  { name: "Projeto", uid: "project", sortable: false },
+  { name: "Cliente", uid: "customer", sortable: false }, 
   { name: "Ações", uid: "actions", sortable: false },
 ];

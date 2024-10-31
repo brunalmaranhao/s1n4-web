@@ -5,18 +5,23 @@ import TabsManagement from "./TabsManagement/TabsManagement";
 import { useProjectContext } from "@/context/ProjectContext";
 import FilterProjectsByCustomer from "../FilterProjectsByCustomer/FilterProjectsByCustomer";
 import Notification from "../Notification/Notification";
+import { useFinancialContext } from "@/context/FinancialContext";
 
 export default function HeaderManagement() {
   const { onOpen } = useProjectContext();
+  const {onOpen: onOpenFinancialModal } = useFinancialContext()
   const { push } = useRouter();
   const pathsWithTab = [
     "/admin/management/customers",
     "/admin/management/projects",
+    "/admin/management/financial",
   ];
   const pathname = usePathname();
   const label = pathname.startsWith("/admin/management/customers")
     ? "Clientes"
-    : "Projetos";
+    : pathname.startsWith("/admin/management/projects")
+    ? "Projetos"
+    : "Financeiro";
   return (
     <div className="flex flex-col w-full gap-6">
       <div className="flex flex-row justify-between w-full">
@@ -46,6 +51,14 @@ export default function HeaderManagement() {
             <FilterProjectsByCustomer />
             <Button color="primary" onPress={() => onOpen()}>
               Novo Projeto
+            </Button>
+          </div>
+        )}
+
+        {label === "Financeiro" && pathsWithTab.includes(pathname) && (
+          <div className="flex flex-row gap-3 items-center flex-wrap">
+            <Button color="primary" onPress={() => onOpenFinancialModal()}>
+              Novo Lançamento
             </Button>
           </div>
         )}
