@@ -13,6 +13,14 @@ export const schemaNewProject = yup
       .test("is-future", "Data deve ser futura.", (value) => {
         if (value) return isFuture(value);
       }),
+    budget: yup
+      .number()
+      .transform((value, originalValue) =>
+        originalValue.trim() === "" ? null : value
+      )
+      .typeError("Campo Orçamento deve ser um número.")
+      .min(1, "O valor deve ser maior que 0.")
+      .required("Campo Orçamento obrigatório."),
 
     customer: yup.string().required("Campo Cliente é obrigatório."),
   })
