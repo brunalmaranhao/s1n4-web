@@ -159,7 +159,7 @@ export default function TableCustomers() {
             </div>
           );
         default:
-          return <p className="text-black">{cellValue}</p>;
+          return <p className="text-[#000] dark:text-white">{cellValue}</p>;
       }
     },
     [],
@@ -203,7 +203,7 @@ export default function TableCustomers() {
             : `${selectedKeys.size} of ${filteredItems.length} selected`}
         </span> */}
 
-        <div className="flex w-full justify-center gap-2">
+        <div className="flex w-full justify-center items-center gap-2">
           <Button
             isDisabled={pages === 1}
             size="sm"
@@ -215,10 +215,14 @@ export default function TableCustomers() {
           <Pagination
             isCompact
             showShadow
-            color="primary"
+            // color="primary"
             page={page}
             total={pages}
             onChange={setPage}
+            classNames={{
+              item: "rounded-lg",
+              cursor: "bg-[#F57B00]",
+            }}
           />
           <Button
             isDisabled={pages === 1}
@@ -271,9 +275,9 @@ export default function TableCustomers() {
             items={sortedItems}
           >
             {(item) => (
-              <TableRow key={item.id}>
+              <TableRow key={item.id} className="">
                 {(columnKey) => (
-                  <TableCell className="text-[#000]">
+                  <TableCell className="text-[#000] dark:text-white">
                     {renderCell(item, columnKey)}
                   </TableCell>
                 )}

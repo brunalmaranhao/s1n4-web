@@ -1,16 +1,21 @@
 "use client";
-import { Tabs, Tab } from "@nextui-org/react";
+import { Tabs, Tab, Button } from "@nextui-org/react";
 import { useRouter, usePathname } from "next/navigation";
-import { Key } from "react";
+import { Key, useState } from "react";
+import { GrAdd } from "react-icons/gr";
 
 export default function TabsManagement() {
+  const [selectedTab, setSelectedTab] = useState<Key>("customers");
   const router = useRouter();
   const pathname = usePathname();
   const handleTabChange = (key: Key) => {
+    setSelectedTab(key);
     router.push(`/admin/management/${key}`);
   };
+  const { push } = useRouter();
+
   return (
-    <div>
+    <div className="">
       <Tabs
         aria-label="Options"
         color="primary"
@@ -19,7 +24,7 @@ export default function TabsManagement() {
           base: "my-6",
           tabList:
             "gap-6 w-full relative rounded-none p-0 border-b border-divider",
-          cursor: "w-full bg-[#001D6C]",
+          cursor: "w-full bg-[#F57B00] dark:bg-[#F57B00]",
           tab: "w-full px-0 h-12",
           tabContent:
             "group-data-[selected=true]:text-[#001D6C] w-full text-[#21272A]",
@@ -32,7 +37,15 @@ export default function TabsManagement() {
           className="w-full"
           title={
             <div className="flex items-center space-x-2">
-              <span>Clientes</span>
+              <span
+                className={`font-medium ${
+                  selectedTab === "customers"
+                    ? "text-[#F57B00]"
+                    : "text-black dark:text-white"
+                }`}
+              >
+                Clientes
+              </span>
             </div>
           }
         ></Tab>
@@ -40,7 +53,31 @@ export default function TabsManagement() {
           key="projects"
           title={
             <div className="flex items-center space-x-2">
-              <span>Projetos</span>
+              <span
+                className={`font-medium ${
+                  selectedTab === "projects"
+                    ? "text-[#F57B00]"
+                    : "text-black dark:text-white"
+                }`}
+              >
+                Projetos
+              </span>
+            </div>
+          }
+        ></Tab>
+        <Tab
+          key="financial"
+          title={
+            <div className="flex items-center space-x-2">
+              <span
+                className={`font-medium ${
+                  selectedTab === "financial"
+                    ? "text-[#F57B00]"
+                    : "text-black dark:text-white"
+                }`}
+              >
+                Financeiro
+              </span>
             </div>
           }
         ></Tab>
