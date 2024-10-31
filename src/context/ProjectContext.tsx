@@ -25,8 +25,8 @@ type ProjectContextType = {
   isOpenModalCreateProjectUpdate: boolean;
   onOpenChangeModalCreateProjectUpdate: () => void;
   onOpenModalCreateProjectUpdate: () => void;
-  projects?: IProject[];
-  projectsUser?: IProject[];
+  projects: IProject[];
+  projectsUser: IProject[];
   fetchAllProjects: () => void;
   fetchProjectsByUser: () => void;
   customers: ICustomer[];
@@ -76,8 +76,8 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
   const [selectedCustomerFilter, setSelectedCustomerFilter] = useState<
     string | undefined
   >();
-  const [projects, setProjects] = useState<IProject[] | undefined>();
-  const [projectsUser, setProjectsUser] = useState<IProject[] | undefined>();
+  const [projects, setProjects] = useState<IProject[]>([]);
+  const [projectsUser, setProjectsUser] = useState<IProject[]>([]);
   const [customers, setCustomers] = useState<ICustomer[]>([]);
   const [selectedProjectEdit, setSelectedProjectEdit] = useState<
     IProject | undefined

@@ -1,5 +1,5 @@
 declare interface ICustomer {
-  id?: string;
+  id: string;
   name?: string;
   cnpj?: string;
   corporateName?: string;

@@ -48,12 +48,14 @@ export default async function ProjectsService() {
   async function createProject(
     name: string,
     customerId: string,
+    budget: number,
     deadline?: Date,
   ): Promise<string> {
     const projectData = {
       name,
       deadline,
       customerId,
+      budget
     };
     const payload = JSON.stringify(
       Object.fromEntries(

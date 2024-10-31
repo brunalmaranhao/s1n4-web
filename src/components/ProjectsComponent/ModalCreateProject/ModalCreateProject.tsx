@@ -58,7 +58,7 @@ export default function ModalCreateProject() {
     setLoading(true);
     try {
       const { createProject } = await ProjectsService();
-      await createProject(data.name, data.customer, data.deadline);
+      await createProject(data.name, data.customer, data.budget, data.deadline);
 
       onClose();
       fetchAllProjects();
@@ -106,6 +106,16 @@ export default function ModalCreateProject() {
                   errorMessage={errors.deadline?.message}
                   isInvalid={!!errors.deadline?.message}
                   {...register("deadline")}
+                  variant={inputVariant}
+                />
+                 <Input
+                  size="sm"
+                  type="number"
+                  label="Orçamento"
+                  className="text-black"
+                  errorMessage={errors.budget?.message}
+                  isInvalid={!!errors.budget?.message}
+                  {...register("budget")}
                   variant={inputVariant}
                 />
                 <Controller
