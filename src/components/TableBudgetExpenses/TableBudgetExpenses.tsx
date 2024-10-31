@@ -72,7 +72,8 @@ export default function TableBudgetExpenses() {
     (budgetExpense: IBudgetExpense, columnKey: Key) => {
       console.log(budgetExpense);
       let column = columnKey as ColumnKeysBudgetExpenses;
-      let columnParsed = column === "budget" ? "project" : column as ColumnKeysBudgetExpenses
+      let columnParsed =
+        column === "budget" ? "project" : (column as ColumnKeysBudgetExpenses);
       const cellValue = budgetExpense[columnParsed];
       switch (columnKey) {
         case "status":
@@ -95,7 +96,7 @@ export default function TableBudgetExpenses() {
                     <VerticalDotsIcon className="text-default-300" />
                   </Button>
                 </DropdownTrigger>
-                <DropdownMenu className="text-black">
+                <DropdownMenu className="text-black dark:text-white">
                   <DropdownItem
                     startContent={<ViewIcon className={iconClasses} />}
                   >
@@ -113,19 +114,29 @@ export default function TableBudgetExpenses() {
           return cellValue && typeof cellValue === "object"
             ? cellValue.name
             : "";
-        case "budget":  
-          console.log(cellValue)
-          return cellValue && typeof cellValue === "object" && ("budget" in cellValue)
+        case "budget":
+          console.log(cellValue);
+          return cellValue &&
+            typeof cellValue === "object" &&
+            "budget" in cellValue
             ? formatter.format(cellValue.budget)
             : "";
         case "amount":
-           return <p className="text-black">{cellValue && formatter.format(parseInt(cellValue?.toString()))}</p>
+          return (
+            <p className="text-black dark:text-white">
+              {cellValue && formatter.format(parseInt(cellValue?.toString()))}
+            </p>
+          );
         case "customer":
         default:
-          return <p className="text-black">{cellValue?.toString()}</p>;
+          return (
+            <p className="text-black dark:text-white">
+              {cellValue?.toString()}
+            </p>
+          );
       }
     },
-    []
+    [],
   );
 
   const onNextPage = React.useCallback(() => {
@@ -182,6 +193,10 @@ export default function TableBudgetExpenses() {
             page={page}
             total={pages}
             onChange={setPage}
+            classNames={{
+              item: "rounded-lg",
+              cursor: "bg-[#F57B00]",
+            }}
           />
           <Button
             isDisabled={pages === 1}
@@ -236,7 +251,7 @@ export default function TableBudgetExpenses() {
             {(item) => (
               <TableRow key={item.id}>
                 {(columnKey) => (
-                  <TableCell className="text-[#000]">
+                  <TableCell className="text-[#000] dark:text-white">
                     {renderCell(item, columnKey)}
                   </TableCell>
                 )}

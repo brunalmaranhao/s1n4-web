@@ -78,13 +78,13 @@ export default function ModalCreateProject() {
       isOpen={isOpen}
       onOpenChange={onClose}
       size="xl"
-      className="bg-[#F2F4F8]"
+      className="bg-[#F2F4F8] dark:bg-[#1e1e1e]"
       backdrop="blur"
     >
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1 text-black">
+            <ModalHeader className="flex flex-col gap-1 text-black dark:text-white">
               Criar Projeto
             </ModalHeader>
             <form onSubmit={handleSubmit(handleCreateProject)}>
@@ -96,23 +96,24 @@ export default function ModalCreateProject() {
                   errorMessage={errors.name?.message}
                   size="sm"
                   variant={inputVariant}
+                  className="text-black dark:text-white"
                 />
                 <Input
                   size="sm"
                   type="date"
                   label="Prazo Final"
-                  className="text-black"
+                  className="text-black dark:text-white"
                   placeholder="DD/MM/YYYY"
                   errorMessage={errors.deadline?.message}
                   isInvalid={!!errors.deadline?.message}
                   {...register("deadline")}
                   variant={inputVariant}
                 />
-                 <Input
+                <Input
                   size="sm"
                   type="number"
                   label="Orçamento"
-                  className="text-black"
+                  className="text-black dark:text-white "
                   errorMessage={errors.budget?.message}
                   isInvalid={!!errors.budget?.message}
                   {...register("budget")}
@@ -135,7 +136,11 @@ export default function ModalCreateProject() {
                       {...field}
                     >
                       {customers.map((customer) => (
-                        <SelectItem key={customer.id} value={customer.id}>
+                        <SelectItem
+                          key={customer.id}
+                          value={customer.id}
+                          className="text-black dark:text-white"
+                        >
                           {customer.name}
                         </SelectItem>
                       ))}
@@ -144,10 +149,10 @@ export default function ModalCreateProject() {
                 />
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
+                <Button color="default" variant="light" onPress={onClose}>
                   Cancelar
                 </Button>
-                <Button color="primary" type="submit">
+                <Button type="submit" className="bg-[#F57B00] text-white">
                   Criar
                 </Button>
               </ModalFooter>

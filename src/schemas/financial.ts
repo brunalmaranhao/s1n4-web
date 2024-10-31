@@ -7,7 +7,7 @@ export const schemaNewBudgetExpense = yup
     amount: yup
       .number()
       .transform((value, originalValue) =>
-        originalValue.trim() === "" ? null : value
+        originalValue.trim() === "" ? null : value,
       )
       .typeError("Campo Valor deve ser um número.")
       .min(1, "O valor deve ser maior que 0.")

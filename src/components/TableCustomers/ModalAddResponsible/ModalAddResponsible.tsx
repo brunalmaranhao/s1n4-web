@@ -99,17 +99,17 @@ export default function ModalAddResponsible() {
       isOpen={isOpenModalAddResponsible}
       onOpenChange={onOpenChangeModalAddResponsible}
       size="xl"
-      className="bg-[#F2F4F8]"
+      className="bg-[#F2F4F8] dark:bg-[#1e1e1e]"
       backdrop="blur"
     >
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1 text-black">
+            <ModalHeader className="flex flex-col gap-1 text-black dark:text-white">
               Adicionar Parte Responsável - {selectedCustomerEdit?.name}
             </ModalHeader>
             <form onSubmit={handleSubmit(handleCreateResponsible)}>
-              <ModalBody className="flex flex-col gap-2 text-black">
+              <ModalBody className="flex flex-col gap-2 text-black dark:text-white">
                 <div className="flex flex-row gap-2 flex-wrap w-full">
                   <Input
                     label="Nome"
@@ -161,7 +161,7 @@ export default function ModalAddResponsible() {
                   size="sm"
                   type="date"
                   label="Data de nascimento"
-                  className="text-black"
+                  className="text-black dark:text-white"
                   placeholder="DD/MM/YYYY"
                   errorMessage={errors.birthdate?.message}
                   isInvalid={!!errors.birthdate?.message}
@@ -181,8 +181,8 @@ export default function ModalAddResponsible() {
                       className="max-w-xs"
                       variant={inputVariant}
                       classNames={{
-                        popoverContent: "text-black",
-                        selectorIcon: "text-black",
+                        popoverContent: "text-black dark:text-white",
+                        selectorIcon: "text-black dark:text-white",
                       }}
                       {...field}
                     >
@@ -197,14 +197,18 @@ export default function ModalAddResponsible() {
               </ModalBody>
               <ModalFooter>
                 <Button
-                  color="danger"
+                  color="default"
                   variant="light"
                   onPress={onOpenChangeModalAddResponsible}
                   disabled={loading}
                 >
                   Cancelar
                 </Button>
-                <Button color="primary" type="submit" disabled={loading}>
+                <Button
+                  type="submit"
+                  className="bg-[#F57B00] text-white"
+                  disabled={loading}
+                >
                   {loading ? <Spinner color="white" size="sm" /> : "Criar"}
                 </Button>
               </ModalFooter>

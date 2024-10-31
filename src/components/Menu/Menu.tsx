@@ -82,50 +82,27 @@ export default function Menu() {
             <h1>Dashboard</h1>
           </Link>
         </NavbarItem>
-        <Dropdown>
-          <NavbarItem className="w-full">
-            <DropdownTrigger>
-              <Link
-                className={`border-solid border border-[#F2F4F8] dark:border-[#616262] space-x-2 text-[#21272A] dark:text-white text-[16px] font-medium ${
-                  pathname.includes("/admin/management")
-                    ? "bg-[#F57B00]"
-                    : "bg-white dark:bg-[#1E1E1E]"
-                } flex items-center py-3 px-4`}
-                color="foreground"
-              >
-                <Image
-                  src={
-                    pathname.includes("/admin/management")
-                      ? "/settingsselected.svg"
-                      : "/settings.svg"
-                  }
-                  alt="homeicon"
-                />
-                <h1>Gerenciar</h1>
-              </Link>
-            </DropdownTrigger>
-          </NavbarItem>
-          <DropdownMenu
-            aria-label="Manage projects and customers"
-            className="w-[240px]"
-            itemClasses={{
-              base: "gap-4 text-black text-bold text-[24px]",
-            }}
+        <NavbarItem className="w-full">
+          <Link
+            className={`border-solid border border-[#F2F4F8] dark:border-[#616262] space-x-2 text-[#21272A] dark:text-white text-[16px] font-medium ${
+              pathname.includes("/admin/management")
+                ? "bg-[#F57B00]"
+                : "bg-white dark:bg-[#1E1E1E]"
+            } flex items-center py-3 px-4`}
+            color="foreground"
+            href="/admin/management/customers"
           >
-            <DropdownItem
-              key="gerenciar clientes"
-              description="Manage customers here."
-            >
-              <Link href="/admin/management/customers">Gerenciar clientes</Link>
-            </DropdownItem>
-            <DropdownItem
-              key="gerenciar projetos"
-              description="Manage projects here."
-            >
-              <Link href="/admin/management/projects">Gerenciar Projetos</Link>
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
+            <Image
+              src={
+                pathname.includes("/admin/management")
+                  ? "/settingsselected.svg"
+                  : "/settings.svg"
+              }
+              alt="homeicon"
+            />
+            <h1>Gerenciar</h1>
+          </Link>
+        </NavbarItem>
         <NavbarItem className="w-full">
           <Link
             className={`border-solid border border-[#F2F4F8] dark:border-[#616262] rounded-b-small space-x-2 text-[#21272A] dark:text-white text-[16px] font-medium ${

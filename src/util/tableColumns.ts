@@ -1,4 +1,3 @@
-
 export type ColumnKeys =
   | "name"
   | "cnpj"
@@ -18,7 +17,6 @@ export const columnsCustomer = [
   { name: "Ações", uid: "actions", sortable: false },
 ];
 
-
 export type ColumnKeysBudgetExpenses =
   | "title"
   | "description"
@@ -26,10 +24,7 @@ export type ColumnKeysBudgetExpenses =
   | "project"
   | "customer"
   | "actions"
-  | "budget"
-  
-  ;
-
+  | "budget";
 
 export const columnsBudgetExpenses = [
   { name: "Título", uid: "title", sortable: false },
@@ -37,6 +32,6 @@ export const columnsBudgetExpenses = [
   { name: "Valor", uid: "amount", sortable: true },
   { name: "Orçamento do Projeto", uid: "budget", sortable: true },
   { name: "Projeto", uid: "project", sortable: false },
-  { name: "Cliente", uid: "customer", sortable: false }, 
+  { name: "Cliente", uid: "customer", sortable: false },
   { name: "Ações", uid: "actions", sortable: false },
 ];

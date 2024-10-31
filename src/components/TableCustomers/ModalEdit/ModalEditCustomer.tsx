@@ -100,17 +100,17 @@ export default function ModalEditCustomer() {
       isOpen={isOpenModalEdit}
       onOpenChange={onOpenChangeModalEdit}
       size="xl"
-      className="bg-[#F2F4F8]"
+      className="bg-[#F2F4F8] dark:bg-[#1e1e1e]"
       backdrop="blur"
     >
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1 text-black">
+            <ModalHeader className="flex flex-col gap-1 text-black dark:text-white">
               Editar Cliente
             </ModalHeader>
             <form onSubmit={handleSubmit(handleEditProject)}>
-              <ModalBody className="flex flex-col gap-2 justify-center items-center text-black">
+              <ModalBody className="flex flex-col gap-2 justify-center items-center text-black dark:text-white">
                 <Input
                   label="Objetivo do Contrato (Opcional)"
                   {...register("contractObjective")}
@@ -168,7 +168,7 @@ export default function ModalEditCustomer() {
               </ModalBody>
               <ModalFooter>
                 <Button
-                  color="danger"
+                  color="default"
                   variant="light"
                   onPress={onOpenChangeModalEdit}
                 >
@@ -178,6 +178,7 @@ export default function ModalEditCustomer() {
                   color="primary"
                   type="submit"
                   isDisabled={!isValid || loading}
+                  className="bg-[#F57B00] text-white"
                 >
                   {loading ? <Spinner size="sm" color="white" /> : "Salvar"}
                 </Button>

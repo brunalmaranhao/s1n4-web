@@ -73,18 +73,18 @@ export default function ModalCreateProjectUpdate() {
       isOpen={isOpen}
       onOpenChange={onClose}
       size="xl"
-      className="bg-[#F2F4F8]"
+      className="bg-[#F2F4F8] dark:bg-[#1e1e1e]"
       backdrop="blur"
     >
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1 text-black">
+            <ModalHeader className="flex flex-col gap-1 text-black dark:text-white">
               Adicionar atualização ao projeto{" "}
               {selectedProjectCreateProjectUpdate?.name}
             </ModalHeader>
             <form onSubmit={handleSubmit(handleCreateProjectUpdate)}>
-              <ModalBody className="flex flex-col gap-6 text-black">
+              <ModalBody className="flex flex-col gap-6 text-black dark:text-white">
                 <Input
                   label="Descrição"
                   {...register("description")}
@@ -95,10 +95,10 @@ export default function ModalCreateProjectUpdate() {
                 />
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
+                <Button color="default" variant="light" onPress={onClose}>
                   Cancelar
                 </Button>
-                <Button color="primary" type="submit">
+                <Button type="submit" className="bg-[#F57B00] text-white">
                   Criar
                 </Button>
               </ModalFooter>

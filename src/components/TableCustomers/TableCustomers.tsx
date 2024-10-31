@@ -94,13 +94,13 @@ export default function TableCustomers() {
         case "actions":
           return (
             <div className="relative flex justify-end items-center gap-2">
-              <Dropdown>
+              <Dropdown backdrop="blur">
                 <DropdownTrigger>
                   <Button isIconOnly size="sm" variant="light">
                     <VerticalDotsIcon className="text-default-300" />
                   </Button>
                 </DropdownTrigger>
-                <DropdownMenu className="text-black">
+                <DropdownMenu className="text-black dark:text-white">
                   <DropdownItem
                     startContent={<ViewIcon className={iconClasses} />}
                   >

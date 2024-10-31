@@ -16,7 +16,7 @@ export const schemaNewProject = yup
     budget: yup
       .number()
       .transform((value, originalValue) =>
-        originalValue.trim() === "" ? null : value
+        originalValue.trim() === "" ? null : value,
       )
       .typeError("Campo Orçamento deve ser um número.")
       .min(1, "O valor deve ser maior que 0.")
