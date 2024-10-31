@@ -15,7 +15,7 @@ import { useFinancialContext } from "@/context/FinancialContext";
 export default function HeaderManagement() {
   const { theme, setTheme } = useTheme();
   const { onOpen } = useProjectContext();
-  const {onOpen: onOpenFinancialModal } = useFinancialContext();
+  const { onOpen: onOpenFinancialModal } = useFinancialContext();
   const { push } = useRouter();
   const pathsWithTab = [
     "/admin/management/customers",
@@ -26,8 +26,8 @@ export default function HeaderManagement() {
   const label = pathname.startsWith("/admin/management/customers")
     ? "Clientes"
     : pathname.startsWith("/admin/management/projects")
-    ? "Projetos"
-    : "Financeiro";
+      ? "Projetos"
+      : "Financeiro";
   return (
     <div className="flex flex-col w-full gap-6">
       <div className="flex flex-row justify-between mt-4 items-center w-full">
@@ -66,10 +66,15 @@ export default function HeaderManagement() {
         {label === "Projetos" && pathsWithTab.includes(pathname) && (
           <div className="flex flex-row gap-3 items-center flex-wrap">
             <h1 className="text-nowrap font-medium text-black dark:text-white">
-              Filtrar por{" "}
+              Filtrar por
             </h1>
             <FilterProjectsByCustomer />
-            <Button color="primary" onPress={() => onOpen()}>
+            <Button
+              color="primary"
+              startContent={<GrAdd />}
+              className="pr-5 bg-transparent text-[#F57B00] border border-[#F57B00]"
+              onPress={() => onOpen()}
+            >
               Novo Projeto
             </Button>
           </div>
@@ -77,7 +82,11 @@ export default function HeaderManagement() {
 
         {label === "Financeiro" && pathsWithTab.includes(pathname) && (
           <div className="flex flex-row gap-3 items-center flex-wrap">
-            <Button color="primary" onPress={() => onOpenFinancialModal()}>
+            <Button
+              startContent={<GrAdd />}
+              className="pr-5 bg-transparent text-[#F57B00] border border-[#F57B00]"
+              onPress={() => onOpenFinancialModal()}
+            >
               Novo Lançamento
             </Button>
           </div>

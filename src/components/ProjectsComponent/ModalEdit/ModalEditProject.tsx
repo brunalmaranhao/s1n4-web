@@ -97,17 +97,17 @@ export default function ModalEditProject() {
       isOpen={isOpenModalEdit}
       onOpenChange={onOpenChangeModalEdit}
       size="xl"
-      className="bg-[#F2F4F8]"
+      className="bg-[#F2F4F8] dark:bg-[#1e1e1e]"
       backdrop="blur"
     >
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1 text-black">
+            <ModalHeader className="flex flex-col gap-1 text-black dark:text-white">
               Editar Projeto
             </ModalHeader>
             <form onSubmit={handleSubmit(handleEditProject)}>
-              <ModalBody className="flex flex-col gap-2 justify-center items-center text-black">
+              <ModalBody className="flex flex-col gap-2 justify-center items-center text-black dark:text-white">
                 <Input
                   label="Nome"
                   {...register("name")}
@@ -130,7 +130,7 @@ export default function ModalEditProject() {
                       size="sm"
                       type="date"
                       label="Prazo Final"
-                      className="text-black"
+                      className="text-black dark:text-white"
                       placeholder="DD/MM/YYYY"
                       variant={inputVariant}
                       errorMessage={errors.deadline?.message}
@@ -158,8 +158,8 @@ export default function ModalEditProject() {
                       placeholder="Selecione um cliente"
                       variant={inputVariant}
                       classNames={{
-                        popoverContent: "text-black",
-                        selectorIcon: "text-black",
+                        popoverContent: "text-black dark:text-white",
+                        selectorIcon: "text-black dark:text-white",
                       }}
                       defaultSelectedKeys={[
                         selectedProjectEdit?.customerId || "",
@@ -177,13 +177,13 @@ export default function ModalEditProject() {
               </ModalBody>
               <ModalFooter>
                 <Button
-                  color="danger"
+                  color="default"
                   variant="light"
                   onPress={onOpenChangeModalEdit}
                 >
                   Cancelar
                 </Button>
-                <Button color="primary" type="submit">
+                <Button type="submit" className="bg-[#F57B00] text-white">
                   Salvar
                 </Button>
               </ModalFooter>

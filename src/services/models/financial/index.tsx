@@ -6,7 +6,7 @@ export default async function FinancialService() {
     title: string,
     amount: number,
     projectId: string,
-    description?: string
+    description?: string,
   ): Promise<string> {
     const payload = JSON.stringify({
       title,
@@ -16,26 +16,26 @@ export default async function FinancialService() {
     });
     const response = await post<{ budgetExpenseId: string }, string>(
       `/budget-expense`,
-      payload
+      payload,
     );
     return response.budgetExpenseId;
   }
 
   async function fetchBudgetExpense(
     page: number,
-    size: number
-  ): Promise<{data: IBudgetExpense[], total: number}> {
-    const response = await get<{ data: IBudgetExpense[], total: number }>(
-      `/budget-expense?${(page = page)}&size=${size}`
+    size: number,
+  ): Promise<{ data: IBudgetExpense[]; total: number }> {
+    const response = await get<{ data: IBudgetExpense[]; total: number }>(
+      `/budget-expense?${(page = page)}&size=${size}`,
     );
     return response;
   }
 
   async function fetchBudgetExpenseByProject(
-    projectId: string
+    projectId: string,
   ): Promise<IBudgetExpense[]> {
     const response = await get<{ data: IBudgetExpense[] }>(
-      `/budget-expense/project/${projectId}`
+      `/budget-expense/project/${projectId}`,
     );
     return response.data;
   }

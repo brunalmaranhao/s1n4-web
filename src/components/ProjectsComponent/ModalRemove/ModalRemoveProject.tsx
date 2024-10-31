@@ -48,17 +48,17 @@ export default function ModalRemoveProject() {
       isOpen={isOpenModalRemove}
       onOpenChange={onOpenChangeModalRemove}
       size="xl"
-      className="bg-[#F2F4F8]"
+      className="bg-[#F2F4F8] dark:bg-[#1e1e1e]"
       backdrop="blur"
     >
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1 text-black">
+            <ModalHeader className="flex flex-col gap-1 text-black dark:text-white">
               Desativar Projeto
             </ModalHeader>
-            <ModalBody className="flex flex-col gap-2 justify-center items-center text-black">
-              <div className="flex flex-col ">
+            <ModalBody className="flex flex-col gap-2 justify-center items-center text-black dark:text-white">
+              <div className="flex flex-col w-full">
                 <p>
                   Você tem certeza que deseja desativar o projeto{" "}
                   {selectedProjectRemove?.name}?
@@ -67,7 +67,7 @@ export default function ModalRemoveProject() {
             </ModalBody>
             <ModalFooter>
               <Button
-                color="danger"
+                color="default"
                 variant="light"
                 onPress={onOpenChangeModalRemove}
               >
