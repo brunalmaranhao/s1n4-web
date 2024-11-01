@@ -61,7 +61,7 @@ export default function Notification() {
             >
               <MdNotifications
                 size={22}
-                color={theme === "light" ? "black" : "white"}
+                color={theme === "dark" ? "white" : "black"}
               />
             </Badge>
           </button>

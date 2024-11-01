@@ -43,7 +43,7 @@ export default function ActionsCardProject({
     <Dropdown backdrop="blur">
       <DropdownTrigger>
         <button>
-          <MdMoreVert />
+          <MdMoreVert className="text-black dark:text-white" />
         </button>
       </DropdownTrigger>
       <DropdownMenu
@@ -53,21 +53,21 @@ export default function ActionsCardProject({
       >
         <DropdownItem
           key={"projectUpdate"}
-          className="text-black"
+          className="text-black dark:text-white"
           onPress={() => handleCreateProjectUpdate()}
         >
           Adicionar Atualização
         </DropdownItem>
         <DropdownItem
           key={"edit"}
-          className="text-black"
+          className="text-black dark:text-white"
           onPress={() => handleEdit()}
         >
           Editar
         </DropdownItem>
         <DropdownItem
           key={"delete"}
-          className="text-black"
+          className="text-black dark:text-white"
           onPress={() => handleRemove()}
         >
           Desativar

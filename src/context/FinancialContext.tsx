@@ -4,19 +4,17 @@ import React, {
   useContext,
   ReactNode,
   useState,
-  useEffect,
 } from "react";
 import { useDisclosure } from "@nextui-org/react";
 import FinancialService from "@/services/models/financial";
 import { handleAxiosError } from "@/services/error";
 import toast from "react-hot-toast";
 
-
 type FinancialContextType = {
   isOpenModalCreateLaunch: boolean;
   onClose: () => void;
   onOpen: () => void;
-  fetchBudgetExpenses: (pageNumber: number) => void
+  fetchBudgetExpenses: (pageNumber: number) => void;
   fetchBudgetExpensesByCustomer: (customerId: string) => void
   fetchBudgetExpensesByProject: (projectId: string) => void
   setPage: React.Dispatch<React.SetStateAction<number>>;
@@ -24,25 +22,29 @@ type FinancialContextType = {
   page: number;
   loading: boolean;
   rowsPerPage: number;
-  budgetExpenses: IBudgetExpense[]
-  filteredCustomerId?: string
+  budgetExpenses: IBudgetExpense[];  filteredCustomerId?: string
   filteredProjectId?: string
   setFilteredCustomerId: React.Dispatch<React.SetStateAction<string | undefined>>;
   setFilteredProjectId: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
 
-const FinancialContext = createContext<FinancialContextType | undefined>(undefined);
+const FinancialContext = createContext<FinancialContextType | undefined>(
+  undefined,
+);
 
 export const FinancialProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const { isOpen: isOpenModalCreateLaunch, onOpen, onOpenChange: onClose } = useDisclosure();
+  const {
+    isOpen: isOpenModalCreateLaunch,
+    onOpen,
+    onOpenChange: onClose,
+  } = useDisclosure();
   const [total, setTotal] = useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(30);
   const [page, setPage] = React.useState(1);
   const [loading, setLoading] = useState(true);
-  const [budgetExpenses, setBudgetExpenses] = useState<IBudgetExpense[]>([])
-  const [filteredCustomerId, setFilteredCustomerId] = useState<string | undefined>()
+  const [budgetExpenses, setBudgetExpenses] = useState<IBudgetExpense[]>([]);  const [filteredCustomerId, setFilteredCustomerId] = useState<string | undefined>()
   const [filteredProjectId, setFilteredProjectId] = useState<string | undefined>()
 
   // useEffect(() => {
@@ -52,7 +54,7 @@ export const FinancialProvider: React.FC<{ children: ReactNode }> = ({
   //     fetchBudgetExpensesByCustomer(filteredCustomerId)
   //   }
   // },[filteredCustomerId, filteredProjectId])
-  
+
   async function fetchBudgetExpenses(pageNumber: number) {
     setLoading(true);
     try {
@@ -67,7 +69,6 @@ export const FinancialProvider: React.FC<{ children: ReactNode }> = ({
       setLoading(false);
     }
   }
-
 
 
   async function fetchBudgetExpensesByCustomer(customerId: string) {
@@ -100,9 +101,6 @@ export const FinancialProvider: React.FC<{ children: ReactNode }> = ({
       setLoading(false);
     }
   }
-
-
-
 
   const contextValue: FinancialContextType = {
     isOpenModalCreateLaunch,

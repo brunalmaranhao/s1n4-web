@@ -22,5 +22,5 @@ declare interface IBudgetExpense {
     name: string;
   };
   actions?: string | null;
-  budget?: string | null
+  budget?: string | null;
 }

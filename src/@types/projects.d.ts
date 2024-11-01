@@ -57,7 +57,7 @@ declare interface INewProject {
   name: string;
   deadline?: Date;
   customer: string;
-  budget: number
+  budget: number;
 }
 
 declare interface INewProjectUpdate {

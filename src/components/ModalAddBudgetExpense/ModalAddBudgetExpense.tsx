@@ -73,10 +73,10 @@ export default function ModalAddBudgetExpense() {
         data.title,
         data.amount,
         data.projectId,
-        data.description
+        data.description,
       );
 
-      reset()
+      reset();
       toast.success("Lançamento adicionado com sucesso.");
     } catch (error) {
       const customError = handleAxiosError(error);
@@ -92,17 +92,17 @@ export default function ModalAddBudgetExpense() {
       isOpen={isOpenModalCreateLaunch}
       onOpenChange={onClose}
       size="md"
-      className="bg-[#F2F4F8]"
+      className="bg-[#F2F4F8] dark:bg-[#1e1e1e]"
       backdrop="blur"
     >
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1 text-black">
+            <ModalHeader className="flex flex-col gap-1 text-black dark:text-white">
               Novo lançamento
             </ModalHeader>
             <form onSubmit={handleSubmit(createLaunch)}>
-              <ModalBody className="flex flex-col gap-2 text-black">
+              <ModalBody className="flex flex-col gap-2 text-black dark:text-white">
                 <Input
                   label="Título"
                   {...register("title")}
@@ -187,14 +187,18 @@ export default function ModalAddBudgetExpense() {
               </ModalBody>
               <ModalFooter>
                 <Button
-                  color="danger"
+                  color="default"
                   variant="light"
                   onPress={onClose}
                   disabled={loading}
                 >
                   Cancelar
                 </Button>
-                <Button color="primary" type="submit" disabled={loading}>
+                <Button
+                  type="submit"
+                  className="bg-[#F57B00] text-white"
+                  disabled={loading}
+                >
                   {loading ? <Spinner color="white" size="sm" /> : "Salvar"}
                 </Button>
               </ModalFooter>

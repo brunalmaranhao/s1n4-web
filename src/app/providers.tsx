@@ -19,9 +19,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
             <ProjectProvider>
               <ReportProvider>
                 <NotificationProvider>
-                <FinancialProvider>
+                  <FinancialProvider>
                     <NextUIProvider>{children}</NextUIProvider>
-                </FinancialProvider>
+                  </FinancialProvider>
                 </NotificationProvider>
               </ReportProvider>
             </ProjectProvider>

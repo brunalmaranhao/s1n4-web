@@ -55,7 +55,7 @@ export default async function ProjectsService() {
       name,
       deadline,
       customerId,
-      budget
+      budget,
     };
     const payload = JSON.stringify(
       Object.fromEntries(

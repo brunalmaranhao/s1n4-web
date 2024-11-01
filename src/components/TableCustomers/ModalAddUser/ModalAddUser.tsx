@@ -93,17 +93,17 @@ export default function ModalAddUser() {
       isOpen={isOpenModalAddUser}
       onOpenChange={onOpenChangeModalAddUser}
       size="xl"
-      className="bg-[#F2F4F8]"
+      className="bg-[#F2F4F8] dark:bg-[#1e1e1e]"
       backdrop="blur"
     >
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1 text-black">
+            <ModalHeader className="flex flex-col gap-1 text-black dark:text-white">
               Adicionar Usuário - {selectedCustomerEdit?.name}
             </ModalHeader>
             <form onSubmit={handleSubmit(createUsers)}>
-              <ModalBody className="flex flex-col gap-2 text-black">
+              <ModalBody className="flex flex-col gap-2 text-black dark:text-white">
                 <div className="flex flex-row gap-2 flex-wrap w-full">
                   <Input
                     label="Nome"
@@ -195,7 +195,11 @@ export default function ModalAddUser() {
                       {...field}
                     >
                       {roleOptions.map((role) => (
-                        <SelectItem key={role.key} value={role.key}>
+                        <SelectItem
+                          key={role.key}
+                          value={role.key}
+                          className="text-black dark:text-white"
+                        >
                           {role.label}
                         </SelectItem>
                       ))}
@@ -205,14 +209,18 @@ export default function ModalAddUser() {
               </ModalBody>
               <ModalFooter>
                 <Button
-                  color="danger"
+                  color="default"
                   variant="light"
                   onPress={onOpenChangeModalAddUser}
                   disabled={loading}
                 >
                   Cancelar
                 </Button>
-                <Button color="primary" type="submit" disabled={loading}>
+                <Button
+                  type="submit"
+                  className="bg-[#F57B00] text-white"
+                  disabled={loading}
+                >
                   {loading ? <Spinner color="white" size="sm" /> : "Criar"}
                 </Button>
               </ModalFooter>

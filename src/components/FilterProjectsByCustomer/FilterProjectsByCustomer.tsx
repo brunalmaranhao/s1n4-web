@@ -53,7 +53,7 @@ export default function FilterProjectsByCustomer() {
     <Dropdown backdrop="blur">
       <DropdownTrigger>
         <Button
-          className="bg-white text-[16px] font-medium"
+          className="bg-white text-[16px] text-black font-medium"
           endContent={<SlArrowDown />}
         >
           {selectedValue}
@@ -68,7 +68,7 @@ export default function FilterProjectsByCustomer() {
         className="max-h-[320px] overflow-auto scrollbar-thin scrollbar-thumb-rounded-lg scrollbar-thumb-gray-700"
       >
         {customers.map((item) => (
-          <DropdownItem key={item.id} className="text-black">
+          <DropdownItem key={item.id} className="text-black dark:text-white">
             {item.corporateName}
           </DropdownItem>
         ))}

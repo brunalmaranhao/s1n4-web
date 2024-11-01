@@ -19,6 +19,7 @@ export default function HeaderDashboardCustomer() {
         <h1 className="text-[42px] text-[#21272A] font-bold">
           Gerenciar - {label}{" "}
         </h1>
+
         <Notification />
       </div>
       <div className="flex flex-row justify-between w-full flex-wrap gap-6">
