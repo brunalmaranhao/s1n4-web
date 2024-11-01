@@ -119,7 +119,7 @@ export default function FilterBudgetExpenseByCustomerOrProject() {
           className="max-h-[320px] overflow-auto scrollbar-thin scrollbar-thumb-rounded-lg scrollbar-thumb-gray-700 text-black"
         >
           {customers.map((item) => (
-            <DropdownItem key={item.id} className="text-black">
+            <DropdownItem key={item.id} className="text-black dark:text-white">
               {item.corporateName}
             </DropdownItem>
           ))}
