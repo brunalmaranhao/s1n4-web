@@ -12,9 +12,6 @@ import { handleAxiosError } from "@/services/error";
 import toast from "react-hot-toast";
 
 
-
-
-
 type FinancialContextType = {
   isOpenModalCreateLaunch: boolean;
   onClose: () => void;
@@ -70,6 +67,8 @@ export const FinancialProvider: React.FC<{ children: ReactNode }> = ({
       setLoading(false);
     }
   }
+
+
 
   async function fetchBudgetExpensesByCustomer(customerId: string) {
     setLoading(true);

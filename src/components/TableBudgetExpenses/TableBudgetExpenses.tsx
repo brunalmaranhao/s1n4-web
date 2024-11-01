@@ -89,7 +89,7 @@ export default function TableBudgetExpenses() {
                   <VerticalDotsIcon className="text-default-300" />
                 </Button>
               </DropdownTrigger>
-              <DropdownMenu className="text-black">
+              <DropdownMenu className="text-black dark:text-white">
                 <DropdownItem
                   startContent={<ViewIcon className={iconClasses} />}
                 >
@@ -110,18 +110,18 @@ export default function TableBudgetExpenses() {
           : "";
       case "amount":
         return (
-          <p className="text-black">
+          <p className="text-black dark:text-white">
             {formatter.format(parseInt(cellValue?.toString()))}
           </p>
         );
       case "createdAt":
         return (
-          <p className="text-black">
+          <p className="text-black dark:text-white">
             {format(new Date(cellValue?.toString()), "dd/MM/yyyy 'às' HH:mm")}
           </p>
         );
       default:
-        return <p className="text-black">{cellValue?.toString()}</p>;
+        return <p className="text-black dark:text-white">{cellValue?.toString()}</p>;
     }
   }, []);
 
@@ -186,11 +186,16 @@ export default function TableBudgetExpenses() {
   return (
     <div className="w-full">
       <div className="w-full flex justify-end mb-2 text-black">
-        <Tooltip showArrow={true} content="Exportar para PDF" color="default" className="text-black dark:text-white">
+        <Tooltip
+          showArrow={true}
+          content="Exportar para PDF"
+          color="default"
+          className="text-black dark:text-white"
+        >
           <Button
-            color="primary"
+            // color="primary"
             onPress={exportToPDF}
-            className="flex items-center gap-2 min-w-[0px]"
+            className="pr-5 bg-transparent dark:bg-white dark:text-black text-[#F57B00] border border-[#F57B00] min-w-[0px] p-2"
           >
             <FaFilePdf size={20} />
           </Button>
@@ -228,9 +233,9 @@ export default function TableBudgetExpenses() {
               items={sortedItems}
             >
               {(item) => (
-                <TableRow key={item.id}>
+                <TableRow key={item.id} >
                   {(columnKey) => (
-                    <TableCell className="text-[#000]">
+                    <TableCell className="text-[#000] dark:text-white">
                       {renderCell(item, columnKey)}
                     </TableCell>
                   )}
