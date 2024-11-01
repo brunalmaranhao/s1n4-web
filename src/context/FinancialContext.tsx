@@ -71,6 +71,36 @@ export const FinancialProvider: React.FC<{ children: ReactNode }> = ({
   }
 
 
+  async function fetchBudgetExpensesByCustomer(customerId: string) {
+    setLoading(true);
+    try {
+      const { fetchBudgetExpenseByCustomer } = await FinancialService();
+      const response = await fetchBudgetExpenseByCustomer(customerId);
+      console.log(response)
+      setBudgetExpenses(response.data);
+      setTotal(response.data.length);
+    } catch (error) {
+      const customError = handleAxiosError(error);
+      toast.error(customError.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+   async function fetchBudgetExpensesByProject(projectId: string) {
+    setLoading(true);
+    try {
+      const { fetchBudgetExpenseByProject } = await FinancialService();
+      const response = await fetchBudgetExpenseByProject(projectId);
+      setBudgetExpenses(response.data);
+      setTotal(response.data.length);
+    } catch (error) {
+      const customError = handleAxiosError(error);
+      toast.error(customError.message);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   const contextValue: FinancialContextType = {
     isOpenModalCreateLaunch,
