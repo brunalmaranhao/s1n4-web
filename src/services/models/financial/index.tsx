@@ -33,16 +33,26 @@ export default async function FinancialService() {
 
   async function fetchBudgetExpenseByProject(
     projectId: string
-  ): Promise<IBudgetExpense[]> {
+  ): Promise<{data: IBudgetExpense[]}> {
     const response = await get<{ data: IBudgetExpense[] }>(
       `/budget-expense/project/${projectId}`
     );
-    return response.data;
+    return response;
+  }
+
+  async function fetchBudgetExpenseByCustomer(
+    customerId: string
+  ): Promise<{data: IBudgetExpense[]}> {
+    const response = await get<{ data: IBudgetExpense[] }>(
+      `/budget-expense/customer/${customerId}`
+    );
+    return response;
   }
 
   return {
     createBudgetExpense,
     fetchBudgetExpense,
     fetchBudgetExpenseByProject,
+    fetchBudgetExpenseByCustomer
   };
 }

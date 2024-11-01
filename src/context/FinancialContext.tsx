@@ -4,6 +4,7 @@ import React, {
   useContext,
   ReactNode,
   useState,
+  useEffect,
 } from "react";
 import { useDisclosure } from "@nextui-org/react";
 import FinancialService from "@/services/models/financial";
@@ -19,13 +20,18 @@ type FinancialContextType = {
   onClose: () => void;
   onOpen: () => void;
   fetchBudgetExpenses: (pageNumber: number) => void
+  fetchBudgetExpensesByCustomer: (customerId: string) => void
+  fetchBudgetExpensesByProject: (projectId: string) => void
   setPage: React.Dispatch<React.SetStateAction<number>>;
   total: number;
   page: number;
   loading: boolean;
   rowsPerPage: number;
   budgetExpenses: IBudgetExpense[]
-
+  filteredCustomerId?: string
+  filteredProjectId?: string
+  setFilteredCustomerId: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setFilteredProjectId: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
 
 const FinancialContext = createContext<FinancialContextType | undefined>(undefined);
@@ -35,11 +41,20 @@ export const FinancialProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const { isOpen: isOpenModalCreateLaunch, onOpen, onOpenChange: onClose } = useDisclosure();
   const [total, setTotal] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(30);
   const [page, setPage] = React.useState(1);
   const [loading, setLoading] = useState(true);
   const [budgetExpenses, setBudgetExpenses] = useState<IBudgetExpense[]>([])
+  const [filteredCustomerId, setFilteredCustomerId] = useState<string | undefined>()
+  const [filteredProjectId, setFilteredProjectId] = useState<string | undefined>()
 
+  // useEffect(() => {
+  //   if(filteredCustomerId && filteredProjectId){
+  //     fetchBudgetExpensesByProject(filteredProjectId)
+  //   }else if(filteredCustomerId && !filteredProjectId){
+  //     fetchBudgetExpensesByCustomer(filteredCustomerId)
+  //   }
+  // },[filteredCustomerId, filteredProjectId])
   
   async function fetchBudgetExpenses(pageNumber: number) {
     setLoading(true);
@@ -56,6 +71,38 @@ export const FinancialProvider: React.FC<{ children: ReactNode }> = ({
     }
   }
 
+  async function fetchBudgetExpensesByCustomer(customerId: string) {
+    setLoading(true);
+    try {
+      const { fetchBudgetExpenseByCustomer } = await FinancialService();
+      const response = await fetchBudgetExpenseByCustomer(customerId);
+      console.log(response)
+      setBudgetExpenses(response.data);
+      setTotal(response.data.length);
+    } catch (error) {
+      const customError = handleAxiosError(error);
+      toast.error(customError.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+   async function fetchBudgetExpensesByProject(projectId: string) {
+    setLoading(true);
+    try {
+      const { fetchBudgetExpenseByProject } = await FinancialService();
+      const response = await fetchBudgetExpenseByProject(projectId);
+      setBudgetExpenses(response.data);
+      setTotal(response.data.length);
+    } catch (error) {
+      const customError = handleAxiosError(error);
+      toast.error(customError.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+
 
 
   const contextValue: FinancialContextType = {
@@ -69,6 +116,12 @@ export const FinancialProvider: React.FC<{ children: ReactNode }> = ({
     loading,
     rowsPerPage,
     budgetExpenses,
+    filteredCustomerId,
+    setFilteredCustomerId,
+    filteredProjectId,
+    setFilteredProjectId,
+    fetchBudgetExpensesByCustomer,
+    fetchBudgetExpensesByProject
   };
 
   return (

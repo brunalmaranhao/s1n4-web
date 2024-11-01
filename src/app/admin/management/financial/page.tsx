@@ -1,4 +1,4 @@
-import ModalAddFinancialLaunch from "@/components/ModalAddFinancialLaunch/ModalAddFinancialLaunch";
+import ModalAddBudgetExpense from "@/components/ModalAddBudgetExpense/ModalAddBudgetExpense";
 import TableBudgetExpenses from "@/components/TableBudgetExpenses/TableBudgetExpenses";
 
 export default function Financial() {
@@ -7,7 +7,7 @@ export default function Financial() {
       <div className="xl:min-w-[1200px] lg:min-w-[900px]">
         <TableBudgetExpenses />
       </div>
-      <ModalAddFinancialLaunch />
+      <ModalAddBudgetExpense />
     </main>
   );
 }

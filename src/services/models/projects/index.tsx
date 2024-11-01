@@ -81,9 +81,11 @@ export default async function ProjectsService() {
     id: string,
     name: string,
     customerId: string,
+    budget: number,
     deadline?: Date,
+   
   ): Promise<void> {
-    const payload = JSON.stringify({ name, deadline, customerId });
+    const payload = JSON.stringify({ name, deadline, customerId, budget });
     await put<{ projectId: string }, string>(`/project/update/${id}`, payload);
   }
 

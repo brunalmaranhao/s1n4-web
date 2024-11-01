@@ -6,6 +6,7 @@ import { useProjectContext } from "@/context/ProjectContext";
 import FilterProjectsByCustomer from "../FilterProjectsByCustomer/FilterProjectsByCustomer";
 import Notification from "../Notification/Notification";
 import { useFinancialContext } from "@/context/FinancialContext";
+import FilterBudgetExpenseByCustomerOrProject from "../FilterBudgetExpenseByCustomerOrProject/FilterBudgetExpenseByCustomerOrProject";
 
 export default function HeaderManagement() {
   const { onOpen } = useProjectContext();
@@ -57,6 +58,10 @@ export default function HeaderManagement() {
 
         {label === "Financeiro" && pathsWithTab.includes(pathname) && (
           <div className="flex flex-row gap-3 items-center flex-wrap">
+            <h1 className="text-nowrap font-medium text-black dark:text-white">
+              Filtrar por{" "}
+            </h1>
+            <FilterBudgetExpenseByCustomerOrProject />
             <Button color="primary" onPress={() => onOpenFinancialModal()}>
               Novo Lançamento
             </Button>
