@@ -15,6 +15,7 @@ declare interface IProject {
   createdAt: Date;
   updatedAt: Date | null | undefined;
   customer: ICustomer;
+  budget: number
 }
 
 declare interface IFetchAllProjectsResponse {

@@ -10,7 +10,7 @@ declare interface IBudgetExpense {
   id: string;
   title: string;
   description?: string;
-  createdAt: Date;
+  createdAt: string;
   amount: number;
   project: {
     id: string;

@@ -26,7 +26,7 @@ import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-export default function ModalAddFinancialLaunch() {
+export default function ModalAddBudgetExpense() {
   const { customers, projects, fetchCustomer, fetchProjectsByCustomer } =
     useProjectContext();
   const { isOpenModalCreateLaunch, onClose } = useFinancialContext();
