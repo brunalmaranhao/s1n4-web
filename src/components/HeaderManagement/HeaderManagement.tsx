@@ -29,7 +29,7 @@ export default function HeaderManagement() {
       ? "Projetos"
       : "Financeiro";
   return (
-    <div className="flex flex-col w-full gap-6">
+    <div className="flex flex-col w-full gap-6 ">
       <div className="flex flex-row justify-between mt-4 items-center w-full">
         <h1 className="text-[42px] text-[#21272A] dark:text-white font-bold">
           Gerenciar - {label}{" "}

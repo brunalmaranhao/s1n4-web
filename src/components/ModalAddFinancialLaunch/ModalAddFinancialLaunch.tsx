@@ -144,8 +144,8 @@ export default function ModalAddFinancialLaunch() {
                       className="max-w-xs"
                       variant={inputVariant}
                       classNames={{
-                        popoverContent: "text-black",
-                        selectorIcon: "text-black",
+                        popoverContent: "text-black dark:text-white",
+                        selectorIcon: "text-black dark:text-white",
                       }}
                       {...field}
                     >
@@ -170,8 +170,8 @@ export default function ModalAddFinancialLaunch() {
                         className="max-w-xs"
                         variant={inputVariant}
                         classNames={{
-                          popoverContent: "text-black",
-                          selectorIcon: "text-black",
+                          popoverContent: "text-black dark:text-white",
+                          selectorIcon: "text-black dark:text-white",
                         }}
                         {...field}
                       >
