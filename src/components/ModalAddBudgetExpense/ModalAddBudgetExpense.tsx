@@ -26,7 +26,7 @@ import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-export default function ModalAddFinancialLaunch() {
+export default function ModalAddBudgetExpense() {
   const { customers, projects, fetchCustomer, fetchProjectsByCustomer } =
     useProjectContext();
   const { isOpenModalCreateLaunch, onClose } = useFinancialContext();
@@ -34,7 +34,7 @@ export default function ModalAddFinancialLaunch() {
   const toggleVisibility = () => setIsVisible(!isVisible);
   const [loading, setLoading] = useState(false);
 
-  const inputVariant = "bordered";
+  const inputVariant = "underlined";
 
   useEffect(() => {
     fetchCustomer();
@@ -73,7 +73,7 @@ export default function ModalAddFinancialLaunch() {
         data.title,
         data.amount,
         data.projectId,
-        data.description,
+        data.description
       );
 
       reset();
@@ -109,13 +109,11 @@ export default function ModalAddFinancialLaunch() {
                   isInvalid={!!errors.title?.message}
                   errorMessage={errors.title?.message}
                   size="sm"
-                  variant={inputVariant}
                 />
                 <Input
                   label="Descrição"
                   {...register("description")}
                   size="sm"
-                  variant={inputVariant}
                 />
                 <Input
                   label="Valor"
@@ -124,7 +122,6 @@ export default function ModalAddFinancialLaunch() {
                   isInvalid={!!errors.amount?.message}
                   errorMessage={errors.amount?.message}
                   size="sm"
-                  variant={inputVariant}
                   startContent={
                     <div className="pointer-events-none flex items-center">
                       <span className="text-default-400 text-small">R$</span>
@@ -142,7 +139,6 @@ export default function ModalAddFinancialLaunch() {
                       label="Cliente"
                       placeholder="Selecione um cliente"
                       className="max-w-xs"
-                      variant={inputVariant}
                       classNames={{
                         popoverContent: "text-black dark:text-white",
                         selectorIcon: "text-black dark:text-white",
@@ -168,7 +164,6 @@ export default function ModalAddFinancialLaunch() {
                         label="Projeto"
                         placeholder="Selecione um projeto"
                         className="max-w-xs"
-                        variant={inputVariant}
                         classNames={{
                           popoverContent: "text-black dark:text-white",
                           selectorIcon: "text-black dark:text-white",

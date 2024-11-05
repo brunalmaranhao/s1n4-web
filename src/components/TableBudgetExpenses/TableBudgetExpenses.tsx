@@ -1,5 +1,5 @@
 "use client";
-import React, { Key, useEffect } from "react";
+import React, { Key, useEffect, useRef } from "react";
 import {
   Table,
   TableHeader,
@@ -16,6 +16,7 @@ import {
   Pagination,
   SortDescriptor,
   Spinner,
+  Tooltip,
 } from "@nextui-org/react";
 import { VerticalDotsIcon } from "@/assets/verticalDotIcon";
 import {
@@ -25,8 +26,13 @@ import {
 import { ViewIcon } from "@/assets/ViewIcon";
 import { useFinancialContext } from "@/context/FinancialContext";
 import { formatter } from "@/util/formatter";
+import { format } from "date-fns";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import { FaFilePdf } from "react-icons/fa";
 
 export default function TableBudgetExpenses() {
+  const tableRef = useRef<HTMLDivElement>(null);
   const {
     fetchBudgetExpenses,
     loading,
@@ -35,18 +41,17 @@ export default function TableBudgetExpenses() {
     total,
     rowsPerPage,
     budgetExpenses,
+    filteredCustomerId,
   } = useFinancialContext();
 
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
-    column: "amount",
-    direction: "ascending",
+    column: "createdAt",
+    direction: "descending",
   });
   const [selectedKeys, setSelectedKeys] = React.useState<any>(new Set([]));
   const iconClasses =
     "text-xl text-default-500 pointer-events-none flex-shrink-0";
-  const headerColumns = React.useMemo(() => {
-    return columnsBudgetExpenses;
-  }, []);
+  const headerColumns = React.useMemo(() => columnsBudgetExpenses, []);
 
   useEffect(() => {
     if (page > 0) fetchBudgetExpenses(page);
@@ -55,210 +60,190 @@ export default function TableBudgetExpenses() {
   const pages = Math.ceil(total / rowsPerPage);
 
   const sortedItems = React.useMemo(() => {
-    return [...budgetExpenses].sort((a, b) => {
-      if (a["amount"] && b["amount"]) {
-        const first = a["amount"];
-        const second = b["amount"];
-        const cmp = first < second ? -1 : first > second ? 1 : 0;
-
-        return sortDescriptor.direction === "descending" ? -cmp : cmp;
-      } else {
-        return 1;
-      }
+    const items = Array.isArray(budgetExpenses) ? budgetExpenses : [];
+    return [...items].sort((a, b) => {
+      const first = a[sortDescriptor.column as keyof typeof a] as number;
+      const second = b[sortDescriptor.column as keyof typeof b] as number;
+      const cmp = first < second ? -1 : first > second ? 1 : 0;
+      return sortDescriptor.direction === "descending" ? -cmp : cmp;
     });
   }, [sortDescriptor, budgetExpenses]);
 
-  const renderCell = React.useCallback(
-    (budgetExpense: IBudgetExpense, columnKey: Key) => {
-      console.log(budgetExpense);
-      let column = columnKey as ColumnKeysBudgetExpenses;
-      let columnParsed =
-        column === "budget" ? "project" : (column as ColumnKeysBudgetExpenses);
-      const cellValue = budgetExpense[columnParsed];
-      switch (columnKey) {
-        case "status":
-          return (
-            <Chip
-              className="capitalize"
-              color={"success"}
-              size="sm"
-              variant="flat"
-            >
-              {cellValue?.toString()}
-            </Chip>
-          );
-        case "actions":
-          return (
-            <div className="relative flex justify-end items-center gap-2">
-              <Dropdown>
-                <DropdownTrigger>
-                  <Button isIconOnly size="sm" variant="light">
-                    <VerticalDotsIcon className="text-default-300" />
-                  </Button>
-                </DropdownTrigger>
-                <DropdownMenu className="text-black dark:text-white">
-                  <DropdownItem
-                    startContent={<ViewIcon className={iconClasses} />}
-                  >
-                    Visualizar
-                  </DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-            </div>
-          );
-        case "project":
-          return cellValue && typeof cellValue === "object"
-            ? cellValue.name
-            : "";
-        case "customer":
-          return cellValue && typeof cellValue === "object"
-            ? cellValue.name
-            : "";
-        case "budget":
-          console.log(cellValue);
-          return cellValue &&
-            typeof cellValue === "object" &&
-            "budget" in cellValue
-            ? formatter.format(cellValue.budget)
-            : "";
-        case "amount":
-          return (
-            <p className="text-black dark:text-white">
-              {cellValue && formatter.format(parseInt(cellValue?.toString()))}
-            </p>
-          );
-        case "customer":
-        default:
-          return (
-            <p className="text-black dark:text-white">
-              {cellValue?.toString()}
-            </p>
-          );
-      }
-    },
-    [],
-  );
+  const renderCell = React.useCallback((budgetExpense: any, columnKey: Key) => {
+    let column = columnKey as ColumnKeysBudgetExpenses;
+    let columnParsed = column === "budget" ? "project" : column;
+    const cellValue = budgetExpense[columnParsed];
+    switch (columnKey) {
+      case "status":
+        return (
+          <Chip className="capitalize" color="success" size="sm" variant="flat">
+            {cellValue?.toString()}
+          </Chip>
+        );
+      case "actions":
+        return (
+          <div className="relative flex justify-end items-center gap-2">
+            <Dropdown>
+              <DropdownTrigger>
+                <Button isIconOnly size="sm" variant="light">
+                  <VerticalDotsIcon className="text-default-300" />
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu className="text-black dark:text-white">
+                <DropdownItem
+                  startContent={<ViewIcon className={iconClasses} />}
+                >
+                  Visualizar
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
+        );
+      case "project":
+      case "customer":
+        return cellValue && typeof cellValue === "object" ? cellValue.name : "";
+      case "budget":
+        return cellValue &&
+          typeof cellValue === "object" &&
+          "budget" in cellValue
+          ? formatter.format(cellValue.budget)
+          : "";
+      case "amount":
+        return (
+          <p className="text-black dark:text-white">
+            {formatter.format(parseInt(cellValue?.toString()))}
+          </p>
+        );
+      case "createdAt":
+        return (
+          <p className="text-black dark:text-white">
+            {format(new Date(cellValue?.toString()), "dd/MM/yyyy 'às' HH:mm")}
+          </p>
+        );
+      default:
+        return <p className="text-black dark:text-white">{cellValue?.toString()}</p>;
+    }
+  }, []);
 
   const onNextPage = React.useCallback(() => {
-    if (page < pages) {
-      setPage(page + 1);
-    }
+    if (page < pages) setPage(page + 1);
   }, [page, pages]);
 
   const onPreviousPage = React.useCallback(() => {
-    if (page > 1) {
-      setPage(page - 1);
-    }
+    if (page > 1) setPage(page - 1);
   }, [page]);
 
-  // const onRowsPerPageChange = React.useCallback((e: any) => {
-  //   setRowsPerPage(Number(e.target.value));
-  //   setPage(1);
-  // }, []);
-
-  // const topContent = React.useMemo(() => {
-  //   return (
-  //     <div className="flex flex-col gap-4">
-  //       <div className="flex justify-between items-center">
-  //         <span className="text-default-400 text-small">
-  //           Total {total} customers
-  //         </span>
-  //       </div>
-  //     </div>
-  //   );
-  // }, [total]);
-
-  const bottomContent = React.useMemo(() => {
-    return (
+  const bottomContent = React.useMemo(
+    () => (
       <div className="py-2 px-2 flex justify-between items-center w-full">
-        {/* <span className="w-[30%] text-small text-default-400">
-          {selectedKeys === "all"
-            ? "All items selected"
-            : `${selectedKeys.size} of ${filteredItems.length} selected`}
-        </span> */}
-
-        <div className="flex w-full justify-center gap-2">
-          <Button
-            isDisabled={pages === 1}
-            size="sm"
-            variant="flat"
-            onPress={onPreviousPage}
-          >
-            Anterior
-          </Button>
-          <Pagination
-            isCompact
-            showShadow
-            color="primary"
-            page={page}
-            total={pages}
-            onChange={setPage}
-            classNames={{
-              item: "rounded-lg",
-              cursor: "bg-[#F57B00]",
-            }}
-          />
-          <Button
-            isDisabled={pages === 1}
-            size="sm"
-            variant="flat"
-            onPress={onNextPage}
-          >
-            Próximo
-          </Button>
-        </div>
+        {!filteredCustomerId ||
+          (pages > 1 && (
+            <div className="flex w-full justify-center gap-2">
+              <Button
+                isDisabled={pages === 1}
+                size="sm"
+                variant="flat"
+                onPress={onPreviousPage}
+              >
+                Anterior
+              </Button>
+              <Pagination
+                isCompact
+                showShadow
+                color="primary"
+                page={page}
+                total={pages}
+                onChange={setPage}
+              />
+              <Button
+                isDisabled={pages === 1}
+                size="sm"
+                variant="flat"
+                onPress={onNextPage}
+              >
+                Próximo
+              </Button>
+            </div>
+          ))}
       </div>
-    );
-  }, [total, page, pages]);
+    ),
+    [total, page, pages]
+  );
 
+  const exportToPDF = async () => {
+    if (!tableRef.current) return;
+
+    const canvas = await html2canvas(tableRef.current, { scale: 2 });
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF({
+      orientation: "landscape",
+      unit: "px",
+      format: [canvas.width, canvas.height],
+    });
+    pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
+    pdf.save("table-budget-expenses.pdf");
+  };
   return (
     <div className="w-full">
+      <div className="w-full flex justify-end mb-2 text-black">
+        <Tooltip
+          showArrow={true}
+          content="Exportar para PDF"
+          color="default"
+          className="text-black dark:text-white"
+        >
+          <Button
+            // color="primary"
+            onPress={exportToPDF}
+            className="pr-5 bg-transparent dark:bg-white dark:text-black text-[#F57B00] border border-[#F57B00] min-w-[0px] p-2"
+          >
+            <FaFilePdf size={20} />
+          </Button>
+        </Tooltip>
+      </div>
       {loading ? (
         <Spinner />
       ) : (
-        <Table
-          aria-label="Table BudgetExpenses"
-          isHeaderSticky
-          bottomContent={bottomContent}
-          bottomContentPlacement="outside"
-          classNames={{
-            wrapper: "w-full",
-          }}
-          selectedKeys={selectedKeys}
-          selectionMode="multiple"
-          sortDescriptor={sortDescriptor}
-          // topContent={topContent}
-          // topContentPlacement="outside"
-          onSelectionChange={setSelectedKeys}
-          onSortChange={setSortDescriptor}
-        >
-          <TableHeader columns={headerColumns}>
-            {(column) => (
-              <TableColumn
-                key={column.uid}
-                align={column.uid === "actions" ? "center" : "start"}
-                allowsSorting={column.sortable}
-              >
-                {column.name}
-              </TableColumn>
-            )}
-          </TableHeader>
-
-          <TableBody
-            emptyContent={"Não existem lançamentos cadastrados"}
-            items={sortedItems}
+        <div ref={tableRef}>
+          <Table
+            aria-label="Table BudgetExpenses"
+            isHeaderSticky
+            bottomContent={bottomContent}
+            bottomContentPlacement="outside"
+            classNames={{ wrapper: "w-full" }}
+            selectedKeys={selectedKeys}
+            selectionMode="multiple"
+            sortDescriptor={sortDescriptor}
+            onSelectionChange={setSelectedKeys}
+            onSortChange={setSortDescriptor}
           >
-            {(item) => (
-              <TableRow key={item.id}>
-                {(columnKey) => (
-                  <TableCell className="text-[#000] dark:text-white">
-                    {renderCell(item, columnKey)}
-                  </TableCell>
-                )}
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+            <TableHeader columns={headerColumns}>
+              {(column) => (
+                <TableColumn
+                  key={column.uid}
+                  align={column.uid === "actions" ? "center" : "start"}
+                  allowsSorting={column.sortable}
+                >
+                  {column.name}
+                </TableColumn>
+              )}
+            </TableHeader>
+            <TableBody
+              emptyContent="Não existem lançamentos cadastrados"
+              items={sortedItems}
+            >
+              {(item) => (
+                <TableRow key={item.id} >
+                  {(columnKey) => (
+                    <TableCell className="text-[#000] dark:text-white">
+                      {renderCell(item, columnKey)}
+                    </TableCell>
+                  )}
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
       )}
     </div>
   );

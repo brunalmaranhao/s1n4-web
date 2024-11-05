@@ -24,7 +24,11 @@ export type ColumnKeysBudgetExpenses =
   | "project"
   | "customer"
   | "actions"
-  | "budget";
+  | "budget"
+  | "createdAt"
+  
+  ;
+
 
 export const columnsBudgetExpenses = [
   { name: "Título", uid: "title", sortable: false },
@@ -33,5 +37,6 @@ export const columnsBudgetExpenses = [
   { name: "Orçamento do Projeto", uid: "budget", sortable: true },
   { name: "Projeto", uid: "project", sortable: false },
   { name: "Cliente", uid: "customer", sortable: false },
+  { name: "Data", uid: "createdAt", sortable: true }, 
   { name: "Ações", uid: "actions", sortable: false },
 ];

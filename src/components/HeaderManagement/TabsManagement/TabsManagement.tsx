@@ -5,9 +5,19 @@ import { Key, useState } from "react";
 import { GrAdd } from "react-icons/gr";
 
 export default function TabsManagement() {
-  const [selectedTab, setSelectedTab] = useState<Key>("customers");
-  const router = useRouter();
+
   const pathname = usePathname();
+  const keyMapping = {
+    projects: "projects",
+    customers: "customers",
+    financial: "financial"
+  };
+  
+  const selectedKey = 
+    Object.keys(keyMapping).find((key) => pathname.includes(key)) || "";
+  const [selectedTab, setSelectedTab] = useState<Key>(selectedKey);
+  const router = useRouter();
+
   const handleTabChange = (key: Key) => {
     setSelectedTab(key);
     router.push(`/admin/management/${key}`);
@@ -29,13 +39,8 @@ export default function TabsManagement() {
           tabContent:
             "group-data-[selected=true]:text-[#001D6C] w-full text-[#21272A]",
         }}
-        selectedKey={
-          pathname.includes("projects")
-            ? "projects"
-            : pathname.includes("customers")
-              ? "customers"
-              : "financial"
-        }
+
+        selectedKey={selectedKey}
         onSelectionChange={handleTabChange}
       >
         <Tab

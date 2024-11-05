@@ -112,6 +112,7 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
   }
 
   async function fetchProjectsByCustomer(customerId: string) {
+    console.log(customerId)
     try {
       const { fetchProjectsByCustomer } = await ProjectsService();
       const response = await fetchProjectsByCustomer(customerId);

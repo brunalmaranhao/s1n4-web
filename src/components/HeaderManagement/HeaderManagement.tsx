@@ -11,6 +11,7 @@ import { useTheme } from "next-themes";
 import Image from "next/image";
 import { GrAdd } from "react-icons/gr";
 import { useFinancialContext } from "@/context/FinancialContext";
+import FilterBudgetExpenseByCustomerOrProject from "../FilterBudgetExpenseByCustomerOrProject/FilterBudgetExpenseByCustomerOrProject";
 
 export default function HeaderManagement() {
   const { theme, setTheme } = useTheme();
@@ -82,6 +83,10 @@ export default function HeaderManagement() {
 
         {label === "Financeiro" && pathsWithTab.includes(pathname) && (
           <div className="flex flex-row gap-3 items-center flex-wrap">
+            <h1 className="text-nowrap font-medium text-black dark:text-white">
+              Filtrar por{" "}
+            </h1>
+            <FilterBudgetExpenseByCustomerOrProject />
             <Button
               startContent={<GrAdd />}
               className="pr-5 bg-transparent text-[#F57B00] border border-[#F57B00]"
