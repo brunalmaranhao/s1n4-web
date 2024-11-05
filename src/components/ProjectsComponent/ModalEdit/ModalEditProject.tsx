@@ -55,7 +55,7 @@ export default function ModalEditProject() {
     }
   }, []);
 
-  console.log(selectedProjectEdit)
+  console.log(selectedProjectEdit);
 
   useEffect(() => {
     if (customers.length >= 1) {
@@ -63,7 +63,7 @@ export default function ModalEditProject() {
         console.log(selectedProjectEdit.customerId);
         setValue("name", selectedProjectEdit.name);
         setValue("customer", selectedProjectEdit.customerId);
-        setValue("budget", selectedProjectEdit.budget)
+        setValue("budget", selectedProjectEdit.budget);
       }
     }
   }, [customers, selectedProjectEdit]);
@@ -79,7 +79,7 @@ export default function ModalEditProject() {
           data.name,
           data.customer,
           data.budget,
-          data.deadline
+          data.deadline,
         );
 
         onOpenChangeModalEdit();
@@ -144,7 +144,7 @@ export default function ModalEditProject() {
                       }
                       onChange={(e) =>
                         field.onChange(
-                          e.target.value ? parseISO(e.target.value) : undefined
+                          e.target.value ? parseISO(e.target.value) : undefined,
                         )
                       }
                     />

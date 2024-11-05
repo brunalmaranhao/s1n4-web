@@ -25,10 +25,10 @@ export default function FilterBudgetExpenseByCustomerOrProject() {
     filteredCustomerId,
   } = useFinancialContext();
   const [selectedKeysCustomer, setSelectedKeysCustomer] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
   const [selectedKeysProject, setSelectedKeysProject] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
 
   useEffect(() => {
@@ -157,7 +157,6 @@ export default function FilterBudgetExpenseByCustomerOrProject() {
         <Button
           onClick={clearFilters}
           className="bg-red-500 text-white ml-2 flex items-center"
-          
         >
           Limpar Filtros <AiOutlineClose className="ml-1" />
         </Button>

@@ -73,7 +73,7 @@ export default function ModalAddBudgetExpense() {
         data.title,
         data.amount,
         data.projectId,
-        data.description
+        data.description,
       );
 
       reset();
