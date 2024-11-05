@@ -121,7 +121,9 @@ export default function TableBudgetExpenses() {
           </p>
         );
       default:
-        return <p className="text-black dark:text-white">{cellValue?.toString()}</p>;
+        return (
+          <p className="text-black dark:text-white">{cellValue?.toString()}</p>
+        );
     }
   }, []);
 
@@ -167,7 +169,7 @@ export default function TableBudgetExpenses() {
           ))}
       </div>
     ),
-    [total, page, pages]
+    [total, page, pages],
   );
 
   const exportToPDF = async () => {
@@ -233,7 +235,7 @@ export default function TableBudgetExpenses() {
               items={sortedItems}
             >
               {(item) => (
-                <TableRow key={item.id} >
+                <TableRow key={item.id}>
                   {(columnKey) => (
                     <TableCell className="text-[#000] dark:text-white">
                       {renderCell(item, columnKey)}

@@ -31,9 +31,7 @@ body {
     text-wrap: balance;
   }
 
-  .no-padding{
-    padding: 0px !important
+  .no-padding {
+    padding: 0px !important;
   }
 }
-
-

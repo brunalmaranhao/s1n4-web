@@ -33,7 +33,7 @@ export default async function FinancialService() {
 
   async function fetchBudgetExpenseByProject(
     projectId: string,
-  ): Promise<{data: IBudgetExpense[]}> {
+  ): Promise<{ data: IBudgetExpense[] }> {
     const response = await get<{ data: IBudgetExpense[] }>(
       `/budget-expense/project/${projectId}`,
     );
@@ -41,10 +41,10 @@ export default async function FinancialService() {
   }
 
   async function fetchBudgetExpenseByCustomer(
-    customerId: string
-  ): Promise<{data: IBudgetExpense[]}> {
+    customerId: string,
+  ): Promise<{ data: IBudgetExpense[] }> {
     const response = await get<{ data: IBudgetExpense[] }>(
-      `/budget-expense/customer/${customerId}`
+      `/budget-expense/customer/${customerId}`,
     );
     return response;
   }
@@ -53,6 +53,6 @@ export default async function FinancialService() {
     createBudgetExpense,
     fetchBudgetExpense,
     fetchBudgetExpenseByProject,
-    fetchBudgetExpenseByCustomer
+    fetchBudgetExpenseByCustomer,
   };
 }
