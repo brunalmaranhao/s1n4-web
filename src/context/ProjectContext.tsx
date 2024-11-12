@@ -48,6 +48,7 @@ type ProjectContextType = {
   setSelectedCustomerFilter: React.Dispatch<
     React.SetStateAction<string | undefined>
   >;
+  loadingProjects: boolean
 };
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
@@ -86,6 +87,8 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     IProject | undefined
   >();
 
+  const [loadingProjects, setLoadingProjects] = useState(false)
+
   const [
     selectedProjectCreateProjectUpdate,
     setSelectedProjectCreateProjectUpdate,
@@ -112,13 +115,15 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
   }
 
   async function fetchProjectsByCustomer(customerId: string) {
-    console.log(customerId);
+    setLoadingProjects(true)
     try {
       const { fetchProjectsByCustomer } = await ProjectsService();
       const response = await fetchProjectsByCustomer(customerId);
       setProjects(response);
     } catch (error) {
       console.log(error);
+    }finally{
+      setLoadingProjects(false)
     }
   }
 
@@ -160,6 +165,7 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     projectsUser,
     setSelectedCustomerFilter,
     selectedCustomerFilter,
+    loadingProjects
   };
 
   return (

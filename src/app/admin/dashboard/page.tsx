@@ -10,15 +10,20 @@ import { Key, useState } from "react";
 import ReportTabContent from "@/components/ReportTabContent/ReportTabContent";
 import FilterReportsByCustomer from "@/components/FilterReportsByCustomer/FilterReportsByCustomer";
 import { useTheme } from "next-themes";
-import { Switch } from "@nextui-org/react";
+import { Button, Switch } from "@nextui-org/react";
 import { SunIcon } from "@/components/SunIcon/SunIcon";
 import { MoonIcon } from "@/components/MoonIcon/MoonIcon";
+import { GrAdd } from "react-icons/gr";
+import { useReportContext } from "@/context/ReportContext";
+import ModalCreatePeriodicReport from "@/components/ModalCreatePeriodicReport/ModalCreatePeriodicReport";
 
 export default function Dashboard() {
   const [selectedTab, setSelectedTab] = useState<Key>("");
   const [selectedClient, setSelectedClient] = useState<ICustomer | undefined>(
-    undefined,
+    undefined
   );
+
+  const {onOpenModalCreatePeriodicReport} = useReportContext()
 
   const { theme, setTheme } = useTheme();
 
@@ -59,7 +64,17 @@ export default function Dashboard() {
           {selectedTab === "overview" ? (
             <FilterCustomersAndProjects onClientSelect={handleSelectedClient} />
           ) : (
-            <FilterReportsByCustomer />
+            <div className="flex gap-3">
+              <Button
+                color="primary"
+                startContent={<GrAdd />}
+                className="pr-5 bg-transparent text-[#F57B00] border border-[#F57B00]"
+                onPress={() => onOpenModalCreatePeriodicReport()}
+              >
+                Inserir Relatório Mensal
+              </Button>
+              <FilterReportsByCustomer />
+            </div>
           )}
         </div>
         <div className="flex flex-col">
@@ -78,6 +93,7 @@ export default function Dashboard() {
           )}
         </div>
       </div>
+      <ModalCreatePeriodicReport />
     </div>
   );
 }

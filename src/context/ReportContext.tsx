@@ -12,7 +12,7 @@ type ReportContextType = {
   fetchReportsByCustomerId: (
     customerId: string,
     page: number,
-    size: number,
+    size: number
   ) => void;
   loading: boolean;
   page: number;
@@ -22,6 +22,12 @@ type ReportContextType = {
   rowsPerPage: number;
   selectedCustomer?: string;
   setSelectedCustomer: React.Dispatch<React.SetStateAction<string | undefined>>;
+  isOpenModalCreatePeriodicReport: boolean;
+  onCloseModalCreatePeriodicReport: () => void;
+  onOpenModalCreatePeriodicReport: () => void;
+  isOpenModalDownloadPeriodicReport: boolean;
+  onCloseModalDownloadPeriodicReport: () => void;
+  onOpenModalDownloadPeriodicReport: () => void;
 };
 
 const ReportContext = createContext<ReportContextType | undefined>(undefined);
@@ -29,6 +35,17 @@ const ReportContext = createContext<ReportContextType | undefined>(undefined);
 export const ReportProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
+  const {
+    isOpen: isOpenModalCreatePeriodicReport,
+    onOpen: onOpenModalCreatePeriodicReport,
+    onOpenChange: onCloseModalCreatePeriodicReport,
+  } = useDisclosure();
+
+  const {
+    isOpen: isOpenModalDownloadPeriodicReport,
+    onOpen: onOpenModalDownloadPeriodicReport,
+    onOpenChange: onCloseModalDownloadPeriodicReport,
+  } = useDisclosure();
   const [reports, setReports] = useState<ReportDetailsResponse[]>([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
@@ -56,7 +73,7 @@ export const ReportProvider: React.FC<{ children: ReactNode }> = ({
   async function fetchReportsByCustomerId(
     customerId: string,
     page: number,
-    size: number,
+    size: number
   ) {
     setLoading(true);
     try {
@@ -108,6 +125,12 @@ export const ReportProvider: React.FC<{ children: ReactNode }> = ({
     selectedCustomer,
     setSelectedCustomer,
     fetchReportsByUser,
+    isOpenModalDownloadPeriodicReport,
+    onCloseModalDownloadPeriodicReport,
+    onOpenModalDownloadPeriodicReport,
+    isOpenModalCreatePeriodicReport,
+    onCloseModalCreatePeriodicReport,
+    onOpenModalCreatePeriodicReport
   };
 
   return (
@@ -121,7 +144,7 @@ export const useReportContext = () => {
   const context = useContext(ReportContext);
   if (!context) {
     throw new Error(
-      "useReportContext deve ser usado dentro de um ReportProvider",
+      "useReportContext deve ser usado dentro de um ReportProvider"
     );
   }
   return context;

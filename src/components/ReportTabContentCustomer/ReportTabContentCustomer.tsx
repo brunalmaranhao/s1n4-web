@@ -6,6 +6,7 @@ import { VISUAL_SETTINGS } from "@/util/setting-pbi";
 import { MdFullscreen } from "react-icons/md";
 import { Pagination, Spinner } from "@nextui-org/react";
 import { useReportContext } from "@/context/ReportContext";
+import ModalDownloadPeriodicReport from "../ModalDownloadPeriodicReport/ModalDownloadPeriodicReport";
 
 export default function ReportTabContentCustomer() {
   const {
@@ -144,6 +145,7 @@ export default function ReportTabContentCustomer() {
           </div>
         </>
       )}
+      <ModalDownloadPeriodicReport />
     </div>
   );
 }

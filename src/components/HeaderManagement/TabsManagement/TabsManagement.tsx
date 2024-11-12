@@ -2,14 +2,13 @@
 import { Tabs, Tab, Button } from "@nextui-org/react";
 import { useRouter, usePathname } from "next/navigation";
 import { Key, useState } from "react";
-import { GrAdd } from "react-icons/gr";
 
 export default function TabsManagement() {
   const pathname = usePathname();
   const keyMapping = {
-    projects: "projects",
-    customers: "customers",
-    financial: "financial",
+    customers: "Clientes",
+    projects: "Projetos",    
+    financial: "Financeiro",
   };
 
   const selectedKey =
@@ -21,10 +20,9 @@ export default function TabsManagement() {
     setSelectedTab(key);
     router.push(`/admin/management/${key}`);
   };
-  const { push } = useRouter();
 
   return (
-    <div className="">
+    <div>
       <Tabs
         aria-label="Options"
         color="primary"
@@ -41,56 +39,25 @@ export default function TabsManagement() {
         selectedKey={selectedKey}
         onSelectionChange={handleTabChange}
       >
-        <Tab
-          key="customers"
-          className="w-full"
-          title={
-            <div className="flex items-center space-x-2">
-              <span
-                className={`font-medium ${
-                  selectedTab === "customers"
-                    ? "text-[#F57B00]"
-                    : "text-black dark:text-white"
-                }`}
-              >
-                Clientes
-              </span>
-            </div>
-          }
-        ></Tab>
-        <Tab
-          key="projects"
-          title={
-            <div className="flex items-center space-x-2">
-              <span
-                className={`font-medium ${
-                  selectedTab === "projects"
-                    ? "text-[#F57B00]"
-                    : "text-black dark:text-white"
-                }`}
-              >
-                Projetos
-              </span>
-            </div>
-          }
-        ></Tab>
-
-        <Tab
-          key="financial"
-          title={
-            <div className="flex items-center space-x-2">
-              <span
-                className={`font-medium ${
-                  selectedTab === "financial"
-                    ? "text-[#F57B00]"
-                    : "text-black dark:text-white"
-                }`}
-              >
-                Financeiro
-              </span>
-            </div>
-          }
-        ></Tab>
+        {Object.keys(keyMapping).map((key) => (
+          <Tab
+            key={key}
+            className="w-full"
+            title={
+              <div className="flex items-center space-x-2">
+                <span
+                  className={`font-medium ${
+                    selectedTab === key
+                      ? "text-[#F57B00]"
+                      : "text-black dark:text-white"
+                  }`}
+                >
+                  {key in keyMapping ? keyMapping[key as keyof typeof keyMapping] : "Chave não encontrada"}
+                </span>
+              </div>
+            }
+          ></Tab>
+        ))}
       </Tabs>
     </div>
   );

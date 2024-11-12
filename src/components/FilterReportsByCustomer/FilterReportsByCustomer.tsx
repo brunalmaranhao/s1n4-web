@@ -8,6 +8,7 @@ import {
   DropdownTrigger,
 } from "@nextui-org/react";
 import { useEffect, useMemo, useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 import { MdCancel } from "react-icons/md";
 import { SlArrowDown } from "react-icons/sl";
 
@@ -52,13 +53,19 @@ export default function FilterReportsByCustomer() {
     setSelectedKeys(new Set());
   };
 
+  const clearFilters = () => {
+    setSelectedKeys(new Set());
+    setSelectedCustomer(undefined)
+    fetchReports(page, 4);
+  };
+
   return (
-    <div className="flex gap-3 items-center">
-      <h1 className="text-nowrap font-medium">Filtrar por </h1>
+    <div className="flex gap-3 items-center ">
+      <h1 className="text-nowrap font-medium dark:text-white">Filtrar por </h1>
       <Dropdown backdrop="blur" isDisabled={loading}>
         <DropdownTrigger>
           <Button
-            className="bg-white text-[16px] font-medium"
+            className="bg-white text-black text-[16px] font-medium"
             endContent={<SlArrowDown />}
           >
             {selectedValue}
@@ -74,7 +81,7 @@ export default function FilterReportsByCustomer() {
           className="max-h-[320px] overflow-auto scrollbar-thin scrollbar-thumb-rounded-lg scrollbar-thumb-gray-700"
         >
           {customers.map((item) => (
-            <DropdownItem key={item.id} className="text-black">
+            <DropdownItem key={item.id} className="text-black dark:text-white">
               {item.corporateName}
             </DropdownItem>
           ))}
@@ -86,6 +93,14 @@ export default function FilterReportsByCustomer() {
           size={22}
           onClick={handleClearSelection}
         />
+      )}
+      {(selectedValue !== 'Cliente') && (
+        <Button
+          onClick={clearFilters}
+          className="bg-red-500 text-white ml-2 flex items-center"
+        >
+          Limpar Filtros <AiOutlineClose className="ml-1" />
+        </Button>
       )}
     </div>
   );
