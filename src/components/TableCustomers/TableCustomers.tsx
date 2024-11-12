@@ -114,7 +114,7 @@ export default function TableCustomers() {
                       onOpenModalAddReport();
                     }}
                   >
-                    Adicionar Relatório
+                    Adicionar Relatório PBI
                   </DropdownItem>
                   <DropdownItem
                     startContent={<AddNoteIcon className={iconClasses} />}

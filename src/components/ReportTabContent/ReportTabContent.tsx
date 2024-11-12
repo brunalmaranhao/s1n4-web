@@ -70,7 +70,7 @@ export default function ReportTabContent() {
   };
 
   return (
-    <div className="flex flex-col w-full gap-4">
+    <div className="flex flex-col w-full gap-4 dark:text-white">
       {loading ? (
         <Spinner />
       ) : (

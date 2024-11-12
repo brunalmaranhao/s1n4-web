@@ -15,6 +15,7 @@
     "@internationalized/date": "^3.5.5",
     "@nextui-org/react": "^2.4.6",
     "@nextui-org/table": "^2.0.39",
+    "aws-sdk": "^2.1692.0",
     "axios": "^1.7.5",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.3.31",

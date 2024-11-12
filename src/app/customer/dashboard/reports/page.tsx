@@ -4,6 +4,7 @@ export default function CustomerReports() {
   return (
     <main>
       <ReportTabContentCustomer />
+      
     </main>
   );
 }

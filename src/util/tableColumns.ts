@@ -37,3 +37,20 @@ export const columnsBudgetExpenses = [
   { name: "Data", uid: "createdAt", sortable: true },
   { name: "Ações", uid: "actions", sortable: false },
 ];
+
+export type ColumnKeysPeriodicReport =
+  | "name"
+  | "year"
+  | "month"
+  | "project"
+  | "status"
+  | "url";
+
+export const columnsPeriodicReport = [
+  { name: "Nome", uid: "name", sortable: false },
+  { name: "Ano", uid: "year", sortable: true },
+  { name: "Mês", uid: "month", sortable: false },
+  { name: "Projeto", uid: "project", sortable: false },
+  { name: "Status", uid: "status", sortable: false },
+  { name: "Ação", uid: "url", sortable: false },
+];
