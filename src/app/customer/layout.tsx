@@ -20,7 +20,7 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="bg-[#F2F4F8]  w-full flex">
+    <div className="bg-[#F2F4F8] dark:bg-[#000] w-full flex">
       <MenuClient />
       <div className="flex w-full min-h-screen">{children}</div>
     </div>

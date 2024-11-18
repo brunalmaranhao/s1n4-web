@@ -47,9 +47,9 @@ export default function ProjectUpdatesCustomer({
   }, []);
 
   return (
-    <div className="bg-white border-solid border-[1px] border-[#DDE1E6] p-4 w-full">
+    <div className="bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] p-4 w-full">
       <h1
-        className={`${robotoBold.className} text-[18px] font-bold text-[#21272A] mb-4`}
+        className={`${robotoBold.className} text-[18px] font-bold text-[#21272A] dark:text-white mb-4`}
       >
         Feed de atualizações (caixa de entrada)
       </h1>

@@ -12,7 +12,7 @@ export default function ProjectUpdateCard({
   email,
   role,
   projectUpdate,
-  key,
+  key
 }: ProjectUpdateCardProps) {
   const roleTranslations: { [key: string]: string } = {
     INTERNAL_MANAGEMENT: "Gestão Interna",
@@ -27,7 +27,7 @@ export default function ProjectUpdateCard({
           <h1 className="text-[16px] font-normal text-[#21272A] dark:text-white underline">
             {email}
           </h1>
-          <div className="flex space-x-5 pl-4 mr-2">
+          <div className="flex space-x-5 pl-4 mr-2 items-center">
             <Image src="/divider.svg" alt="divider icon" />
             <Image src="/roleicon.svg" alt="role icon" />
           </div>

@@ -25,7 +25,11 @@ export default function CardStatus({ projects, status }: CardStatusProps) {
 
   return (
     <div
-      className={`bg-[#DDE1E6] text-black p-4 max-w-[520px] w-full rounded-md min-h-[100px] `}
+      className={`${label?.key === "WAITING" ? "bg-[#F57B00]" : ""} ${
+        label?.key === "IN_PROGRESS" ? "bg-[#F57B00]" : ""
+      } ${
+        label?.key === "DONE" ? "bg-[#23CF5C]" : ""
+      } text-black p-4 max-w-[520px] w-full rounded-md min-h-[100px] `}
     >
       <p>{label?.label}</p>
       <div className="flex flex-col gap-1">

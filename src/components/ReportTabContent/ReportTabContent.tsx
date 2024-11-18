@@ -81,6 +81,7 @@ export default function ReportTabContent() {
               initialPage={page}
               onChange={handlePageChange}
               size="md"
+              color={"warning"}
               className="justify-end flex"
             />
           )}

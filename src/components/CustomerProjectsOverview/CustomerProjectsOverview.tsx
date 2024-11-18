@@ -37,8 +37,8 @@ export default function CustomerProjectsOverview({
       {isLoading ? (
         <Spinner />
       ) : (
-        <div className="w-full flex flex-col items-center space-x-4 p-4 bg-white border-solid border-[1px] border-[#DDE1E6] pr-8">
-          <h1 className="text-[18px] font-bold mb-4">Projetos</h1>
+        <div className="w-full flex flex-col items-center space-x-4 p-4 bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E]  pr-8">
+          <h1 className="text-[18px]  text-black dark:text-white font-bold mb-4">Projetos</h1>
           <div className="flex justify-start items-center space-x-6">
             <CircularProgress
               aria-label=""
@@ -49,19 +49,19 @@ export default function CustomerProjectsOverview({
               strokeWidth={4}
               classNames={{
                 svg: "w-36 h-36 drop-shadow-md",
-                indicator: "stroke-[#697077]",
-                track: "stroke-[#DDE1E6]",
-                value: "text-3xl font-semibold text-[#697077]",
+                indicator: "stroke-[#F57B00]",
+                track: "stroke-[#DDE1E6] dark:stroke-white",
+                value: "text-3xl font-semibold text-[#697077] dark:text-white",
               }}
             />
             <div className="flex flex-col space-y-2">
               <div className="flex space-x-4 text-nowrap">
-                <div className="w-5 h-5 bg-[#697077] rounded-full" />
-                <h1>Concluídos</h1>
+                <div className="w-5 h-5 bg-[#697077] dark:bg-[#F57B00] rounded-full" />
+                <h1 className="text-black dark:text-white">Concluídos</h1>
               </div>
               <div className="flex space-x-4 text-nowrap">
                 <div className="w-5 h-5 bg-[#DDE1E6] rounded-full" />
-                <h1>Em andamento </h1>
+                <h1 className="text-black dark:text-white">Em andamento </h1>
               </div>
             </div>
           </div>
