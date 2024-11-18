@@ -29,6 +29,15 @@ export default function Notification() {
 
   const now = new Date();
   const oneDayInMs = 24 * 60 * 60 * 1000;
+  const [iconColor, setIconColor] = useState("black"); 
+
+  useEffect(() => {
+    if (theme === "dark") {
+      setIconColor("white");
+    } else if (theme === "light") {
+      setIconColor("black");
+    }
+  }, [theme]);
 
   useEffect(() => {
     fetchNotifications();
@@ -61,7 +70,7 @@ export default function Notification() {
             >
               <MdNotifications
                 size={22}
-                color={theme === "dark" ? "white" : "black"}
+                color={iconColor}
               />
             </Badge>
           </button>

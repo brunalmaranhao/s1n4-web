@@ -58,12 +58,16 @@ export default function ReportTabContentCustomer() {
         <Spinner />
       ) : (
         <>
-          <Pagination
-            total={Math.ceil(total / rowsPerPage)}
-            initialPage={page}
-            onChange={handlePageChange}
-            size="md"
-          />
+          {Math.ceil(total / rowsPerPage) > 1 && (
+            <Pagination
+              total={Math.ceil(total / rowsPerPage)}
+              initialPage={page}
+              color="warning"
+              onChange={handlePageChange}
+              size="md"
+            />
+          )}
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {reports.map((item: ReportDetailsResponse, index: number) => (
               <div
@@ -110,7 +114,7 @@ export default function ReportTabContentCustomer() {
                         if (item.embedUrl)
                           addReportToMap(
                             item.embedUrl[0].reportId,
-                            embeddedReport as Report,
+                            embeddedReport as Report
                           );
                       }}
                     />
@@ -126,7 +130,7 @@ export default function ReportTabContentCustomer() {
                             fullScreen(
                               item.embedUrl
                                 ? item.embedUrl[0].reportId
-                                : undefined,
+                                : undefined
                             )
                           }
                         >

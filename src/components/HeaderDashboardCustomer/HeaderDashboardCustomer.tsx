@@ -3,11 +3,15 @@ import { usePathname, useRouter } from "next/navigation";
 import FilterProjectsByCustomer from "../FilterProjectsByCustomer/FilterProjectsByCustomer";
 import Notification from "../Notification/Notification";
 import TabsDashboardCustomer from "./TabsDashboardCustomer/TabsDashboardCustomer";
-import { Button } from "@nextui-org/react";
+import { Button, Switch } from "@nextui-org/react";
 import { RiFileDownloadLine } from "react-icons/ri";
 import { useReportContext } from "@/context/ReportContext";
+import { SunIcon } from "../SunIcon/SunIcon";
+import { MoonIcon } from "../MoonIcon/MoonIcon";
+import { useTheme } from "next-themes";
 
 export default function HeaderDashboardCustomer() {
+  const { theme, setTheme } = useTheme();
   const { onOpenModalDownloadPeriodicReport } = useReportContext();
   const pathsWithTab = [
     "/customer/dashboard/reports",
@@ -20,11 +24,23 @@ export default function HeaderDashboardCustomer() {
   return (
     <div className="flex flex-col w-full gap-6">
       <div className="flex flex-row justify-between w-full">
-        <h1 className="text-[42px] text-[#21272A] font-bold">
+        <h1 className="text-[42px] text-[#21272A] dark:text-white font-bold">
           Gerenciar - {label}{" "}
         </h1>
 
-        <Notification />
+        <div className="flex flex-row gap-4 items-center">
+          <Switch
+            defaultSelected
+            size="lg"
+            startContent={<SunIcon />}
+            endContent={<MoonIcon />}
+            onChange={() => setTheme(theme === "light" ? "dark" : "light")}
+            classNames={{
+              wrapper: "group-data-[selected=true]:bg-[#F57B00]",
+            }}
+          ></Switch>
+          <Notification />
+        </div>
       </div>
       <div className="flex flex-row justify-between items-center w-full flex-wrap gap-6">
         {pathsWithTab.includes(pathname) && <TabsDashboardCustomer />}

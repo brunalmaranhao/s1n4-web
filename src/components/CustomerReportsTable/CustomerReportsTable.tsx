@@ -1,5 +1,4 @@
 import { fetchCustomerReports } from "@/app/customer/actions";
-import { decodeToken } from "@/services/jwt-decode/decode";
 import {
   Table,
   TableHeader,
@@ -17,7 +16,7 @@ import {
 } from "@nextui-org/react";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
-import Notification from "../Notification/Notification";
+import { useRouter } from "next/navigation";
 
 interface IReportTableProps {
   customerId: string;
@@ -29,12 +28,14 @@ export default function CustomerReportsTable({
   const { "sina:x-token": sessionKey } = parseCookies();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [customerReports, setCustomerReports] = useState<ICustomerReports[]>(
-    [],
+    []
   );
+
+  const { push } = useRouter();
 
   const handleFetchCustomerReports = async (
     token: string,
-    customerId: string,
+    customerId: string
   ) => {
     const { reports } = await fetchCustomerReports(token, customerId);
     return reports;
@@ -55,8 +56,10 @@ export default function CustomerReportsTable({
       {isLoading ? (
         <Spinner />
       ) : (
-        <div className="bg-white p-4 border-solid border-[1px] border-[#DDE1E6]">
-          <h1 className="pb-4 text-[18px] font-bold">Relatórios cadastrados</h1>
+        <div className="bg-white dark:bg-[#1E1E1E] p-4 border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E]">
+          <h1 className="pb-4 text-[18px] font-bold text-[#21272A] dark:text-white">
+            Relatórios cadastrados
+          </h1>
 
           <Table aria-label="Example static collection table">
             <TableHeader>
@@ -66,7 +69,7 @@ export default function CustomerReportsTable({
             </TableHeader>
             <TableBody>
               {customerReports.map((report, index) => (
-                <TableRow key={index}>
+                <TableRow key={index} className="text-[#000] dark:text-white">
                   <TableCell>{report.name}</TableCell>
                   <TableCell>{report.id}</TableCell>
                   <TableCell>
@@ -77,10 +80,12 @@ export default function CustomerReportsTable({
                             <Image src="/dotsicon.svg" alt="dots icon" />
                           </Button>
                         </DropdownTrigger>
-                        <DropdownMenu className="text-black">
-                          <DropdownItem>Visualizar</DropdownItem>
-                          <DropdownItem>Editar</DropdownItem>
-                          <DropdownItem>Desativar</DropdownItem>
+                        <DropdownMenu className="text-black dark:text-white">
+                          <DropdownItem
+                            onPress={() => push("customer/dashboard/reports")}
+                          >
+                            Visualizar
+                          </DropdownItem>
                         </DropdownMenu>
                       </Dropdown>
                     </div>
