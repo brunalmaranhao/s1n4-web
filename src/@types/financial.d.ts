@@ -24,3 +24,10 @@ declare interface IBudgetExpense {
   actions?: string | null;
   budget?: string | null;
 }
+
+declare interface IBudgetExpenseBalance {
+  budget: number;
+  totalBudgetExpense: number;
+  amountBudgetExpense: number;
+  balance: number;
+}

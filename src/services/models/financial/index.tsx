@@ -40,6 +40,32 @@ export default async function FinancialService() {
     return response;
   }
 
+  async function fetchBudgetExpenseBalanceByProject(
+    projectId: string,
+  ): Promise<{ data: IBudgetExpenseBalance }> {
+    const response = await get<{ data: IBudgetExpenseBalance }>(
+      `/budget-expense/balance/project/${projectId}`,
+    );
+    return response;
+  }
+
+  async function fetchBudgetExpenseBalanceByCustomer(
+    customerId: string,
+  ): Promise<{ data: IBudgetExpenseBalance }> {
+    const response = await get<{ data: IBudgetExpenseBalance }>(
+      `/budget-expense/balance/customer/${customerId}`,
+    );
+    return response;
+  }
+
+  async function fetchAllBudgetExpenseBalance(
+  ): Promise<{ data: IBudgetExpenseBalance }> {
+    const response = await get<{ data: IBudgetExpenseBalance }>(
+      `/budget-expense/balance`,
+    );
+    return response;
+  }
+
   async function fetchBudgetExpenseByCustomer(
     customerId: string,
   ): Promise<{ data: IBudgetExpense[] }> {
@@ -54,5 +80,8 @@ export default async function FinancialService() {
     fetchBudgetExpense,
     fetchBudgetExpenseByProject,
     fetchBudgetExpenseByCustomer,
+    fetchBudgetExpenseBalanceByProject,
+    fetchAllBudgetExpenseBalance,
+    fetchBudgetExpenseBalanceByCustomer
   };
 }

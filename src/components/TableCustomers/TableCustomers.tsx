@@ -24,6 +24,7 @@ import { AddNoteIcon } from "@/assets/AddNoteIcon";
 import { EditDocumentIcon } from "@/assets/EditDocumentIcon";
 import { DeleteDocumentIcon } from "@/assets/DeleteDocumentIcon";
 import { ViewIcon } from "@/assets/ViewIcon";
+import SkeletonTable from "../SkeletonTable/SkeletonTable";
 
 export default function TableCustomers() {
   const {
@@ -240,7 +241,7 @@ export default function TableCustomers() {
   return (
     <div className="w-full">
       {loading ? (
-        <Spinner />
+        <SkeletonTable />
       ) : (
         <Table
           aria-label="Table Customers"

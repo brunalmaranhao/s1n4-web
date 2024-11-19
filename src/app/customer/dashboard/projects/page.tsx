@@ -2,7 +2,7 @@ import ProjectsComponentCustomer from "@/components/ProjectsComponentCustomer/Pr
 
 export default function CustomerProjects() {
   return (
-    <main>
+    <main className="min-h-screen w-full">
       <ProjectsComponentCustomer />
     </main>
   );

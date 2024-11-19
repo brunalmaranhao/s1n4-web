@@ -22,14 +22,16 @@ export default function FilterBudgetExpenseByCustomerOrProject() {
     page,
     fetchBudgetExpensesByCustomer,
     fetchBudgetExpensesByProject,
-    filteredCustomerId,
+    filteredCustomerId,   
+    fetchAllBudgetExpensesBalance,
+    fetchBudgetExpensesBalanceByCustomer,
+    fetchBudgetExpensesBalanceByProject,
+    setSelectedKeysCustomer,
+    setSelectedKeysProject,
+    selectedKeysCustomer,
+    selectedKeysProject,
+    clearFilters
   } = useFinancialContext();
-  const [selectedKeysCustomer, setSelectedKeysCustomer] = useState<Set<string>>(
-    new Set(),
-  );
-  const [selectedKeysProject, setSelectedKeysProject] = useState<Set<string>>(
-    new Set(),
-  );
 
   useEffect(() => {
     const selectedId = Array.from(selectedKeysCustomer)[0];
@@ -37,10 +39,12 @@ export default function FilterBudgetExpenseByCustomerOrProject() {
       fetchProjectsByCustomer(selectedId);
       setFilteredCustomerId(selectedId);
       fetchBudgetExpensesByCustomer(selectedId);
+      fetchBudgetExpensesBalanceByCustomer(selectedId)
       return;
     }
     setFilteredCustomerId(undefined);
     fetchBudgetExpenses(page);
+    fetchAllBudgetExpensesBalance()
   }, [selectedKeysCustomer]);
 
   useEffect(() => {
@@ -49,10 +53,12 @@ export default function FilterBudgetExpenseByCustomerOrProject() {
     if (selectedIdProject) {
       setFilteredProjectId(selectedIdProject);
       fetchBudgetExpensesByProject(selectedIdProject);
+      fetchBudgetExpensesBalanceByProject(selectedIdProject)
       return;
     } else if (selectedIdCustomer) {
       setFilteredCustomerId(selectedIdCustomer);
       fetchBudgetExpensesByCustomer(selectedIdCustomer);
+      fetchBudgetExpensesBalanceByCustomer(selectedIdCustomer)
       return;
     }
     setFilteredProjectId(undefined);
@@ -91,13 +97,7 @@ export default function FilterBudgetExpenseByCustomerOrProject() {
     setSelectedKeysProject(new Set(Array.from(keys) as string[]));
   };
 
-  const clearFilters = () => {
-    setSelectedKeysCustomer(new Set());
-    setSelectedKeysProject(new Set());
-    setFilteredCustomerId(undefined);
-    setFilteredProjectId(undefined);
-    fetchBudgetExpenses(page);
-  };
+  
 
   return (
     <div className="flex gap-3 items-center text-black">

@@ -11,14 +11,14 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import { useTheme } from "next-themes";
-import { usePathname } from "next/navigation";
-import { useContext, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { MdLogout } from "react-icons/md";
 import { RiExpandLeftFill } from "react-icons/ri";
 
 export default function Menu() {
   const { handleSignOut } = useAuthContext();
-  const {isExpanded, setIsExpanded} = useAppContext()
+  const { isExpanded, setIsExpanded } = useAppContext();
+  const { push } = useRouter();
 
   const { theme } = useTheme();
   const pathname = usePathname();
@@ -90,9 +90,10 @@ export default function Menu() {
           <NavbarItem isActive className="w-full" key={index}>
             {isExpanded ? (
               <Link
-                href={menuItem.link}
+                // href={menuItem.link}
+                onPress={() => push(menuItem.link)}
                 aria-current="page"
-                className={`border-solid border border-[#F2F4F8] dark:border-[#616262] ${
+                className={`cursor-pointer border-solid border border-[#F2F4F8] dark:border-[#616262] ${
                   index === 0 && "rounded-t-small"
                 } space-x-2 text-[#21272A] dark:text-white text-[16px] font-medium ${
                   menuItem.pathnames.some((path) => path === pathname)
@@ -118,9 +119,10 @@ export default function Menu() {
                   className="dark:text-white text-black"
                 >
                   <Link
-                    href={menuItem.link}
+                    onPress={() => push(menuItem.link)}
+                    // href={menuItem.link}
                     aria-current="page"
-                    className={`border-solid border border-[#F2F4F8] dark:border-[#616262] ${
+                    className={`cursor-pointer border-solid border border-[#F2F4F8] dark:border-[#616262] ${
                       index === 0 && "rounded-t-small"
                     } text-[#21272A] dark:text-white text-[16px] font-medium ${
                       menuItem.pathnames.includes(pathname)

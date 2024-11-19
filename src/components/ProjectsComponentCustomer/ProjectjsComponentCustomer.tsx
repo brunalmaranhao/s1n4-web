@@ -11,9 +11,9 @@ export default function ProjectsComponentCustomer() {
   }, []);
 
   return (
-    <div className="w-full flex items-center justify-center">
-      <div className="flex md:flex-row flex-col  gap-3 max-w-[1024px] w-full md:justify-between md:items-start items-center">
-        <div className="md:max-w-[520px] max-w-[220px] w-full">
+    <div className="w-full flex items-center justify-center mt-2">
+        <div className="flex md:flex-row flex-col gap-3 max-w-[1200px] w-full md:justify-between md:items-start items-center">
+        <div className="md:max-w-[380px] max-w-[20px] w-full">
           <CardStatus
             status={"WAITING"}
             projects={projectsUser?.filter(
@@ -21,7 +21,7 @@ export default function ProjectsComponentCustomer() {
             )}
           />
         </div>
-        <div className="md:max-w-[320px] max-w-[220px] w-full">
+        <div className="md:max-w-[380px] max-w-[220px] w-full">
           <CardStatus
             status={"IN_PROGRESS"}
             projects={projectsUser?.filter(
@@ -29,7 +29,7 @@ export default function ProjectsComponentCustomer() {
             )}
           />
         </div>
-        <div className="md:max-w-[320px] max-w-[220px] w-full">
+        <div className="md:max-w-[380px] max-w-[220px] w-full">
           <CardStatus
             status={"DONE"}
             projects={projectsUser?.filter(

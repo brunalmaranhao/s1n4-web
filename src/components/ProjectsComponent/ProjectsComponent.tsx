@@ -48,7 +48,7 @@ export default function ProjectsComponent() {
 
   function handleDragEnter(
     event: DragEvent<HTMLDivElement>,
-    status: StatusProject,
+    status: StatusProject
   ) {
     const relatedTarget = event.relatedTarget as Node | null;
     const currentTarget = event.currentTarget as Node;
@@ -71,7 +71,7 @@ export default function ProjectsComponent() {
 
   return (
     <div className="w-full flex items-center justify-center mt-2">
-      <div className="flex md:flex-row flex-col gap-8 w-full md:justify-between md:items-start items-center">
+      <div className="flex md:flex-row flex-col gap-3 max-w-[1200px] w-full md:justify-between md:items-start items-center">
         <div className="md:max-w-[380px] max-w-[220px] w-full">
           <CardStatus
             allowDrop={allowDrop}
@@ -79,7 +79,7 @@ export default function ProjectsComponent() {
             status={"WAITING"}
             handleDrop={handleDrop}
             projects={projects?.filter(
-              (item) => item.statusProject === "WAITING",
+              (item) => item.statusProject === "WAITING"
             )}
             highlightedColumn={highlightedColumn}
             handleDragEnter={handleDragEnter}
@@ -93,7 +93,7 @@ export default function ProjectsComponent() {
             status={"IN_PROGRESS"}
             handleDrop={handleDrop}
             projects={projects?.filter(
-              (item) => item.statusProject === "IN_PROGRESS",
+              (item) => item.statusProject === "IN_PROGRESS"
             )}
             highlightedColumn={highlightedColumn}
             handleDragEnter={handleDragEnter}
