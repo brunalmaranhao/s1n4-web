@@ -19,6 +19,7 @@ import {
 } from "@/util/tableColumns";
 import { MdDownload } from "react-icons/md";
 import { months } from "@/util/month-and-years";
+import SkeletonTable from "@/components/SkeletonTable/SkeletonTable";
 
 type TablePeriodicReportProps = {
   periodicReports: PeriodicReportDetailsResponse[];
@@ -101,7 +102,7 @@ export default function TablePeriodicReport({
     <div className="w-full">
       <div className="w-full flex justify-end mb-2 text-black"></div>
       {loading ? (
-        <Spinner />
+        <SkeletonTable />
       ) : (
         <div ref={tableRef}>
           <Table

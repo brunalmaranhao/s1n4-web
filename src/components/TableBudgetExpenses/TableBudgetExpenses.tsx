@@ -30,6 +30,8 @@ import { format } from "date-fns";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { FaFilePdf } from "react-icons/fa";
+import BudgetBalance from "../BudgetBalance/BudgetBalance";
+import SkeletonTable from "../SkeletonTable/SkeletonTable";
 
 export default function TableBudgetExpenses() {
   const tableRef = useRef<HTMLDivElement>(null);
@@ -42,6 +44,8 @@ export default function TableBudgetExpenses() {
     rowsPerPage,
     budgetExpenses,
     filteredCustomerId,
+    budgetExpenseBalance,
+    loadingBalance,
   } = useFinancialContext();
 
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
@@ -111,7 +115,7 @@ export default function TableBudgetExpenses() {
       case "amount":
         return (
           <p className="text-black dark:text-white">
-            {formatter.format(parseInt(cellValue?.toString()))}
+            {formatter.format(parseFloat(cellValue?.toString()))}
           </p>
         );
       case "createdAt":
@@ -169,7 +173,7 @@ export default function TableBudgetExpenses() {
           ))}
       </div>
     ),
-    [total, page, pages],
+    [total, page, pages]
   );
 
   const exportToPDF = async () => {
@@ -187,24 +191,28 @@ export default function TableBudgetExpenses() {
   };
   return (
     <div className="w-full">
-      <div className="w-full flex justify-end mb-2 text-black">
-        <Tooltip
-          showArrow={true}
-          content="Exportar para PDF"
-          color="default"
-          className="text-black dark:text-white"
-        >
-          <Button
-            // color="primary"
-            onPress={exportToPDF}
-            className="pr-5 bg-transparent dark:bg-white dark:text-black text-[#F57B00] border border-[#F57B00] min-w-[0px] p-2"
+      <div className="w-full flex justify-between mb-2 text-black">
+        <BudgetBalance />
+
+        <div className="self-end">
+          <Tooltip
+            showArrow={true}
+            content="Exportar para PDF"
+            color="default"
+            className="text-black dark:text-white"
           >
-            <FaFilePdf size={20} />
-          </Button>
-        </Tooltip>
+            <Button
+              // color="primary"
+              onPress={exportToPDF}
+              className="pr-5 bg-transparent dark:bg-white dark:text-black text-[#F57B00] border border-[#F57B00] min-w-[0px] p-2"
+            >
+              <FaFilePdf size={20} />
+            </Button>
+          </Tooltip>
+        </div>
       </div>
       {loading ? (
-        <Spinner />
+        <SkeletonTable />
       ) : (
         <div ref={tableRef}>
           <Table

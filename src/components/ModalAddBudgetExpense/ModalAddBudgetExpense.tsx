@@ -29,7 +29,23 @@ import toast from "react-hot-toast";
 export default function ModalAddBudgetExpense() {
   const { customers, projects, fetchCustomer, fetchProjectsByCustomer } =
     useProjectContext();
-  const { isOpenModalCreateLaunch, onClose } = useFinancialContext();
+  const {
+    isOpenModalCreateLaunch,
+    onClose,
+    filteredProjectId,
+    filteredCustomerId,
+    fetchBudgetExpenses,
+    fetchBudgetExpensesByCustomer,
+    fetchBudgetExpensesByProject,
+    fetchAllBudgetExpensesBalance,
+    fetchBudgetExpensesBalanceByCustomer,
+    fetchBudgetExpensesBalanceByProject,
+    selectedKeysCustomer,
+    selectedKeysProject,
+    clearFilters,
+    setFilteredProjectId,
+    setSelectedKeysProject,
+  } = useFinancialContext();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
   const [loading, setLoading] = useState(false);
@@ -56,6 +72,7 @@ export default function ModalAddBudgetExpense() {
   });
 
   const customerId = watch("customerId");
+  const projectId = watch("projectId");
 
   useEffect(() => {
     if (customerId) {
@@ -65,6 +82,25 @@ export default function ModalAddBudgetExpense() {
     }
   }, [customerId]);
 
+  async function loadData() {
+    const selectedIdCustomer = Array.from(selectedKeysCustomer)[0];
+    const selectedIdProject = Array.from(selectedKeysProject)[0];
+    if (selectedIdProject === projectId) {
+      fetchBudgetExpensesByProject(selectedIdProject);
+      fetchBudgetExpensesBalanceByProject(selectedIdProject);
+      return;
+    } else if (selectedIdCustomer === customerId) {
+      fetchBudgetExpensesBalanceByCustomer(selectedIdCustomer);
+      fetchBudgetExpensesByCustomer(selectedIdCustomer);
+      setSelectedKeysProject(new Set());
+      setFilteredProjectId(undefined);
+      return;
+    }
+    clearFilters();
+    fetchAllBudgetExpensesBalance();
+    fetchBudgetExpenses(1);
+  }
+
   async function createLaunch(data: INewBudgetExpense) {
     setLoading(true);
     try {
@@ -73,10 +109,11 @@ export default function ModalAddBudgetExpense() {
         data.title,
         data.amount,
         data.projectId,
-        data.description,
+        data.description
       );
-
+      loadData();
       reset();
+      onClose();
       toast.success("Lançamento adicionado com sucesso.");
     } catch (error) {
       const customError = handleAxiosError(error);

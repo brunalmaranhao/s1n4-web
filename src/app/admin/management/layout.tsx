@@ -14,7 +14,7 @@ export default function ManagementLayout({
 }>) {
   return (
     <main className="flex flex-col items-center w-full">
-      <div className={`xl:max-w-[1200px] w-full`}>
+      <div className={`px-10 w-full`}>
         <HeaderManagement />
         <div className="w-full">{children}</div>
       </div>

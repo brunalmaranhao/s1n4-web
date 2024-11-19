@@ -11,6 +11,7 @@ import Notification from "@/components/Notification/Notification";
 import { SunIcon } from "@/components/SunIcon/SunIcon";
 import { MoonIcon } from "@/components/MoonIcon/MoonIcon";
 import { useTheme } from "next-themes";
+import SkeletonHome from "@/components/SkeletonHome/SkeletonHome";
 
 export default function UserHome() {
   const { "sina:x-token": sessionKey } = parseCookies();
@@ -22,12 +23,12 @@ export default function UserHome() {
     ICustomerUser | undefined
   >(undefined);
   const [customerState, setCustomerState] = useState<ICustomer | undefined>(
-    undefined,
+    undefined
   );
 
   const { theme, setTheme } = useTheme();
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const handleCustomerUser = async (token: string, id: string) => {
     const { customerUser } = await fetchCustomerUser(token, id);
@@ -44,14 +45,14 @@ export default function UserHome() {
       if (customerUserId !== undefined) {
         const customerUser = await handleCustomerUser(
           sessionKey,
-          customerUserId,
+          customerUserId
         );
         setCustomerUserState(customerUser);
 
         if (customerUser?.customerId !== undefined) {
           const customer = await handleCustomerById(
             customerUser.customerId,
-            sessionKey,
+            sessionKey
           );
 
           setCustomerState(customer);
@@ -72,7 +73,9 @@ export default function UserHome() {
     <main className="flex min-h-screen flex-col justify-start w-full text-black pb-10">
       <div className="">
         <div className="w-full flex justify-between px-6">
-          <h1 className="text-[#21272A] dark:text-white text-[42px] font-bold my-4">Olá!</h1>
+          <h1 className="text-[#21272A] dark:text-white text-[42px] font-bold my-4">
+            Olá!
+          </h1>
           <div className="flex items-center gap-4">
             <Switch
               defaultSelected
@@ -89,11 +92,11 @@ export default function UserHome() {
           </div>
         </div>
         {isLoading ? (
-          <Spinner />
+          <SkeletonHome />
         ) : (
           <div className="mx-6 flex flex-col gap-6">
-            <div className="flex flex-col p-4 bg-white dark:bg-[#1E1E1E] border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] ">
-              <h1 className="text-[24px] font-bold text-black dark:text-white ">
+            <div className="flex flex-col p-4 bg-white dark:bg-[#1E1E1E] border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E]">
+              <h1 className="text-[24px] font-bold text-black dark:text-white">
                 {customerUserState?.firstName} {customerUserState?.lastName}
               </h1>
               <h1 className="text-[16px] font-normal text-[#69707785] dark:text-white">
@@ -104,14 +107,12 @@ export default function UserHome() {
               <CustomerProjectsOverview
                 projects={customerState?.projects || []}
               />
-
               <ProjectUpdatesCustomer
                 email={customerUserState?.email || ""}
                 role={customerUserState?.role || ""}
                 customerId={customerUserState?.customerId || ""}
               />
             </div>
-
             <CustomerReportsTable
               customerId={customerUserState?.customerId || ""}
             />

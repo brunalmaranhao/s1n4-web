@@ -14,7 +14,7 @@ export default function CustomerDashboardLayout({
 }>) {
   return (
     <main className="flex flex-col items-center w-full">
-      <div className={`xl:max-w-[1200px] w-full`}>
+      <div className={`px-10 w-full`}>
         <HeaderDashboardCustomer />
         <div>{children}</div>
       </div>

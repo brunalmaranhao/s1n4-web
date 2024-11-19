@@ -31,7 +31,7 @@ export default function CardStatus({ projects, status }: CardStatusProps) {
         label?.key === "DONE" ? "bg-[#23CF5C]" : ""
       } text-black p-4 max-w-[520px] w-full rounded-md min-h-[100px] `}
     >
-      <p>{label?.label}</p>
+      <p className="text-white">{label?.label}</p>
       <div className="flex flex-col gap-1">
         {projects?.map((project, index) => (
           <CardProject key={index} project={project} />
