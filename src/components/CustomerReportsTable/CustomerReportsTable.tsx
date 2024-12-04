@@ -45,7 +45,7 @@ export default function CustomerReportsTable({
     setIsLoading(true);
     const fetchData = async () => {
       const result = await handleFetchCustomerReports(sessionKey, customerId);
-      console.log(result);
+     //console.log(result);
       setCustomerReports(result || []);
     };
     fetchData().finally(() => setIsLoading(false));

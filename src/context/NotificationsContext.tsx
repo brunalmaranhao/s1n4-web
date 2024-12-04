@@ -36,7 +36,7 @@ export const NotificationProvider: React.FC<{ children: ReactNode }> = ({
       const unreadNotifications = response.filter(
         (item) => item.readAt === null,
       );
-      console.log(unreadNotifications.length);
+      //console.log(unreadNotifications.length);
       setNotifications(response);
       setCountUnread(unreadNotifications.length);
     } catch (error) {

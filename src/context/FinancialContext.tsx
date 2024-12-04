@@ -144,7 +144,7 @@ export const FinancialProvider: React.FC<{ children: ReactNode }> = ({
     try {
       const { fetchBudgetExpenseByCustomer } = await FinancialService();
       const response = await fetchBudgetExpenseByCustomer(customerId);
-      console.log(response);
+      //console.log(response);
       setBudgetExpenses(response.data);
       setTotal(response.data.length);
     } catch (error) {

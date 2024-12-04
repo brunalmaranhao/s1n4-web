@@ -51,7 +51,7 @@ export default function ModalCreatePeriodicReport() {
   });
 
   useEffect(() => {
-    console.log(watch('customerId'))
+    //console.log(watch('customerId'))
     if(getValues('customerId')){
       fetchProjectsByCustomer(getValues('customerId'))
     }

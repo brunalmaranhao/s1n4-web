@@ -77,7 +77,7 @@ export default function TableCustomers() {
 
   const renderCell = React.useCallback(
     (customer: ICustomer, columnKey: Key) => {
-      console.log(customer);
+      //console.log(customer);
       let column = columnKey as ColumnKeys;
       const cellValue = customer[column];
       switch (columnKey) {

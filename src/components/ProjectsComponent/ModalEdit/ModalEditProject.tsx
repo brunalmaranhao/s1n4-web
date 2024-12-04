@@ -55,12 +55,12 @@ export default function ModalEditProject() {
     }
   }, []);
 
-  console.log(selectedProjectEdit);
+  //console.log(selectedProjectEdit);
 
   useEffect(() => {
     if (customers.length >= 1) {
       if (selectedProjectEdit) {
-        console.log(selectedProjectEdit.customerId);
+        //console.log(selectedProjectEdit.customerId);
         setValue("name", selectedProjectEdit.name);
         setValue("customer", selectedProjectEdit.customerId);
         setValue("budget", selectedProjectEdit.budget);
@@ -69,7 +69,7 @@ export default function ModalEditProject() {
   }, [customers, selectedProjectEdit]);
 
   async function handleEditProject(data: INewProject) {
-    console.log(data);
+    //console.log(data);
     if (selectedProjectEdit?.id) {
       setLoading(true);
       try {

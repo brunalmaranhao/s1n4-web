@@ -28,6 +28,7 @@ declare interface IFetchAllProjectsResponse {
     createdAt: Date;
     updatedAt: Date | null | undefined;
     customer: ICustomer;
+    budget: number
   }[];
 }
 

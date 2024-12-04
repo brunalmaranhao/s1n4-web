@@ -56,7 +56,7 @@ export async function fetchCustomerReports(token: string, customerId: string) {
     const { fetchCustomerReports } = await CustomerService();
     const { reports } = await fetchCustomerReports(token, customerId);
 
-    console.log(reports);
+   // console.log(reports);
 
     return {
       isError: false,

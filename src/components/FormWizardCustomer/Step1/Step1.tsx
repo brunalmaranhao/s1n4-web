@@ -33,7 +33,7 @@ const Step1 = () => {
   });
 
   useEffect(() => {
-    console.log(getValues("address.zipCode"));
+    //console.log(getValues("address.zipCode"));
     if (
       !getValues("address.zipCode") ||
       getValues("address.zipCode") === "_____-___"
@@ -60,7 +60,7 @@ const Step1 = () => {
         const url = `https://viacep.com.br/ws/${cep}/json/`;
         const response = await fetch(url);
         const data = await response.json();
-        console.log(data.erro);
+        //console.log(data.erro);
         if (data.erro) {
           setShowAddressFields(false);
           resetAddressFields();
