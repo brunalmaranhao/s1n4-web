@@ -173,7 +173,7 @@ export default function TableBudgetExpenses() {
           ))}
       </div>
     ),
-    [total, page, pages]
+    [total, page, pages],
   );
 
   const exportToPDF = async () => {
@@ -191,7 +191,7 @@ export default function TableBudgetExpenses() {
   };
   return (
     <div className="w-full">
-      <div className="w-full flex justify-between mb-2 text-black">
+      <div className="w-full flex justify-between text-black mb-4">
         <BudgetBalance />
 
         <div className="self-end">
@@ -226,6 +226,7 @@ export default function TableBudgetExpenses() {
             sortDescriptor={sortDescriptor}
             onSelectionChange={setSelectedKeys}
             onSortChange={setSortDescriptor}
+            className=""
           >
             <TableHeader columns={headerColumns}>
               {(column) => (

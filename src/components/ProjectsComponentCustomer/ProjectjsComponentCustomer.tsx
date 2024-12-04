@@ -12,7 +12,7 @@ export default function ProjectsComponentCustomer() {
 
   return (
     <div className="w-full flex items-center justify-center mt-2">
-        <div className="flex md:flex-row flex-col gap-3 max-w-[1200px] w-full md:justify-between md:items-start items-center">
+      <div className="flex md:flex-row flex-col gap-3 max-w-[1200px] w-full md:justify-between md:items-start items-center">
         <div className="md:max-w-[380px] max-w-[20px] w-full">
           <CardStatus
             status={"WAITING"}

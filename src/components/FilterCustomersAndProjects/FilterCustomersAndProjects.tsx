@@ -104,35 +104,6 @@ export default function FilterCustomersAndProjects({
           ))}
         </DropdownMenu>
       </Dropdown>
-      <Dropdown backdrop="blur">
-        <DropdownTrigger>
-          <Button
-            className="bg-white w-full text-[16px] font-medium text-black"
-            endContent={<SlArrowDown />}
-          >
-            {filteredProject ? filteredProject : "Projetos"}
-          </Button>
-        </DropdownTrigger>
-        <DropdownMenu>
-          {projectsList.map((project, index) => (
-            <DropdownItem
-              onClick={(event) => handleProjectsFilter(event)}
-              key={index}
-              className="text-black dark:text-white"
-            >
-              {project.name}
-            </DropdownItem>
-          ))}
-        </DropdownMenu>
-      </Dropdown>
-      <DatePicker
-        variant="flat"
-        size="lg"
-        label="Start date"
-        labelPlacement="inside"
-      />
-      <GoArrowRight size={150} />
-      <DatePicker size="lg" label="End date" labelPlacement="inside" />
     </div>
   );
 }

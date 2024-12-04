@@ -55,7 +55,7 @@ export default function FilterReportsByCustomer() {
 
   const clearFilters = () => {
     setSelectedKeys(new Set());
-    setSelectedCustomer(undefined)
+    setSelectedCustomer(undefined);
     fetchReports(page, 4);
   };
 
@@ -94,7 +94,7 @@ export default function FilterReportsByCustomer() {
           onClick={handleClearSelection}
         />
       )}
-      {(selectedValue !== 'Cliente') && (
+      {selectedValue !== "Cliente" && (
         <Button
           onClick={clearFilters}
           className="bg-red-500 text-white ml-2 flex items-center"

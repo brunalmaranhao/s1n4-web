@@ -83,7 +83,7 @@ export default function TableNewUsers() {
   }
 
   return (
-    <Table aria-label="Table Users" selectionMode="single" >
+    <Table aria-label="Table Users" selectionMode="single">
       <TableHeader columns={columns}>
         {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
       </TableHeader>

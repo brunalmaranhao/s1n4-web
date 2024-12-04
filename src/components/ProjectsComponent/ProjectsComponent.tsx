@@ -48,7 +48,7 @@ export default function ProjectsComponent() {
 
   function handleDragEnter(
     event: DragEvent<HTMLDivElement>,
-    status: StatusProject
+    status: StatusProject,
   ) {
     const relatedTarget = event.relatedTarget as Node | null;
     const currentTarget = event.currentTarget as Node;
@@ -79,7 +79,7 @@ export default function ProjectsComponent() {
             status={"WAITING"}
             handleDrop={handleDrop}
             projects={projects?.filter(
-              (item) => item.statusProject === "WAITING"
+              (item) => item.statusProject === "WAITING",
             )}
             highlightedColumn={highlightedColumn}
             handleDragEnter={handleDragEnter}
@@ -93,7 +93,7 @@ export default function ProjectsComponent() {
             status={"IN_PROGRESS"}
             handleDrop={handleDrop}
             projects={projects?.filter(
-              (item) => item.statusProject === "IN_PROGRESS"
+              (item) => item.statusProject === "IN_PROGRESS",
             )}
             highlightedColumn={highlightedColumn}
             handleDragEnter={handleDragEnter}

@@ -38,18 +38,18 @@ export default function TablePeriodicReport({
   });
   const headerColumns = React.useMemo(() => columnsPeriodicReport, []);
 
-  const download = async(url: string) => {
+  const download = async (url: string) => {
     const params = {
       Bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME,
       Key: url,
     };
-    s3.getSignedUrl("getObject", params, async(err, signedUrl) => {
+    s3.getSignedUrl("getObject", params, async (err, signedUrl) => {
       if (err) {
         console.error("Erro ao obter URL assinada:", err);
       } else if (signedUrl) {
         const link = document.createElement("a");
         link.href = signedUrl;
-        link.download = url.split('/').pop() || "download"; 
+        link.download = url.split("/").pop() || "download";
         link.target = "_blank";
         link.click();
         link.remove();
@@ -66,7 +66,7 @@ export default function TablePeriodicReport({
         return (
           <>
             {months.map(
-              (item) => item.value === cellValue.toString() && item.label
+              (item) => item.value === cellValue.toString() && item.label,
             )}
           </>
         );

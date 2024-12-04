@@ -7,7 +7,7 @@ export default function TabsManagement() {
   const pathname = usePathname();
   const keyMapping = {
     customers: "Clientes",
-    projects: "Projetos",    
+    projects: "Projetos",
     financial: "Financeiro",
   };
 
@@ -52,7 +52,9 @@ export default function TabsManagement() {
                       : "text-black dark:text-white"
                   }`}
                 >
-                  {key in keyMapping ? keyMapping[key as keyof typeof keyMapping] : "Chave não encontrada"}
+                  {key in keyMapping
+                    ? keyMapping[key as keyof typeof keyMapping]
+                    : "Chave não encontrada"}
                 </span>
               </div>
             }

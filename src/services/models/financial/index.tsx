@@ -58,8 +58,9 @@ export default async function FinancialService() {
     return response;
   }
 
-  async function fetchAllBudgetExpenseBalance(
-  ): Promise<{ data: IBudgetExpenseBalance }> {
+  async function fetchAllBudgetExpenseBalance(): Promise<{
+    data: IBudgetExpenseBalance;
+  }> {
     const response = await get<{ data: IBudgetExpenseBalance }>(
       `/budget-expense/balance`,
     );
@@ -82,6 +83,6 @@ export default async function FinancialService() {
     fetchBudgetExpenseByCustomer,
     fetchBudgetExpenseBalanceByProject,
     fetchAllBudgetExpenseBalance,
-    fetchBudgetExpenseBalanceByCustomer
+    fetchBudgetExpenseBalanceByCustomer,
   };
 }

@@ -54,27 +54,33 @@ export default function MyAccount() {
   }
   return (
     <div className="p-3 w-full">
-      <h1 className="text-[42px] text-[#21272A] font-bold">Minha Conta</h1>
+      <h1 className="text-[42px] text-[#21272A] font-bold ml-4">Minha Conta</h1>
       {loading ? (
         <div className="flex w-full items-center justify-center">
           <Spinner />
         </div>
       ) : (
-        <div className="flex flex-col h-full w-full items-center text-black mt-20">
+        <div
+          className="flex flex-col h-full w-full items-center text-black mt-8 pl-4
+        "
+        >
           {profileInfo.map((profile) => (
             <div
               key={profile.label}
-              className={`${profile.value && "border-1"} py-3 w-full flex flex-col items-center`}
+              className={`py-3 flex flex-col items-center self-start w-full`}
             >
               {profile.value && (
-                <div className="flex items-center gap-5">
+                <div className="flex items-center gap-5 self-start">
                   <small>{profile.label}</small>
                   <Input isDisabled color="secondary" value={profile.value} />
                 </div>
               )}
             </div>
           ))}
-          <Link href="/customer/my-account/reset-password">
+          <Link
+            href="/customer/my-account/reset-password"
+            className="self-start mt-4"
+          >
             <Button className="max-w-[320px]">Trocar senha</Button>
           </Link>
         </div>

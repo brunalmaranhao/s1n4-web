@@ -4,7 +4,7 @@ import { post, postFormData } from "@/services/methods/post";
 
 export default async function PeriodicReportService() {
   async function createPeriodicReport(
-    report: INewPeriodicReport
+    report: INewPeriodicReport,
   ): Promise<string> {
     const { name, month, year, projectId, file } = report;
 
@@ -22,7 +22,7 @@ export default async function PeriodicReportService() {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      }
+      },
     );
 
     return response.data.report;

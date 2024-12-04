@@ -3,7 +3,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Button, Image, Input, Spinner, Switch, Tooltip } from "@nextui-org/react";
+import {
+  Button,
+  Image,
+  Input,
+  Spinner,
+  Switch,
+  Tooltip,
+} from "@nextui-org/react";
 import { schemaUpdatePassword } from "@/schemas/user";
 import jwt from "jsonwebtoken";
 import { updatePassword } from "./actions";
