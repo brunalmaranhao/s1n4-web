@@ -6,6 +6,16 @@ type StatusProject =
   | "DONE"
   | "IN_PROGRESS";
 
+  declare interface IListProject {
+    id: string
+    name: string
+    customerId: string
+    status: 'ACTIVE' | 'INACTIVE'
+    createdAt: listProject.createdAt,
+    updatedAt: listProject.updatedAt,
+    projects: IProject[],
+  }
+
 declare interface IProject {
   id: string;
   name: string;

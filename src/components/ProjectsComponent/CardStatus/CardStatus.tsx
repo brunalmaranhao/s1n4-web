@@ -41,7 +41,7 @@ export default function CardStatus({
   ];
   const label = labelStatus.find((item) => item.key === status);
 
-  console.log(label);
+  // console.log(label);
 
   return (
     <div

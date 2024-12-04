@@ -6,7 +6,7 @@ import CardStatus from "./CardStatus/CardStatus";
 
 export default function ProjectsComponent() {
   const {
-    fetchAllProjects,
+    // fetchAllProjects,
     projects,
     selectedCustomerFilter,
     fetchProjectsByCustomer,
@@ -24,7 +24,7 @@ export default function ProjectsComponent() {
         return;
       }
 
-      fetchAllProjects();
+      // fetchAllProjects();
     } catch (error) {
       toast.error("Não foi possível atualizar o status do projeto.");
     }

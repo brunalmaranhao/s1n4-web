@@ -7,10 +7,10 @@ import React, {
   useEffect,
 } from "react";
 import { useDisclosure } from "@nextui-org/react";
-import { fetchAllProjects } from "@/app/admin/actions";
 import ProjectsService from "@/services/models/projects";
 import CustomerService from "@/services/models/customer";
 import toast from "react-hot-toast";
+import ListProjectsService from "@/services/models/list-projects";
 
 type ProjectContextType = {
   isOpenModalCreateProject: boolean;
@@ -27,7 +27,7 @@ type ProjectContextType = {
   onOpenModalCreateProjectUpdate: () => void;
   projects: IProject[];
   projectsUser: IProject[];
-  fetchAllProjects: () => void;
+  // fetchAllProjects: () => void;
   fetchProjectsByUser: () => void;
   customers: ICustomer[];
   fetchCustomer: () => void;
@@ -49,6 +49,12 @@ type ProjectContextType = {
     React.SetStateAction<string | undefined>
   >;
   loadingProjects: boolean
+  fetchListProjectByCustomer: (customerId: string) => void
+  fetchListProjectByUser: (customerId: string) => void
+  listProjects: IListProject[];
+  setListProjects: React.Dispatch<
+    React.SetStateAction<IListProject[]>
+  >;
 };
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
@@ -78,6 +84,7 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     string | undefined
   >();
   const [projects, setProjects] = useState<IProject[]>([]);
+  const [listProjects, setListProjects] = useState<IListProject[]>([]);
   const [projectsUser, setProjectsUser] = useState<IProject[]>([]);
   const [customers, setCustomers] = useState<ICustomer[]>([]);
   const [selectedProjectEdit, setSelectedProjectEdit] = useState<
@@ -94,11 +101,31 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     setSelectedProjectCreateProjectUpdate,
   ] = useState<IProject | undefined>();
 
-  async function fetchAllProjects() {
+  // async function fetchAllProjects() {
+  //   try {
+  //     const { fetchProjects } = await ProjectsService();
+  //     const response = await fetchProjects(1, 100);
+  //     setProjects(response);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
+  async function fetchListProjectByCustomer(customerId: string) {
     try {
-      const { fetchProjects } = await ProjectsService();
-      const response = await fetchProjects(1, 100);
-      setProjects(response);
+      const { fetchListProjectByCustomer } = await ListProjectsService();
+      const response = await fetchListProjectByCustomer(customerId);
+      setListProjects(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function fetchListProjectByUser() {
+    try {
+      const { fetchListProjectByUser } = await ListProjectsService();
+      const response = await fetchListProjectByUser();
+      setListProjects(response);
     } catch (error) {
       console.log(error);
     }
@@ -142,7 +169,7 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     onClose: onOpenChange,
     onOpen,
     projects,
-    fetchAllProjects,
+    // fetchAllProjects,
     customers,
     fetchCustomer,
     fetchProjectsByCustomer,
@@ -165,7 +192,11 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     projectsUser,
     setSelectedCustomerFilter,
     selectedCustomerFilter,
-    loadingProjects
+    loadingProjects,
+    listProjects,
+    setListProjects,
+    fetchListProjectByCustomer,
+    fetchListProjectByUser
   };
 
   return (

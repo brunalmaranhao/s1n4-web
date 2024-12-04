@@ -13,21 +13,22 @@ export default function FilterProjectsByCustomer() {
   const {
     customers,
     fetchCustomer,
-    fetchAllProjects,
-    fetchProjectsByCustomer,
+    // fetchAllProjects,
+    // fetchProjectsByCustomer,
     setSelectedCustomerFilter,
   } = useProjectContext();
   const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
+  // console.log(selectedKeys)
 
   useEffect(() => {
     const selectedId = Array.from(selectedKeys)[0];
     if (selectedId) {
-      fetchProjectsByCustomer(selectedId);
+      // fetchProjectsByCustomer(selectedId);
       setSelectedCustomerFilter(selectedId);
       return;
     }
     setSelectedCustomerFilter(undefined);
-    fetchAllProjects();
+    // fetchAllProjects();
   }, [selectedKeys]);
 
   const selectedValue = useMemo(() => {
