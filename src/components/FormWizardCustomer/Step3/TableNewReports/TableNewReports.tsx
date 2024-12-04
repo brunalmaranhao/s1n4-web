@@ -54,16 +54,16 @@ export default function TableNewReports() {
                     <VerticalDotsIcon className="text-default-300" />
                   </Button>
                 </DropdownTrigger>
-                <DropdownMenu className="text-black">
+                <DropdownMenu className="text-black dark:text-white">
                   <DropdownItem onPress={() => remove(report, reportsSaved)}>
-                    Desativar
+                    Excluir
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
             </div>
           );
         default:
-          return <p className="text-black">{cellValue}</p>;
+          return <p className="text-black dark:text-white">{cellValue}</p>;
       }
     },
     [],

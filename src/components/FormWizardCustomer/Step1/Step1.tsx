@@ -32,6 +32,7 @@ const Step1 = () => {
     shouldFocusError: false,
   });
 
+
   useEffect(() => {
     //console.log(getValues("address.zipCode"));
     if (
@@ -97,7 +98,7 @@ const Step1 = () => {
     }
   }
   return (
-    <div className={`${step === 1 ? "flex" : "hidden"} flex-col text-black`}>
+    <div className={`${step === 1 ? "flex" : "hidden"} flex-col text-black dark:text-white`}>
       <h2>Detalhes da empresa</h2>
       <form
         onSubmit={handleSubmit(handleOnNext)}
@@ -148,13 +149,13 @@ const Step1 = () => {
             size="sm"
           /> */}
           <Input
-            label="Objetivo do Contrato (Opcional)"
+            label="Objetivo do Contrato"
             {...register("contractObjective")}
             size="sm"
             variant="bordered"
           />
           <Input
-            label="Investimento Acumulado (Opcional)"
+            label="Investimento Acumulado"
             {...register("accumulatedInvestment")}
             size="sm"
             variant="bordered"
@@ -168,7 +169,7 @@ const Step1 = () => {
         </div>
         <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
           <Input
-            label="Duração do Contrato (Opcional)"
+            label="Duração do Contrato"
             {...register("contractDuration")}
             size="sm"
             variant="bordered"
@@ -180,7 +181,7 @@ const Step1 = () => {
             }
           />
           <Input
-            label="Valor do Contrato (Opcional)"
+            label="Valor do Contrato"
             type="number"
             {...register("contractValue")}
             size="sm"
@@ -192,7 +193,7 @@ const Step1 = () => {
             }
           />
           <Input
-            label="Projeção de Gastos (Opcional)"
+            label="Projeção de Gastos"
             type="number"
             {...register("expenditureProjection")}
             size="sm"
@@ -248,8 +249,7 @@ const Step1 = () => {
             />
 
             <Button
-              color="primary"
-              size="lg"
+             className="bg-[#F57B00] text-white"
               onClick={() => handleGetAddressFromCep()}
               disabled={!!errors.address?.zipCode || loadingCep}
             >
@@ -354,10 +354,10 @@ const Step1 = () => {
         </div>
 
         <div className="w-full mt-10 flex justify-end gap-3">
-          <Button onClick={() => back()} color="primary" variant="light">
+          <Button onClick={() => back()} color="primary" variant="light" className="dark:text-white text-black">
             Cancelar
           </Button>
-          <Button color="primary" type="submit" disabled={!!loading}>
+          <Button  className="bg-[#F57B00] text-white" type="submit" disabled={!!loading}>
             {loading ? <Spinner color="white" size="sm" /> : "Avançar"}
           </Button>
         </div>

@@ -21,11 +21,13 @@ import toast from "react-hot-toast";
 type ModalForgotPasswordProps = {
   isOpen: boolean;
   onClose: () => void;
+  email?: string
 };
 
 export default function ModalForgotPassword({
   isOpen,
   onClose,
+  email
 }: ModalForgotPasswordProps) {
   const [loading, setLoading] = useState(false);
   const [hasSendConfirmation, setHasSendConfirmation] = useState(false);

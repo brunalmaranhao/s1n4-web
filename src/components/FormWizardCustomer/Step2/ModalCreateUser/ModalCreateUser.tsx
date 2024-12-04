@@ -81,17 +81,16 @@ export default function ModalCreateUser({
       isOpen={isOpen}
       onOpenChange={onClose}
       size="xl"
-      className="bg-[#F2F4F8]"
       backdrop="blur"
     >
-      <ModalContent>
+      <ModalContent className="text-black dark:text-white">
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1 text-black">
+            <ModalHeader className="flex flex-col gap-1 text-black dark:text-white">
               Criar Usuário
             </ModalHeader>
             <form onSubmit={handleSubmit(handleCreateUser)}>
-              <ModalBody className="flex flex-col gap-2 text-black">
+              <ModalBody className="flex flex-col gap-2 text-black dark:text-white">
                 <div className="flex flex-row gap-2 flex-wrap w-full">
                   <Input
                     label="Nome"
@@ -174,11 +173,11 @@ export default function ModalCreateUser({
                       errorMessage={errors.role?.message}
                       label="Função"
                       placeholder="Selecione uma função"
-                      className="max-w-xs"
+                      className="max-w-xs text-blac"
                       variant={inputVariant}
                       classNames={{
-                        popoverContent: "text-black",
-                        selectorIcon: "text-black",
+                        popoverContent: "text-black dark:text-white",
+                        selectorIcon: "text-black dark:text-white",
                       }}
                       {...field}
                     >
@@ -192,10 +191,10 @@ export default function ModalCreateUser({
                 />
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
+                <Button className="border-black dark:border-white text-black dark:text-white bg-transparent" variant="bordered" onPress={onClose}>
                   Cancelar
                 </Button>
-                <Button color="primary" type="submit">
+                <Button color="primary" className="bg-[#F57B00]" type="submit">
                   Criar
                 </Button>
               </ModalFooter>

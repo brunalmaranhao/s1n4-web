@@ -3,11 +3,21 @@ import { MoonIcon } from "@/components/MoonIcon/MoonIcon";
 import { SunIcon } from "@/components/SunIcon/SunIcon";
 import UserService from "@/services/models/user";
 import { roleName } from "@/util/roleName";
-import { Button, Chip, Input, Link, Spinner, Switch } from "@nextui-org/react";
+import {
+  Button,
+  Chip,
+  Input,
+  Link,
+  Spinner,
+  Switch,
+  useDisclosure,
+} from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Notification from "@/components/Notification/Notification";
 import { useTheme } from "next-themes";
+import ModalForgotPassword from "@/components/ModalForgotPassword/ModalForgotPassword";
+import ModalForgotPasswordLogged from "@/components/ModalForgotPasswordLogged/ModalForgotPasswordLogged";
 
 // | "INTERNAL_MANAGEMENT"
 // | "INTERNAL_PARTNERS"
@@ -19,6 +29,7 @@ import { useTheme } from "next-themes";
 export default function MyAccount() {
   const [userResponse, setUserResponse] = useState<IGetUserResponse>();
   const [loading, setLoading] = useState(true);
+  const { isOpen, onOpen, onOpenChange: onClose } = useDisclosure();
 
   const { theme, setTheme } = useTheme();
 
@@ -59,8 +70,8 @@ export default function MyAccount() {
     }
   }
   return (
-    <div className="p-3 w-full">
-      <div className="flex items-center justify-between gap-4">
+    <div className="p-3 w-full pl-6">
+      <div className="flex w-full  items-center justify-between gap-4">
         <h1 className="text-[42px] text-[#21272A] font-bold dark:text-white">
           Minha Conta
         </h1>
@@ -80,30 +91,36 @@ export default function MyAccount() {
         </div>
       </div>
       {loading ? (
-        <div className="flex w-full items-center justify-center">
+        <div className="flex w-full">
           <Spinner />
         </div>
       ) : (
         <div className="flex flex-col h-full w-full text-black mt-20 dark:text-white">
           {profileInfo.map((profile) => (
-            <div
-              key={profile.label}
-              className={`${
-                profile.value && "border-1"
-              } py-3 w-full flex flex-col items-center`}
-            >
+            <div key={profile.label} className={` py-3 w-full flex flex-col`}>
               {profile.value && (
-                <div className="flex items-center gap-5">
+                <div className="flex flex-col">
                   <small>{profile.label}</small>
-                  <Input isDisabled color="secondary" value={profile.value} />
+                  <Input
+                    isDisabled
+                    value={profile.value}
+                    className="max-w-[320px]"
+                  />
                 </div>
               )}
             </div>
           ))}
-          <Link href="/admin/my-account/reset-password">
-            <Button className="max-w-[320px]">Trocar senha</Button>
-          </Link>
+          {userResponse?.user.email && (
+            <Button className="max-w-[120px] bg-transparent text-[#F57B00]" onClick={() => onOpen()} >Alterar senha</Button>
+          )}
         </div>
+      )}
+      {userResponse?.user.email && (
+        <ModalForgotPasswordLogged
+          isOpen={isOpen}
+          onClose={onClose}
+          email={userResponse?.user.email}
+        />
       )}
     </div>
   );
