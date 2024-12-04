@@ -55,23 +55,23 @@ export default function TableNewUsers() {
       switch (columnKey) {
         case "actions":
           return (
-            <div className="relative flex justify-end items-center gap-2">
+            <div className="relative flex justify-end items-center gap-2 text-black dark:text-white ">
               <Dropdown>
                 <DropdownTrigger>
                   <Button isIconOnly size="sm" variant="light">
                     <VerticalDotsIcon className="text-default-300" />
                   </Button>
                 </DropdownTrigger>
-                <DropdownMenu className="text-black">
+                <DropdownMenu className="text-black dark:text-white">
                   <DropdownItem onPress={() => remove(customer, usersSaved)}>
-                    Desativar
+                    Excluir
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
             </div>
           );
         default:
-          return <p className="text-black">{cellValue}</p>;
+          return <p className="text-black dark:text-white">{cellValue}</p>;
       }
     },
     [],
@@ -83,7 +83,7 @@ export default function TableNewUsers() {
   }
 
   return (
-    <Table aria-label="Table Users" selectionMode="single">
+    <Table aria-label="Table Users" selectionMode="single" >
       <TableHeader columns={columns}>
         {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
       </TableHeader>

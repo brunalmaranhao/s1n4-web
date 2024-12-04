@@ -91,17 +91,16 @@ export default function ModalCreateResponsible({
       isOpen={isOpen}
       onOpenChange={onClose}
       size="xl"
-      className="bg-[#F2F4F8]"
       backdrop="blur"
     >
-      <ModalContent>
+      <ModalContent className="text-black dark:text-white">
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1 text-black">
+            <ModalHeader className="flex flex-col gap-1">
               Criar Parte Reponsável
             </ModalHeader>
             <form onSubmit={handleSubmit(handleCreateResponsible)}>
-              <ModalBody className="flex flex-col gap-2 text-black">
+              <ModalBody className="flex flex-col gap-2">
                 <div className="flex flex-row gap-2 flex-wrap w-full">
                   <Input
                     label="Nome"
@@ -153,7 +152,6 @@ export default function ModalCreateResponsible({
                   size="sm"
                   type="date"
                   label="Data de nascimento"
-                  className="text-black"
                   placeholder="DD/MM/YYYY"
                   errorMessage={errors.birthdate?.message}
                   isInvalid={!!errors.birthdate?.message}
@@ -173,8 +171,8 @@ export default function ModalCreateResponsible({
                       className="max-w-xs"
                       variant={inputVariant}
                       classNames={{
-                        popoverContent: "text-black",
-                        selectorIcon: "text-black",
+                        popoverContent: "text-black dark:text-white",
+                        selectorIcon: "text-black dark:text-white",
                       }}
                       {...field}
                     >
