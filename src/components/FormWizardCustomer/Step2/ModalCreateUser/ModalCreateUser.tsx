@@ -191,7 +191,11 @@ export default function ModalCreateUser({
                 />
               </ModalBody>
               <ModalFooter>
-                <Button className="border-black dark:border-white text-black dark:text-white bg-transparent" variant="bordered" onPress={onClose}>
+                <Button
+                  className="border-black dark:border-white text-black dark:text-white bg-transparent"
+                  variant="bordered"
+                  onPress={onClose}
+                >
                   Cancelar
                 </Button>
                 <Button color="primary" className="bg-[#F57B00]" type="submit">

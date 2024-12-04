@@ -111,7 +111,12 @@ export default function MyAccount() {
             </div>
           ))}
           {userResponse?.user.email && (
-            <Button className="max-w-[120px] bg-transparent text-[#F57B00]" onClick={() => onOpen()} >Alterar senha</Button>
+            <Button
+              className="max-w-[120px] bg-transparent text-[#F57B00]"
+              onClick={() => onOpen()}
+            >
+              Alterar senha
+            </Button>
           )}
         </div>
       )}

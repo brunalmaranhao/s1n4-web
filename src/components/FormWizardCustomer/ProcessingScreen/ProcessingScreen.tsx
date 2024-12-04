@@ -179,7 +179,9 @@ const ProcessingScreen = () => {
   }
 
   return (
-    <div className={`${step === 5 ? "flex" : "hidden"} flex-col gap-3 text-black dark:text-white`}>
+    <div
+      className={`${step === 5 ? "flex" : "hidden"} flex-col gap-3 text-black dark:text-white`}
+    >
       {finished ? (
         <div className="flex flex-row items-center w-full gap-3 text-black dark:text-white">
           <MdDone size={22} />

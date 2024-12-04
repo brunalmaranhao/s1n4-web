@@ -97,7 +97,11 @@ export default function TableNewResponsibles() {
             </div>
           );
         default:
-          return <p className="text-black dark:text-white">{cellValue?.toString()}</p>;
+          return (
+            <p className="text-black dark:text-white">
+              {cellValue?.toString()}
+            </p>
+          );
       }
     },
     [],

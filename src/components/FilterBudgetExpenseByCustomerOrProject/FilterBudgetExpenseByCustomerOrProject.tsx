@@ -22,7 +22,7 @@ export default function FilterBudgetExpenseByCustomerOrProject() {
     page,
     fetchBudgetExpensesByCustomer,
     fetchBudgetExpensesByProject,
-    filteredCustomerId,   
+    filteredCustomerId,
     fetchAllBudgetExpensesBalance,
     fetchBudgetExpensesBalanceByCustomer,
     fetchBudgetExpensesBalanceByProject,
@@ -30,7 +30,7 @@ export default function FilterBudgetExpenseByCustomerOrProject() {
     setSelectedKeysProject,
     selectedKeysCustomer,
     selectedKeysProject,
-    clearFilters
+    clearFilters,
   } = useFinancialContext();
 
   useEffect(() => {
@@ -39,12 +39,12 @@ export default function FilterBudgetExpenseByCustomerOrProject() {
       fetchProjectsByCustomer(selectedId);
       setFilteredCustomerId(selectedId);
       fetchBudgetExpensesByCustomer(selectedId);
-      fetchBudgetExpensesBalanceByCustomer(selectedId)
+      fetchBudgetExpensesBalanceByCustomer(selectedId);
       return;
     }
     setFilteredCustomerId(undefined);
     fetchBudgetExpenses(page);
-    fetchAllBudgetExpensesBalance()
+    fetchAllBudgetExpensesBalance();
   }, [selectedKeysCustomer]);
 
   useEffect(() => {
@@ -53,12 +53,12 @@ export default function FilterBudgetExpenseByCustomerOrProject() {
     if (selectedIdProject) {
       setFilteredProjectId(selectedIdProject);
       fetchBudgetExpensesByProject(selectedIdProject);
-      fetchBudgetExpensesBalanceByProject(selectedIdProject)
+      fetchBudgetExpensesBalanceByProject(selectedIdProject);
       return;
     } else if (selectedIdCustomer) {
       setFilteredCustomerId(selectedIdCustomer);
       fetchBudgetExpensesByCustomer(selectedIdCustomer);
-      fetchBudgetExpensesBalanceByCustomer(selectedIdCustomer)
+      fetchBudgetExpensesBalanceByCustomer(selectedIdCustomer);
       return;
     }
     setFilteredProjectId(undefined);
@@ -96,8 +96,6 @@ export default function FilterBudgetExpenseByCustomerOrProject() {
   const handleSelectionChangeProject = (keys: "all" | Set<React.Key>) => {
     setSelectedKeysProject(new Set(Array.from(keys) as string[]));
   };
-
-  
 
   return (
     <div className="flex gap-3 items-center text-black">
@@ -145,7 +143,10 @@ export default function FilterBudgetExpenseByCustomerOrProject() {
             className="max-h-[320px] overflow-auto scrollbar-thin scrollbar-thumb-rounded-lg scrollbar-thumb-gray-700"
           >
             {projects.map((item) => (
-              <DropdownItem key={item.id} className="text-black dark:text-white">
+              <DropdownItem
+                key={item.id}
+                className="text-black dark:text-white"
+              >
                 {item.name}
               </DropdownItem>
             ))}

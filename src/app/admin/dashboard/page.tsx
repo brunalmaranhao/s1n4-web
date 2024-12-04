@@ -1,6 +1,6 @@
 "use client";
 
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import FilterCustomersAndProjects from "@/components/FilterCustomersAndProjects/FilterCustomersAndProjects";
 import OverviewTabContent from "@/components/OverviewTabContent/OverviewTabContent";
 import ProjectsOverview from "@/components/ProjectsOverview/ProjectsOverview";
@@ -16,24 +16,24 @@ import { MoonIcon } from "@/components/MoonIcon/MoonIcon";
 import { GrAdd } from "react-icons/gr";
 import { useReportContext } from "@/context/ReportContext";
 
-
 const ReportTabContent = dynamic(
-  () => import('@/components/ReportTabContent/ReportTabContent'),
-  { ssr: false }
+  () => import("@/components/ReportTabContent/ReportTabContent"),
+  { ssr: false },
 );
 
 const ModalCreatePeriodicReport = dynamic(
-  () => import('@/components/ModalCreatePeriodicReport/ModalCreatePeriodicReport'),
-  { ssr: false }
+  () =>
+    import("@/components/ModalCreatePeriodicReport/ModalCreatePeriodicReport"),
+  { ssr: false },
 );
 
 export default function Dashboard() {
   const [selectedTab, setSelectedTab] = useState<Key>("");
   const [selectedClient, setSelectedClient] = useState<ICustomer | undefined>(
-    undefined
+    undefined,
   );
 
-  const {onOpenModalCreatePeriodicReport} = useReportContext()
+  const { onOpenModalCreatePeriodicReport } = useReportContext();
 
   const { theme, setTheme } = useTheme();
 

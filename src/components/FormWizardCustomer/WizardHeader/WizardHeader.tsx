@@ -17,7 +17,11 @@ interface WizardHeaderProps {
 
 const WizardHeader: React.FC<WizardHeaderProps> = ({ currentStep }) => {
   const steps: Step[] = [
-    { id: 1, label: "1. Detalhes da empresa", sublabel: "Informações e dados sobre a empresa." },
+    {
+      id: 1,
+      label: "1. Detalhes da empresa",
+      sublabel: "Informações e dados sobre a empresa.",
+    },
     {
       id: 2,
       label: "2. Usuários",
@@ -30,7 +34,7 @@ const WizardHeader: React.FC<WizardHeaderProps> = ({ currentStep }) => {
       sublabel: "Defina quais serão as pessoas do time do cliente no geral",
     },
   ];
-  
+
   const getIcon = (stepId: number) => {
     if (stepId < currentStep)
       return <MdOutlineDone className="text-[#25A249]" size={22} />;
@@ -62,8 +66,12 @@ const WizardHeader: React.FC<WizardHeaderProps> = ({ currentStep }) => {
             <span className={`text-lg`}>{getIcon(step.id)}</span>
 
             <div className="flex flex-col">
-              <div className="text-sm font-bold text-black dark:text-white">{step.label}</div>
-              <div className="text-xs text-black dark:text-white ">{step.sublabel}</div>
+              <div className="text-sm font-bold text-black dark:text-white">
+                {step.label}
+              </div>
+              <div className="text-xs text-black dark:text-white ">
+                {step.sublabel}
+              </div>
             </div>
           </div>
         </div>

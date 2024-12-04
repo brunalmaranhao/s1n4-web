@@ -61,7 +61,7 @@ export default function OverviewTabContent({
         <Spinner />
       ) : (
         <div className="flex space-x-4">
-          <div className="p-4 flex flex-col bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#DDE1E6] dark:border-[#1E1E1E]">
+          <div className="p-4 flex flex-col bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
             <h1 className="text-base font-thin text-[#697077] dark:text-white">
               Total de usuários
             </h1>
@@ -73,7 +73,7 @@ export default function OverviewTabContent({
           </div>
 
           {selectedClient === undefined && (
-            <div className="p-4 flex flex-col bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#DDE1E6] dark:border-[#1E1E1E]">
+            <div className="p-4 flex flex-col bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
               <h1 className="text-base font-thin text-[#697077] dark:text-white">
                 Total de clientes
               </h1>
@@ -86,7 +86,7 @@ export default function OverviewTabContent({
       )}
 
       {selectedClient === undefined && (
-        <div className="bg-white dark:bg-[#1E1E1E] p-4 border-solid border-[1px] border-[#DDE1E6] dark:border-[#1E1E1E]">
+        <div className="bg-white dark:bg-[#1E1E1E] p-4 border-solid border-[1px] dark:border-[#1E1E1E] border-[#F2F4F8] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
           <div className="flex justify-between font-bold text-lg mb-2">
             <span className="text-black dark:text-white">Clientes</span>
             <span className="text-black dark:text-white">Usuários</span>
@@ -97,7 +97,7 @@ export default function OverviewTabContent({
             customersState.map((customer, index) => (
               <div
                 key={index}
-                className="flex space-x-4 justify-between py-2 border-b last:border-none"
+                className="flex space-x-4 justify-between border-b border-[#878D9633] last:border-none py-3"
               >
                 <h1 className="text-black dark:text-white">
                   {customer.corporateName}

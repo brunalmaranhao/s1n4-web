@@ -5,7 +5,7 @@ import { api } from "../../api";
 export const post = async <Response, Body>(
   url: string,
   body: Body,
-  config?: AxiosRequestConfig
+  config?: AxiosRequestConfig,
 ) => {
   try {
     const { data } = await api.post<Response>(url, body, config);
@@ -17,7 +17,7 @@ export const post = async <Response, Body>(
 
 export const postFormData = async <TResponse>(
   url: string,
-  data: FormData
+  data: FormData,
 ): Promise<TResponse> => {
   try {
     const response = await api.post<TResponse>(url, data, {

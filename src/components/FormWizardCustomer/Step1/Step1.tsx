@@ -32,7 +32,6 @@ const Step1 = () => {
     shouldFocusError: false,
   });
 
-
   useEffect(() => {
     //console.log(getValues("address.zipCode"));
     if (
@@ -98,7 +97,9 @@ const Step1 = () => {
     }
   }
   return (
-    <div className={`${step === 1 ? "flex" : "hidden"} flex-col text-black dark:text-white`}>
+    <div
+      className={`${step === 1 ? "flex" : "hidden"} flex-col text-black dark:text-white`}
+    >
       <h2>Detalhes da empresa</h2>
       <form
         onSubmit={handleSubmit(handleOnNext)}
@@ -249,7 +250,7 @@ const Step1 = () => {
             />
 
             <Button
-             className="bg-[#F57B00] text-white"
+              className="bg-[#F57B00] text-white"
               onClick={() => handleGetAddressFromCep()}
               disabled={!!errors.address?.zipCode || loadingCep}
             >
@@ -354,10 +355,19 @@ const Step1 = () => {
         </div>
 
         <div className="w-full mt-10 flex justify-end gap-3">
-          <Button onClick={() => back()} color="primary" variant="light" className="dark:text-white text-black">
+          <Button
+            onClick={() => back()}
+            color="primary"
+            variant="light"
+            className="dark:text-white text-black"
+          >
             Cancelar
           </Button>
-          <Button  className="bg-[#F57B00] text-white" type="submit" disabled={!!loading}>
+          <Button
+            className="bg-[#F57B00] text-white"
+            type="submit"
+            disabled={!!loading}
+          >
             {loading ? <Spinner color="white" size="sm" /> : "Avançar"}
           </Button>
         </div>
