@@ -51,6 +51,15 @@ export default async function FinancialService() {
 
   async function fetchBudgetExpenseBalanceByCustomer(
     customerId: string,
+  ): Promise<{ data: IBudgetExpenseBalance }> {
+    const response = await get<{ data: IBudgetExpenseBalance }>(
+      `/budget-expense/balance/customer/${customerId}`,
+    );
+    return response;
+  }
+
+  async function fetchBalanceAndExpensesByCustomer(
+    customerId: string,
     token: string,
   ): Promise<{ data: IBudgetExpenseBalance }> {
     const response = await get<{ data: IBudgetExpenseBalance }>(
@@ -106,5 +115,6 @@ export default async function FinancialService() {
     fetchAllBudgetExpenseBalance,
     fetchBudgetExpenseBalanceByCustomer,
     fetchCustomerExpenses,
+    fetchBalanceAndExpensesByCustomer,
   };
 }

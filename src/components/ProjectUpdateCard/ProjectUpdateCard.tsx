@@ -22,7 +22,6 @@ export default function ProjectUpdateCard({
     INTERNAL_PARTNERS: "Parceiros Internos",
     INTERNAL_FINANCIAL_LEGAL: "Financeiro/Jurídico",
   };
-  console.log(isLast);
 
   return (
     <div key={key} className="flex flex-col space-y-2 mb-4">
@@ -55,7 +54,7 @@ export default function ProjectUpdateCard({
         </div>
       </div>
       <h1 className="text-black dark:text-white py-2">
-        {projectUpdate.description};
+        {projectUpdate.description}
       </h1>
       {isLast ? null : <hr className="border-[#878D9633]" />}
     </div>

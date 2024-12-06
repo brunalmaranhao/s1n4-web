@@ -8,8 +8,8 @@ export async function fetchCustomerBudgetExpenses(
   token: string,
 ): Promise<ICustomerBudgetExpensesResponse> {
   try {
-    const { fetchBudgetExpenseBalanceByCustomer } = await FinancialService();
-    const { data } = await fetchBudgetExpenseBalanceByCustomer(id, token);
+    const { fetchBalanceAndExpensesByCustomer } = await FinancialService();
+    const { data } = await fetchBalanceAndExpensesByCustomer(id, token);
     // console.log(response);
     return {
       isError: false,
