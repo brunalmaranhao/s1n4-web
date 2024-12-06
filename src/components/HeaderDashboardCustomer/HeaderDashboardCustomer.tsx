@@ -9,6 +9,7 @@ import { useReportContext } from "@/context/ReportContext";
 import { SunIcon } from "../SunIcon/SunIcon";
 import { MoonIcon } from "../MoonIcon/MoonIcon";
 import { useTheme } from "next-themes";
+import CustomerFinancial from "@/app/customer/dashboard/financial/page";
 
 export default function HeaderDashboardCustomer() {
   const { theme, setTheme } = useTheme();
@@ -16,11 +17,16 @@ export default function HeaderDashboardCustomer() {
   const pathsWithTab = [
     "/customer/dashboard/reports",
     "/customer/dashboard/projects",
+    "/customer/dashboard/financial",
   ];
   const pathname = usePathname();
   const label = pathname.startsWith("/customer/dashboard/projects")
     ? "Projetos"
-    : "Relatórios";
+    : pathname.startsWith("/customer/dashboard/reports")
+      ? "Relatórios"
+      : "Financeiro";
+
+  // console.log(label);
   return (
     <div className="flex flex-col w-full gap-6">
       <div className="flex flex-row mt-4  justify-between w-full">

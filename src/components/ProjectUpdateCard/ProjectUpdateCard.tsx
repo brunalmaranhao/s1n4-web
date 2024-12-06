@@ -55,7 +55,7 @@ export default function ProjectUpdateCard({
         </div>
       </div>
       <h1 className="text-black dark:text-white py-2">
-        "{projectUpdate.description}"
+        &quot;{projectUpdate.description}&quot;
       </h1>
       {isLast ? null : <hr className="border-[#878D9633]" />}
     </div>
