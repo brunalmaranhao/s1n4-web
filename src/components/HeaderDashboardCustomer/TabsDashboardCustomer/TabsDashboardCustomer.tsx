@@ -9,6 +9,7 @@ export default function TabsDashboardCustomer() {
   const keyMapping = {
     projects: "Projetos",
     reports: "Relatórios",
+    financial: "Financeiro",
   };
   const pathname = usePathname();
   const handleTabChange = (key: Key) => {
@@ -19,7 +20,7 @@ export default function TabsDashboardCustomer() {
   const selectedKey =
     Object.keys(keyMapping).find((key) => pathname.includes(key)) || "";
   const [selectedTab, setSelectedTab] = useState<Key>(selectedKey);
-
+  // console.log(selectedKey);
   return (
     <div>
       <Tabs

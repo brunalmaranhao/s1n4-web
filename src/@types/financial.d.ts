@@ -31,3 +31,23 @@ declare interface IBudgetExpenseBalance {
   amountBudgetExpense: number;
   balance: number;
 }
+
+declare interface ICustomerBudgetExpensesResponse {
+  isError: boolean;
+  error?: string;
+  budget?: IBudgetExpenseBalance;
+}
+
+declare interface IGetCustomerExpensesResponse {
+  isError: boolean;
+  error?: string;
+  expenses?: IBudgetExpense[];
+}
+
+declare interface IExpensesRow {
+  key: string;
+  expenseTitle: string;
+  description: string;
+  project: string;
+  expenseValue: string;
+}
