@@ -42,6 +42,8 @@ declare interface IFetchAllProjectsResponse {
     updatedAt: Date | null | undefined;
     customer: ICustomer;
     budget: number;
+    updatedListProjectAt: Date
+    shouldShowInformationsToCustomerUser: boolean
   }[];
 }
 
