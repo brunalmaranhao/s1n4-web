@@ -7,27 +7,34 @@ import React, {
   useEffect,
 } from "react";
 import { useDisclosure } from "@nextui-org/react";
-import { fetchAllProjects } from "@/app/admin/actions";
 import ProjectsService from "@/services/models/projects";
 import CustomerService from "@/services/models/customer";
 import toast from "react-hot-toast";
+import ListProjectsService from "@/services/models/list-projects";
 
 type ProjectContextType = {
   isOpenModalCreateProject: boolean;
   onClose: () => void;
   onOpen: () => void;
+  isOpenModalCreateListProject: boolean;
+  onCloseModalCreateListProject: () => void;
+  onOpenModalCreateListProject: () => void;
   isOpenModalEdit: boolean;
   onOpenChangeModalEdit: () => void;
   onOpenModalEdit: () => void;
   isOpenModalRemove: boolean;
   onOpenChangeModalRemove: () => void;
   onOpenModalRemove: () => void;
+
+  isOpenModalRemoveListProject: boolean;
+  onOpenChangeModalRemoveListProject: () => void;
+  onOpenModalRemoveListProject: () => void;
   isOpenModalCreateProjectUpdate: boolean;
   onOpenChangeModalCreateProjectUpdate: () => void;
   onOpenModalCreateProjectUpdate: () => void;
   projects: IProject[];
   projectsUser: IProject[];
-  fetchAllProjects: () => void;
+  // fetchAllProjects: () => void;
   fetchProjectsByUser: () => void;
   customers: ICustomer[];
   fetchCustomer: () => void;
@@ -40,6 +47,10 @@ type ProjectContextType = {
   setSelectedProjectRemove: React.Dispatch<
     React.SetStateAction<IProject | undefined>
   >;
+  selectedListProjectRemove?: {id: string, name: string};
+  setSelectedListProjectRemove: React.Dispatch<
+    React.SetStateAction<{id: string, name: string} | undefined>
+  >;
   selectedProjectCreateProjectUpdate?: IProject;
   setSelectedProjectCreateProjectUpdate: React.Dispatch<
     React.SetStateAction<IProject | undefined>
@@ -49,6 +60,16 @@ type ProjectContextType = {
     React.SetStateAction<string | undefined>
   >;
   loadingProjects: boolean;
+
+  fetchListProjectByCustomer: (customerId: string) => void;
+  fetchListProjectByUser: () => Promise<void>;
+  listProjects: IListProject[];
+  setListProjects: React.Dispatch<React.SetStateAction<IListProject[]>>;
+  selectedListProjectAddProject?: string;
+  setSelectedListProjectAddProject: React.Dispatch<
+    React.SetStateAction<string | undefined>
+  >;
+
 };
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
@@ -57,6 +78,11 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const {
+    isOpen: isOpenModalCreateListProject,
+    onOpen: onOpenModalCreateListProject,
+    onOpenChange: onCloseModalCreateListProject,
+  } = useDisclosure();
   const {
     isOpen: isOpenModalEdit,
     onOpen: onOpenModalEdit,
@@ -69,6 +95,12 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
   } = useDisclosure();
 
   const {
+    isOpen: isOpenModalRemoveListProject,
+    onOpen: onOpenModalRemoveListProject,
+    onOpenChange: onOpenChangeModalRemoveListProject,
+  } = useDisclosure();
+
+  const {
     isOpen: isOpenModalCreateProjectUpdate,
     onOpen: onOpenModalCreateProjectUpdate,
     onOpenChange: onOpenChangeModalCreateProjectUpdate,
@@ -77,7 +109,10 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
   const [selectedCustomerFilter, setSelectedCustomerFilter] = useState<
     string | undefined
   >();
+  const [selectedListProjectAddProject, setSelectedListProjectAddProject] =
+    useState<string>();
   const [projects, setProjects] = useState<IProject[]>([]);
+  const [listProjects, setListProjects] = useState<IListProject[]>([]);
   const [projectsUser, setProjectsUser] = useState<IProject[]>([]);
   const [customers, setCustomers] = useState<ICustomer[]>([]);
   const [selectedProjectEdit, setSelectedProjectEdit] = useState<
@@ -87,6 +122,12 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     IProject | undefined
   >();
 
+
+  const [selectedListProjectRemove, setSelectedListProjectRemove] = useState<
+  {id: string, name: string} | undefined
+>();
+
+
   const [loadingProjects, setLoadingProjects] = useState(false);
 
   const [
@@ -94,11 +135,37 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     setSelectedProjectCreateProjectUpdate,
   ] = useState<IProject | undefined>();
 
-  async function fetchAllProjects() {
+  // async function fetchAllProjects() {
+  //   try {
+  //     const { fetchProjects } = await ProjectsService();
+  //     const response = await fetchProjects(1, 100);
+  //     setProjects(response);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
+  useEffect(() => {
+    if (selectedCustomerFilter) {
+      fetchListProjectByCustomer(selectedCustomerFilter);
+    }
+  }, [selectedCustomerFilter]);
+
+  async function fetchListProjectByCustomer(customerId: string) {
     try {
-      const { fetchProjects } = await ProjectsService();
-      const response = await fetchProjects(1, 100);
-      setProjects(response);
+      const { fetchListProjectByCustomer } = await ListProjectsService();
+      const response = await fetchListProjectByCustomer(customerId);
+      setListProjects(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function fetchListProjectByUser() {
+    try {
+      const { fetchListProjectByUser } = await ListProjectsService();
+      const response = await fetchListProjectByUser();
+      setListProjects(response);
     } catch (error) {
       console.log(error);
     }
@@ -142,7 +209,7 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     onClose: onOpenChange,
     onOpen,
     projects,
-    fetchAllProjects,
+    // fetchAllProjects,
     customers,
     fetchCustomer,
     fetchProjectsByCustomer,
@@ -166,6 +233,21 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     setSelectedCustomerFilter,
     selectedCustomerFilter,
     loadingProjects,
+    listProjects,
+    setListProjects,
+    fetchListProjectByCustomer,
+    fetchListProjectByUser,
+    isOpenModalCreateListProject,
+    onOpenModalCreateListProject,
+    onCloseModalCreateListProject,
+    setSelectedListProjectAddProject,
+    selectedListProjectAddProject,
+    selectedListProjectRemove,
+    setSelectedListProjectRemove,
+    isOpenModalRemoveListProject,
+    onOpenModalRemoveListProject,
+    onOpenChangeModalRemoveListProject,
+
   };
 
   return (
@@ -179,7 +261,7 @@ export const useProjectContext = () => {
   const context = useContext(ProjectContext);
   if (!context) {
     throw new Error(
-      "useProjectContext deve ser usado dentro de um ProjectProvider",
+      "useProjectContext deve ser usado dentro de um ProjectProvider"
     );
   }
   return context;

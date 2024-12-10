@@ -49,13 +49,18 @@ export default async function ProjectsService() {
     name: string,
     customerId: string,
     budget: number,
+    listProjectsId: string,
+    shouldShowInformationsToCustomerUser: boolean,
     deadline?: Date,
+    
   ): Promise<string> {
     const projectData = {
       name,
       deadline,
       customerId,
       budget,
+      listProjectsId,
+      shouldShowInformationsToCustomerUser
     };
     const payload = JSON.stringify(
       Object.fromEntries(
@@ -80,11 +85,11 @@ export default async function ProjectsService() {
   async function update(
     id: string,
     name: string,
-    customerId: string,
     budget: number,
+    shouldShowInformationsToCustomerUser: boolean,
     deadline?: Date,
   ): Promise<void> {
-    const payload = JSON.stringify({ name, deadline, customerId, budget });
+    const payload = JSON.stringify({ name, deadline, budget, shouldShowInformationsToCustomerUser });
     await put<{ projectId: string }, string>(`/project/update/${id}`, payload);
   }
 

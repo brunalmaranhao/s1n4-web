@@ -6,38 +6,26 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { SlArrowDown } from "react-icons/sl";
 
 export default function FilterProjectsByCustomer() {
   const {
     customers,
     fetchCustomer,
-    fetchAllProjects,
-    fetchProjectsByCustomer,
     setSelectedCustomerFilter,
+    selectedCustomerFilter,
   } = useProjectContext();
-  const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
-
-  useEffect(() => {
-    const selectedId = Array.from(selectedKeys)[0];
-    if (selectedId) {
-      fetchProjectsByCustomer(selectedId);
-      setSelectedCustomerFilter(selectedId);
-      return;
-    }
-    setSelectedCustomerFilter(undefined);
-    fetchAllProjects();
-  }, [selectedKeys]);
 
   const selectedValue = useMemo(() => {
-    if (selectedKeys.size > 0) {
-      const selectedId = Array.from(selectedKeys)[0];
-      const selectedCustomer = customers.find((item) => item.id === selectedId);
+    if (selectedCustomerFilter) {
+      const selectedCustomer = customers.find(
+        (item) => item.id === selectedCustomerFilter
+      );
       return selectedCustomer?.corporateName || "Cliente";
     }
     return "Cliente";
-  }, [selectedKeys, customers]);
+  }, [selectedCustomerFilter, customers]);
 
   useEffect(() => {
     if (customers.length === 0) {
@@ -46,7 +34,8 @@ export default function FilterProjectsByCustomer() {
   }, [customers, fetchCustomer]);
 
   const handleSelectionChange = (keys: "all" | Set<React.Key>) => {
-    setSelectedKeys(new Set(Array.from(keys) as string[]));
+    const selectedId = Array.from(keys)[0] as string | undefined;
+    setSelectedCustomerFilter(selectedId);
   };
 
   return (
@@ -61,7 +50,9 @@ export default function FilterProjectsByCustomer() {
       </DropdownTrigger>
       <DropdownMenu
         selectionMode="single"
-        selectedKeys={selectedKeys}
+        selectedKeys={
+          selectedCustomerFilter ? new Set([selectedCustomerFilter]) : undefined
+        }
         onSelectionChange={handleSelectionChange}
         variant="light"
         aria-label="Static Actions"

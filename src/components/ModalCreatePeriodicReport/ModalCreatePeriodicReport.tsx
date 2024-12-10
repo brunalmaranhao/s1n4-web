@@ -94,7 +94,7 @@ export default function ModalCreatePeriodicReport() {
             <form onSubmit={handleSubmit(createLaunch)}>
               <ModalBody className="flex flex-col gap-2 text-black dark:text-white">
                 <Input
-                  label="Nome do projeto"
+                  label="Nome"
                   {...register("name")}
                   isInvalid={!!errors.name?.message}
                   errorMessage={errors.name?.message}

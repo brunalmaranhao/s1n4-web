@@ -1,42 +1,51 @@
 "use client";
 import { useProjectContext } from "@/context/ProjectContext";
-import { DragEvent, useEffect, useState } from "react";
-import CardStatus from "./CardStatus/CardStatus";
+import { useEffect, useState } from "react";
+import CardListProject from "./CardListProject/CardListProject";
+import SkeletonCardListProject from "../SkeletonCardListProject/SkeletonCardListProject";
 
-export default function ProjectsComponentCustomer() {
-  const { fetchProjectsByUser, projectsUser } = useProjectContext();
+export default function ProjectsComponent() {
+  const { listProjects, fetchListProjectByUser } = useProjectContext();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchProjectsByUser();
+    loadData();
   }, []);
+
+  async function loadData() {
+    setLoading(true);
+    await fetchListProjectByUser();
+    setLoading(false);
+  }
 
   return (
     <div className="w-full flex items-center justify-center mt-2">
-      <div className="flex md:flex-row flex-col gap-3 max-w-[1200px] w-full md:justify-between md:items-start items-center">
-        <div className="md:max-w-[380px] max-w-[20px] w-full">
-          <CardStatus
-            status={"WAITING"}
-            projects={projectsUser?.filter(
-              (item) => item.statusProject === "WAITING",
+
+      <div className="flex md:flex-row flex-col gap-3 p-3 w-full max-w-[1200px] overflow-x-auto">
+        {listProjects.length > 0 ? (
+          <>
+            {listProjects.map((listProject, index) => (
+              <div key={listProject.id} className={`w-[280px] flex-shrink-0 `}>
+                <CardListProject
+                  projects={listProject.projects}
+                  name={listProject.name}
+                  listProjectId={listProject.id}
+                />
+              </div>
+            ))}
+          </>
+        ) : (
+          <>
+            {loading ? (
+              <SkeletonCardListProject />
+            ) :  (
+              <p className="text-black dark:text-white">
+                Não existem projetos cadastrados.
+              </p>
+
             )}
-          />
-        </div>
-        <div className="md:max-w-[380px] max-w-[220px] w-full">
-          <CardStatus
-            status={"IN_PROGRESS"}
-            projects={projectsUser?.filter(
-              (item) => item.statusProject === "IN_PROGRESS",
-            )}
-          />
-        </div>
-        <div className="md:max-w-[380px] max-w-[220px] w-full">
-          <CardStatus
-            status={"DONE"}
-            projects={projectsUser?.filter(
-              (item) => item.statusProject === "DONE",
-            )}
-          />
-        </div>
+          </>
+        )}
       </div>
     </div>
   );

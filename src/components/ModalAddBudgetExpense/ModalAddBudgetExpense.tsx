@@ -51,7 +51,6 @@ export default function ModalAddBudgetExpense() {
   const [loading, setLoading] = useState(false);
 
   const inputVariant = "underlined";
-
   useEffect(() => {
     fetchCustomer();
   }, []);

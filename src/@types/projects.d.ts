@@ -6,6 +6,16 @@ type StatusProject =
   | "DONE"
   | "IN_PROGRESS";
 
+  declare interface IListProject {
+    id: string
+    name: string
+    customerId: string
+    status: 'ACTIVE' | 'INACTIVE'
+    createdAt: listProject.createdAt,
+    updatedAt: listProject.updatedAt,
+    projects: IProject[],
+  }
+
 declare interface IProject {
   id: string;
   name: string;
@@ -16,6 +26,9 @@ declare interface IProject {
   updatedAt: Date | null | undefined;
   customer: ICustomer;
   budget: number;
+  updatedListProjectAt: Date
+  shouldShowInformationsToCustomerUser: boolean
+  
 }
 
 declare interface IFetchAllProjectsResponse {
@@ -54,11 +67,16 @@ declare interface IGetProjectByIdResponse {
   };
 }
 
+declare interface INewListProject {
+  name: string;
+  customer: string;
+}
+
 declare interface INewProject {
   name: string;
   deadline?: Date;
-  customer: string;
   budget: number;
+  shouldShowInformationsToCustomerUser: boolean
 }
 
 declare interface INewProjectUpdate {
