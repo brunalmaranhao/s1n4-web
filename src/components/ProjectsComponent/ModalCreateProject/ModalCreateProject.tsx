@@ -38,7 +38,7 @@ export default function ModalCreateProject() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (isOpen) reset();
+    if (!isOpen) reset();
   }, [isOpen]);
 
   const {
@@ -66,8 +66,9 @@ export default function ModalCreateProject() {
           data.shouldShowInformationsToCustomerUser,
           data.deadline
         );
-
+        
         handleOnClose();
+        reset()
         fetchListProjectByCustomer(selectedCustomerFilter);
       } catch (error) {
         const customError = handleAxiosError(error);
