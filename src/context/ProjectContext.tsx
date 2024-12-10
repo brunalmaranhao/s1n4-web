@@ -16,12 +16,19 @@ type ProjectContextType = {
   isOpenModalCreateProject: boolean;
   onClose: () => void;
   onOpen: () => void;
+  isOpenModalCreateListProject: boolean;
+  onCloseModalCreateListProject: () => void;
+  onOpenModalCreateListProject: () => void;
   isOpenModalEdit: boolean;
   onOpenChangeModalEdit: () => void;
   onOpenModalEdit: () => void;
   isOpenModalRemove: boolean;
   onOpenChangeModalRemove: () => void;
   onOpenModalRemove: () => void;
+
+  isOpenModalRemoveListProject: boolean;
+  onOpenChangeModalRemoveListProject: () => void;
+  onOpenModalRemoveListProject: () => void;
   isOpenModalCreateProjectUpdate: boolean;
   onOpenChangeModalCreateProjectUpdate: () => void;
   onOpenModalCreateProjectUpdate: () => void;
@@ -40,6 +47,10 @@ type ProjectContextType = {
   setSelectedProjectRemove: React.Dispatch<
     React.SetStateAction<IProject | undefined>
   >;
+  selectedListProjectRemove?: {id: string, name: string};
+  setSelectedListProjectRemove: React.Dispatch<
+    React.SetStateAction<{id: string, name: string} | undefined>
+  >;
   selectedProjectCreateProjectUpdate?: IProject;
   setSelectedProjectCreateProjectUpdate: React.Dispatch<
     React.SetStateAction<IProject | undefined>
@@ -48,12 +59,14 @@ type ProjectContextType = {
   setSelectedCustomerFilter: React.Dispatch<
     React.SetStateAction<string | undefined>
   >;
-  loadingProjects: boolean
-  fetchListProjectByCustomer: (customerId: string) => void
-  fetchListProjectByUser: (customerId: string) => void
+  loadingProjects: boolean;
+  fetchListProjectByCustomer: (customerId: string) => void;
+  fetchListProjectByUser: () => Promise<void>;
   listProjects: IListProject[];
-  setListProjects: React.Dispatch<
-    React.SetStateAction<IListProject[]>
+  setListProjects: React.Dispatch<React.SetStateAction<IListProject[]>>;
+  selectedListProjectAddProject?: string;
+  setSelectedListProjectAddProject: React.Dispatch<
+    React.SetStateAction<string | undefined>
   >;
 };
 
@@ -63,6 +76,11 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const {
+    isOpen: isOpenModalCreateListProject,
+    onOpen: onOpenModalCreateListProject,
+    onOpenChange: onCloseModalCreateListProject,
+  } = useDisclosure();
   const {
     isOpen: isOpenModalEdit,
     onOpen: onOpenModalEdit,
@@ -75,6 +93,12 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
   } = useDisclosure();
 
   const {
+    isOpen: isOpenModalRemoveListProject,
+    onOpen: onOpenModalRemoveListProject,
+    onOpenChange: onOpenChangeModalRemoveListProject,
+  } = useDisclosure();
+
+  const {
     isOpen: isOpenModalCreateProjectUpdate,
     onOpen: onOpenModalCreateProjectUpdate,
     onOpenChange: onOpenChangeModalCreateProjectUpdate,
@@ -83,6 +107,8 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
   const [selectedCustomerFilter, setSelectedCustomerFilter] = useState<
     string | undefined
   >();
+  const [selectedListProjectAddProject, setSelectedListProjectAddProject] =
+    useState<string>();
   const [projects, setProjects] = useState<IProject[]>([]);
   const [listProjects, setListProjects] = useState<IListProject[]>([]);
   const [projectsUser, setProjectsUser] = useState<IProject[]>([]);
@@ -94,7 +120,11 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     IProject | undefined
   >();
 
-  const [loadingProjects, setLoadingProjects] = useState(false)
+  const [selectedListProjectRemove, setSelectedListProjectRemove] = useState<
+  {id: string, name: string} | undefined
+>();
+
+  const [loadingProjects, setLoadingProjects] = useState(false);
 
   const [
     selectedProjectCreateProjectUpdate,
@@ -110,6 +140,12 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
   //     console.log(error);
   //   }
   // }
+
+  useEffect(() => {
+    if (selectedCustomerFilter) {
+      fetchListProjectByCustomer(selectedCustomerFilter);
+    }
+  }, [selectedCustomerFilter]);
 
   async function fetchListProjectByCustomer(customerId: string) {
     try {
@@ -142,15 +178,15 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
   }
 
   async function fetchProjectsByCustomer(customerId: string) {
-    setLoadingProjects(true)
+    setLoadingProjects(true);
     try {
       const { fetchProjectsByCustomer } = await ProjectsService();
       const response = await fetchProjectsByCustomer(customerId);
       setProjects(response);
     } catch (error) {
       console.log(error);
-    }finally{
-      setLoadingProjects(false)
+    } finally {
+      setLoadingProjects(false);
     }
   }
 
@@ -196,7 +232,17 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     listProjects,
     setListProjects,
     fetchListProjectByCustomer,
-    fetchListProjectByUser
+    fetchListProjectByUser,
+    isOpenModalCreateListProject,
+    onOpenModalCreateListProject,
+    onCloseModalCreateListProject,
+    setSelectedListProjectAddProject,
+    selectedListProjectAddProject,
+    selectedListProjectRemove,
+    setSelectedListProjectRemove,
+    isOpenModalRemoveListProject,
+    onOpenModalRemoveListProject,
+    onOpenChangeModalRemoveListProject,
   };
 
   return (
@@ -210,7 +256,7 @@ export const useProjectContext = () => {
   const context = useContext(ProjectContext);
   if (!context) {
     throw new Error(
-      "useProjectContext deve ser usado dentro de um ProjectProvider",
+      "useProjectContext deve ser usado dentro de um ProjectProvider"
     );
   }
   return context;

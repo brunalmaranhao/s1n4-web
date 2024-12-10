@@ -1,4 +1,6 @@
 "use client";
+import { HiddenIcon } from "@/assets/HiddenIcons";
+import { VisibleIcon } from "@/assets/VisibleIcons";
 import { useProjectContext } from "@/context/ProjectContext";
 import { schemaNewProject } from "@/schemas/project";
 import { handleAxiosError } from "@/services/error";
@@ -7,26 +9,28 @@ import ProjectsService from "@/services/models/projects";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Button,
+  cn,
   Input,
   Modal,
   ModalBody,
   ModalContent,
   ModalFooter,
   ModalHeader,
-  Select,
-  SelectItem,
+  Switch,
 } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 
 export default function ModalCreateProject() {
   const {
-    fetchAllProjects,
-    customers,
-    fetchCustomer,
     isOpenModalCreateProject: isOpen,
     onClose,
+    selectedCustomerFilter,
+    fetchListProjectByCustomer,
+    selectedListProjectAddProject,
+    setSelectedListProjectAddProject,
   } = useProjectContext();
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
@@ -48,35 +52,44 @@ export default function ModalCreateProject() {
     mode: "onSubmit",
     shouldFocusError: false,
   });
-  useEffect(() => {
-    if (customers.length === 0) {
-      fetchCustomer();
-    }
-  }, []);
 
   async function handleCreateProject(data: INewProject) {
-    setLoading(true);
-    try {
-      const { createProject } = await ProjectsService();
-      await createProject(data.name, data.customer, data.budget, data.deadline);
+    if (selectedCustomerFilter && selectedListProjectAddProject) {
+      setLoading(true);
+      try {
+        const { createProject } = await ProjectsService();
+        await createProject(
+          data.name,
+          selectedCustomerFilter,
+          data.budget,
+          selectedListProjectAddProject,
+          data.shouldShowInformationsToCustomerUser,
+          data.deadline
+        );
 
-      onClose();
-      fetchAllProjects();
-    } catch (error) {
-      const customError = handleAxiosError(error);
-      toast.error(customError.message);
-    } finally {
-      setLoading(false);
+        handleOnClose();
+        fetchListProjectByCustomer(selectedCustomerFilter);
+      } catch (error) {
+        const customError = handleAxiosError(error);
+        toast.error(customError.message);
+      } finally {
+        setLoading(false);
+      }
     }
   }
 
   const inputVariant = "bordered";
 
+  function handleOnClose() {
+    setSelectedListProjectAddProject(undefined);
+    onClose();
+  }
+console.log(errors)
   return (
     <Modal
       scrollBehavior="outside"
       isOpen={isOpen}
-      onOpenChange={onClose}
+      onOpenChange={handleOnClose}
       size="xl"
       className="bg-[#F2F4F8] dark:bg-[#1e1e1e]"
       backdrop="blur"
@@ -88,7 +101,7 @@ export default function ModalCreateProject() {
               Criar Projeto
             </ModalHeader>
             <form onSubmit={handleSubmit(handleCreateProject)}>
-              <ModalBody className="flex flex-col gap-2 justify-center items-center text-black">
+              <ModalBody className="flex flex-col gap-3 justify-center items-center text-black">
                 <Input
                   label="Nome"
                   {...register("name")}
@@ -119,34 +132,25 @@ export default function ModalCreateProject() {
                   {...register("budget")}
                   variant={inputVariant}
                 />
-                <Controller
-                  control={control}
-                  name={"customer"}
-                  render={({ field }) => (
-                    <Select
-                      isInvalid={!!errors.customer?.message}
-                      errorMessage={errors.customer?.message}
-                      label="Cliente"
-                      placeholder="Selecione um cliente"
-                      variant={inputVariant}
-                      classNames={{
-                        popoverContent: "text-black",
-                        selectorIcon: "text-black",
-                      }}
-                      {...field}
-                    >
-                      {customers.map((customer) => (
-                        <SelectItem
-                          key={customer.id}
-                          value={customer.id}
-                          className="text-black dark:text-white"
-                        >
-                          {customer.name}
-                        </SelectItem>
-                      ))}
-                    </Select>
-                  )}
-                />
+                <Switch
+                  defaultSelected
+                  size="lg"
+                  startContent={<MdVisibilityOff/>}
+                  endContent={<MdVisibility />}
+                  {...register("shouldShowInformationsToCustomerUser")}
+                 
+                  classNames={{
+                    wrapper: "group-data-[selected=true]:bg-[#F57B00]",
+                    base: cn(
+                      "flex flex-row-reverse w-full self-start gap-6",
+                    ),
+                  }}
+                >
+                  <div className="text-sm">
+                    <p>Tornar informações do projeto visíveis para o usuário do cliente</p>
+                  </div>
+
+                </Switch>
               </ModalBody>
               <ModalFooter>
                 <Button color="default" variant="light" onPress={onClose}>

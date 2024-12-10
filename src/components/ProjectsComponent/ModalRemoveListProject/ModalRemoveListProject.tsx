@@ -1,7 +1,7 @@
 "use client";
 import { useProjectContext } from "@/context/ProjectContext";
 import { handleAxiosError } from "@/services/error";
-import ProjectsService from "@/services/models/projects";
+import ListProjectsService from "@/services/models/list-projects";
 import {
   Button,
   Modal,
@@ -14,29 +14,29 @@ import {
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export default function ModalRemoveProject() {
+export default function ModalRemoveListProject() {
   const {
-    selectedProjectRemove,
-    isOpenModalRemove,
-    onOpenChangeModalRemove,
-    setSelectedProjectRemove,
+    selectedListProjectRemove,
+    isOpenModalRemoveListProject,
+    onOpenChangeModalRemoveListProject,
+    setSelectedListProjectRemove,
     fetchListProjectByCustomer,
     selectedCustomerFilter,
   } = useProjectContext();
   const [loading, setLoading] = useState(false);
 
   async function handleRemoveProject() {
-    if (selectedProjectRemove?.id) {
+    if (selectedListProjectRemove?.id) {
       setLoading(true);
       try {
-        const { remove } = await ProjectsService();
-        await remove(selectedProjectRemove.id);
+        const { remove } = await ListProjectsService();
+        await remove(selectedListProjectRemove.id);
         if (selectedCustomerFilter) {
           fetchListProjectByCustomer(selectedCustomerFilter);
         }
 
-        onOpenChangeModalRemove();
-        setSelectedProjectRemove(undefined);
+        onOpenChangeModalRemoveListProject();
+        setSelectedListProjectRemove(undefined);
       } catch (error) {
         const customError = handleAxiosError(error);
         toast.error(customError.message);
@@ -49,8 +49,8 @@ export default function ModalRemoveProject() {
   return (
     <Modal
       scrollBehavior="outside"
-      isOpen={isOpenModalRemove}
-      onOpenChange={onOpenChangeModalRemove}
+      isOpen={isOpenModalRemoveListProject}
+      onOpenChange={onOpenChangeModalRemoveListProject}
       size="xl"
       className="bg-[#F2F4F8] dark:bg-[#1e1e1e]"
       backdrop="blur"
@@ -59,13 +59,13 @@ export default function ModalRemoveProject() {
         {(onClose) => (
           <>
             <ModalHeader className="flex flex-col gap-1 text-black dark:text-white">
-              Desativar Projeto
+              Desativar Lista Projeto
             </ModalHeader>
             <ModalBody className="flex flex-col gap-2 justify-center items-center text-black dark:text-white">
               <div className="flex flex-col w-full">
                 <p>
-                  Você tem certeza que deseja desativar o projeto{" "}
-                  {selectedProjectRemove?.name}?
+                  Você tem certeza que deseja desativar a lista de projetos{" "}
+                  {selectedListProjectRemove?.name}?
                 </p>
               </div>
             </ModalBody>
@@ -73,7 +73,7 @@ export default function ModalRemoveProject() {
               <Button
                 color="default"
                 variant="light"
-                onPress={onOpenChangeModalRemove}
+                onPress={onOpenChangeModalRemoveListProject}
               >
                 Cancelar
               </Button>

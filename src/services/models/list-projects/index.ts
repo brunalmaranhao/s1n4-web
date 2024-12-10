@@ -30,6 +30,13 @@ export default async function ListProjectsService() {
     await patch<{ listProjectId: string }, string>(`/list-project`, payload);
   }
 
+  async function updateOrder(
+    order: { id: string; order: number }[]
+  ): Promise<void> {
+    const payload = { order };
+    await patch(`/list-project/update-order`, payload);
+  }
+
   async function addProjectToList(
     listProjectId: string,
     projectId: string
@@ -48,19 +55,18 @@ export default async function ListProjectsService() {
   async function fetchListProjectByCustomer(
     customerId: string
   ): Promise<IListProject[]> {
-    const response =  await get<{listProjects: IListProject[]}>(
+    const response = await get<{ listProjects: IListProject[] }>(
       `/list-project/customer/${customerId}`
     );
-    return response.listProjects
+    return response.listProjects;
   }
 
   async function fetchListProjectByUser(): Promise<IListProject[]> {
-    const response =  await get<{listProjects: IListProject[]}>(
+    const response = await get<{ listProjects: IListProject[] }>(
       `/list-project`
     );
-    return response.listProjects
+    return response.listProjects;
   }
-
 
   return {
     createListProject,
@@ -69,5 +75,6 @@ export default async function ListProjectsService() {
     addProjectToList,
     remove,
     fetchListProjectByUser,
+    updateOrder,
   };
 }

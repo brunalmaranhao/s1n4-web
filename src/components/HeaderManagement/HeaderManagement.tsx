@@ -15,7 +15,7 @@ import FilterBudgetExpenseByCustomerOrProject from "../FilterBudgetExpenseByCust
 
 export default function HeaderManagement() {
   const { theme, setTheme } = useTheme();
-  const { onOpen } = useProjectContext();
+  const { onOpenModalCreateListProject } = useProjectContext();
   const { onOpen: onOpenFinancialModal } = useFinancialContext();
   const { push } = useRouter();
   const pathsWithTab = [
@@ -74,9 +74,9 @@ export default function HeaderManagement() {
               color="primary"
               startContent={<GrAdd />}
               className="pr-5 bg-transparent text-[#F57B00] border border-[#F57B00]"
-              onPress={() => onOpen()}
+              onPress={() => onOpenModalCreateListProject()}
             >
-              Novo Projeto
+              Adicionar Lista
             </Button>
           </div>
         )}

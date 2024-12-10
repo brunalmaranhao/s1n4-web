@@ -15,14 +15,16 @@ export const schemaNewProject = yup
       }),
     budget: yup
       .number()
-      .transform((value, originalValue) =>
-        originalValue.trim() === "" ? null : value,
-      )
+      .transform((value, originalValue) => {
+        const parsedValue = typeof originalValue === "string" ? originalValue.trim() : originalValue;
+        return parsedValue === "" ? null : value;
+      })
       .typeError("Campo Orçamento deve ser um número.")
       .min(1, "O valor deve ser maior que 0.")
       .required("Campo Orçamento obrigatório."),
 
-    customer: yup.string().required("Campo Cliente é obrigatório."),
+      shouldShowInformationsToCustomerUser: yup.boolean().required("")
+
   })
   .required();
 

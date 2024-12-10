@@ -6,6 +6,7 @@ import ProjectsService from "@/services/models/projects";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Button,
+  cn,
   Input,
   Modal,
   ModalBody,
@@ -14,20 +15,24 @@ import {
   ModalHeader,
   Select,
   SelectItem,
+  Switch,
 } from "@nextui-org/react";
 import { format, parseISO } from "date-fns";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 
 export default function ModalEditProject() {
   const {
-    fetchAllProjects,
     customers,
     selectedProjectEdit,
+    setSelectedProjectEdit,
     fetchCustomer,
     isOpenModalEdit,
     onOpenChangeModalEdit,
+    fetchListProjectByCustomer,
+    selectedCustomerFilter
   } = useProjectContext();
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
@@ -45,8 +50,9 @@ export default function ModalEditProject() {
     mode: "onSubmit",
     shouldFocusError: false,
     defaultValues: {
-      customer: selectedProjectEdit?.customerId,
       name: selectedProjectEdit?.name,
+      budget: selectedProjectEdit?.budget,
+      shouldShowInformationsToCustomerUser: selectedProjectEdit?.shouldShowInformationsToCustomerUser
     },
   });
   useEffect(() => {
@@ -60,16 +66,14 @@ export default function ModalEditProject() {
   useEffect(() => {
     if (customers.length >= 1) {
       if (selectedProjectEdit) {
-        console.log(selectedProjectEdit.customerId);
         setValue("name", selectedProjectEdit.name);
-        setValue("customer", selectedProjectEdit.customerId);
         setValue("budget", selectedProjectEdit.budget);
+        setValue("shouldShowInformationsToCustomerUser", selectedProjectEdit.shouldShowInformationsToCustomerUser)
       }
     }
   }, [customers, selectedProjectEdit]);
 
   async function handleEditProject(data: INewProject) {
-    console.log(data);
     if (selectedProjectEdit?.id) {
       setLoading(true);
       try {
@@ -77,13 +81,15 @@ export default function ModalEditProject() {
         await update(
           selectedProjectEdit?.id,
           data.name,
-          data.customer,
           data.budget,
-          data.deadline,
+          data.shouldShowInformationsToCustomerUser
         );
 
+        if (selectedCustomerFilter) {
+          fetchListProjectByCustomer(selectedCustomerFilter);
+        }
         onOpenChangeModalEdit();
-        fetchAllProjects();
+        
       } catch (error) {
         const customError = handleAxiosError(error);
         toast.error(customError.message);
@@ -95,11 +101,16 @@ export default function ModalEditProject() {
 
   const inputVariant = "bordered";
 
+  function onClose(){
+    onOpenChangeModalEdit()
+    setSelectedProjectEdit(undefined)
+  }
+
   return (
     <Modal
       scrollBehavior="outside"
       isOpen={isOpenModalEdit}
-      onOpenChange={onOpenChangeModalEdit}
+      onOpenChange={onClose}
       size="xl"
       className="bg-[#F2F4F8] dark:bg-[#1e1e1e]"
       backdrop="blur"
@@ -144,7 +155,7 @@ export default function ModalEditProject() {
                       }
                       onChange={(e) =>
                         field.onChange(
-                          e.target.value ? parseISO(e.target.value) : undefined,
+                          e.target.value ? parseISO(e.target.value) : undefined
                         )
                       }
                     />
@@ -155,40 +166,29 @@ export default function ModalEditProject() {
                   size="sm"
                   type="number"
                   label="Orçamento"
-                  className="text-black"
+                  className="text-black dark:text-white"
                   errorMessage={errors.budget?.message}
                   isInvalid={!!errors.budget?.message}
                   {...register("budget")}
                   variant={inputVariant}
                 />
 
-                <Controller
-                  control={control}
-                  name={"customer"}
-                  render={({ field }) => (
-                    <Select
-                      isInvalid={!!errors.customer?.message}
-                      errorMessage={errors.customer?.message}
-                      label="Cliente"
-                      placeholder="Selecione um cliente"
-                      variant={inputVariant}
-                      classNames={{
-                        popoverContent: "text-black dark:text-white",
-                        selectorIcon: "text-black dark:text-white",
-                      }}
-                      defaultSelectedKeys={[
-                        selectedProjectEdit?.customerId || "",
-                      ]}
-                      {...field}
-                    >
-                      {customers.map((customer) => (
-                        <SelectItem key={customer.id} value={customer.id}>
-                          {customer.name}
-                        </SelectItem>
-                      ))}
-                    </Select>
-                  )}
-                />
+                <Switch
+                  defaultSelected
+                  size="lg"
+                  // color="warning"
+                  startContent={<MdVisibilityOff />}
+                  endContent={<MdVisibility />}
+                  classNames={{
+                    wrapper: "group-data-[selected=true]:bg-[#F57B00]",
+                    base: cn("flex flex-row-reverse w-full self-start gap-6"),
+                  }}
+                  {...register("shouldShowInformationsToCustomerUser")}
+                >
+                  <div className="text-sm">
+                    <p>Tornar informações do projeto visíveis para o usuário do cliente</p>
+                  </div>
+                </Switch>
               </ModalBody>
               <ModalFooter>
                 <Button

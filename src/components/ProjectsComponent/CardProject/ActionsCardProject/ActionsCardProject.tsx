@@ -6,7 +6,7 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/react";
-import { MdMoreVert } from "react-icons/md";
+import { MdMoreHoriz, MdMoreVert } from "react-icons/md";
 
 type ActionsCardProjectProps = {
   project: IProject;
@@ -43,7 +43,7 @@ export default function ActionsCardProject({
     <Dropdown backdrop="blur">
       <DropdownTrigger>
         <button>
-          <MdMoreVert className="text-black dark:text-white" />
+          <MdMoreHoriz className="text-black dark:text-white" />
         </button>
       </DropdownTrigger>
       <DropdownMenu

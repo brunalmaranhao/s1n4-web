@@ -1,43 +1,99 @@
 import { useProjectContext } from "@/context/ProjectContext";
-import ProjectsService from "@/services/models/projects";
-import { DragEvent, useEffect, useState } from "react";
+import { DragEvent, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import CardStatus from "./CardStatus/CardStatus";
+import ListProjectsService from "@/services/models/list-projects";
+import CardListProject from "./CardListProject/CardListProject";
+import { handleAxiosError } from "@/services/error";
+import FilterProjectsByCustomer from "../FilterProjectsByCustomer/FilterProjectsByCustomer";
+import { Button } from "@nextui-org/react";
+import { GrAdd } from "react-icons/gr";
 
 export default function ProjectsComponent() {
   const {
-    // fetchAllProjects,
-    projects,
+    listProjects,
     selectedCustomerFilter,
-    fetchProjectsByCustomer,
+    fetchListProjectByCustomer,
+    onOpenModalCreateListProject,
   } = useProjectContext();
-  const [draggedProject, setDraggedProject] = useState<IProject | null>(null);
-  const [highlightedColumn, setHighlightedColumn] =
-    useState<StatusProject | null>(null);
 
-  async function handleUpdateStatusProject(id: string, status: StatusProject) {
+  const [orderedListProjects, setOrderedListProjects] = useState(listProjects);
+  const [draggedProject, setDraggedProject] = useState<IProject | null>(null);
+  const [highlightedColumn, setHighlightedColumn] = useState<string | null>(
+    null
+  );
+  const [draggedListIndex, setDraggedListIndex] = useState<number | null>(null);
+  const [highlightedListIndex, setHighlightedListIndex] = useState<
+    number | null
+  >(null);
+
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    setOrderedListProjects(listProjects);
+  }, [listProjects]);
+
+  async function handleChangeProjectListProject(
+    projectId: string,
+    listProjectId: string
+  ) {
     try {
-      const { updateStatus } = await ProjectsService();
-      await updateStatus(id, status);
+      const { addProjectToList } = await ListProjectsService();
+      await addProjectToList(listProjectId, projectId);
       if (selectedCustomerFilter) {
-        fetchProjectsByCustomer(selectedCustomerFilter);
+        fetchListProjectByCustomer(selectedCustomerFilter);
         return;
       }
-
-      // fetchAllProjects();
     } catch (error) {
       toast.error("Não foi possível atualizar o status do projeto.");
     }
   }
 
-  function handleDragStart(project: IProject) {
+  function handleProjectDragStart(project: IProject) {
     setDraggedProject(project);
   }
 
-  function handleDrop(status: StatusProject) {
+  function handleProjectDrop(listProjectId: string) {
     if (draggedProject) {
-      handleUpdateStatusProject(draggedProject.id, status);
+      handleChangeProjectListProject(draggedProject.id, listProjectId);
       setDraggedProject(null);
+      setHighlightedColumn(null);
+    }
+  }
+
+  function handleListDragStart(index: number, event: DragEvent) {
+    if (draggedProject) return; // Previne conflito com drag de projetos
+    setDraggedListIndex(index);
+    event.stopPropagation();
+  }
+
+  async function handleListDrop(targetIndex: number) {
+    if (draggedProject) return;
+    if (draggedListIndex !== null && draggedListIndex !== targetIndex) {
+      const reorderedLists = [...orderedListProjects];
+      const [removed] = reorderedLists.splice(draggedListIndex, 1);
+      reorderedLists.splice(targetIndex, 0, removed);
+
+      setOrderedListProjects(reorderedLists);
+
+      const orderData = reorderedLists.map((list, index) => ({
+        id: list.id,
+        order: index + 1,
+      }));
+
+      try {
+        const { updateOrder } = await ListProjectsService();
+        await updateOrder(orderData);
+        if (selectedCustomerFilter) {
+          fetchListProjectByCustomer(selectedCustomerFilter);
+          return;
+        }
+      } catch (error) {
+        const customError = handleAxiosError(error);
+        toast.error(customError.message);
+      }
+
+      setDraggedListIndex(null);
+      setHighlightedListIndex(null);
       setHighlightedColumn(null);
     }
   }
@@ -48,7 +104,7 @@ export default function ProjectsComponent() {
 
   function handleDragEnter(
     event: DragEvent<HTMLDivElement>,
-    status: StatusProject
+    listProjectId: string
   ) {
     const relatedTarget = event.relatedTarget as Node | null;
     const currentTarget = event.currentTarget as Node;
@@ -56,7 +112,7 @@ export default function ProjectsComponent() {
     if (relatedTarget && currentTarget.contains(relatedTarget)) {
       return;
     }
-    setHighlightedColumn(status);
+    setHighlightedColumn(listProjectId);
   }
 
   function handleDragLeave(event: DragEvent<HTMLDivElement>) {
@@ -69,49 +125,85 @@ export default function ProjectsComponent() {
     setHighlightedColumn(null);
   }
 
+  function handleListDragEnter(targetIndex: number) {
+    setHighlightedListIndex(targetIndex);
+  }
+
+  function handleListDragLeave() {
+    setHighlightedListIndex(null);
+  }
+
+  const autoScroll = (event: DragEvent) => {
+    const scrollContainer = scrollRef.current;
+    if (scrollContainer) {
+      const { clientY, clientX } = event;
+      const { top, bottom, left, right, height, width } =
+        scrollContainer.getBoundingClientRect();
+      const offset = 20; // distância do cursor para o limite da área visível para iniciar o scroll
+
+      if (clientX < left + offset) {
+        scrollContainer.scrollLeft -= 10;
+      } else if (clientX > right - offset) {
+        scrollContainer.scrollLeft += 10;
+      }
+    }
+  };
+
   return (
     <div className="w-full flex items-center justify-center mt-2">
-      <div className="flex md:flex-row flex-col gap-3 max-w-[1200px] w-full md:justify-between md:items-start items-center">
-        <div className="md:max-w-[380px] max-w-[220px] w-full">
-          <CardStatus
-            allowDrop={allowDrop}
-            handleDragStart={handleDragStart}
-            status={"WAITING"}
-            handleDrop={handleDrop}
-            projects={projects?.filter(
-              (item) => item.statusProject === "WAITING"
+      <div
+        className="flex md:flex-row flex-col gap-3 p-3 w-full max-w-[1200px] overflow-x-auto"
+        ref={scrollRef}
+        onDragOver={autoScroll}
+      >
+        {selectedCustomerFilter ? (
+          <>
+            {orderedListProjects.length > 0 ? (
+              <>
+                {orderedListProjects.map((listProject, index) => (
+                  <div
+                    key={listProject.id}
+                    className={`w-[280px] flex-shrink-0 cursor-grab `}
+                    draggable={!draggedProject} // Evita conflito com drag de projetos
+                    onDragStart={(e) => handleListDragStart(index, e)}
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={() => handleListDrop(index)}
+                    onDragEnter={() => handleListDragEnter(index)}
+                    onDragLeave={handleListDragLeave}
+                  >
+                    <CardListProject
+                      allowDrop={allowDrop}
+                      handleDragStart={handleProjectDragStart}
+                      handleDrop={handleProjectDrop}
+                      projects={listProject.projects}
+                      name={listProject.name}
+                      listProjectId={listProject.id}
+                      highlightedColumn={highlightedColumn}
+                      handleDragEnter={(event) =>
+                        handleDragEnter(event, listProject.id)
+                      }
+                      handleDragLeave={handleDragLeave}
+                    />
+                  </div>
+                ))}
+              </>
+            ) : (
+              <Button
+                color="primary"
+                startContent={<GrAdd />}
+                className="pr-5 bg-transparent text-[#F57B00] border border-[#F57B00]"
+                onPress={() => onOpenModalCreateListProject()}
+              >
+                Adicionar lista de projetos
+              </Button>
             )}
-            highlightedColumn={highlightedColumn}
-            handleDragEnter={handleDragEnter}
-            handleDragLeave={handleDragLeave}
-          />
-        </div>
-        <div className="md:max-w-[380px] max-w-[220px] w-full">
-          <CardStatus
-            allowDrop={allowDrop}
-            handleDragStart={handleDragStart}
-            status={"IN_PROGRESS"}
-            handleDrop={handleDrop}
-            projects={projects?.filter(
-              (item) => item.statusProject === "IN_PROGRESS"
-            )}
-            highlightedColumn={highlightedColumn}
-            handleDragEnter={handleDragEnter}
-            handleDragLeave={handleDragLeave}
-          />
-        </div>
-        <div className="md:max-w-[380px] max-w-[220px] w-full">
-          <CardStatus
-            allowDrop={allowDrop}
-            handleDragStart={handleDragStart}
-            status={"DONE"}
-            handleDrop={handleDrop}
-            projects={projects?.filter((item) => item.statusProject === "DONE")}
-            highlightedColumn={highlightedColumn}
-            handleDragEnter={handleDragEnter}
-            handleDragLeave={handleDragLeave}
-          />
-        </div>
+          </>
+        ) : (
+          <div className="flex items-center gap-4">
+            <p className="text-black dark:text-white">Selecione um cliente</p>
+            <FilterProjectsByCustomer />
+          </div>
+        )}
       </div>
     </div>
   );
