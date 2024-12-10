@@ -179,9 +179,11 @@ const ProcessingScreen = () => {
   }
 
   return (
-    <div className={`${step === 5 ? "flex" : "hidden"} flex-col gap-3`}>
+    <div
+      className={`${step === 5 ? "flex" : "hidden"} flex-col gap-3 text-black dark:text-white`}
+    >
       {finished ? (
-        <div className="flex flex-row items-center w-full gap-3 text-black">
+        <div className="flex flex-row items-center w-full gap-3 text-black dark:text-white">
           <MdDone size={22} />
           <h2 className="text-lg">Processamento finalizado.</h2>
         </div>
@@ -192,7 +194,7 @@ const ProcessingScreen = () => {
         </div>
       )}
 
-      <div className="flex flex-col gap-3 mt-3">
+      <div className="flex flex-col gap-3 mt-3 text-black dark:text-white">
         {(Object.keys(itemsSaved) as (keyof typeof itemsSaved)[]).map(
           (key) =>
             itemsSaved[key].finished && (
@@ -205,7 +207,7 @@ const ProcessingScreen = () => {
         )}
       </div>
       <Button
-        className="max-w-[320px] self-center"
+        className="max-w-[320px] self-center border-[#F57B00] bg-transparent text-[#F57B00]"
         size="sm"
         variant="bordered"
         color="primary"

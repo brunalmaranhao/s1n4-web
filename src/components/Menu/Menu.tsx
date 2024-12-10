@@ -1,4 +1,3 @@
-
 "use client";
 import { useAppContext } from "@/context/AppConext";
 import { useAuthContext } from "@/context/AuthContext";
@@ -19,7 +18,7 @@ import { RiExpandLeftFill } from "react-icons/ri";
 export default function Menu() {
   const { handleSignOut } = useAuthContext();
   const { isExpanded, setIsExpanded } = useAppContext();
-  const {push} = useRouter()
+  const { push } = useRouter();
 
   const { theme } = useTheme();
   const pathname = usePathname();
@@ -99,8 +98,8 @@ export default function Menu() {
           <NavbarItem isActive className="w-full" key={index}>
             {isExpanded ? (
               <Link
-              onPress={() => push(menuItem.link)}
-              // href={menuItem.link}
+                onPress={() => push(menuItem.link)}
+                // href={menuItem.link}
                 aria-current="page"
                 className={`cursor-pointer border-solid border border-[#F2F4F8] dark:border-[#616262] ${
                   index === 0 && "rounded-t-small"

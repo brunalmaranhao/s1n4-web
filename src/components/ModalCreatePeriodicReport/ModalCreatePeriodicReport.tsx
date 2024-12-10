@@ -24,8 +24,13 @@ import toast from "react-hot-toast";
 import { MdOutlineUploadFile } from "react-icons/md";
 
 export default function ModalCreatePeriodicReport() {
-  const { customers, fetchCustomer, fetchProjectsByCustomer, projects, loadingProjects } =
-    useProjectContext();
+  const {
+    customers,
+    fetchCustomer,
+    fetchProjectsByCustomer,
+    projects,
+    loadingProjects,
+  } = useProjectContext();
   const { isOpenModalCreatePeriodicReport, onCloseModalCreatePeriodicReport } =
     useReportContext();
   const [loading, setLoading] = useState(false);
@@ -33,8 +38,6 @@ export default function ModalCreatePeriodicReport() {
   useEffect(() => {
     if (customers.length === 0) fetchCustomer();
   }, []);
-
-  
 
   const {
     register,
@@ -51,11 +54,11 @@ export default function ModalCreatePeriodicReport() {
   });
 
   useEffect(() => {
-    console.log(watch('customerId'))
-    if(getValues('customerId')){
-      fetchProjectsByCustomer(getValues('customerId'))
+    //console.log(watch('customerId'))
+    if (getValues("customerId")) {
+      fetchProjectsByCustomer(getValues("customerId"));
     }
-  } ,[watch('customerId')])
+  }, [watch("customerId")]);
 
   async function createLaunch(data: INewPeriodicReport) {
     setLoading(true);
@@ -172,7 +175,7 @@ export default function ModalCreatePeriodicReport() {
                     </Select>
                   )}
                 />
-                {getValues("customerId") && !loadingProjects &&  (
+                {getValues("customerId") && !loadingProjects && (
                   <Controller
                     name={"projectId"}
                     control={control}

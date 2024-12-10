@@ -1,18 +1,21 @@
 import { Image } from "@nextui-org/react";
 import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 interface ProjectUpdateCardProps {
   email: string;
   role: string;
   projectUpdate: IProjectUpdatesState;
   key: number;
+  isLast: boolean;
 }
 
 export default function ProjectUpdateCard({
   email,
   role,
   projectUpdate,
-  key
+  key,
+  isLast,
 }: ProjectUpdateCardProps) {
   const roleTranslations: { [key: string]: string } = {
     INTERNAL_MANAGEMENT: "Gestão Interna",
@@ -43,13 +46,17 @@ export default function ProjectUpdateCard({
             {projectUpdate.project.name} - {projectUpdate.project.customer.name}
           </h1>
         </div>
-        <h1 className="text-black dark:text-white">
-          {format(projectUpdate.date, "dd/MM/yyyy 'às' HH:mm")}
-        </h1>
+        <div className="flex space-x-2">
+          <Image src="/access_time.svg" alt="date icon" />
+          <h1 className="text-black dark:text-white">
+            {format(projectUpdate.date, "d MMMM", { locale: ptBR })}
+          </h1>
+        </div>
       </div>
-      <h1 className="text-black dark:text-white">
+      <h1 className="text-black dark:text-white py-2">
         {projectUpdate.description}
       </h1>
+      {isLast ? null : <hr className="border-[#878D9633]" />}
     </div>
   );
 }

@@ -22,12 +22,12 @@ declare interface INewCustomer {
   cnpj: string;
   corporateName: string;
   address?: ICustomerAddress;
-  accumulatedInvestment?: number;
-  contractDuration?: string;
-  contractObjective?: string;
-  contractValue?: number;
+  accumulatedInvestment: number;
+  contractDuration: string;
+  contractObjective: string;
+  contractValue: number;
   contractedServices?: string;
-  expenditureProjection?: number;
+  expenditureProjection: number;
 }
 
 declare interface ICustomerUsers {

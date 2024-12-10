@@ -29,7 +29,7 @@ export default function Notification() {
 
   const now = new Date();
   const oneDayInMs = 24 * 60 * 60 * 1000;
-  const [iconColor, setIconColor] = useState("black"); 
+  const [iconColor, setIconColor] = useState("black");
 
   useEffect(() => {
     if (theme === "dark") {
@@ -68,10 +68,7 @@ export default function Notification() {
                 badge: "bg-[#F57B00] text-white",
               }}
             >
-              <MdNotifications
-                size={22}
-                color={iconColor}
-              />
+              <MdNotifications size={22} color={iconColor} />
             </Badge>
           </button>
         </DropdownTrigger>

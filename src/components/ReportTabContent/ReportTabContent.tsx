@@ -114,13 +114,13 @@ export default function ReportTabContent() {
                           [
                             "rendered",
                             function () {
-                              console.log("Report rendered");
+                              //console.log("Report rendered");
                             },
                           ],
                           [
                             "error",
                             function (event: any) {
-                              console.log(event.detail);
+                              //console.log(event.detail);
                             },
                           ],
                           [

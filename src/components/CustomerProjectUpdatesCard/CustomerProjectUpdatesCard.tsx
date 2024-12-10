@@ -46,9 +46,13 @@ export default function CustomerProjectUpdatesCard({
             {projectUpdate.project?.customer.corporateName}
           </h1>
         </div>
-        <h1 className="text-black dark:text-white">{format(projectUpdate.date, "dd/MM/yyyy 'às' HH:mm")}</h1>
+        <h1 className="text-black dark:text-white">
+          {format(projectUpdate.date, "dd/MM/yyyy 'às' HH:mm")}
+        </h1>
       </div>
-      <h1 className="text-black dark:text-white">{projectUpdate.description}</h1>
+      <h1 className="text-black dark:text-white">
+        {projectUpdate.description}
+      </h1>
     </div>
   );
 }

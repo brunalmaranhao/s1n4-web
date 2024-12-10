@@ -35,11 +35,11 @@ type FinancialContextType = {
   selectedKeysProject: Set<string>;
   setSelectedKeysCustomer: React.Dispatch<React.SetStateAction<Set<string>>>;
   setSelectedKeysProject: React.Dispatch<React.SetStateAction<Set<string>>>;
-  clearFilters: () => void
+  clearFilters: () => void;
 };
 
 const FinancialContext = createContext<FinancialContextType | undefined>(
-  undefined
+  undefined,
 );
 
 export const FinancialProvider: React.FC<{ children: ReactNode }> = ({
@@ -64,10 +64,10 @@ export const FinancialProvider: React.FC<{ children: ReactNode }> = ({
   >();
 
   const [selectedKeysCustomer, setSelectedKeysCustomer] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
   const [selectedKeysProject, setSelectedKeysProject] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
 
   const [budgetExpenseBalance, setBudgetExpenseBalance] = useState<
@@ -144,7 +144,7 @@ export const FinancialProvider: React.FC<{ children: ReactNode }> = ({
     try {
       const { fetchBudgetExpenseByCustomer } = await FinancialService();
       const response = await fetchBudgetExpenseByCustomer(customerId);
-      console.log(response);
+      //console.log(response);
       setBudgetExpenses(response.data);
       setTotal(response.data.length);
     } catch (error) {
@@ -204,7 +204,7 @@ export const FinancialProvider: React.FC<{ children: ReactNode }> = ({
     selectedKeysProject,
     setSelectedKeysCustomer,
     setSelectedKeysProject,
-    clearFilters
+    clearFilters,
   };
 
   return (
@@ -218,7 +218,7 @@ export const useFinancialContext = () => {
   const context = useContext(FinancialContext);
   if (!context) {
     throw new Error(
-      "useFinancialContext deve ser usado dentro de um FinancialProvider"
+      "useFinancialContext deve ser usado dentro de um FinancialProvider",
     );
   }
   return context;

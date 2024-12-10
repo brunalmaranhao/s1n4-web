@@ -27,6 +27,7 @@ export default function CardProject({
         <p className="text-xs text-[#000] dark:text-white">
           {project.customer.corporateName}
         </p>
+
       </div>
       <div className="flex justify-between items-center">
         <p className="text-md text-[#000] dark:text-white truncate max-w-[120px]">{project.name}</p>

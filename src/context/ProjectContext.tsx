@@ -60,6 +60,7 @@ type ProjectContextType = {
     React.SetStateAction<string | undefined>
   >;
   loadingProjects: boolean;
+
   fetchListProjectByCustomer: (customerId: string) => void;
   fetchListProjectByUser: () => Promise<void>;
   listProjects: IListProject[];
@@ -68,6 +69,7 @@ type ProjectContextType = {
   setSelectedListProjectAddProject: React.Dispatch<
     React.SetStateAction<string | undefined>
   >;
+
 };
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
@@ -120,9 +122,11 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     IProject | undefined
   >();
 
+
   const [selectedListProjectRemove, setSelectedListProjectRemove] = useState<
   {id: string, name: string} | undefined
 >();
+
 
   const [loadingProjects, setLoadingProjects] = useState(false);
 
@@ -243,6 +247,7 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     isOpenModalRemoveListProject,
     onOpenModalRemoveListProject,
     onOpenChangeModalRemoveListProject,
+
   };
 
   return (

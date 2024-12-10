@@ -20,6 +20,7 @@ export default function ProjectsComponent() {
 
   return (
     <div className="w-full flex items-center justify-center mt-2">
+
       <div className="flex md:flex-row flex-col gap-3 p-3 w-full max-w-[1200px] overflow-x-auto">
         {listProjects.length > 0 ? (
           <>
@@ -41,6 +42,7 @@ export default function ProjectsComponent() {
               <p className="text-black dark:text-white">
                 Não existem projetos cadastrados.
               </p>
+
             )}
           </>
         )}

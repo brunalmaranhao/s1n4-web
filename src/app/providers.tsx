@@ -15,21 +15,21 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider attribute="class">
       <AppProvider>
-      <AuthProvider>
-        <FormWizardCustomerProvider>
-          <CustomerProvider>
-            <ProjectProvider>
-              <ReportProvider>
-                <NotificationProvider>
-                  <FinancialProvider>
-                    <NextUIProvider>{children}</NextUIProvider>
-                  </FinancialProvider>
-                </NotificationProvider>
-              </ReportProvider>
-            </ProjectProvider>
-          </CustomerProvider>
-        </FormWizardCustomerProvider>
-      </AuthProvider>
+        <AuthProvider>
+          <FormWizardCustomerProvider>
+            <CustomerProvider>
+              <ProjectProvider>
+                <ReportProvider>
+                  <NotificationProvider>
+                    <FinancialProvider>
+                      <NextUIProvider>{children}</NextUIProvider>
+                    </FinancialProvider>
+                  </NotificationProvider>
+                </ReportProvider>
+              </ProjectProvider>
+            </CustomerProvider>
+          </FormWizardCustomerProvider>
+        </AuthProvider>
       </AppProvider>
     </ThemeProvider>
   );

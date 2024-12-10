@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import "../globals.css";
 
 export const metadata: Metadata = {
-  title: "Redefinir senha - Grupo Sina",
+  title: "Minha conta - Grupo Sina",
   description: "Grupo Sina",
 };
 
@@ -12,8 +11,8 @@ export default function LoginLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
-      <div className="flex w-full min-h-screen">{children}</div>
+    <div className="flex flex-col items-center w-full">
+      <div className="w-full">{children}</div>
     </div>
   );
 }

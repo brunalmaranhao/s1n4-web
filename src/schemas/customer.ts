@@ -31,11 +31,21 @@ export const schemaNewCustomer = yup
           ),
       })
       .optional(),
-    contractDuration: yup.string().optional(),
-    accumulatedInvestment: yup.number().optional(),
-    contractValue: yup.number().optional(),
-    expenditureProjection: yup.number().optional(),
-    contractObjective: yup.string().optional(),
+    contractDuration: yup
+      .string()
+      .required("Campo Duração do Contrato é obrigatório."),
+    accumulatedInvestment: yup
+      .number()
+      .required("Campo Investimento Acumulado é obrigatório."),
+    contractValue: yup
+      .number()
+      .required("Campo Valor do Contrato é obrigatório."),
+    expenditureProjection: yup
+      .number()
+      .required("Campo Projeção de Gastos é obrigatório."),
+    contractObjective: yup
+      .string()
+      .required("Objetivo do Contrato é obrigatório."),
   })
   .required();
 

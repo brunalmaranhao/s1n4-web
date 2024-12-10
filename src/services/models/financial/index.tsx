@@ -58,8 +58,24 @@ export default async function FinancialService() {
     return response;
   }
 
-  async function fetchAllBudgetExpenseBalance(
+  async function fetchBalanceAndExpensesByCustomer(
+    customerId: string,
+    token: string,
   ): Promise<{ data: IBudgetExpenseBalance }> {
+    const response = await get<{ data: IBudgetExpenseBalance }>(
+      `/budget-expense/balance/customer/${customerId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return response;
+  }
+
+  async function fetchAllBudgetExpenseBalance(): Promise<{
+    data: IBudgetExpenseBalance;
+  }> {
     const response = await get<{ data: IBudgetExpenseBalance }>(
       `/budget-expense/balance`,
     );
@@ -75,6 +91,21 @@ export default async function FinancialService() {
     return response;
   }
 
+  async function fetchCustomerExpenses(
+    customerId: string,
+    token: string,
+  ): Promise<{ data: IBudgetExpense[] }> {
+    const response = await get<{ data: IBudgetExpense[] }>(
+      `/budget-expense/customer/${customerId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return response;
+  }
+
   return {
     createBudgetExpense,
     fetchBudgetExpense,
@@ -82,6 +113,8 @@ export default async function FinancialService() {
     fetchBudgetExpenseByCustomer,
     fetchBudgetExpenseBalanceByProject,
     fetchAllBudgetExpenseBalance,
-    fetchBudgetExpenseBalanceByCustomer
+    fetchBudgetExpenseBalanceByCustomer,
+    fetchCustomerExpenses,
+    fetchBalanceAndExpensesByCustomer,
   };
 }

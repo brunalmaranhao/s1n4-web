@@ -72,7 +72,7 @@ export default function TableNewResponsibles() {
         case "birthdate":
           if (cellValue) {
             return (
-              <p className="text-black">
+              <p className="text-black dark:text-white">
                 {format(new Date(cellValue?.toString()), "dd/MM/yyyy")}
               </p>
             );
@@ -86,18 +86,22 @@ export default function TableNewResponsibles() {
                     <VerticalDotsIcon className="text-default-300" />
                   </Button>
                 </DropdownTrigger>
-                <DropdownMenu className="text-black">
+                <DropdownMenu className="text-black dark:text-white">
                   <DropdownItem
                     onPress={() => remove(responsible, responsibleSaved)}
                   >
-                    Desativar
+                    Excluir
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
             </div>
           );
         default:
-          return <p className="text-black">{cellValue?.toString()}</p>;
+          return (
+            <p className="text-black dark:text-white">
+              {cellValue?.toString()}
+            </p>
+          );
       }
     },
     [],

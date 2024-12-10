@@ -61,17 +61,16 @@ export default function ModalCreateReport({
       isOpen={isOpen}
       onOpenChange={onClose}
       size="xl"
-      className="bg-[#F2F4F8]"
       backdrop="blur"
     >
-      <ModalContent>
+      <ModalContent className="text-black dark:text-white">
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1 text-black">
+            <ModalHeader className="flex flex-col gap-">
               Criar Relatório
             </ModalHeader>
             <form onSubmit={handleSubmit(handleCreateReport)}>
-              <ModalBody className="flex flex-col gap-2 text-black">
+              <ModalBody className="flex flex-col gap-2">
                 <Input
                   label="Nome"
                   {...register("name")}
@@ -101,10 +100,14 @@ export default function ModalCreateReport({
                 />
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
+                <Button
+                  className="border-black dark:border-white text-black dark:text-white bg-transparent"
+                  variant="bordered"
+                  onPress={onClose}
+                >
                   Cancelar
                 </Button>
-                <Button color="primary" type="submit">
+                <Button color="primary" className="bg-[#F57B00]" type="submit">
                   Criar
                 </Button>
               </ModalFooter>

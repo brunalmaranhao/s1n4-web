@@ -61,7 +61,7 @@ export default function ModalEditProject() {
     }
   }, []);
 
-  console.log(selectedProjectEdit);
+  //console.log(selectedProjectEdit);
 
   useEffect(() => {
     if (customers.length >= 1) {
@@ -74,6 +74,7 @@ export default function ModalEditProject() {
   }, [customers, selectedProjectEdit]);
 
   async function handleEditProject(data: INewProject) {
+
     if (selectedProjectEdit?.id) {
       setLoading(true);
       try {

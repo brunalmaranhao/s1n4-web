@@ -95,7 +95,7 @@ export default function AdminHome() {
           <SkeletonHome />
         ) : (
           <>
-            <div className="flex flex-col bg-white dark:bg-[#1E1E1E] p-4 border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E]">
+            <div className="flex flex-col bg-white dark:bg-[#1E1E1E] p-4 border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
               <h2 className="text-black dark:text-white text-[28px] font-bold">
                 {userState?.firstName} {userState?.lastName}
               </h2>
@@ -105,7 +105,7 @@ export default function AdminHome() {
             </div>
             <div className="flex justify-center items-center gap-4">
               <ProjectsOverview />
-              <div className="flex flex-col w-full h-56 bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] p-4 overflow-scroll space-y-4">
+              <div className="flex flex-col w-full h-56 bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] p-4 space-y-4 rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] overflow-y-scroll">
                 <p className="text-[#21272A] dark:text-white text-[18px] font-bold">
                   Próximos aniversariantes:
                 </p>
@@ -119,9 +119,12 @@ export default function AdminHome() {
                       <h1 className="text-[16px] text-black dark:text-white font-normal">
                         {responsible.firstName} {responsible.lastName}
                       </h1>
-                      <h1 className="text-black dark:text-white">
+                      <h1 className="text-black dark:text-white pb-2">
                         {format(responsible.birthdate, "dd/MM")}
                       </h1>
+                      {index < responsiblesState.length - 1 && (
+                        <hr className="border-[#878D9633]" />
+                      )}
                     </div>
                   ))
                 )}

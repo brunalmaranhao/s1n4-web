@@ -27,8 +27,8 @@ export default function BudgetBalance() {
       ) : (
         <>
           {budgetExpenseBalance && (
-            <div className="flex gap-4 w-full">
-              <div className="dark:bg-[#1E1E1E] bg-white rounded-lg p-3 max-w-[266px] w-full">
+            <div className="flex gap-4 w-full mt-4 mb-8">
+              <div className="dark:bg-[#1E1E1E] bg-white p-3 max-w-[266px] w-full border-[#F2F4F8] dark:border-[#1E1E1E] pr-8 rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
                 <small className="dark:text-white text-[#607077] text-[16px]">
                   Orçamento
                 </small>
@@ -36,7 +36,7 @@ export default function BudgetBalance() {
                   {formatter.format(budgetExpenseBalance?.budget)}
                 </p>
               </div>
-              <div className="dark:bg-[#1E1E1E] bg-white rounded-lg p-3 max-w-[266px] w-full">
+              <div className="dark:bg-[#1E1E1E] bg-white p-3 max-w-[266px] w-full border-[#F2F4F8] dark:border-[#1E1E1E] pr-8 rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
                 <small className="dark:text-white text-[#607077] text-[16px]">
                   Lançamentos
                 </small>
@@ -44,7 +44,7 @@ export default function BudgetBalance() {
                   {formatter.format(budgetExpenseBalance?.amountBudgetExpense)}
                 </p>
               </div>
-              <div className="dark:bg-[#1E1E1E] bg-white rounded-lg p-3 max-w-[266px] w-full">
+              <div className="dark:bg-[#1E1E1E] bg-white rounded-lg p-3 max-w-[266px] w-full border-[#F2F4F8] dark:border-[#1E1E1E] pr-8 shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
                 <small className="dark:text-white text-[#607077] text-[16px]">
                   Total Lançamentos
                 </small>
@@ -52,7 +52,7 @@ export default function BudgetBalance() {
                   {budgetExpenseBalance?.totalBudgetExpense}
                 </p>
               </div>
-              <div className="dark:bg-[#1E1E1E] bg-white rounded-lg p-3 max-w-[266px] w-full">
+              <div className="dark:bg-[#1E1E1E] bg-white p-3 max-w-[266px] w-full border-[#F2F4F8] dark:border-[#1E1E1E] pr-8 rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
                 <small className="dark:text-white text-[#607077] text-[16px]">
                   Saldo Disponível
                 </small>

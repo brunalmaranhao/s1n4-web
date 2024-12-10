@@ -47,7 +47,7 @@ export default function ProjectUpdatesCustomer({
   }, []);
 
   return (
-    <div className="bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] p-4 w-full">
+    <div className="bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] p-4 w-full rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
       <h1
         className={`${robotoBold.className} text-[18px] font-bold text-[#21272A] dark:text-white mb-4`}
       >

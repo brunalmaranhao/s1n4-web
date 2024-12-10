@@ -28,14 +28,14 @@ export default function CustomerReportsTable({
   const { "sina:x-token": sessionKey } = parseCookies();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [customerReports, setCustomerReports] = useState<ICustomerReports[]>(
-    []
+    [],
   );
 
   const { push } = useRouter();
 
   const handleFetchCustomerReports = async (
     token: string,
-    customerId: string
+    customerId: string,
   ) => {
     const { reports } = await fetchCustomerReports(token, customerId);
     return reports;
@@ -45,7 +45,7 @@ export default function CustomerReportsTable({
     setIsLoading(true);
     const fetchData = async () => {
       const result = await handleFetchCustomerReports(sessionKey, customerId);
-      console.log(result);
+      //console.log(result);
       setCustomerReports(result || []);
     };
     fetchData().finally(() => setIsLoading(false));
@@ -56,7 +56,7 @@ export default function CustomerReportsTable({
       {isLoading ? (
         <Spinner />
       ) : (
-        <div className="bg-white dark:bg-[#1E1E1E] p-4 border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E]">
+        <div className="bg-white dark:bg-[#1E1E1E] p-4 border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
           <h1 className="pb-4 text-[18px] font-bold text-[#21272A] dark:text-white">
             Relatórios cadastrados
           </h1>

@@ -23,7 +23,7 @@ export default function UserHome() {
     ICustomerUser | undefined
   >(undefined);
   const [customerState, setCustomerState] = useState<ICustomer | undefined>(
-    undefined
+    undefined,
   );
 
   const { theme, setTheme } = useTheme();
@@ -47,14 +47,14 @@ export default function UserHome() {
       if (customerUserId !== undefined) {
         const customerUser = await handleCustomerUser(
           sessionKey,
-          customerUserId
+          customerUserId,
         );
         setCustomerUserState(customerUser);
 
         if (customerUser?.customerId !== undefined) {
           const customer = await handleCustomerById(
             customerUser.customerId,
-            sessionKey
+            sessionKey,
           );
 
           setCustomerState(customer);
@@ -97,7 +97,7 @@ export default function UserHome() {
           <SkeletonHome />
         ) : (
           <div className="mx-6 flex flex-col gap-6">
-            <div className="flex flex-col p-4 bg-white dark:bg-[#1E1E1E] border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E]">
+            <div className="flex flex-col p-4 bg-white dark:bg-[#1E1E1E] border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
               <h1 className="text-[24px] font-bold text-black dark:text-white">
                 {customerUserState?.firstName} {customerUserState?.lastName}
               </h1>
