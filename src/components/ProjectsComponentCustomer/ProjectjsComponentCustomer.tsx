@@ -25,7 +25,7 @@ export default function ProjectsComponent() {
         {listProjects.length > 0 ? (
           <>
             {listProjects.map((listProject, index) => (
-              <div key={listProject.id} className={`w-[280px] flex-shrink-0 `}>
+              <div key={listProject.id} className={`w-[360px] flex-shrink-0 `}>
                 <CardListProject
                   projects={listProject.projects}
                   name={listProject.name}
