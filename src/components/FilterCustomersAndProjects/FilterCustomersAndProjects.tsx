@@ -25,9 +25,7 @@ export default function FilterCustomersAndProjects({
   const { "sina:x-token": sessionKey } = parseCookies();
 
   const [clientList, setClientList] = useState<ICustomer[]>([]);
-  const [projectsList, setProjectslist] = useState<IProject[]>([]);
   const [filteredClient, setFilteredClient] = useState<string>("");
-  const [filteredProject, setFilteredProject] = useState<string>("");
 
   const handleClientList = async (token: string) => {
     const { customers } = await findAllCustomers(token);
@@ -48,16 +46,9 @@ export default function FilterCustomersAndProjects({
     onClientSelect(client);
   };
 
-  const handleProjectsFilter = (
-    event: React.MouseEvent<HTMLLIElement, MouseEvent>,
-  ) => {
-    const projectName = event.currentTarget.innerText;
-    setFilteredProject(projectName);
-  };
 
   const handleClearFilter = () => {
     setFilteredClient("");
-    setFilteredProject("");
     onClientSelect(undefined);
   };
 
@@ -65,8 +56,6 @@ export default function FilterCustomersAndProjects({
     const fetchClients = async () => {
       const customersList = await handleClientList(sessionKey);
       setClientList(customersList || []);
-      const projectsList = await handleProjectsList(sessionKey);
-      setProjectslist(projectsList || []);
     };
     fetchClients();
   }, []);
