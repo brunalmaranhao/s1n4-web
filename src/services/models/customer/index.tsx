@@ -15,6 +15,21 @@ export default async function CustomerService() {
     return { customers: response.customers, total: response.total };
   }
 
+  async function findAllActiveCustomers(
+    token: string,
+  ): Promise<{ customers: ICustomer[]; total: number }> {
+    const response = await get<{ customers: ICustomer[]; total: number }>(
+      `customer/all/active`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return { customers: response.customers, total: response.total };
+  }
+
   async function findAllActives(): Promise<{
     customers: ICustomer[];
     total: number;
@@ -180,5 +195,6 @@ export default async function CustomerService() {
     update,
     remove,
     fetchCustomerReports,
+    findAllActiveCustomers,
   };
 }

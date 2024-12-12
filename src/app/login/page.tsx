@@ -58,9 +58,9 @@ export default function Login({
     const { access_token, error } = await createSession(data);
     setLoading(false);
     if (error) {
-      toast.error(error); 
+      toast.error(error);
     } else if (access_token) {
-      handleAuthWithToken(access_token); 
+      handleAuthWithToken(access_token);
     }
   }
 

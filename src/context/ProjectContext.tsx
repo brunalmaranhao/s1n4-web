@@ -47,9 +47,9 @@ type ProjectContextType = {
   setSelectedProjectRemove: React.Dispatch<
     React.SetStateAction<IProject | undefined>
   >;
-  selectedListProjectRemove?: {id: string, name: string};
+  selectedListProjectRemove?: { id: string; name: string };
   setSelectedListProjectRemove: React.Dispatch<
-    React.SetStateAction<{id: string, name: string} | undefined>
+    React.SetStateAction<{ id: string; name: string } | undefined>
   >;
   selectedProjectCreateProjectUpdate?: IProject;
   setSelectedProjectCreateProjectUpdate: React.Dispatch<
@@ -69,7 +69,6 @@ type ProjectContextType = {
   setSelectedListProjectAddProject: React.Dispatch<
     React.SetStateAction<string | undefined>
   >;
-
 };
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
@@ -122,11 +121,9 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     IProject | undefined
   >();
 
-
   const [selectedListProjectRemove, setSelectedListProjectRemove] = useState<
-  {id: string, name: string} | undefined
->();
-
+    { id: string; name: string } | undefined
+  >();
 
   const [loadingProjects, setLoadingProjects] = useState(false);
 
@@ -247,7 +244,6 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     isOpenModalRemoveListProject,
     onOpenModalRemoveListProject,
     onOpenChangeModalRemoveListProject,
-
   };
 
   return (
@@ -261,7 +257,7 @@ export const useProjectContext = () => {
   const context = useContext(ProjectContext);
   if (!context) {
     throw new Error(
-      "useProjectContext deve ser usado dentro de um ProjectProvider"
+      "useProjectContext deve ser usado dentro de um ProjectProvider",
     );
   }
   return context;

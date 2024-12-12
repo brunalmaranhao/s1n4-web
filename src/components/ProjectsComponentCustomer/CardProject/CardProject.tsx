@@ -6,15 +6,12 @@ type CardProjectProps = {
   project: IProject;
 };
 
-export default function CardProject({
-  project,
-}: CardProjectProps) {
-
+export default function CardProject({ project }: CardProjectProps) {
   function formatTimeAgo(date: Date): string {
-    console.log(date)
+    console.log(date);
     return formatDistanceToNow(date, {
       addSuffix: true,
-      locale: ptBR, 
+      locale: ptBR,
     });
   }
   return (
@@ -27,16 +24,16 @@ export default function CardProject({
         <p className="text-xs text-[#000] dark:text-white">
           {project.customer.corporateName}
         </p>
-
       </div>
       <div className="flex justify-between items-center">
-        <p className="text-md text-[#000] dark:text-white truncate max-w-[120px]">{project.name}</p>
+        <p className="text-md text-[#000] dark:text-white truncate max-w-[120px]">
+          {project.name}
+        </p>
         <small className="text-[#697077] text-tiny">
-          {project.updatedListProjectAt && formatTimeAgo(new Date(project.updatedListProjectAt))
-            }
+          {project.updatedListProjectAt &&
+            formatTimeAgo(new Date(project.updatedListProjectAt))}
         </small>
       </div>
-
     </div>
   );
 }

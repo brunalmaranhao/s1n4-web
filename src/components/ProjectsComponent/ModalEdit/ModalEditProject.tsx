@@ -32,7 +32,7 @@ export default function ModalEditProject() {
     isOpenModalEdit,
     onOpenChangeModalEdit,
     fetchListProjectByCustomer,
-    selectedCustomerFilter
+    selectedCustomerFilter,
   } = useProjectContext();
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
@@ -52,7 +52,8 @@ export default function ModalEditProject() {
     defaultValues: {
       name: selectedProjectEdit?.name,
       budget: selectedProjectEdit?.budget,
-      shouldShowInformationsToCustomerUser: selectedProjectEdit?.shouldShowInformationsToCustomerUser
+      shouldShowInformationsToCustomerUser:
+        selectedProjectEdit?.shouldShowInformationsToCustomerUser,
     },
   });
   useEffect(() => {
@@ -68,13 +69,15 @@ export default function ModalEditProject() {
       if (selectedProjectEdit) {
         setValue("name", selectedProjectEdit.name);
         setValue("budget", selectedProjectEdit.budget);
-        setValue("shouldShowInformationsToCustomerUser", selectedProjectEdit.shouldShowInformationsToCustomerUser)
+        setValue(
+          "shouldShowInformationsToCustomerUser",
+          selectedProjectEdit.shouldShowInformationsToCustomerUser,
+        );
       }
     }
   }, [customers, selectedProjectEdit]);
 
   async function handleEditProject(data: INewProject) {
-
     if (selectedProjectEdit?.id) {
       setLoading(true);
       try {
@@ -83,14 +86,13 @@ export default function ModalEditProject() {
           selectedProjectEdit?.id,
           data.name,
           data.budget,
-          data.shouldShowInformationsToCustomerUser
+          data.shouldShowInformationsToCustomerUser,
         );
 
         if (selectedCustomerFilter) {
           fetchListProjectByCustomer(selectedCustomerFilter);
         }
         onOpenChangeModalEdit();
-        
       } catch (error) {
         const customError = handleAxiosError(error);
         toast.error(customError.message);
@@ -102,9 +104,9 @@ export default function ModalEditProject() {
 
   const inputVariant = "bordered";
 
-  function onClose(){
-    onOpenChangeModalEdit()
-    setSelectedProjectEdit(undefined)
+  function onClose() {
+    onOpenChangeModalEdit();
+    setSelectedProjectEdit(undefined);
   }
 
   return (
@@ -156,7 +158,7 @@ export default function ModalEditProject() {
                       }
                       onChange={(e) =>
                         field.onChange(
-                          e.target.value ? parseISO(e.target.value) : undefined
+                          e.target.value ? parseISO(e.target.value) : undefined,
                         )
                       }
                     />
@@ -187,7 +189,10 @@ export default function ModalEditProject() {
                   {...register("shouldShowInformationsToCustomerUser")}
                 >
                   <div className="text-sm">
-                    <p>Tornar informações do projeto visíveis para o usuário do cliente</p>
+                    <p>
+                      Tornar informações do projeto visíveis para o usuário do
+                      cliente
+                    </p>
                   </div>
                 </Switch>
               </ModalBody>

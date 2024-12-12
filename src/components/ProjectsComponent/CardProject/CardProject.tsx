@@ -31,13 +31,15 @@ export default function CardProject({
       onDragStart={() => handleDragStart(project)}
     >
       <div className="flex flex-row justify-between text-black">
-          <p className="text-xs text-[#000] dark:text-white">
-            {project.customer.corporateName}
-          </p>
+        <p className="text-xs text-[#000] dark:text-white">
+          {project.customer.corporateName}
+        </p>
         <ActionsCardProject project={project} />
       </div>
       <div className="flex justify-between items-center">
-        <p className="text-md text-[#000] dark:text-white truncate max-w-[120px]">{project.name}</p>
+        <p className="text-md text-[#000] dark:text-white truncate max-w-[120px]">
+          {project.name}
+        </p>
         <small className="text-[#697077] text-tiny">
           {project.updatedListProjectAt &&
             formatTimeAgo(new Date(project.updatedListProjectAt))}
