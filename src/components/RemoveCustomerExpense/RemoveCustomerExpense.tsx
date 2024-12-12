@@ -31,10 +31,10 @@ export default function RemoveCustomerExpense({
             </ModalHeader>
             <ModalBody>
               <h1>{`${title} / ${customerName}`}</h1>
-              <p>
+              <h1>
                 Você realmente deseja excluir este lançamento? Esta ação não
                 poderá ser desfeita.
-              </p>
+              </h1>
             </ModalBody>
             <ModalFooter>
               <Button
