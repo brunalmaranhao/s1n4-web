@@ -67,8 +67,6 @@ export default function TableBudgetExpenses({
     rowsPerPage,
     budgetExpenses,
     filteredCustomerId,
-    budgetExpenseBalance,
-    loadingBalance,
   } = useFinancialContext();
 
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
