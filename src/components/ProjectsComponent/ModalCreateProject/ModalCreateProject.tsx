@@ -64,11 +64,11 @@ export default function ModalCreateProject() {
           data.budget,
           selectedListProjectAddProject,
           data.shouldShowInformationsToCustomerUser,
-          data.deadline
+          data.deadline,
         );
-        
+
         handleOnClose();
-        reset()
+        reset();
         fetchListProjectByCustomer(selectedCustomerFilter);
       } catch (error) {
         const customError = handleAxiosError(error);
@@ -85,7 +85,7 @@ export default function ModalCreateProject() {
     setSelectedListProjectAddProject(undefined);
     onClose();
   }
-console.log(errors)
+  console.log(errors);
   return (
     <Modal
       scrollBehavior="outside"
@@ -136,21 +136,20 @@ console.log(errors)
                 <Switch
                   defaultSelected
                   size="lg"
-                  startContent={<MdVisibilityOff/>}
+                  startContent={<MdVisibilityOff />}
                   endContent={<MdVisibility />}
                   {...register("shouldShowInformationsToCustomerUser")}
-                 
                   classNames={{
                     wrapper: "group-data-[selected=true]:bg-[#F57B00]",
-                    base: cn(
-                      "flex flex-row-reverse w-full self-start gap-6",
-                    ),
+                    base: cn("flex flex-row-reverse w-full self-start gap-6"),
                   }}
                 >
                   <div className="text-sm">
-                    <p>Tornar informações do projeto visíveis para o usuário do cliente</p>
+                    <p>
+                      Tornar informações do projeto visíveis para o usuário do
+                      cliente
+                    </p>
                   </div>
-
                 </Switch>
               </ModalBody>
               <ModalFooter>

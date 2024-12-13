@@ -46,7 +46,6 @@ export default function FilterCustomersAndProjects({
     onClientSelect(client);
   };
 
-
   const handleClearFilter = () => {
     setFilteredClient("");
     onClientSelect(undefined);

@@ -25,7 +25,7 @@ type CardListProjectProps = {
   listProjectId: string;
   handleDragEnter: (
     event: DragEvent<HTMLDivElement>,
-    listProjectId: string
+    listProjectId: string,
   ) => void;
   handleDragLeave: (event: DragEvent<HTMLDivElement>) => void;
   highlightedColumn: string | null;

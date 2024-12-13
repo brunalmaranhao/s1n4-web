@@ -52,7 +52,6 @@ export default async function ProjectsService() {
     listProjectsId: string,
     shouldShowInformationsToCustomerUser: boolean,
     deadline?: Date,
-    
   ): Promise<string> {
     const projectData = {
       name,
@@ -60,7 +59,7 @@ export default async function ProjectsService() {
       customerId,
       budget,
       listProjectsId,
-      shouldShowInformationsToCustomerUser
+      shouldShowInformationsToCustomerUser,
     };
     const payload = JSON.stringify(
       Object.fromEntries(
@@ -89,7 +88,12 @@ export default async function ProjectsService() {
     shouldShowInformationsToCustomerUser: boolean,
     deadline?: Date,
   ): Promise<void> {
-    const payload = JSON.stringify({ name, deadline, budget, shouldShowInformationsToCustomerUser });
+    const payload = JSON.stringify({
+      name,
+      deadline,
+      budget,
+      shouldShowInformationsToCustomerUser,
+    });
     await put<{ projectId: string }, string>(`/project/update/${id}`, payload);
   }
 

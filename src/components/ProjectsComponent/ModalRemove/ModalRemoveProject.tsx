@@ -83,7 +83,7 @@ export default function ModalRemoveProject() {
                 type="button"
                 onPress={() => handleRemoveProject()}
               >
-                {loading ? <Spinner size="sm"  color="white" /> : "Desativar"}
+                {loading ? <Spinner size="sm" color="white" /> : "Desativar"}
               </Button>
             </ModalFooter>
           </>

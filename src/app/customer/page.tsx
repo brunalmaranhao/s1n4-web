@@ -40,8 +40,6 @@ export default function UserHome() {
     return customer;
   };
 
- 
-
   useEffect(() => {
     const fetchData = async () => {
       if (customerUserId !== undefined) {

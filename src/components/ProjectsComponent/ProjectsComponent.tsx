@@ -19,7 +19,7 @@ export default function ProjectsComponent() {
   const [orderedListProjects, setOrderedListProjects] = useState(listProjects);
   const [draggedProject, setDraggedProject] = useState<IProject | null>(null);
   const [highlightedColumn, setHighlightedColumn] = useState<string | null>(
-    null
+    null,
   );
   const [draggedListIndex, setDraggedListIndex] = useState<number | null>(null);
   const [highlightedListIndex, setHighlightedListIndex] = useState<
@@ -34,7 +34,7 @@ export default function ProjectsComponent() {
 
   async function handleChangeProjectListProject(
     projectId: string,
-    listProjectId: string
+    listProjectId: string,
   ) {
     try {
       const { addProjectToList } = await ListProjectsService();
@@ -104,7 +104,7 @@ export default function ProjectsComponent() {
 
   function handleDragEnter(
     event: DragEvent<HTMLDivElement>,
-    listProjectId: string
+    listProjectId: string,
   ) {
     const relatedTarget = event.relatedTarget as Node | null;
     const currentTarget = event.currentTarget as Node;
@@ -196,7 +196,6 @@ export default function ProjectsComponent() {
               >
                 Adicionar lista de projetos
               </Button>
-
             )}
           </>
         ) : (

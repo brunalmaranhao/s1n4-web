@@ -1,5 +1,5 @@
 "use client";
-import React, { Key, useEffect, useRef } from "react";
+import React, { Key, useEffect, useRef, useState } from "react";
 import {
   Table,
   TableHeader,
@@ -15,8 +15,8 @@ import {
   Chip,
   Pagination,
   SortDescriptor,
-  Spinner,
   Tooltip,
+  useDisclosure,
 } from "@nextui-org/react";
 import { VerticalDotsIcon } from "@/assets/verticalDotIcon";
 import {
@@ -32,8 +32,31 @@ import html2canvas from "html2canvas";
 import { FaFilePdf } from "react-icons/fa";
 import BudgetBalance from "../BudgetBalance/BudgetBalance";
 import SkeletonTable from "../SkeletonTable/SkeletonTable";
+import AdminExpenseCard from "../AdminExpenseCard/AdminExpenseCard";
+import { EditDocumentIcon } from "@/assets/EditDocumentIcon";
+import { DeleteDocumentIcon } from "@/assets/DeleteDocumentIcon";
+import EditCustomerExpense from "../EditCustomerExpense/EditCustomerExpense";
+import RemoveCustomerExpense from "../RemoveCustomerExpense/RemoveCustomerExpense";
 
-export default function TableBudgetExpenses() {
+interface TableBudgetExpensesProps {
+  customers: ICustomer[];
+}
+
+export default function TableBudgetExpenses({
+  customers,
+}: TableBudgetExpensesProps) {
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenEditExpense,
+    onOpen: onOpenEditExpense,
+    onClose: onCloseEditExpense,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenRemoveExpense,
+    onOpen: onOpenRemoveExpense,
+    onClose: onCloseRemoveExpense,
+  } = useDisclosure();
+
   const tableRef = useRef<HTMLDivElement>(null);
   const {
     fetchBudgetExpenses,
@@ -44,14 +67,13 @@ export default function TableBudgetExpenses() {
     rowsPerPage,
     budgetExpenses,
     filteredCustomerId,
-    budgetExpenseBalance,
-    loadingBalance,
   } = useFinancialContext();
 
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
     column: "createdAt",
     direction: "descending",
   });
+  const [selectedExpense, setSelectedExpense] = useState<IBudgetExpense>();
   const [selectedKeys, setSelectedKeys] = React.useState<any>(new Set([]));
   const iconClasses =
     "text-xl text-default-500 pointer-events-none flex-shrink-0";
@@ -96,8 +118,30 @@ export default function TableBudgetExpenses() {
               <DropdownMenu className="text-black dark:text-white">
                 <DropdownItem
                   startContent={<ViewIcon className={iconClasses} />}
+                  onPress={() => {
+                    setSelectedExpense(budgetExpense);
+                    onOpen();
+                  }}
                 >
                   Visualizar
+                </DropdownItem>
+                <DropdownItem
+                  startContent={<EditDocumentIcon className={iconClasses} />}
+                  onPress={() => {
+                    setSelectedExpense(budgetExpense);
+                    onOpenEditExpense();
+                  }}
+                >
+                  Editar lançamento
+                </DropdownItem>
+                <DropdownItem
+                  startContent={<DeleteDocumentIcon className={iconClasses} />}
+                  onPress={() => {
+                    setSelectedExpense(budgetExpense);
+                    onOpenRemoveExpense();
+                  }}
+                >
+                  Excluir lançamento
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -254,6 +298,33 @@ export default function TableBudgetExpenses() {
               )}
             </TableBody>
           </Table>
+          <AdminExpenseCard
+            isOpen={isOpen}
+            onClose={onClose}
+            title={selectedExpense?.title || ""}
+            projectName={selectedExpense?.project?.name || ""}
+            customerName={selectedExpense?.customer?.name || ""}
+            createdAt={selectedExpense?.createdAt || ""}
+            budgetExpense={selectedExpense?.amount || 0}
+            description={selectedExpense?.description || ""}
+          />
+          <EditCustomerExpense
+            isOpenEditExpense={isOpenEditExpense}
+            onCloseEditExpense={onCloseEditExpense}
+            customerName={selectedExpense?.customer.name || ""}
+            title={selectedExpense?.title || ""}
+            projectName={selectedExpense?.project?.name || ""}
+            description={selectedExpense?.description || ""}
+            amount={selectedExpense?.amount || 0}
+            customers={customers}
+          />
+          <RemoveCustomerExpense
+            isOpen={isOpenRemoveExpense}
+            onOpenChange={onOpenRemoveExpense}
+            onClose={onCloseRemoveExpense}
+            title={selectedExpense?.title || ""}
+            customerName={selectedExpense?.customer.name || ""}
+          />
         </div>
       )}
     </div>

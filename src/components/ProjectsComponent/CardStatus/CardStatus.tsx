@@ -41,8 +41,6 @@ export default function CardStatus({
   ];
   const label = labelStatus.find((item) => item.key === status);
 
-
-
   return (
     <div
       className={`${label?.key === "WAITING" ? "bg-[#F57B00]" : ""} ${

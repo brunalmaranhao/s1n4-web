@@ -20,7 +20,7 @@ export default function FilterProjectsByCustomer() {
   const selectedValue = useMemo(() => {
     if (selectedCustomerFilter) {
       const selectedCustomer = customers.find(
-        (item) => item.id === selectedCustomerFilter
+        (item) => item.id === selectedCustomerFilter,
       );
       return selectedCustomer?.corporateName || "Cliente";
     }

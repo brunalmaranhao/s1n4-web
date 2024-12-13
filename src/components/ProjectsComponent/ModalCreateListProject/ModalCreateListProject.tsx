@@ -40,7 +40,7 @@ export default function ModalCreateListProject() {
       reset();
       return;
     }
-    console.log(selectedCustomerFilter)
+    console.log(selectedCustomerFilter);
     if (selectedCustomerFilter) {
       setValue("customer", selectedCustomerFilter);
       // reset({
@@ -134,7 +134,9 @@ export default function ModalCreateListProject() {
                       isInvalid={!!errors.customer?.message}
                       errorMessage={errors.customer?.message}
                       label="Cliente"
-                      defaultSelectedKeys={selectedCustomerFilter ? [selectedCustomerFilter] : []}
+                      defaultSelectedKeys={
+                        selectedCustomerFilter ? [selectedCustomerFilter] : []
+                      }
                       placeholder="Selecione um cliente"
                       variant={inputVariant}
                       classNames={{

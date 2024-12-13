@@ -131,6 +131,5 @@ export default function UpdatePassword({
         </div>
       </div>
     </div>
-
   );
 }
