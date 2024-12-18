@@ -23,7 +23,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const { push } = useRouter();
+  const { push, replace } = useRouter();
 
   const [isAuthenticated, setIsAuthenticaded] = useState(false);
   const { "sina:x-token": sessionKey } = parseCookies();
@@ -53,10 +53,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     }
   }
 
-  function handleSignOut() {
+  async function handleSignOut() {
     destroyCookie(undefined, "sina:x-token");
-    api.defaults.headers.common.Authorization = "";
-    push("/login");
+    delete api.defaults.headers.common.Authorization;
+    window.location.href = '/'
+  
   }
 
   const contextValue: AuthContextType = {

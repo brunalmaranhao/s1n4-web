@@ -8,6 +8,7 @@ import FilterProjectsByCustomer from "../FilterProjectsByCustomer/FilterProjects
 import { Button } from "@nextui-org/react";
 import { GrAdd } from "react-icons/gr";
 
+
 export default function ProjectsComponent() {
   const {
     listProjects,
@@ -163,7 +164,7 @@ export default function ProjectsComponent() {
                 {orderedListProjects.map((listProject, index) => (
                   <div
                     key={listProject.id}
-                    className={`w-[360px] flex-shrink-0 cursor-grab `}
+                    className={`w-[360px] flex-shrink-0 cursor-grab`}
                     draggable={!draggedProject} // Evita conflito com drag de projetos
                     onDragStart={(e) => handleListDragStart(index, e)}
                     onDragOver={(e) => e.preventDefault()}
@@ -177,6 +178,7 @@ export default function ProjectsComponent() {
                       handleDrop={handleProjectDrop}
                       projects={listProject.projects}
                       name={listProject.name}
+                      isDone={listProject.isDone}
                       listProjectId={listProject.id}
                       highlightedColumn={highlightedColumn}
                       handleDragEnter={(event) =>
