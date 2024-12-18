@@ -317,6 +317,7 @@ export default function TableBudgetExpenses({
             description={selectedExpense?.description || ""}
             amount={selectedExpense?.amount || 0}
             customers={customers}
+            expenseId={selectedExpense?.id || ""}
           />
           <RemoveCustomerExpense
             isOpen={isOpenRemoveExpense}
@@ -324,6 +325,7 @@ export default function TableBudgetExpenses({
             onClose={onCloseRemoveExpense}
             title={selectedExpense?.title || ""}
             customerName={selectedExpense?.customer.name || ""}
+            expenseId={selectedExpense?.id || ""}
           />
         </div>
       )}

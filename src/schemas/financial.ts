@@ -16,3 +16,20 @@ export const schemaNewBudgetExpense = yup
     projectId: yup.string().required("Campo Projeto obrigatório."),
   })
   .required();
+
+export const updatebudgetExpenseSchema = yup
+  .object({
+    // customerId: yup.string().required("Campo Cliente obrigatório."),
+    projectId: yup.string().required("Campo Projeto obrigatório."),
+    title: yup.string().required("Campo Título obrigatório."),
+    description: yup.string().required("Campo Descrição obrigatório."),
+    amount: yup
+      .number()
+      .transform((value, originalValue) =>
+        originalValue.trim() === "" ? null : value,
+      )
+      .typeError("Campo Valor deve ser um número.")
+      .min(1, "O valor deve ser maior que 0.")
+      .required("Campo Valor obrigatório."),
+  })
+  .required();

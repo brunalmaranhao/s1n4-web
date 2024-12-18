@@ -5,14 +5,10 @@ import { put } from "@/services/methods/put";
 export default async function UserService() {
   async function getUserById(
     id: string,
-    token: string,
+    token?: string,
   ): Promise<IGetUserResponse> {
     const payload = JSON.stringify(id);
-    return await get<IGetUserResponse>(`/user/id/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    return await get<IGetUserResponse>(`/user/id/${id}`);
   }
 
   async function fetchLoggedUser(): Promise<IGetUserResponse> {
@@ -50,8 +46,8 @@ export default async function UserService() {
   }
 
   async function fetchCustomerUser(
-    token: string,
     id: string,
+    token?: string,
   ): Promise<ICustomerUserByIdResponse> {
     return await get<ICustomerUserByIdResponse>(`/user/id/${id}`, {
       headers: {

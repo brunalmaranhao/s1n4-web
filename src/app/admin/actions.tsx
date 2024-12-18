@@ -1,5 +1,6 @@
 "use server";
 
+import { apiServer } from "@/services/apiClient";
 import { handleAxiosError } from "@/services/error";
 import CustomerService from "@/services/models/customer";
 import ProjectUpdatesService from "@/services/models/project-updates";
@@ -9,7 +10,7 @@ import UserService from "@/services/models/user";
 
 export async function getUserById(
   id: string,
-  token: string,
+  token?: string,
 ): Promise<IUserResponse> {
   try {
     const { getUserById } = await UserService();
