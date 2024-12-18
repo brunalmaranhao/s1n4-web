@@ -1,6 +1,4 @@
 import CardProject from "../CardProject/CardProject";
-import { Button } from "@nextui-org/react";
-import { MdAdd } from "react-icons/md";
 import { useProjectContext } from "@/context/ProjectContext";
 
 type CardListProjectProps = {
@@ -14,7 +12,6 @@ export default function CardListProject({
   name,
   listProjectId,
 }: CardListProjectProps) {
-  const { onOpen, setSelectedListProjectAddProject } = useProjectContext();
 
   return (
     <div
@@ -32,7 +29,13 @@ export default function CardListProject({
           </small>
         </div>
 
-        <div className="flex flex-col gap-1">
+        <div
+          className="flex flex-col mt-3 gap-1 max-h-[350px] pr-5 overflow-y-auto [&::-webkit-scrollbar]:w-2
+  [&::-webkit-scrollbar-track]:bg-gray-100
+  [&::-webkit-scrollbar-thumb]:bg-gray-300
+  dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 "
+        >
           {projects?.map((project, index) => (
             <CardProject key={index} project={project} />
           ))}
