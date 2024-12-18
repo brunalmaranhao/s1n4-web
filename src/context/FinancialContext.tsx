@@ -107,10 +107,9 @@ export const FinancialProvider: React.FC<{ children: ReactNode }> = ({
     try {
       const { fetchBudgetExpense } = await FinancialService();
       const response = await fetchBudgetExpense(pageNumber, rowsPerPage);
-      const expensesFilteredByStatus = response.data.filter(
-        (expense) => expense.status === "ACTIVE",
-      );
-      setBudgetExpenses(expensesFilteredByStatus);
+      const activeBudgetExpenses = response.data;
+      console.log(activeBudgetExpenses);
+      setBudgetExpenses(activeBudgetExpenses);
       setTotal(response.total);
     } catch (error) {
       const customError = handleAxiosError(error);

@@ -52,21 +52,21 @@ export default function AdminExpenseCard({
                       width={24}
                       height={24}
                     />
-                    <h1 className="text-[24px] text-[#1E1E1E] font-bold">
+                    <h1 className="text-[24px] text-[#1E1E1E] font-bold dark:text-white">
                       {title}
                     </h1>
                   </div>
                   <div className="flex items-center">
-                    <h1 className="text-[16px] text-[#1E1E1E] font-normal">
+                    <h1 className="text-[16px] text-[#1E1E1E] font-normal dark:text-white">
                       {projectName}{" "}
                     </h1>
                     <div className="w-1 h-1 rounded-full bg-[#878D96] mx-2"></div>
-                    <h1 className="text-[16px] text-[#1E1E1E] font-normal mr-3">
+                    <h1 className="text-[16px] dark:text-white text-[#1E1E1E] font-normal mr-3">
                       {customerName}
                     </h1>
                     <div className="flex items-center space-x-2">
                       <Image src="/calendar.svg" alt="Calendar icon" />
-                      <h1 className="text-[16px] text-[#1E1E1E] font-normal">
+                      <h1 className="text-[16px] dark:text-white text-[#1E1E1E] font-normal">
                         {formattedDate}
                       </h1>
                     </div>
@@ -81,11 +81,11 @@ export default function AdminExpenseCard({
                       width={24}
                       height={24}
                     />
-                    <h1 className="text-[24px] font-bold text-[#1E1E1E]">
+                    <h1 className="text-[24px] font-bold text-[#1E1E1E] dark:text-white">
                       Valor
                     </h1>
                   </div>
-                  <h1 className="text-[18px] font-semibold text-[#1E1E1E] ml-8 mt-1">{`${formatCurrency(
+                  <h1 className="text-[18px] font-semibold text-[#1E1E1E] dark:text-white ml-8 mt-1">{`${formatCurrency(
                     budgetExpense,
                   )}`}</h1>
                 </div>
@@ -96,11 +96,11 @@ export default function AdminExpenseCard({
               <hr className="border-[#878D9633] my-[-20px]" />
               <div className="flex mt-4 items-center space-x-2">
                 <Image src="/descriptionIcon.svg" alt="description icon" />
-                <h1 className="text-[#1E1E1E] text-[24px] font-bold">
+                <h1 className="text-[#1E1E1E] dark:text-white text-[24px] font-bold">
                   Descrição
                 </h1>
               </div>
-              <p>{description}</p>
+              <p className="text-[#1E1E1E] dark:text-white">{description}</p>
             </ModalBody>
           </>
         )}

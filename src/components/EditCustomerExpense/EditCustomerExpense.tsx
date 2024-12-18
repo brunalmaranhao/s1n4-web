@@ -141,6 +141,7 @@ export default function EditCustomerExpense({
                       onSelectionChange={setSelectedProjectValue}
                       isInvalid={!!errors.projectId}
                       errorMessage={errors.projectId?.message}
+                      className="text-[#1E1E1E] dark:text-white"
                     >
                       {projects.map((project) => (
                         <SelectItem
@@ -155,6 +156,7 @@ export default function EditCustomerExpense({
                   )}
                 />
                 <Input
+                  className="text-[#1E1E1E] dark:text-white"
                   placeholder={`Ex: ${title}`}
                   labelPlacement="outside"
                   label="Título"
@@ -165,6 +167,7 @@ export default function EditCustomerExpense({
                 />
 
                 <Input
+                  className="text-[#1E1E1E] dark:text-white"
                   placeholder={`Ex: ${description}`}
                   labelPlacement="outside"
                   label="Descrição"
@@ -175,6 +178,7 @@ export default function EditCustomerExpense({
                 />
 
                 <Input
+                  className="text-[#1E1E1E] dark:text-white"
                   placeholder={`Ex: R$ ${amount.toString()}`}
                   labelPlacement="outside"
                   label="Valor"
