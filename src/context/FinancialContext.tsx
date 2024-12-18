@@ -4,6 +4,7 @@ import { useDisclosure } from "@nextui-org/react";
 import FinancialService from "@/services/models/financial";
 import { handleAxiosError } from "@/services/error";
 import toast from "react-hot-toast";
+import ProjectsService from "@/services/models/projects";
 
 type FinancialContextType = {
   isOpenModalCreateLaunch: boolean;
@@ -36,6 +37,9 @@ type FinancialContextType = {
   setSelectedKeysCustomer: React.Dispatch<React.SetStateAction<Set<string>>>;
   setSelectedKeysProject: React.Dispatch<React.SetStateAction<Set<string>>>;
   clearFilters: () => void;
+  projects: IProject[];
+  setProjects: React.Dispatch<React.SetStateAction<IProject[]>>;
+  fetchProjectsExpenses: () => void;
 };
 
 const FinancialContext = createContext<FinancialContextType | undefined>(
@@ -74,6 +78,8 @@ export const FinancialProvider: React.FC<{ children: ReactNode }> = ({
     IBudgetExpenseBalance | undefined
   >();
 
+  const [projects, setProjects] = useState<IProject[]>([]);
+
   // useEffect(() => {
   //   if(filteredCustomerId && filteredProjectId){
   //     fetchBudgetExpensesByProject(filteredProjectId)
@@ -82,12 +88,29 @@ export const FinancialProvider: React.FC<{ children: ReactNode }> = ({
   //   }
   // },[filteredCustomerId, filteredProjectId])
 
+  async function fetchProjectsExpenses() {
+    setLoading(true);
+    try {
+      const { fetchProjects } = await ProjectsService();
+      const result = await fetchProjects(1, 20);
+      setProjects(result);
+    } catch (error) {
+      const customError = handleAxiosError(error);
+      toast.error(customError.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function fetchBudgetExpenses(pageNumber: number) {
     setLoading(true);
     try {
       const { fetchBudgetExpense } = await FinancialService();
       const response = await fetchBudgetExpense(pageNumber, rowsPerPage);
-      setBudgetExpenses(response.data);
+      const expensesFilteredByStatus = response.data.filter(
+        (expense) => expense.status === "ACTIVE",
+      );
+      setBudgetExpenses(expensesFilteredByStatus);
       setTotal(response.total);
     } catch (error) {
       const customError = handleAxiosError(error);
@@ -205,6 +228,9 @@ export const FinancialProvider: React.FC<{ children: ReactNode }> = ({
     setSelectedKeysCustomer,
     setSelectedKeysProject,
     clearFilters,
+    projects,
+    setProjects,
+    fetchProjectsExpenses,
   };
 
   return (

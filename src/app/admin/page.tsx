@@ -1,6 +1,5 @@
 "use client";
 
-import { Spinner } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import { fetchBirthdaysOfTheMonth, getUserById } from "./actions";
 import { parseCookies } from "nookies";
@@ -14,6 +13,8 @@ import { Switch } from "@nextui-org/switch";
 import { SunIcon } from "@/components/SunIcon/SunIcon";
 import { MoonIcon } from "@/components/MoonIcon/MoonIcon";
 import SkeletonHome from "@/components/SkeletonHome/SkeletonHome";
+import UserService from "@/services/models/user";
+import { handleAxiosError } from "@/services/error";
 
 export default function AdminHome() {
   const [responsiblesState, setResponsiblesState] = useState<
@@ -30,9 +31,20 @@ export default function AdminHome() {
   const decoded = decodeToken(sessionKey);
   const userId = decoded?.sub;
 
-  const handleUser = async (id: string, token: string) => {
-    const result = await getUserById(id, token);
-    return result.user;
+  // const handleUser = async (id: string, token: string) => {
+  //   const result = await getUserById(id, token);
+  //   return result.user;
+  // };
+
+  const handleUser = async (id: string) => {
+    try {
+      const { getUserById } = await UserService();
+      const response = await getUserById(id);
+      return response.user;
+    } catch (error) {
+      const customError = handleAxiosError(error);
+      return { isError: true, error: customError.message };
+    }
   };
 
   const handleResponsibleBirthdaysOfTheMonth = async (token: string) => {
@@ -47,15 +59,24 @@ export default function AdminHome() {
   };
 
   useEffect(() => {
-    if (userId !== undefined) {
-      setUserIsLoading(true);
-      handleUser(userId, sessionKey).then((data) => {
-        if (data?.user) {
-          setUserState(data?.user as IGetUserState);
-        }
+    // if (userId !== undefined) {
+    //   setUserIsLoading(true);
+    //   handleUser(userId).then((data) => {
+    //     if (data?.user) {
+    //       setUserState(data?.user as IGetUserState);
+    //     }
+    //     setUserIsLoading(false);
+    //   });
+    // }
+    setUserIsLoading(true);
+    handleUser(userId || "")
+      .then((data) => {
+        console.log(data);
+        setUserState(data as IGetUserState);
+      })
+      .finally(() => {
         setUserIsLoading(false);
       });
-    }
   }, []);
 
   useEffect(() => {

@@ -23,6 +23,7 @@ declare interface IBudgetExpense {
   };
   actions?: string | null;
   budget?: string | null;
+  status: "ACTIVE" | "INACTIVE";
 }
 
 declare interface IBudgetExpenseBalance {

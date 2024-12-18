@@ -5,10 +5,10 @@ import CustomerService from "@/services/models/customer";
 import ProjectUpdatesService from "@/services/models/project-updates";
 import UserService from "@/services/models/user";
 
-export async function fetchCustomerUser(token: string, id: string) {
+export async function fetchCustomerUser(id: string, token?: string) {
   try {
     const { fetchCustomerUser } = await UserService();
-    const { user } = await fetchCustomerUser(token, id);
+    const { user } = await fetchCustomerUser(id, token);
 
     return {
       isError: false,
