@@ -108,7 +108,7 @@ export default function EditCustomerExpense({
     try {
       const { updateBudgetExpense } = await BudgetExpenseService();
       await updateBudgetExpense(expenseId, data);
-      toast.success("Despesa atualizada com sucesso!");
+      toast.success("Despesa atualizada com sucesso!!");
     } catch (error) {
       const customError = handleAxiosError(error);
       toast.error(customError.message);
