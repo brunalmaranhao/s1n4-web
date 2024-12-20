@@ -27,6 +27,7 @@ declare interface IProject {
   updatedAt: Date | null | undefined;
   customer: ICustomer;
   budget: number;
+  description: string,
   updatedListProjectAt: Date;
   shouldShowInformationsToCustomerUser: boolean;
   tags: ITag[]
@@ -87,6 +88,7 @@ declare interface INewProject {
   deadline?: Date;
   budget: number;
   shouldShowInformationsToCustomerUser: boolean;
+  description: string
 }
 
 declare interface INewProjectUpdate {

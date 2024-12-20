@@ -66,6 +66,7 @@ export default async function ProjectsService() {
     budget: number,
     listProjectsId: string,
     shouldShowInformationsToCustomerUser: boolean,
+    description: string,
     deadline?: Date,
   ): Promise<string> {
     const projectData = {
@@ -75,6 +76,7 @@ export default async function ProjectsService() {
       budget,
       listProjectsId,
       shouldShowInformationsToCustomerUser,
+      description
     };
     const payload = JSON.stringify(
       Object.fromEntries(

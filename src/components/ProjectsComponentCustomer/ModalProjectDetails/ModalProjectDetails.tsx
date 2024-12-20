@@ -1,4 +1,5 @@
 "use client";
+import RichTextViewer from "@/components/RichTextViewer/RichTextViewer";
 import TagComponent from "@/components/TagComponent/TagComponent";
 import { useProjectContext } from "@/context/ProjectContext";
 import { useTagContext } from "@/context/TagContext";
@@ -36,7 +37,7 @@ export default function ModalProjectDetails() {
     setSelectedProjectEdit(undefined);
     handleCleanTagsProject();
     if (selectedCustomerFilter) {
-        fetchListProjectByCustomer(selectedCustomerFilter);
+      fetchListProjectByCustomer(selectedCustomerFilter);
     }
   }
 
@@ -86,32 +87,25 @@ export default function ModalProjectDetails() {
               </div>
 
               <Divider />
-              <div
-                className="flex pr-5 flex-col max-h-[250px] overflow-y-auto [&::-webkit-scrollbar]:w-2
-  [&::-webkit-scrollbar-track]:bg-gray-100
-  [&::-webkit-scrollbar-thumb]:bg-gray-300
-  dark:[&::-webkit-scrollbar-track]:bg-neutral-700
-  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 "
-              >
-                <div className="flex gap-1 items-center">
-                  <MdSubject className="text-[#F57B00] text-[24px]" />
-                  <h2 className="text-[24px] font-bold">Descrição</h2>
+              {selectedProjectEdit?.description && (
+                <div
+                  className="flex pr-5 flex-col max-h-[250px] overflow-y-auto [&::-webkit-scrollbar]:w-2
+[&::-webkit-scrollbar-track]:bg-gray-100
+[&::-webkit-scrollbar-thumb]:bg-gray-300
+dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 "
+                >
+                  <div className="flex gap-1 items-center">
+                    <MdSubject className="text-[#F57B00] text-[24px]" />
+                    <h2 className="text-[24px] font-bold">Descrição</h2>
+                  </div>
+                  <div className="ml-7 mt-2">
+                    <RichTextViewer
+                      content={selectedProjectEdit?.description}
+                    />
+                  </div>
                 </div>
-                <p className="text-[16px] font-normal ml-7">
-                  Lorem ipsum dolor sit amet consectetur: Pellentesque vitae
-                  enim lectus dui est nibh molestie tempus. Euismod volutpat in
-                  praesent vestibulum ut varius aliquam. Sit viverra egestas ac
-                  hac eget massa luctus nec turpis. Urna commodo porttitor est
-                  orci sollicitudin aliquet in elementum vehicula. Aenean urna
-                  convallis quis vestibulum. Sit viverra egestas ac hac eget
-                  massa luctus nec turpis. Urna commodo porttitor est orci
-                  sollicitudin aliquet in elementum vehicula. Aenean urna
-                  convallis quis vestibulum.Sit viverra egestas ac hac eget
-                  massa luctus nec turpis. Urna commodo porttitor est orci
-                  sollicitudin aliquet in elementum vehicula. Aenean urna
-                  convallis quis vestibulum.
-                </p>
-              </div>
+              )}
               <Divider />
               <div className="flex flex-col">
                 <div className="flex gap-1 items-center">
