@@ -10,11 +10,13 @@ import Notification from "@/components/Notification/Notification";
 import { Key, useState } from "react";
 import FilterReportsByCustomer from "@/components/FilterReportsByCustomer/FilterReportsByCustomer";
 import { useTheme } from "next-themes";
-import { Button, Switch } from "@nextui-org/react";
+import { Button, Switch, Tooltip } from "@nextui-org/react";
 import { SunIcon } from "@/components/SunIcon/SunIcon";
 import { MoonIcon } from "@/components/MoonIcon/MoonIcon";
 import { GrAdd } from "react-icons/gr";
 import { useReportContext } from "@/context/ReportContext";
+
+import { CustomersBudgetDonutChart } from "@/components/CustomersBudgetDonutChart/CustomersBudgetDonutChart";
 
 const ReportTabContent = dynamic(
   () => import("@/components/ReportTabContent/ReportTabContent"),
@@ -87,20 +89,61 @@ export default function Dashboard() {
             </div>
           )}
         </div>
-        <div className="flex flex-col">
-          {selectedTab === "overview" && (
-            <>
-              <OverviewTabContent selectedClient={selectedClient} />
-              <div className="w-[380px] mt-6">
-                <ProjectsOverview selectedClient={selectedClient} />
+        <div className="flex space-x-6">
+          <div className="flex flex-col w-[50%]">
+            {selectedTab === "overview" && (
+              <div className="h-full ">
+                <OverviewTabContent selectedClient={selectedClient} />
+                <div className=" h-full mt-6 flex">
+                  <ProjectsOverview selectedClient={selectedClient} />
+                </div>
               </div>
-            </>
-          )}
-          {selectedTab === "reports" && (
-            <div>
-              <ReportTabContent />
-            </div>
-          )}
+            )}
+            {selectedTab === "reports" && (
+              <div>
+                <ReportTabContent />
+              </div>
+            )}
+          </div>
+          <div className="w-[50%]">
+            {selectedTab === "overview" && (
+              <div className="bg-white flex justify-start items-center dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] h-[200px]">
+                <CustomersBudgetDonutChart />
+                <div className=" mr-10">
+                  <div className="flex justify-center items-center">
+                    <div className="w-[10px] h-[10px] rounded-full space-x-4 bg-yellow-400" />
+                    <h1>Cliente</h1>
+                    <h1>(budget mensal)</h1>
+                    <h1>(percentual do budget disponivel)</h1>
+                  </div>
+                  <div className="flex justify-center items-center">
+                    <div className="w-[10px] h-[10px] rounded-full space-x-4 bg-yellow-400" />
+                    <h1>Cliente</h1>
+                    <h1>(budget mensal)</h1>
+                    <h1>(percentual do budget disponivel)</h1>
+                  </div>
+                  <div className="flex justify-center items-center">
+                    <div className="w-[10px] h-[10px] rounded-full space-x-4 bg-yellow-400" />
+                    <h1>Cliente</h1>
+                    <h1>(budget mensal)</h1>
+                    <h1>(percentual do budget disponivel)</h1>
+                  </div>
+                  <div className="flex justify-center items-center">
+                    <div className="w-[10px] h-[10px] rounded-full space-x-4 bg-yellow-400" />
+                    <h1>Cliente</h1>
+                    <h1>(budget mensal)</h1>
+                    <h1>(percentual do budget disponivel)</h1>
+                  </div>
+                  <div className="flex justify-center items-center">
+                    <div className="w-[10px] h-[10px] rounded-full space-x-4 bg-yellow-400" />
+                    <h1>Cliente</h1>
+                    <h1>(budget mensal)</h1>
+                    <h1>(percentual do budget disponivel)</h1>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <ModalCreatePeriodicReport />

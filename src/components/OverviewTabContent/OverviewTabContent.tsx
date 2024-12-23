@@ -61,7 +61,7 @@ export default function OverviewTabContent({
         <Spinner />
       ) : (
         <div className="flex space-x-4">
-          <div className="p-4 flex flex-col bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
+          <div className="p-4 flex flex-col bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] w-full">
             <h1 className="text-base font-thin text-[#697077] dark:text-white">
               Total de usuários
             </h1>
@@ -73,7 +73,7 @@ export default function OverviewTabContent({
           </div>
 
           {selectedClient === undefined && (
-            <div className="p-4 flex flex-col bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
+            <div className="p-4 flex flex-col bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] w-full">
               <h1 className="text-base font-thin text-[#697077] dark:text-white">
                 Total de clientes
               </h1>

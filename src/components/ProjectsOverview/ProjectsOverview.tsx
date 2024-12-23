@@ -1,5 +1,6 @@
 import { fetchAllProjects } from "@/app/admin/actions";
 import { CircularProgress, Spinner } from "@nextui-org/react";
+import { usePathname } from "next/navigation";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 
@@ -20,6 +21,8 @@ export default function ProjectsOverview({
     const { projects } = await fetchAllProjects(token);
     return projects;
   };
+
+  const pathname = usePathname();
 
   useEffect(() => {
     setIsLoading(true);
@@ -57,7 +60,11 @@ export default function ProjectsOverview({
   };
 
   return (
-    <div className="flex w-full">
+    <div
+      className={`flex ${
+        pathname === "/admin/dashboard" ? "w-[400px] h-[230px]" : "w-full"
+      }`}
+    >
       {isLoading ? (
         <Spinner />
       ) : (
