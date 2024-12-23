@@ -1,8 +1,12 @@
 import { fetchAllProjects } from "@/app/admin/actions";
-import { CircularProgress, Spinner } from "@nextui-org/react";
 import { usePathname } from "next/navigation";
 import { parseCookies } from "nookies";
+import ProjectsService from "@/services/models/projects";
+import { Button, CircularProgress, Divider, Spinner } from "@nextui-org/react";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuthContext } from "@/context/AuthContext";
+import { MdChevronRight } from "react-icons/md";
 
 interface ProjectsOverviewProps {
   selectedClient?: ICustomer | undefined;
@@ -11,9 +15,8 @@ interface ProjectsOverviewProps {
 export default function ProjectsOverview({
   selectedClient,
 }: ProjectsOverviewProps) {
-  const { "sina:x-token": sessionKey } = parseCookies();
-
-  const [allProjectsState, setAllProjectsState] = useState<IProject[]>([]);
+  const { push } = useRouter();
+  const [allProjectsDone, setAllProjectsDone] = useState<IProject[]>([]);
   const [projectsPercentage, setProjectsPercentage] = useState(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -25,29 +28,44 @@ export default function ProjectsOverview({
   const pathname = usePathname();
 
   useEffect(() => {
+    if (selectedClient) {
+      fetchProjectsCustomer(selectedClient.id);
+      return;
+    }
+    fetchProjects();
+  }, [selectedClient]);
+
+  const fetchProjects = async () => {
     setIsLoading(true);
-    const fetchData = async () => {
-      let data: IProject[] | undefined = [];
-      if (selectedClient) {
-        data = selectedClient.projects;
-      } else {
-        data = await handleFetchAllProjects(sessionKey);
-      }
+    try {
+      const { fetchProjectsForStatistics } = await ProjectsService();
+      const response = await fetchProjectsForStatistics();
+      setAllProjectsDone(response.projectsDone);
+      calculateProjectsPercentage(response.total, response.projectsDone.length);
+    } catch (error) {
+      // const customError = handleAxiosError(error);
+      // toast.error(customError.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-      setAllProjectsState(data || []);
-      const allProjectsLength = data?.length || 0;
+  const fetchProjectsCustomer = async (customer: string) => {
+    setIsLoading(true);
+    try {
+      const { fetchProjectsCustomerForStatistics } = await ProjectsService();
+      const response = await fetchProjectsCustomerForStatistics(customer);
+      setAllProjectsDone(response.projectsDone);
+      calculateProjectsPercentage(response.total, response.projectsDone.length);
+    } catch (error) {
+      // const customError = handleAxiosError(error);
+      // toast.error(customError.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-      const doneProjects = data?.filter(
-        (project) => project.statusProject === "DONE",
-      );
-
-      handleProjectsPercentage(allProjectsLength, doneProjects?.length || 0);
-    };
-
-    fetchData().finally(() => setIsLoading(false));
-  }, [selectedClient, sessionKey]);
-
-  const handleProjectsPercentage = (
+  const calculateProjectsPercentage = (
     allProjectsLength: number,
     doneProjects: number,
   ) => {
@@ -58,6 +76,7 @@ export default function ProjectsOverview({
       setProjectsPercentage(percentage);
     }
   };
+  console.log(allProjectsDone);
 
   return (
     <div
@@ -68,33 +87,86 @@ export default function ProjectsOverview({
       {isLoading ? (
         <Spinner />
       ) : (
-        <div className="w-full flex flex-col items-center space-x-4 p-4 bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] pr-8 rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
-          <h1 className="text-[18px] text-black dark:text-white font-bold mb-4">
-            Projetos
-          </h1>
-          <div className="flex justify-start items-center space-x-6">
-            <CircularProgress
-              aria-label=""
-              size="lg"
-              value={projectsPercentage}
-              color="success"
-              showValueLabel={true}
-              strokeWidth={4}
-              classNames={{
-                svg: "w-36 h-36 drop-shadow-md",
-                indicator: "stroke-[#F57B00]",
-                track: "stroke-[#DDE1E6] dark:stroke-white",
-                value: "text-3xl font-semibold text-[#697077] dark:text-white",
-              }}
-            />
-            <div className="flex flex-col space-y-2">
-              <div className="flex space-x-4">
-                <div className="w-5 h-5 bg-[#F57B00] rounded-full" />
-                <h1 className="text-black dark:text-white">Concluídos</h1>
+        <div className="max-w-[360px] p-4 w-full flex justify-between  bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E]  rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
+          <div className="flex flex-col w-[49%]">
+            <div className="flex justify-between items-start">
+              <h1 className="text-[18px] text-black dark:text-white font-bold">
+                Projetos
+              </h1>
+              <Button
+                className="bg-transparent text-[#F57B00] p-0 h-6 text-[12px]"
+                onPress={() => push("/admin/management/projects")}
+              >
+                {"Ver todos"} <MdChevronRight className="ml-[-3px]" />
+              </Button>
+            </div>
+            {allProjectsDone.length > 0 ? (
+              <div
+                className="mr-3 flex flex-col gap-2 mt-3 h-[200px] overflow-y-auto  [&::-webkit-scrollbar]:w-2
+  [&::-webkit-scrollbar-track]:bg-gray-100
+  [&::-webkit-scrollbar-thumb]:bg-gray-300
+  dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 "
+              >
+                {allProjectsDone.map((item) => (
+                  <div
+                    key={item.id}
+                    className="text-black dark:text-white flex flex-col  "
+                  >
+                    <p className="text-[14px] truncate max-w-[120px]">
+                      {item.name}
+                    </p>
+                    <small className="text-[10px] truncate max-w-[120px]">
+                      {item.customer?.name}
+                    </small>
+                  </div>
+                ))}
               </div>
-              <div className="flex space-x-4">
-                <div className="w-5 h-5 bg-[#DDE1E6] rounded-full" />
-                <h1 className="text-black dark:text-white">Em andamento </h1>
+            ) : (
+              <small className="text-black dark:text-white mt-5">
+                Não existem projetos concluídos.
+              </small>
+            )}
+          </div>
+          <div className="flex items-center justify-center">
+            <Divider className="" orientation="vertical" />
+          </div>
+
+          <div className="flex flex-col gap-3  w-[49%]  px-2">
+            <div className="flex justify-between items-center">
+              <h1 className="text-[18px] text-black dark:text-white font-bold">
+                Progresso
+              </h1>
+            </div>
+            <div className="flex flex-col">
+              <CircularProgress
+                aria-label=""
+                size="lg"
+                value={projectsPercentage}
+                color="success"
+                showValueLabel={true}
+                strokeWidth={4}
+                classNames={{
+                  svg: "w-36 h-36 drop-shadow-md",
+                  indicator: "stroke-[#F57B00]",
+                  track: "stroke-[#DDE1E6] dark:stroke-white",
+                  value:
+                    "text-3xl font-semibold text-[#697077] dark:text-white",
+                }}
+              />
+              <div className="flex flex-col space-y-2">
+                <div className="flex space-x-2 items-center">
+                  <div className="w-[13px] h-[13px] bg-[#F57B00] rounded-full" />
+                  <h1 className="text-black dark:text-white text-[14px]">
+                    Concluídos
+                  </h1>
+                </div>
+                <div className="flex space-x-2 items-center">
+                  <div className="w-[13px] h-[13px] bg-[#DDE1E6] rounded-full" />
+                  <h1 className="text-black dark:text-white text-[14px]">
+                    Em andamento{" "}
+                  </h1>
+                </div>
               </div>
             </div>
           </div>

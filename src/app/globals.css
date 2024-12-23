@@ -34,4 +34,221 @@ body {
   .no-padding {
     padding: 0px !important;
   }
+
+  .custom-scroll::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  .custom-scroll::-webkit-scrollbar-track {
+    background-color: #f5f5f5;
+  }
+
+  .custom-scroll::-webkit-scrollbar-thumb {
+    background-color: #d1d5db;
+  }
+  .custom-scroll-dark::-webkit-scrollbar-track {
+    background-color: #3f3f46;
+  }
+
+  .custom-scroll-dark::-webkit-scrollbar-thumb {
+    background-color: #71717a;
+  }
+
+  .dark .ql-editor.ql-blank::before {
+    color: #ffffff;
+    font-style: normal;
+  }
+  .dark .custom-quill .ql-container {
+    z-index: 10;
+    border: 2px #3f3f46 solid !important;
+    border-radius: 0px 0px 8px 8px;
+    color: #ffffff;
+  }
+
+  .dark .custom-quill .ql-toolbar {
+    z-index: 50;
+    border-color: #3f3f46 !important;
+    border: 2px #3f3f46 solid !important;
+    border-radius: 8px 8px 0px 0px;
+  }
+
+  .dark .ql-snow .ql-picker.ql-header {
+    color: #ffffff;
+    background: #1e1e1e;
+  }
+  .dark .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+    background: #1e1e1e;
+    border: none;
+  }
+
+  .dark .ql-snow .ql-stroke {
+    stroke: #ffffff;
+  }
+
+  .dark .ql-snow .ql-stroke:hover {
+    stroke: #ffffff;
+  }
+
+  .light .ql-snow .ql-toolbar button:hover,
+  .ql-snow.ql-toolbar button:focus,
+  .ql-snow .ql-toolbar button:focus,
+  .ql-snow.ql-toolbar button.ql-active,
+  .ql-snow .ql-toolbar button.ql-active,
+  .ql-snow.ql-toolbar .ql-picker-label:hover,
+  .ql-snow .ql-toolbar .ql-picker-label:hover,
+  .ql-snow.ql-toolbar .ql-picker-label.ql-active,
+  .ql-snow .ql-toolbar .ql-picker-label.ql-active,
+  .ql-snow.ql-toolbar .ql-picker-item:hover,
+  .ql-snow .ql-toolbar .ql-picker-item:hover,
+  .ql-snow.ql-toolbar .ql-picker-item.ql-selected,
+  .ql-snow .ql-toolbar .ql-picker-item.ql-selected {
+    color: #f57b00 !important;
+  }
+  .dark .ql-snow.ql-toolbar button:hover,
+  .ql-snow .ql-toolbar button:hover,
+  .ql-snow.ql-toolbar button:focus,
+  .ql-snow .ql-toolbar button:focus,
+  .ql-snow.ql-toolbar button.ql-active,
+  .ql-snow .ql-toolbar button.ql-active,
+  .ql-snow.ql-toolbar .ql-picker-label:hover,
+  .ql-snow .ql-toolbar .ql-picker-label:hover,
+  .ql-snow.ql-toolbar .ql-picker-label.ql-active,
+  .ql-snow .ql-toolbar .ql-picker-label.ql-active,
+  .ql-snow.ql-toolbar .ql-picker-item:hover,
+  .ql-snow .ql-toolbar .ql-picker-item:hover,
+  .ql-snow.ql-toolbar .ql-picker-item.ql-selected,
+  .ql-snow .ql-toolbar .ql-picker-item.ql-selected {
+    color: #f57b00 !important;
+  }
+
+  .dark
+    .ql-snow.ql-toolbar
+    .ql-picker-label.ql-active
+    .ql-stroke
+    .ql-stroke:hover {
+    stroke: #f57b00 !important;
+  }
+
+  .dark .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke {
+    stroke: #f57b00 !important;
+  }
+
+  .light .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke {
+    stroke: #f57b00 !important;
+  }
+
+  .rich-text-viewer h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+  }
+
+  .rich-text-viewer h2 {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+  }
+
+  .rich-text-viewer h3 {
+    font-size: 1.75em;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+  }
+
+  .rich-text-viewer p {
+    font-size: 1em;
+    margin-bottom: 0.5em;
+  }
+
+  .rich-text-viewer ol,
+  .rich-text-viewer ul {
+    padding-left: 1.5em;
+    margin-bottom: 1em;
+  }
+
+  .rich-text-viewer li {
+    font-size: 1em;
+    margin-bottom: 0.5em;
+  }
+
+  .rich-text-viewer ul {
+    list-style-type: disc;
+  }
+
+  .rich-text-viewer ol {
+    list-style-type: decimal;
+  }
+
+  /* .rich-text-viewer li[aria-hidden="true"] {
+    display: none; 
+  } */
+
+  .ql-snow h1 {
+    font-size: 2em !important;
+  }
+
+  .ql-snow h2 {
+    font-size: 1.6em !important;
+  }
+
+  .ql-snow h3 {
+    font-size: 1.2em !important;
+  }
+
+  .light .ql-snow.ql-toolbar button:hover .ql-stroke {
+    color: #f57b00 !important;
+  }
+  .light .ql-snow.ql-toolbar button:hover .ql-stroke {
+    stroke: #f57b00 !important;
+  }
+
+  .dark .ql-snow.ql-toolbar button.ql-active .ql-stroke .ql-stroke:hover {
+    stroke: #f57b00 !important;
+  }
+
+  .light .ql-snow.ql-toolbar button:hover .ql-stroke {
+    stroke: #f57b00;
+  }
+  .dark .ql-snow.ql-toolbar button:hover .ql-stroke {
+    stroke: #f57b00;
+  }
+
+  .light .ql-snow.ql-toolbar button.ql-active .ql-stroke {
+    stroke: #f57b00;
+  }
+
+  .dark .ql-snow.ql-toolbar button.ql-active .ql-stroke {
+    stroke: #f57b00;
+  }
+
+  .dark .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke {
+    stroke: #f57b00;
+  }
+  .light .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke {
+    stroke: #f57b00;
+  }
+
+  .light .dark .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke {
+    stroke: #f57b00;
+  }
+  .light .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke {
+    stroke: #f57b00;
+  }
+
+  .custom-quill .ql-toolbar {
+    z-index: 50;
+    border-color: #e4e4e7 !important;
+    border: 2px #e4e4e7 solid !important;
+    border-radius: 8px 8px 0px 0px;
+  }
+  .custom-quill .ql-container {
+    z-index: 10;
+    border: 2px #e4e4e7 solid !important;
+    border-radius: 0px 0px 8px 8px;
+  }
+
+  .custom-quill .ql-picker {
+    z-index: 60;
+    border-color: red;
+  }
 }

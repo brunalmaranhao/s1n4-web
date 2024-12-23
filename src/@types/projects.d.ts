@@ -14,6 +14,7 @@ declare interface IListProject {
   createdAt: listProject.createdAt;
   updatedAt: listProject.updatedAt;
   projects: IProject[];
+  isDone: boolean;
 }
 
 declare interface IProject {
@@ -26,8 +27,17 @@ declare interface IProject {
   updatedAt: Date | null | undefined;
   customer: ICustomer;
   budget: number;
+  description: string;
   updatedListProjectAt: Date;
   shouldShowInformationsToCustomerUser: boolean;
+  tags: ITag[];
+  listProjects: IListProject;
+}
+
+declare interface IProjectsForStatistics {
+  projectsDone: IProject[];
+  projectInProgress: IProject[];
+  total: number;
 }
 
 declare interface IFetchAllProjectsResponse {
@@ -78,6 +88,7 @@ declare interface INewProject {
   deadline?: Date;
   budget: number;
   shouldShowInformationsToCustomerUser: boolean;
+  description: string;
 }
 
 declare interface INewProjectUpdate {

@@ -23,7 +23,10 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={`${roboto.className} w-full`}>
         <Providers>{children}</Providers>
-        <Toaster position="bottom-center" />
+        <Toaster
+          position="bottom-center"
+          containerStyle={{ zIndex: 9999999999 }}
+        />
       </body>
     </html>
   );

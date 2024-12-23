@@ -29,6 +29,7 @@ type CardListProjectProps = {
   ) => void;
   handleDragLeave: (event: DragEvent<HTMLDivElement>) => void;
   highlightedColumn: string | null;
+  isDone: boolean;
 };
 
 export default function CardListProject({
@@ -41,6 +42,7 @@ export default function CardListProject({
   handleDragEnter,
   handleDragLeave,
   highlightedColumn,
+  isDone,
 }: CardListProjectProps) {
   const {
     onOpen,
@@ -78,7 +80,7 @@ export default function CardListProject({
 
   return (
     <div
-      className={`bg-[#F57B00]   text-black px-4 pt-4 w-full rounded-md min-h-[100px] ${
+      className={`bg-[#F57B00]  text-black px-4 pt-4 w-full rounded-md min-h-[100px] ${
         highlightedColumn === listProjectId ? "border-2 border-white" : ""
       } flex flex-col justify-between`}
       onDrop={() => handleDrop(listProjectId)}
@@ -91,34 +93,45 @@ export default function CardListProject({
           <input
             className="text-white bg-transparent outline-none w-full"
             value={currentName}
-            onChange={(e) => setCurrentName(e.target.value)}
+            disabled={isDone}
+            onChange={(e) => !isDone && setCurrentName(e.target.value)}
           />
           <div className="flex items-center gap-1">
             <small className="text-tiny bg-white text-[#F57B00] flex items-center justify-center rounded-full w-6 h-6 p-2">
               {projects?.length}
             </small>
-            <Dropdown backdrop="blur">
-              <DropdownTrigger>
-                <Button isIconOnly size="sm" variant="light">
-                  <MdMoreHoriz className="text-white" size={24} />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu className="text-black dark:text-white">
-                <DropdownItem
-                  startContent={<DeleteDocumentIcon className={iconClasses} />}
-                  onClick={() => {
-                    onOpenModalRemoveListProject();
-                    setSelectedListProjectRemove({ id: listProjectId, name });
-                  }}
-                >
-                  Desativar
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
+            {!isDone && (
+              <Dropdown backdrop="blur">
+                <DropdownTrigger>
+                  <Button isIconOnly size="sm" variant="light">
+                    <MdMoreHoriz className="text-white" size={24} />
+                  </Button>
+                </DropdownTrigger>
+                <DropdownMenu className="text-black dark:text-white">
+                  <DropdownItem
+                    startContent={
+                      <DeleteDocumentIcon className={iconClasses} />
+                    }
+                    onClick={() => {
+                      onOpenModalRemoveListProject();
+                      setSelectedListProjectRemove({ id: listProjectId, name });
+                    }}
+                  >
+                    Desativar
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            )}
           </div>
         </div>
 
-        <div className="flex flex-col gap-1">
+        <div
+          className="flex flex-col cursor-default gap-1 max-h-[320px] pr-5 overflow-y-auto [&::-webkit-scrollbar]:w-2
+  [&::-webkit-scrollbar-track]:bg-gray-100
+  [&::-webkit-scrollbar-thumb]:bg-gray-300
+  dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 "
+        >
           {projects?.map((project, index) => (
             <CardProject
               key={index}
@@ -129,7 +142,7 @@ export default function CardListProject({
         </div>
       </div>
       <Button
-        className="bg-transparent text-white hover:border-1 mb-2"
+        className="bg-transparent text-white hover:border-1 mb-2 mt-3"
         onPress={() => {
           onOpen();
           setSelectedListProjectAddProject(listProjectId);

@@ -29,6 +29,20 @@ export default async function ProjectsService() {
     return response.projects;
   }
 
+  async function fetchProjectsForStatistics(): Promise<IProjectsForStatistics> {
+    const response = await get<IProjectsForStatistics>(`/projects/statistics`);
+    return response;
+  }
+
+  async function fetchProjectsCustomerForStatistics(
+    customer: string,
+  ): Promise<IProjectsForStatistics> {
+    const response = await get<IProjectsForStatistics>(
+      `/projects/${customer}/statistics`,
+    );
+    return response;
+  }
+
   async function fetchProjectsByUser(): Promise<IProject[]> {
     const response = await get<{ projects: IProject[] }>(`/projects/customer`);
     return response.projects;
@@ -51,6 +65,7 @@ export default async function ProjectsService() {
     budget: number,
     listProjectsId: string,
     shouldShowInformationsToCustomerUser: boolean,
+    description: string,
     deadline?: Date,
   ): Promise<string> {
     const projectData = {
@@ -60,6 +75,7 @@ export default async function ProjectsService() {
       budget,
       listProjectsId,
       shouldShowInformationsToCustomerUser,
+      description,
     };
     const payload = JSON.stringify(
       Object.fromEntries(
@@ -119,5 +135,7 @@ export default async function ProjectsService() {
     update,
     remove,
     fetchProjectsByUser,
+    fetchProjectsForStatistics,
+    fetchProjectsCustomerForStatistics,
   };
 }

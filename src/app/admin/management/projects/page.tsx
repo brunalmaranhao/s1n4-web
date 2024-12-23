@@ -4,6 +4,7 @@ import ModalCreateProjectUpdate from "@/components/ProjectsComponent/ModaCreateP
 import ModalCreateListProject from "@/components/ProjectsComponent/ModalCreateListProject/ModalCreateListProject";
 import ModalCreateProject from "@/components/ProjectsComponent/ModalCreateProject/ModalCreateProject";
 import ModalEditProject from "@/components/ProjectsComponent/ModalEdit/ModalEditProject";
+import ModalProjectDetails from "@/components/ProjectsComponent/ModalProjectDetails/ModalProjectDetails";
 import ModalRemoveProject from "@/components/ProjectsComponent/ModalRemove/ModalRemoveProject";
 import ModalRemoveListProject from "@/components/ProjectsComponent/ModalRemoveListProject/ModalRemoveListProject";
 import ProjectsComponent from "@/components/ProjectsComponent/ProjectsComponent";
@@ -19,6 +20,7 @@ export default function Projects() {
       <ModalCreateProjectUpdate />
       <ModalCreateListProject />
       <ModalRemoveListProject />
+      <ModalProjectDetails />
     </div>
   );
 }

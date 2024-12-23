@@ -16,6 +16,9 @@ type ProjectContextType = {
   isOpenModalCreateProject: boolean;
   onClose: () => void;
   onOpen: () => void;
+  isOpenModalProjectDetails: boolean;
+  onCloseModalProjectDetails: () => void;
+  onOpenModalProjectDetails: () => void;
   isOpenModalCreateListProject: boolean;
   onCloseModalCreateListProject: () => void;
   onOpenModalCreateListProject: () => void;
@@ -91,6 +94,11 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     isOpen: isOpenModalRemove,
     onOpen: onOpenModalRemove,
     onOpenChange: onOpenChangeModalRemove,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenModalProjectDetails,
+    onOpen: onOpenModalProjectDetails,
+    onOpenChange: onCloseModalProjectDetails,
   } = useDisclosure();
 
   const {
@@ -244,6 +252,9 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     isOpenModalRemoveListProject,
     onOpenModalRemoveListProject,
     onOpenChangeModalRemoveListProject,
+    isOpenModalProjectDetails,
+    onCloseModalProjectDetails,
+    onOpenModalProjectDetails,
   };
 
   return (

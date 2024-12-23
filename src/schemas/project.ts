@@ -4,6 +4,7 @@ import * as yup from "yup";
 export const schemaNewProject = yup
   .object({
     name: yup.string().required("Campo Email é obrigatório."),
+    description: yup.string().required("Campo Descrição é obrigatório."),
     deadline: yup
       .date()
       .transform((value, originalValue) => {
