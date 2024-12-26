@@ -43,6 +43,7 @@ declare interface IProjectUpdates {
   description: string;
   date: Date;
   updateAt: Date | null | undefined;
+  createdAt: Date;
   user: {
     id: string;
     firstName: string;
@@ -53,5 +54,19 @@ declare interface IProjectUpdates {
     customerId: string | null;
     createdAt: Date;
     updatedAt: Date | null;
+  };
+  comments: IComment[]
+}
+
+declare interface IComment {
+  id: string;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+  author: {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
   };
 }
