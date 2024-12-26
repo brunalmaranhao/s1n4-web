@@ -7,6 +7,7 @@ import { FinancialProvider } from "@/context/FinancialContext";
 import { FormWizardCustomerProvider } from "@/context/FormWizardCustomerContext";
 import { NotificationProvider } from "@/context/NotificationsContext";
 import { ProjectProvider } from "@/context/ProjectContext";
+import { ProjectUpdateProvider } from "@/context/ProjectUpdateContext";
 import { ReportProvider } from "@/context/ReportContext";
 import { TagProvider } from "@/context/TagContext";
 import { NextUIProvider } from "@nextui-org/react";
@@ -24,7 +25,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
                   <NotificationProvider>
                     <FinancialProvider>
                       <TagProvider>
-                        <NextUIProvider>{children}</NextUIProvider>
+                        <ProjectUpdateProvider>
+                          <NextUIProvider>{children}</NextUIProvider>
+                        </ProjectUpdateProvider>
                       </TagProvider>
                     </FinancialProvider>
                   </NotificationProvider>

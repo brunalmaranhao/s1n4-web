@@ -125,7 +125,7 @@ export default function CardListProject({
           </div>
         </div>
 
-        <div className="flex flex-col cursor-default gap-1 max-h-[320px] pr-5 overflow-y-auto [&::-webkit-scrollbar]:w-2
+        <div className="flex flex-col cursor-default mt-2 gap-1 max-h-[320px] pr-5 overflow-y-auto [&::-webkit-scrollbar]:w-2
   [&::-webkit-scrollbar-track]:bg-gray-100
   [&::-webkit-scrollbar-thumb]:bg-gray-300
   dark:[&::-webkit-scrollbar-track]:bg-neutral-700

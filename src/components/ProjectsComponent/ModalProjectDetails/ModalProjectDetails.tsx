@@ -12,13 +12,16 @@ import {
   ModalContent,
   ModalHeader,
 } from "@nextui-org/react";
-import { IoChevronDownSharp, IoChevronUpSharp } from "react-icons/io5";
+import { IoChevronDownSharp } from "react-icons/io5";
 import {
+  MdAddReaction,
   MdAttachMoney,
+  MdOutlineAccessTime,
   MdOutlineTableChart,
   MdSpeakerNotes,
   MdSubject,
 } from "react-icons/md";
+import ProjectUpdateComponent from "../ProjectUpdateComponent/ProjectUpdateComponent";
 
 export default function ModalProjectDetails() {
   const {
@@ -40,7 +43,6 @@ export default function ModalProjectDetails() {
       fetchListProjectByCustomer(selectedCustomerFilter);
     }
   }
-  console.log(selectedProjectEdit);
 
   return (
     <Modal
@@ -72,9 +74,17 @@ export default function ModalProjectDetails() {
                 </div>
               </div>
             </ModalHeader>
-            <ModalBody className="flex flex-col gap-2 text-black dark:text-white">
+            <ModalBody
+              className="mb-10 flex flex-col gap-2 text-black dark:text-white [&::-webkit-scrollbar]:w-2
+[&::-webkit-scrollbar-track]:bg-gray-100
+[&::-webkit-scrollbar-thumb]:bg-gray-300
+dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
+            >
+              {/* Tags */}
               <Divider />
               <TagComponent />
+              {/* Budget */}
               <Divider />
               <div className="flex flex-col">
                 <div className="flex gap-1 items-center">
@@ -87,10 +97,11 @@ export default function ModalProjectDetails() {
                 </p>
               </div>
 
+              {/* Description */}
               <Divider />
               {selectedProjectEdit?.description && (
                 <div
-                  className="flex pr-5 flex-col max-h-[250px] overflow-y-auto [&::-webkit-scrollbar]:w-2
+                  className="flex pr-5 flex-col min-h-[100px] max-h-[320px] overflow-y-auto [&::-webkit-scrollbar]:w-2
 [&::-webkit-scrollbar-track]:bg-gray-100
 [&::-webkit-scrollbar-thumb]:bg-gray-300
 dark:[&::-webkit-scrollbar-track]:bg-neutral-700
@@ -108,11 +119,16 @@ dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 "
                 </div>
               )}
 
+              {/* Tasks */}
               <Divider />
               <div className="flex flex-col">
                 <div className="flex gap-1 items-center">
                   <MdSpeakerNotes className="text-[#F57B00] text-[24px]" />
                   <h2 className="text-[24px] font-bold">Atividades</h2>
+                </div>
+
+                <div className="flex-col ml-7 mt-3">
+                  <ProjectUpdateComponent />
                 </div>
               </div>
             </ModalBody>
