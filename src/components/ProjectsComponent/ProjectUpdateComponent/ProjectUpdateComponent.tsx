@@ -8,15 +8,20 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@nextui-org/react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdAddReaction, MdOutlineAccessTime } from "react-icons/md";
 import Comments from "./Comments/Comments";
 import { useProjectUpdateContext } from "@/context/ProjectUpdateContext";
 import ModalRemoveProjectUpdates from "./ModalRemoveProjectUpdate/ModalRemoveProjectUpdate";
+import EmojiPicker from "@/components/EmojiPicker/EmojiPicker";
+import ReactionService from "@/services/models/reactions";
+import { useAuthContext } from "@/context/AuthContext";
+import Reactions from "@/components/Reactions/Reactions";
 
 export default function ProjectUpdateComponent() {
   const [projectUpdates, setProjectUpdates] = useState<IProjectUpdates[]>([]);
   const [isLoadingProjectUpdates, setIsLoadingProjectUpdates] = useState(false);
+  const { loggedUser } = useAuthContext();
 
   const [updateContent, setUpdateContent] = useState("");
   const [focusedInputId, setFocusedInputId] = useState<string | null>(null);
@@ -51,6 +56,19 @@ export default function ProjectUpdateComponent() {
       } finally {
         setIsLoadingProjectUpdates(false);
       }
+    }
+  }
+
+  async function createReaction(emoji: string, projectUpdateId: string) {
+    setIsLoadingProjectUpdates(true);
+    try {
+      const { createReactionProjectUpdate } = await ReactionService();
+      await createReactionProjectUpdate(projectUpdateId, emoji);
+      fetchProjectUpdates();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoadingProjectUpdates(false);
     }
   }
 
@@ -178,42 +196,52 @@ export default function ProjectUpdateComponent() {
           <div className="flex text-[12px] gap-[6px] items-center">
             {selectedProjectUpdateEdit?.id !== projectUpdate.id && (
               <div className="flex text-[12px] gap-[6px] items-center mt-1">
-                <MdAddReaction className="text-[#F57B00] cursor-pointer" />
-                <div className="w-[4px] h-[4px] rounded-full bg-[#878D96]" />
-                <p
-                  className="cursor-pointer"
-                  onClick={() => {
-                    setSelectedProjectUpdateEdit(projectUpdate);
-                    setProjectUpdateContentEdit(projectUpdate.description);
+                <EmojiPicker
+                  onSelectEmoji={(emoji) => {
+                    createReaction(emoji, projectUpdate.id);
                   }}
-                >
-                  Editar
-                </p>
-                <div className="w-[4px] h-[4px] rounded-full bg-[#878D96]" />
-                <Popover
-                  shadow="lg"
-                  offset={10}
-                  placement="bottom"
-                  shouldBlockScroll={false}
-                  onOpenChange={(isOpen) => {
-                    if (isOpen) {
-                      handleSelectedProjectUpdate(projectUpdate);
-                    } else {
-                      handleSelectedProjectUpdate(undefined);
-                    }
-                  }}
-                >
-                  <PopoverTrigger>
-                    <p className="cursor-pointer">Excluir</p>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-[380px]">
-                    {(titleProps) => (
-                      <ModalRemoveProjectUpdates
-                        fetchProjectUpdates={fetchProjectUpdates}
-                      />
-                    )}
-                  </PopoverContent>
-                </Popover>
+                />
+                {loggedUser?.id === projectUpdate.userId && (
+                  <>
+                    <div className="w-[4px] h-[4px] rounded-full bg-[#878D96]" />
+                    <p
+                      className="cursor-pointer"
+                      onClick={() => {
+                        setSelectedProjectUpdateEdit(projectUpdate);
+                        setProjectUpdateContentEdit(projectUpdate.description);
+                      }}
+                    >
+                      Editar
+                    </p>
+                    <div className="w-[4px] h-[4px] rounded-full bg-[#878D96]" />
+                    <Popover
+                      shadow="lg"
+                      offset={10}
+                      placement="bottom"
+                      shouldBlockScroll={false}
+                      onOpenChange={(isOpen) => {
+                        if (isOpen) {
+                          handleSelectedProjectUpdate(projectUpdate);
+                        } else {
+                          handleSelectedProjectUpdate(undefined);
+                        }
+                      }}
+                    >
+                      <PopoverTrigger>
+                        <p className="cursor-pointer">Excluir</p>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-[380px]">
+                        {(titleProps) => (
+                          <ModalRemoveProjectUpdates
+                            fetchProjectUpdates={fetchProjectUpdates}
+                          />
+                        )}
+                      </PopoverContent>
+                    </Popover>
+                  </>
+                )}
+
+                <Reactions reactions={projectUpdate.reactions} fetchProjectUpdates={fetchProjectUpdates} />
               </div>
             )}
           </div>

@@ -14,6 +14,9 @@ import { MdOutlineAccessTime } from "react-icons/md";
 import ModalRemoveComment from "./ModalRemoveComment/ModalRemoveComment";
 import toast from "react-hot-toast";
 import { defaultErrorMessage } from "@/util/default-error-message";
+import ReactionService from "@/services/models/reactions";
+import EmojiPicker from "@/components/EmojiPicker/EmojiPicker";
+import Reactions from "@/components/Reactions/Reactions";
 
 type CommentsProps = {
   comments: IComment[];
@@ -30,15 +33,14 @@ export default function Comments({
   const [commentContent, setCommentContent] = useState("");
 
   const [focusedInputId, setFocusedInputId] = useState<string | null>(null);
-  const { handleSelectedComment } =
-    useProjectUpdateContext();
+  const { handleSelectedComment } = useProjectUpdateContext();
 
   const [selectedCommentEdit, setSelectedCommentEdit] = useState<
     IComment | undefined
   >();
   const [commentContentEdit, setCommentContentEdit] = useState<
-  string | undefined
->();
+    string | undefined
+  >();
   const [loading, setLoading] = useState(false);
 
   async function handleAddComment(
@@ -76,6 +78,19 @@ export default function Comments({
         setCommentContentEdit("");
         setSelectedCommentEdit(undefined);
       }
+    }
+  }
+
+  async function createReaction(emoji: string, commentId: string) {
+    setLoading(true);
+    try {
+      const { createReactionComment } = await ReactionService();
+      await createReactionComment(commentId, emoji);
+      fetchProjectUpdates();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -137,45 +152,55 @@ export default function Comments({
                 </p>
               )}
             </div>
-            {loggedUser?.id === comment.author.id &&
-              selectedCommentEdit?.id !== comment.id && (
-                <div className="flex text-[12px] gap-[6px] items-center mt-1">
-                  <p
-                    className="cursor-pointer"
-                    onClick={() => {
-                      setSelectedCommentEdit(comment);
-                      setCommentContentEdit(comment.content);
-                    }}
-                  >
-                    Editar
-                  </p>
-                  <div className="w-[4px] h-[4px] rounded-full bg-[#878D96]" />
-                  <Popover
-                    shadow="lg"
-                    offset={10}
-                    placement="bottom"
-                    shouldBlockScroll={false}
-                    onOpenChange={(isOpen) => {
-                      if (isOpen) {
-                        handleSelectedComment(comment);
-                      } else {
-                        handleSelectedComment(undefined);
-                      }
-                    }}
-                  >
-                    <PopoverTrigger>
-                      <p className="cursor-pointer">Excluir</p>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-[380px]">
-                      {(titleProps) => (
-                        <ModalRemoveComment
-                          fetchProjectUpdates={fetchProjectUpdates}
-                        />
-                      )}
-                    </PopoverContent>
-                  </Popover>
-                </div>
-              )}
+            <div className="flex text-[12px] gap-[6px] items-center mt-1">
+              <EmojiPicker
+                onSelectEmoji={(emoji) => {
+                  createReaction(emoji, comment.id);
+                }}
+              />
+
+              {loggedUser?.id === comment.author.id &&
+                selectedCommentEdit?.id !== comment.id && (
+                  <>
+                    <div className="w-[4px] h-[4px] rounded-full bg-[#878D96]" />
+                    <p
+                      className="cursor-pointer"
+                      onClick={() => {
+                        setSelectedCommentEdit(comment);
+                        setCommentContentEdit(comment.content);
+                      }}
+                    >
+                      Editar
+                    </p>
+                    <div className="w-[4px] h-[4px] rounded-full bg-[#878D96]" />
+                    <Popover
+                      shadow="lg"
+                      offset={10}
+                      placement="bottom"
+                      shouldBlockScroll={false}
+                      onOpenChange={(isOpen) => {
+                        if (isOpen) {
+                          handleSelectedComment(comment);
+                        } else {
+                          handleSelectedComment(undefined);
+                        }
+                      }}
+                    >
+                      <PopoverTrigger>
+                        <p className="cursor-pointer">Excluir</p>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-[380px]">
+                        {(titleProps) => (
+                          <ModalRemoveComment
+                            fetchProjectUpdates={fetchProjectUpdates}
+                          />
+                        )}
+                      </PopoverContent>
+                    </Popover>
+                  </>
+                )}
+                <Reactions reactions={comment.reactions} fetchProjectUpdates={fetchProjectUpdates} />
+            </div>
           </div>
         ))}
         <div
