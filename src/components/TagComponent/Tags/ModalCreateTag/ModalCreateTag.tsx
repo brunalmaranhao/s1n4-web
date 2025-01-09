@@ -103,6 +103,7 @@ export default function ModalCreateTag() {
         <div className="flex gap-2 flex-wrap">
           {colors.map((color) => (
             <div
+            key={color}
               style={{ backgroundColor: color }}
               className={`w-[49px] h-[46px] rounded-lg cursor-pointer ${
                 color === selectedColor &&
