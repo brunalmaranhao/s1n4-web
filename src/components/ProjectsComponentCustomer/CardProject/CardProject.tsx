@@ -32,9 +32,12 @@ export default function CardProject({ project }: CardProjectProps) {
       <div className="flex flex-col gap-2">
         <div className="flex gap-2 flex-wrap cursor-default">
           {project?.tags?.map((tag) => (
-            <Tooltip content={tag.name} className="text-black dark:text-white">
+            <Tooltip
+              key={tag.id}
+              content={tag.name}
+              className="text-black dark:text-white"
+            >
               <div
-                key={tag.id}
                 className="w-[40px] h-[8px] rounded-lg text-black dark:text-white"
                 style={{ backgroundColor: tag.color }}
               ></div>
