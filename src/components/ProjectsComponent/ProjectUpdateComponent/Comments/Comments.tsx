@@ -147,7 +147,13 @@ export default function Comments({
                   </div>
                 </form>
               ) : (
-                <p className="text-[12px] font-normal my-1">
+                <p
+                  className="text-[12px] font-normal my-1  w-full overflow-auto [&::-webkit-scrollbar]:h-2
+  [&::-webkit-scrollbar-track]:bg-gray-100
+  [&::-webkit-scrollbar-thumb]:bg-gray-300
+  dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
+                >
                   {comment.content}
                 </p>
               )}
@@ -199,7 +205,10 @@ export default function Comments({
                     </Popover>
                   </>
                 )}
-                <Reactions reactions={comment.reactions} fetchProjectUpdates={fetchProjectUpdates} />
+              <Reactions
+                reactions={comment.reactions}
+                fetchProjectUpdates={fetchProjectUpdates}
+              />
             </div>
           </div>
         ))}

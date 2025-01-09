@@ -4,11 +4,13 @@ import { formatTimeAgo } from "@/util/fomat-time-ago";
 import { useEffect, useState } from "react";
 import { MdOutlineAccessTime } from "react-icons/md";
 import Comments from "./Comments/Comments";
+import ReactionService from "@/services/models/reactions";
+import EmojiPicker from "@/components/EmojiPicker/EmojiPicker";
+import Reactions from "@/components/Reactions/Reactions";
 
 export default function ProjectUpdateComponentCustomer() {
   const [projectUpdates, setProjectUpdates] = useState<IProjectUpdates[]>([]);
   const [isLoadingProjectUpdates, setIsLoadingProjectUpdates] = useState(true);
-
 
   const { selectedProjectEdit } = useProjectContext();
 
@@ -33,6 +35,18 @@ export default function ProjectUpdateComponentCustomer() {
     }
   }
 
+  async function createReaction(emoji: string, projectUpdateId: string) {
+    setIsLoadingProjectUpdates(true);
+    try {
+      const { createReactionProjectUpdate } = await ReactionService();
+      await createReactionProjectUpdate(projectUpdateId, emoji);
+      fetchProjectUpdates();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoadingProjectUpdates(false);
+    }
+  }
 
   return (
     <div className="text-black dark:text-white">
@@ -52,9 +66,23 @@ export default function ProjectUpdateComponentCustomer() {
             </div>
           </div>
           <div className="mt-2">
-            <p className="text-[16px] font-normal my-1">
+            <p
+              className="text-[16px] font-normal my-1 w-full overflow-auto [&::-webkit-scrollbar]:h-2
+  [&::-webkit-scrollbar-track]:bg-gray-100
+  [&::-webkit-scrollbar-thumb]:bg-gray-300
+  dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
+            >
               {projectUpdate.description}
             </p>
+          </div>
+          <div className="flex text-[12px] gap-[6px] items-center mt-1">
+            <EmojiPicker
+              onSelectEmoji={(emoji) => {
+                createReaction(emoji, projectUpdate.id);
+              }}
+            />
+            <Reactions reactions={projectUpdate.reactions} fetchProjectUpdates={fetchProjectUpdates} />
           </div>
           {/* Comments */}
           <div className="my-2">
