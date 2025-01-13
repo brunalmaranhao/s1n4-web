@@ -68,7 +68,7 @@ export default function FilterBudgetExpenseByCustomerOrProject() {
     if (selectedKeysCustomer.size > 0) {
       const selectedId = Array.from(selectedKeysCustomer)[0];
       const selectedCustomer = customers.find((item) => item.id === selectedId);
-      return selectedCustomer?.corporateName || "Cliente";
+      return selectedCustomer?.name || "Cliente";
     }
     return "Cliente";
   }, [selectedKeysCustomer, customers]);
@@ -118,7 +118,7 @@ export default function FilterBudgetExpenseByCustomerOrProject() {
         >
           {customers.map((item) => (
             <DropdownItem key={item.id} className="text-black dark:text-white">
-              {item.corporateName}
+              {item.name}
             </DropdownItem>
           ))}
         </DropdownMenu>

@@ -76,7 +76,7 @@ export default function CardListProject({
     };
   }, [currentName]);
 
-  const debouncedUpdateName = debounce(handleEditName, 300);
+  const debouncedUpdateName = debounce(handleEditName, 300)
 
   return (
     <div

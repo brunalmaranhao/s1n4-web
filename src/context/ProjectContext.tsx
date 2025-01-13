@@ -68,6 +68,10 @@ type ProjectContextType = {
   fetchListProjectByUser: () => Promise<void>;
   listProjects: IListProject[];
   setListProjects: React.Dispatch<React.SetStateAction<IListProject[]>>;
+  listProjectName?: string
+  setListProjectName: React.Dispatch<
+  React.SetStateAction<string | undefined>
+>;
   selectedListProjectAddProject?: string;
   setSelectedListProjectAddProject: React.Dispatch<
     React.SetStateAction<string | undefined>
@@ -139,6 +143,8 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     selectedProjectCreateProjectUpdate,
     setSelectedProjectCreateProjectUpdate,
   ] = useState<IProject | undefined>();
+
+  const [listProjectName, setListProjectName] = useState<string>()
 
   // async function fetchAllProjects() {
   //   try {
@@ -255,6 +261,8 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
    isOpenModalProjectDetails,
    onCloseModalProjectDetails,
    onOpenModalProjectDetails,
+   listProjectName,
+   setListProjectName
 
   };
 
