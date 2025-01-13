@@ -87,7 +87,7 @@ export default function FilterCustomersAndProjects({
               key={index}
               className="text-black dark:text-white"
             >
-              {client.corporateName}
+              {client.name}
             </DropdownItem>
           ))}
         </DropdownMenu>

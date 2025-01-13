@@ -22,7 +22,7 @@ export default function FilterProjectsByCustomer() {
       const selectedCustomer = customers.find(
         (item) => item.id === selectedCustomerFilter,
       );
-      return selectedCustomer?.corporateName || "Cliente";
+      return selectedCustomer?.name || "Cliente";
     }
     return "Cliente";
   }, [selectedCustomerFilter, customers]);
@@ -60,7 +60,7 @@ export default function FilterProjectsByCustomer() {
       >
         {customers.map((item) => (
           <DropdownItem key={item.id} className="text-black dark:text-white">
-            {item.corporateName}
+            {item.name}
           </DropdownItem>
         ))}
       </DropdownMenu>

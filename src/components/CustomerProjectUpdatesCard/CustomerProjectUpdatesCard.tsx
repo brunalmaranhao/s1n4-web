@@ -43,7 +43,7 @@ export default function CustomerProjectUpdatesCard({
 
           <h1 className="text-[16px] text-[#697077] dark:text-white font-normal">
             {projectUpdate.project?.name} -{" "}
-            {projectUpdate.project?.customer.corporateName}
+            {projectUpdate.project?.customer.name}
           </h1>
         </div>
         <h1 className="text-black dark:text-white">

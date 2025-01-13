@@ -1,6 +1,4 @@
-import {
-  MdVisibilityOff,
-} from "react-icons/md";
+import { MdVisibilityOff } from "react-icons/md";
 import ActionsCardProject from "./ActionsCardProject/ActionsCardProject";
 import { useProjectContext } from "@/context/ProjectContext";
 import { Tooltip } from "@nextui-org/react";
@@ -15,15 +13,16 @@ export default function CardProject({
   handleDragStart,
   project,
 }: CardProjectProps) {
+  
   const { setSelectedProjectEdit, onOpenModalProjectDetails } =
     useProjectContext();
-    console.log(project)
-
 
   function handleOpenModalDetails() {
     setSelectedProjectEdit(project);
     onOpenModalProjectDetails();
   }
+
+
 
   return (
     <div
@@ -37,8 +36,12 @@ export default function CardProject({
         <div className="flex flex-col gap-2">
           <div className="flex gap-2 flex-wrap cursor-default">
             {project.tags.map((tag) => (
-              <Tooltip key={tag.id} content={tag.name} className="text-black dark:text-white">
-                <div                 
+              <Tooltip
+                key={tag.id}
+                content={tag.name}
+                className="text-black dark:text-white"
+              >
+                <div
                   className="w-[40px] h-[8px] rounded-lg"
                   style={{ backgroundColor: tag.color }}
                 ></div>
@@ -46,7 +49,7 @@ export default function CardProject({
             ))}
           </div>
           <p className="text-xs text-[#000] dark:text-white">
-            {project.customer.corporateName}
+            {project.customer.name}
           </p>
         </div>
         <ActionsCardProject project={project} />

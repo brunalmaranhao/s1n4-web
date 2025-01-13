@@ -45,7 +45,7 @@ export default function CardProject({ project }: CardProjectProps) {
           ))}
         </div>
         <p className="text-xs text-[#000] dark:text-white">
-          {project.customer.corporateName}
+          {project.customer.name}
         </p>
       </div>
 

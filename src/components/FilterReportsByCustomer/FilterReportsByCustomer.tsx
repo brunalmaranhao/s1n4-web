@@ -39,7 +39,7 @@ export default function FilterReportsByCustomer() {
     if (selectedKeys.size > 0) {
       const selectedId = Array.from(selectedKeys)[0];
       const selectedCustomer = customers.find((item) => item.id === selectedId);
-      return selectedCustomer?.corporateName || "Cliente";
+      return selectedCustomer?.name || "Cliente";
     }
     return "Cliente";
   }, [selectedKeys, customers]);
@@ -82,7 +82,7 @@ export default function FilterReportsByCustomer() {
         >
           {customers.map((item) => (
             <DropdownItem key={item.id} className="text-black dark:text-white">
-              {item.corporateName}
+              {item.name}
             </DropdownItem>
           ))}
         </DropdownMenu>
