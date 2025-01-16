@@ -8,7 +8,6 @@ import FilterProjectsByCustomer from "../FilterProjectsByCustomer/FilterProjects
 import { Button } from "@nextui-org/react";
 import { GrAdd } from "react-icons/gr";
 
-
 export default function ProjectsComponent() {
   const {
     listProjects,

@@ -12,7 +12,6 @@ export default function CardListProject({
   name,
   listProjectId,
 }: CardListProjectProps) {
-
   return (
     <div
       className={`bg-[#F57B00]   text-black p-4 w-full rounded-md min-h-[100px]  flex flex-col justify-between`}

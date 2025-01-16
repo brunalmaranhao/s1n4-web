@@ -7,14 +7,18 @@ import ProjectsOverview from "@/components/ProjectsOverview/ProjectsOverview";
 import TabsAndFilters from "@/components/TabsAndFilters/TabsAndFilters";
 import Notification from "@/components/Notification/Notification";
 
-import { Key, useState } from "react";
+import { Key, useEffect, useState } from "react";
 import FilterReportsByCustomer from "@/components/FilterReportsByCustomer/FilterReportsByCustomer";
 import { useTheme } from "next-themes";
-import { Button, Switch } from "@nextui-org/react";
+import { Button, Switch, Tooltip } from "@nextui-org/react";
 import { SunIcon } from "@/components/SunIcon/SunIcon";
 import { MoonIcon } from "@/components/MoonIcon/MoonIcon";
 import { GrAdd } from "react-icons/gr";
 import { useReportContext } from "@/context/ReportContext";
+import DashboardBudgetChart from "@/components/DashboardBudgetChart/DashboardBudgetChart";
+import { useCustomerContext } from "@/context/CustomerContext";
+import CustomerService from "@/services/models/customer";
+import toast from "react-hot-toast";
 
 const ReportTabContent = dynamic(
   () => import("@/components/ReportTabContent/ReportTabContent"),
@@ -29,11 +33,9 @@ const ModalCreatePeriodicReport = dynamic(
 
 export default function Dashboard() {
   const [selectedTab, setSelectedTab] = useState<Key>("");
-  const [selectedClient, setSelectedClient] = useState<ICustomer | undefined>(
-    undefined,
-  );
 
   const { onOpenModalCreatePeriodicReport } = useReportContext();
+  const { setSelectedCustomer, selectedCustomer } = useCustomerContext();
 
   const { theme, setTheme } = useTheme();
 
@@ -42,8 +44,23 @@ export default function Dashboard() {
   };
 
   const handleSelectedClient = (client: ICustomer | undefined) => {
-    setSelectedClient(client);
+    setSelectedCustomer(client);
+    console.log(client);
   };
+
+  const getFirstCustomerId = async () => {
+    try {
+      const { findAllActives } = await CustomerService();
+      const { customers } = await findAllActives();
+      setSelectedCustomer(customers[0]);
+    } catch (error) {
+      toast.error(error as string);
+    }
+  };
+
+  useEffect(() => {
+    getFirstCustomerId();
+  }, []);
 
   return (
     <div className="bg-[#F2F4F8] dark:bg-[#000] flex text-black w-full">
@@ -87,20 +104,27 @@ export default function Dashboard() {
             </div>
           )}
         </div>
-        <div className="flex flex-col">
-          {selectedTab === "overview" && (
-            <>
-              <OverviewTabContent selectedClient={selectedClient} />
-              <div className="w-[380px] mt-6">
-                <ProjectsOverview selectedClient={selectedClient} />
+        <div className="flex space-x-6">
+          <div className="flex flex-col w-[50%]">
+            {selectedTab === "overview" && (
+              <div className="h-full ">
+                <OverviewTabContent selectedClient={selectedCustomer} />
+                <div className=" h-full mt-6 flex">
+                  <ProjectsOverview selectedClient={selectedCustomer} />
+                </div>
               </div>
-            </>
-          )}
-          {selectedTab === "reports" && (
-            <div>
-              <ReportTabContent />
-            </div>
-          )}
+            )}
+            {selectedTab === "reports" && (
+              <div>
+                <ReportTabContent />
+              </div>
+            )}
+          </div>
+          <div className="w-[50%]">
+            {selectedTab === "overview" && (
+              <DashboardBudgetChart customerId={selectedCustomer?.id || ""} />
+            )}
+          </div>
         </div>
       </div>
       <ModalCreatePeriodicReport />

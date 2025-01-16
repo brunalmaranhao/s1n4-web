@@ -16,16 +16,6 @@
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -129,11 +119,11 @@ body {
     stroke: #f57b00 !important;
   }
 
-  .dark .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke{
+  .dark .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke {
     stroke: #f57b00 !important;
   }
 
-  .light .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke{
+  .light .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke {
     stroke: #f57b00 !important;
   }
 
@@ -162,22 +152,21 @@ body {
 
   .rich-text-viewer ol,
   .rich-text-viewer ul {
-    padding-left: 1.5em; 
-    margin-bottom: 1em; 
+    padding-left: 1.5em;
+    margin-bottom: 1em;
   }
 
   .rich-text-viewer li {
     font-size: 1em;
-    margin-bottom: 0.5em; 
+    margin-bottom: 0.5em;
   }
-
 
   .rich-text-viewer ul {
     list-style-type: disc;
   }
 
   .rich-text-viewer ol {
-    list-style-type: decimal; 
+    list-style-type: decimal;
   }
 
   /* .rich-text-viewer li[aria-hidden="true"] {
@@ -251,5 +240,11 @@ body {
   .custom-quill .ql-picker {
     z-index: 60;
     border-color: red;
+  }
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
   }
 }

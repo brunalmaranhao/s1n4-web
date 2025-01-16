@@ -50,14 +50,14 @@ export default function ModalRemoveTag() {
       <form className="mt-3 flex flex-col gap-3">
         <p>
           Isso removerá a etiqueta <b>{selectedTag?.name}</b> de todos os
-          cartões. 
+          cartões.
         </p>
         <p>Não é possível desfazer.</p>
         <Button
           className="text-white bg-[#DA1E28] w-full"
           onClick={() => handleRemoveProject()}
         >
-         {!loading ? "Excluir" : <Spinner size={"sm"} color={"white"} />}
+          {!loading ? "Excluir" : <Spinner size={"sm"} color={"white"} />}
         </Button>
       </form>
     </div>

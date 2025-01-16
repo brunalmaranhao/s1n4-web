@@ -60,7 +60,7 @@ export default function ModalCreateProject() {
           selectedListProjectAddProject,
           data.shouldShowInformationsToCustomerUser,
           data.description,
-          data.deadline
+          data.deadline,
         );
         handleOnClose();
         reset();
@@ -118,9 +118,9 @@ export default function ModalCreateProject() {
                     className="text-black dark:text-white custom-quill rounded-lg"
                     modules={{
                       toolbar: [
-                        [{ header: [1, 2, 3, false] }], 
-                        ["bold", "italic", "underline"], 
-                        [{ list: "ordered" }, { list: "bullet" }], 
+                        [{ header: [1, 2, 3, false] }],
+                        ["bold", "italic", "underline"],
+                        [{ list: "ordered" }, { list: "bullet" }],
                         ["link", "image"], // Links e imagens
                         ["clean"], // Remover formatações
                       ],

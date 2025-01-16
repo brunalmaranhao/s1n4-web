@@ -1,10 +1,12 @@
-import { fetchAllProjects } from "@/app/admin/actions";
+import { usePathname } from "next/navigation";
 import ProjectsService from "@/services/models/projects";
 import { Button, CircularProgress, Divider, Spinner } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuthContext } from "@/context/AuthContext";
 import { MdChevronRight } from "react-icons/md";
+import { useCustomerContext } from "@/context/CustomerContext";
+import { handleAxiosError } from "@/services/error";
+import toast from "react-hot-toast";
 
 interface ProjectsOverviewProps {
   selectedClient?: ICustomer | undefined;
@@ -17,19 +19,17 @@ export default function ProjectsOverview({
   const [allProjectsDone, setAllProjectsDone] = useState<IProject[]>([]);
   const [projectsPercentage, setProjectsPercentage] = useState(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { isClientFilterActive } = useCustomerContext();
 
-  const handleFetchAllProjects = async (token: string) => {
-    const { projects } = await fetchAllProjects(token);
-    return projects;
-  };
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (selectedClient) {
+    if (isClientFilterActive && selectedClient) {
       fetchProjectsCustomer(selectedClient.id);
-      return;
+    } else {
+      fetchProjects();
     }
-    fetchProjects();
-  }, [selectedClient]);
+  }, [selectedClient, isClientFilterActive]);
 
   const fetchProjects = async () => {
     setIsLoading(true);
@@ -39,8 +39,8 @@ export default function ProjectsOverview({
       setAllProjectsDone(response.projectsDone);
       calculateProjectsPercentage(response.total, response.projectsDone.length);
     } catch (error) {
-      // const customError = handleAxiosError(error);
-      // toast.error(customError.message);
+      const customError = handleAxiosError(error);
+      toast.error(customError.message);
     } finally {
       setIsLoading(false);
     }
@@ -54,8 +54,8 @@ export default function ProjectsOverview({
       setAllProjectsDone(response.projectsDone);
       calculateProjectsPercentage(response.total, response.projectsDone.length);
     } catch (error) {
-      // const customError = handleAxiosError(error);
-      // toast.error(customError.message);
+      const customError = handleAxiosError(error);
+      toast.error(customError.message);
     } finally {
       setIsLoading(false);
     }
@@ -63,7 +63,7 @@ export default function ProjectsOverview({
 
   const calculateProjectsPercentage = (
     allProjectsLength: number,
-    doneProjects: number
+    doneProjects: number,
   ) => {
     if (allProjectsLength === 0) {
       setProjectsPercentage(0);
@@ -72,10 +72,13 @@ export default function ProjectsOverview({
       setProjectsPercentage(percentage);
     }
   };
-  console.log(allProjectsDone);
 
   return (
-    <div className="flex w-full">
+    <div
+      className={`flex ${
+        pathname === "/admin/dashboard" ? "w-[400px] h-[275px]" : "w-full"
+      }`}
+    >
       {isLoading ? (
         <Spinner />
       ) : (
@@ -94,30 +97,31 @@ export default function ProjectsOverview({
             </div>
             {allProjectsDone.length > 0 ? (
               <div
-              className="mr-3 flex flex-col gap-2 mt-3 h-[200px] overflow-y-auto  [&::-webkit-scrollbar]:w-2
+                className="mr-3 flex flex-col gap-2 mt-3 h-[200px] overflow-y-auto  [&::-webkit-scrollbar]:w-2
   [&::-webkit-scrollbar-track]:bg-gray-100
   [&::-webkit-scrollbar-thumb]:bg-gray-300
   dark:[&::-webkit-scrollbar-track]:bg-neutral-700
   dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 "
-            >
-              {allProjectsDone.map((item) => (
-                <div
-                  key={item.id}
-                  className="text-black dark:text-white flex flex-col  "
-                >
-                  <p className="text-[14px] truncate max-w-[120px]">
-                    {item.name}
-                  </p>
-                  <small className="text-[10px] truncate max-w-[120px]">
-                    {item.customer?.name}
-                  </small>
-                </div>
-              ))}
-            </div>
+              >
+                {allProjectsDone.map((item) => (
+                  <div
+                    key={item.id}
+                    className="text-black dark:text-white flex flex-col  "
+                  >
+                    <p className="text-[14px] truncate max-w-[120px]">
+                      {item.name}
+                    </p>
+                    <small className="text-[10px] truncate max-w-[120px]">
+                      {item.customer?.name}
+                    </small>
+                  </div>
+                ))}
+              </div>
             ) : (
-              <small className="text-black dark:text-white mt-5">Não existem projetos concluídos.</small>
+              <small className="text-black dark:text-white mt-5">
+                Não existem projetos concluídos.
+              </small>
             )}
-            
           </div>
           <div className="flex items-center justify-center">
             <Divider className="" orientation="vertical" />

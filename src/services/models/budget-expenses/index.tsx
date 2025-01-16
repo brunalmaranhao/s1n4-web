@@ -1,5 +1,6 @@
 import { put } from "../../methods/put";
 import { del } from "../../methods/delete";
+import { get } from "@/services/methods/get";
 
 export default async function BudgetExpenseService() {
   async function updateBudgetExpense(
@@ -19,8 +20,18 @@ export default async function BudgetExpenseService() {
     await del<void>(`/budget-expenses/${id}`);
   }
 
+  async function fetchCustomerExpenses(
+    customerId: string,
+  ): Promise<ICustomerBudgetBalance> {
+    const response = await get<ICustomerExpensesResponse>(
+      `/budget-expense/balance/customer/${customerId}`,
+    );
+    return response.data;
+  }
+
   return {
     updateBudgetExpense,
     removeBudgetExpense,
+    fetchCustomerExpenses,
   };
 }

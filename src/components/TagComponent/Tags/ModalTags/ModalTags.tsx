@@ -38,7 +38,7 @@ export default function ModalTags() {
       try {
         const { fetchTagsByCustomer } = await TagsService();
         const response = await fetchTagsByCustomer(
-          selectedProjectEdit.customerId
+          selectedProjectEdit.customerId,
         );
         setTags(response);
       } catch (error) {
@@ -88,7 +88,7 @@ export default function ModalTags() {
           });
 
           toast.success(
-            `Etiqueta ${tag.name} adicionada ao projeto ${selectedProjectEdit.name} com sucesso.`
+            `Etiqueta ${tag.name} adicionada ao projeto ${selectedProjectEdit.name} com sucesso.`,
           );
         }
       } catch (error) {
@@ -105,7 +105,7 @@ export default function ModalTags() {
         handleRemoveTag(tag);
 
         toast.success(
-          `Etiqueta ${tag.name} removida do projeto ${selectedProjectEdit.name} com sucesso.`
+          `Etiqueta ${tag.name} removida do projeto ${selectedProjectEdit.name} com sucesso.`,
         );
       }
     } catch (error) {

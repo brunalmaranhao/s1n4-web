@@ -258,12 +258,11 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     isOpenModalRemoveListProject,
     onOpenModalRemoveListProject,
     onOpenChangeModalRemoveListProject,
-   isOpenModalProjectDetails,
-   onCloseModalProjectDetails,
-   onOpenModalProjectDetails,
-   listProjectName,
-   setListProjectName
-
+    isOpenModalProjectDetails,
+    onCloseModalProjectDetails,
+    onOpenModalProjectDetails,
+    listProjectName,
+    setListProjectName
   };
 
   return (

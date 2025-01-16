@@ -25,7 +25,7 @@ export default function RootLayout({
         <Providers>{children}</Providers>
         <Toaster
           position="bottom-center"
-          containerStyle={{zIndex: 9999999999}}
+          containerStyle={{ zIndex: 9999999999 }}
         />
       </body>
     </html>

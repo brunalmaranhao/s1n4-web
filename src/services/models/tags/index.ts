@@ -6,7 +6,7 @@ import { del } from "@/services/methods/delete";
 export default async function TagsService() {
   async function fetchTagsByCustomer(customerId: string): Promise<ITag[]> {
     const response = await get<{ tags: ITag[] }>(
-      `/tags/customer/${customerId}`
+      `/tags/customer/${customerId}`,
     );
     return response.tags;
   }
@@ -14,7 +14,7 @@ export default async function TagsService() {
   async function createTag(
     name: string,
     customerId: string,
-    color: string
+    color: string,
   ): Promise<string> {
     const projectData = {
       name,
@@ -23,8 +23,8 @@ export default async function TagsService() {
     };
     const payload = JSON.stringify(
       Object.fromEntries(
-        Object.entries(projectData).filter(([_, value]) => value)
-      )
+        Object.entries(projectData).filter(([_, value]) => value),
+      ),
     );
     const response = await post<{ tagId: string }, string>(`/tag`, payload);
     return response.tagId;
@@ -32,7 +32,7 @@ export default async function TagsService() {
 
   async function addTagToProject(
     projectId: string,
-    tagId: string
+    tagId: string,
   ): Promise<void> {
     const projectData = {
       projectId,
@@ -40,15 +40,15 @@ export default async function TagsService() {
     };
     const payload = JSON.stringify(
       Object.fromEntries(
-        Object.entries(projectData).filter(([_, value]) => value)
-      )
+        Object.entries(projectData).filter(([_, value]) => value),
+      ),
     );
     const response = await post(`/project/tag/add`, payload);
   }
 
   async function removeTagToProject(
     projectId: string,
-    tagId: string
+    tagId: string,
   ): Promise<void> {
     const projectData = {
       projectId,
@@ -56,15 +56,15 @@ export default async function TagsService() {
     };
     const payload = JSON.stringify(
       Object.fromEntries(
-        Object.entries(projectData).filter(([_, value]) => value)
-      )
+        Object.entries(projectData).filter(([_, value]) => value),
+      ),
     );
     const response = await post(`/project/tag/remove`, payload);
   }
 
   async function searchTag(customerId: string, name: string): Promise<ITag[]> {
     const response = await get<{ tags: ITag[] }>(
-      `/tags/search/customer/${customerId}/name/${name}`
+      `/tags/search/customer/${customerId}/name/${name}`,
     );
     return response.tags;
   }
@@ -72,7 +72,7 @@ export default async function TagsService() {
   async function update(
     id: string,
     name: string,
-    color: string
+    color: string,
   ): Promise<void> {
     const payload = JSON.stringify({
       name,
@@ -92,6 +92,6 @@ export default async function TagsService() {
     fetchTagsByCustomer,
     addTagToProject,
     removeTagToProject,
-    searchTag
+    searchTag,
   };
 }

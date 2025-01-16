@@ -34,7 +34,7 @@ export default function ModalEditTag() {
   useEffect(() => {
     if (selectedTag) {
       setSelectedColor(selectedTag.color);
-      setValue("title", selectedTag.name)
+      setValue("title", selectedTag.name);
     }
   }, [selectedTag]);
 
@@ -54,7 +54,7 @@ export default function ModalEditTag() {
           name: data.title,
           color: selectedColor,
         });
-        handleSelectedVisibleModal("tags")
+        handleSelectedVisibleModal("tags");
         toast.success("Etiqueta atualizada com sucesso.");
       }
     } catch (error) {
@@ -85,9 +85,9 @@ export default function ModalEditTag() {
         />
         <label>Selecionar uma cor</label>
         <div className="flex gap-2 flex-wrap">
-          {colors.map((color) => (
+          {colors.map((color, index) => (
             <div
-            key={color}
+              key={color}
               style={{ backgroundColor: color }}
               className={`w-[49px] h-[46px] rounded-lg cursor-pointer ${
                 color === selectedColor &&

@@ -7,7 +7,7 @@ type TagContextType = {
   handleSelectedTag: (tag: ITag | undefined) => void;
   visibleModal: "create" | "edit" | "remove" | "tags";
   handleSelectedVisibleModal: (
-    value: "create" | "edit" | "remove" | "tags"
+    value: "create" | "edit" | "remove" | "tags",
   ) => void;
   tagsCreated: ITag[];
   tags: ITag[];
@@ -15,8 +15,8 @@ type TagContextType = {
   handleSetTagsCreated: (data: ITag) => void;
   handleCleanTagsCreated: () => void;
   handleUpdateTag: (data: { id: string; name: string; color: string }) => void;
-  handleRemoveTag: (tag: ITag) => void
-  handleCleanTagsProject: () => void
+  handleRemoveTag: (tag: ITag) => void;
+  handleCleanTagsProject: () => void;
 };
 
 const TagContext = createContext<TagContextType | undefined>(undefined);
@@ -36,14 +36,14 @@ export const TagProvider: React.FC<{ children: ReactNode }> = ({
     setSelectedTag(tag);
   }
 
-  function handleRemoveTag(tag: ITag){
-    const tagsFiltered = tags.filter((item) => item.id !== tag.id)
-    setTags(tagsFiltered)
+  function handleRemoveTag(tag: ITag) {
+    const tagsFiltered = tags.filter((item) => item.id !== tag.id);
+    setTags(tagsFiltered);
   }
 
   function handleSetTagsCreated(data: ITag) {
-    const existTag = tags.find((item) => item.id === data.id)
-    if(existTag) return
+    const existTag = tags.find((item) => item.id === data.id);
+    if (existTag) return;
     setTagsCreated((prevState) => [
       ...prevState,
       {
@@ -55,8 +55,7 @@ export const TagProvider: React.FC<{ children: ReactNode }> = ({
         status: data.status,
       },
     ]);
-    
-    
+
     setTags((prevState) => [...prevState, data]);
   }
 
@@ -74,7 +73,7 @@ export const TagProvider: React.FC<{ children: ReactNode }> = ({
   }
 
   function handleSelectedVisibleModal(
-    value: "create" | "edit" | "remove" | "tags"
+    value: "create" | "edit" | "remove" | "tags",
   ) {
     setVisibleModal(value);
   }
@@ -98,7 +97,7 @@ export const TagProvider: React.FC<{ children: ReactNode }> = ({
     handleUpdateTag,
     tags,
     handleRemoveTag,
-    handleCleanTagsProject
+    handleCleanTagsProject,
   };
 
   return (

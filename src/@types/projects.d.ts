@@ -27,11 +27,11 @@ declare interface IProject {
   updatedAt: Date | null | undefined;
   customer: ICustomer;
   budget: number;
-  description: string,
+  description: string;
   updatedListProjectAt: Date;
   shouldShowInformationsToCustomerUser: boolean;
-  tags: ITag[]
-  listProjects: IListProject
+  tags: ITag[];
+  listProjects: IListProject;
 }
 
 declare interface IProjectsForStatistics {
@@ -88,7 +88,7 @@ declare interface INewProject {
   deadline?: Date;
   budget: number;
   shouldShowInformationsToCustomerUser: boolean;
-  description: string
+  description: string;
 }
 
 declare interface INewProjectUpdate {

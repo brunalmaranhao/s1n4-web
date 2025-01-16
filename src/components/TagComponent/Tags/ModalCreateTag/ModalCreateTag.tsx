@@ -27,7 +27,6 @@ export default function ModalCreateTag() {
     selectedProjectEdit,
     fetchListProjectByCustomer,
     selectedCustomerFilter,
-    
   } = useProjectContext();
 
   const [selectedColor, setSelectedColor] = useState<string | undefined>();
@@ -50,7 +49,7 @@ export default function ModalCreateTag() {
         const response = await createTag(
           data.title,
           selectedProjectEdit?.customerId,
-          selectedColor
+          selectedColor,
         );
         await addTagToProject(selectedProjectEdit.id, response);
         handleSelectedVisibleModal("tags");
@@ -101,9 +100,9 @@ export default function ModalCreateTag() {
           Selecionar uma cor
         </label>
         <div className="flex gap-2 flex-wrap">
-          {colors.map((color) => (
+          {colors.map((color, index) => (
             <div
-            key={color}
+              key={color}
               style={{ backgroundColor: color }}
               className={`w-[49px] h-[46px] rounded-lg cursor-pointer ${
                 color === selectedColor &&
@@ -122,7 +121,6 @@ export default function ModalCreateTag() {
         <Divider />
         <Button type="submit" className="text-white bg-[#F57B00] w-full">
           {!loading ? "Criar" : <Spinner size={"sm"} color={"white"} />}
-         
         </Button>
       </form>
     </div>

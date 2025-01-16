@@ -1,13 +1,6 @@
 "use client";
-import React, {
-  createContext,
-  useContext,
-  ReactNode,
-  useState,
-  useEffect,
-} from "react";
+import React, { createContext, useContext, ReactNode, useState } from "react";
 import { useDisclosure } from "@nextui-org/react";
-import CustomersService from "@/services/models/projects";
 import CustomerService from "@/services/models/customer";
 import toast from "react-hot-toast";
 import { handleAxiosError } from "@/services/error";
@@ -41,6 +34,31 @@ type CustomerContextType = {
   selectedCustomerCreateCustomerUpdate?: ICustomer;
   setSelectedCustomerCreateCustomerUpdate: React.Dispatch<
     React.SetStateAction<ICustomer | undefined>
+  >;
+  selectedCustomerName?: string;
+  setSelectedCustomerName: React.Dispatch<React.SetStateAction<string>>;
+
+  firstCustomerNameLoaded?: string;
+  setFirstCustomerNameLoaded: React.Dispatch<React.SetStateAction<string>>;
+
+  selectedCustomer?: ICustomer;
+  setSelectedCustomer: React.Dispatch<
+    React.SetStateAction<ICustomer | undefined>
+  >;
+
+  isClientFilterActive: boolean;
+  setIsClientFilterActive: React.Dispatch<React.SetStateAction<boolean>>;
+
+  isClientSelected: boolean;
+  setIsClientSelected: React.Dispatch<React.SetStateAction<boolean>>;
+
+  shouldShowFirstCustomer: boolean;
+  setShouldShowFirstCustomer: React.Dispatch<React.SetStateAction<boolean>>;
+
+  customerBudgetBalance: ICustomerBudgetBalance | undefined;
+
+  setCustomerBudgetBalance: React.Dispatch<
+    React.SetStateAction<ICustomerBudgetBalance | undefined>
   >;
 
   setPage: React.Dispatch<React.SetStateAction<number>>;
@@ -97,11 +115,29 @@ export const CustomerProvider: React.FC<{ children: ReactNode }> = ({
   const [selectedCustomerRemove, setSelectedCustomerRemove] = useState<
     ICustomer | undefined
   >();
+  const [isClientSelected, setIsClientSelected] = useState<boolean>(false);
+
+  const [customerBudgetBalance, setCustomerBudgetBalance] = useState<
+    ICustomerBudgetBalance | undefined
+  >();
 
   const [
     selectedCustomerCreateCustomerUpdate,
     setSelectedCustomerCreateCustomerUpdate,
   ] = useState<ICustomer | undefined>();
+
+  const [selectedCustomerName, setSelectedCustomerName] = useState<string>("");
+  const [firstCustomerNameLoaded, setFirstCustomerNameLoaded] =
+    useState<string>("");
+
+  const [selectedCustomer, setSelectedCustomer] = useState<
+    ICustomer | undefined
+  >();
+
+  const [shouldShowFirstCustomer, setShouldShowFirstCustomer] =
+    useState<boolean>(false);
+
+  const [isClientFilterActive, setIsClientFilterActive] = useState(false);
 
   async function fetchCustomers(pageNumber: number) {
     setLoading(true);
@@ -146,6 +182,20 @@ export const CustomerProvider: React.FC<{ children: ReactNode }> = ({
     isOpenModalAddResponsible,
     onOpenModalAddResponsible,
     onOpenChangeModalAddResponsible,
+    selectedCustomerName,
+    setSelectedCustomerName,
+    firstCustomerNameLoaded,
+    setFirstCustomerNameLoaded,
+    selectedCustomer,
+    setSelectedCustomer,
+    shouldShowFirstCustomer,
+    setShouldShowFirstCustomer,
+    isClientSelected,
+    setIsClientSelected,
+    isClientFilterActive,
+    setIsClientFilterActive,
+    customerBudgetBalance,
+    setCustomerBudgetBalance,
   };
 
   return (

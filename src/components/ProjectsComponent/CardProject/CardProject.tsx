@@ -22,8 +22,6 @@ export default function CardProject({
     onOpenModalProjectDetails();
   }
 
-
-
   return (
     <div
       key={project.id}
