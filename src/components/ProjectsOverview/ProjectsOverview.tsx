@@ -1,12 +1,12 @@
-import { fetchAllProjects } from "@/app/admin/actions";
 import { usePathname } from "next/navigation";
-import { parseCookies } from "nookies";
 import ProjectsService from "@/services/models/projects";
 import { Button, CircularProgress, Divider, Spinner } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuthContext } from "@/context/AuthContext";
 import { MdChevronRight } from "react-icons/md";
+import { useCustomerContext } from "@/context/CustomerContext";
+import { handleAxiosError } from "@/services/error";
+import toast from "react-hot-toast";
 
 interface ProjectsOverviewProps {
   selectedClient?: ICustomer | undefined;
@@ -19,21 +19,17 @@ export default function ProjectsOverview({
   const [allProjectsDone, setAllProjectsDone] = useState<IProject[]>([]);
   const [projectsPercentage, setProjectsPercentage] = useState(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const handleFetchAllProjects = async (token: string) => {
-    const { projects } = await fetchAllProjects(token);
-    return projects;
-  };
+  const { isClientFilterActive } = useCustomerContext();
 
   const pathname = usePathname();
 
   useEffect(() => {
-    if (selectedClient) {
+    if (isClientFilterActive && selectedClient) {
       fetchProjectsCustomer(selectedClient.id);
-      return;
+    } else {
+      fetchProjects();
     }
-    fetchProjects();
-  }, [selectedClient]);
+  }, [selectedClient, isClientFilterActive]);
 
   const fetchProjects = async () => {
     setIsLoading(true);
@@ -43,8 +39,8 @@ export default function ProjectsOverview({
       setAllProjectsDone(response.projectsDone);
       calculateProjectsPercentage(response.total, response.projectsDone.length);
     } catch (error) {
-      // const customError = handleAxiosError(error);
-      // toast.error(customError.message);
+      const customError = handleAxiosError(error);
+      toast.error(customError.message);
     } finally {
       setIsLoading(false);
     }
@@ -58,8 +54,8 @@ export default function ProjectsOverview({
       setAllProjectsDone(response.projectsDone);
       calculateProjectsPercentage(response.total, response.projectsDone.length);
     } catch (error) {
-      // const customError = handleAxiosError(error);
-      // toast.error(customError.message);
+      const customError = handleAxiosError(error);
+      toast.error(customError.message);
     } finally {
       setIsLoading(false);
     }
@@ -76,12 +72,11 @@ export default function ProjectsOverview({
       setProjectsPercentage(percentage);
     }
   };
-  console.log(allProjectsDone);
 
   return (
     <div
       className={`flex ${
-        pathname === "/admin/dashboard" ? "w-[400px] h-[230px]" : "w-full"
+        pathname === "/admin/dashboard" ? "w-[400px] h-[275px]" : "w-full"
       }`}
     >
       {isLoading ? (

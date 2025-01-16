@@ -4,16 +4,15 @@ import {
   Button,
   DropdownMenu,
   DropdownItem,
-  DatePicker,
   Tooltip,
 } from "@nextui-org/react";
 import { SlArrowDown } from "react-icons/sl";
-import { GoArrowRight } from "react-icons/go";
 import { findAllCustomers } from "@/app/admin/dashboard/actions";
 import React, { useEffect, useState } from "react";
 import { parseCookies } from "nookies";
 import { fetchAllProjects } from "@/app/admin/actions";
 import { SlEqualizer } from "react-icons/sl";
+import { useCustomerContext } from "@/context/CustomerContext";
 
 interface IFilterCustomersAndProjectsProps {
   onClientSelect: (client: ICustomer | undefined) => void;
@@ -26,16 +25,19 @@ export default function FilterCustomersAndProjects({
 
   const [clientList, setClientList] = useState<ICustomer[]>([]);
   const [filteredClient, setFilteredClient] = useState<string>("");
+  const { setCustomerBudgetBalance } = useCustomerContext();
 
   const handleClientList = async (token: string) => {
     const { customers } = await findAllCustomers(token);
     return customers;
   };
 
-  const handleProjectsList = async (token: string) => {
-    const { projects } = await fetchAllProjects(token);
-    return projects;
-  };
+  const {
+    setSelectedCustomerName,
+    setShouldShowFirstCustomer,
+    setIsClientSelected,
+    setIsClientFilterActive,
+  } = useCustomerContext();
 
   const handleClientFilter = (
     event: React.MouseEvent<HTMLLIElement, MouseEvent>,
@@ -44,11 +46,25 @@ export default function FilterCustomersAndProjects({
     const clientName = event.currentTarget.innerText;
     setFilteredClient(clientName);
     onClientSelect(client);
+    setSelectedCustomerName(clientName);
+    setShouldShowFirstCustomer(true);
+    setIsClientSelected(true);
+    setIsClientFilterActive(true);
   };
 
-  const handleClearFilter = () => {
+  const handleClearFilter = async () => {
     setFilteredClient("");
     onClientSelect(undefined);
+    setSelectedCustomerName("");
+    setShouldShowFirstCustomer(false);
+    setIsClientSelected(false);
+    setIsClientFilterActive(false);
+    const customersList = await handleClientList(sessionKey);
+    const firstActiveCustomer = customersList?.[0];
+    if (firstActiveCustomer) {
+      onClientSelect(firstActiveCustomer);
+      setSelectedCustomerName(firstActiveCustomer.corporateName || "");
+    }
   };
 
   useEffect(() => {

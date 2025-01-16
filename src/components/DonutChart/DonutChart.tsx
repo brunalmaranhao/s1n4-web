@@ -231,7 +231,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>(
     return (
       <div
         ref={forwardedRef}
-        className={cx("h-40 w-40", className)}
+        className={cx("h-48 w-48", className)}
         tremor-id="tremor-raw"
         {...other}
       >
@@ -274,7 +274,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>(
               strokeLinejoin="round"
               dataKey={value}
               nameKey={category}
-              isAnimationActive={false}
+              isAnimationActive={true}
               onClick={handleShapeClick}
               activeIndex={activeIndex}
               inactiveShape={renderInactiveShape}
@@ -283,7 +283,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>(
             {showTooltip && (
               <Tooltip
                 wrapperStyle={{ outline: "none" }}
-                isAnimationActive={false}
+                isAnimationActive={true}
                 content={({ active, payload }) => {
                   const cleanPayload = payload
                     ? payload.map((item: any) => ({

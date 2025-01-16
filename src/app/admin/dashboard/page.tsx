@@ -7,7 +7,7 @@ import ProjectsOverview from "@/components/ProjectsOverview/ProjectsOverview";
 import TabsAndFilters from "@/components/TabsAndFilters/TabsAndFilters";
 import Notification from "@/components/Notification/Notification";
 
-import { Key, useState } from "react";
+import { Key, useEffect, useState } from "react";
 import FilterReportsByCustomer from "@/components/FilterReportsByCustomer/FilterReportsByCustomer";
 import { useTheme } from "next-themes";
 import { Button, Switch, Tooltip } from "@nextui-org/react";
@@ -15,8 +15,10 @@ import { SunIcon } from "@/components/SunIcon/SunIcon";
 import { MoonIcon } from "@/components/MoonIcon/MoonIcon";
 import { GrAdd } from "react-icons/gr";
 import { useReportContext } from "@/context/ReportContext";
-
-import { CustomersBudgetDonutChart } from "@/components/CustomersBudgetDonutChart/CustomersBudgetDonutChart";
+import DashboardBudgetChart from "@/components/DashboardBudgetChart/DashboardBudgetChart";
+import { useCustomerContext } from "@/context/CustomerContext";
+import CustomerService from "@/services/models/customer";
+import toast from "react-hot-toast";
 
 const ReportTabContent = dynamic(
   () => import("@/components/ReportTabContent/ReportTabContent"),
@@ -31,11 +33,9 @@ const ModalCreatePeriodicReport = dynamic(
 
 export default function Dashboard() {
   const [selectedTab, setSelectedTab] = useState<Key>("");
-  const [selectedClient, setSelectedClient] = useState<ICustomer | undefined>(
-    undefined,
-  );
 
   const { onOpenModalCreatePeriodicReport } = useReportContext();
+  const { setSelectedCustomer, selectedCustomer } = useCustomerContext();
 
   const { theme, setTheme } = useTheme();
 
@@ -44,8 +44,23 @@ export default function Dashboard() {
   };
 
   const handleSelectedClient = (client: ICustomer | undefined) => {
-    setSelectedClient(client);
+    setSelectedCustomer(client);
+    console.log(client);
   };
+
+  const getFirstCustomerId = async () => {
+    try {
+      const { findAllActives } = await CustomerService();
+      const { customers } = await findAllActives();
+      setSelectedCustomer(customers[0]);
+    } catch (error) {
+      toast.error(error as string);
+    }
+  };
+
+  useEffect(() => {
+    getFirstCustomerId();
+  }, []);
 
   return (
     <div className="bg-[#F2F4F8] dark:bg-[#000] flex text-black w-full">
@@ -93,9 +108,9 @@ export default function Dashboard() {
           <div className="flex flex-col w-[50%]">
             {selectedTab === "overview" && (
               <div className="h-full ">
-                <OverviewTabContent selectedClient={selectedClient} />
+                <OverviewTabContent selectedClient={selectedCustomer} />
                 <div className=" h-full mt-6 flex">
-                  <ProjectsOverview selectedClient={selectedClient} />
+                  <ProjectsOverview selectedClient={selectedCustomer} />
                 </div>
               </div>
             )}
@@ -107,41 +122,7 @@ export default function Dashboard() {
           </div>
           <div className="w-[50%]">
             {selectedTab === "overview" && (
-              <div className="bg-white flex justify-start items-center dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] h-[200px]">
-                <CustomersBudgetDonutChart />
-                <div className=" mr-10">
-                  <div className="flex justify-center items-center">
-                    <div className="w-[10px] h-[10px] rounded-full space-x-4 bg-yellow-400" />
-                    <h1>Cliente</h1>
-                    <h1>(budget mensal)</h1>
-                    <h1>(percentual do budget disponivel)</h1>
-                  </div>
-                  <div className="flex justify-center items-center">
-                    <div className="w-[10px] h-[10px] rounded-full space-x-4 bg-yellow-400" />
-                    <h1>Cliente</h1>
-                    <h1>(budget mensal)</h1>
-                    <h1>(percentual do budget disponivel)</h1>
-                  </div>
-                  <div className="flex justify-center items-center">
-                    <div className="w-[10px] h-[10px] rounded-full space-x-4 bg-yellow-400" />
-                    <h1>Cliente</h1>
-                    <h1>(budget mensal)</h1>
-                    <h1>(percentual do budget disponivel)</h1>
-                  </div>
-                  <div className="flex justify-center items-center">
-                    <div className="w-[10px] h-[10px] rounded-full space-x-4 bg-yellow-400" />
-                    <h1>Cliente</h1>
-                    <h1>(budget mensal)</h1>
-                    <h1>(percentual do budget disponivel)</h1>
-                  </div>
-                  <div className="flex justify-center items-center">
-                    <div className="w-[10px] h-[10px] rounded-full space-x-4 bg-yellow-400" />
-                    <h1>Cliente</h1>
-                    <h1>(budget mensal)</h1>
-                    <h1>(percentual do budget disponivel)</h1>
-                  </div>
-                </div>
-              </div>
+              <DashboardBudgetChart customerId={selectedCustomer?.id || ""} />
             )}
           </div>
         </div>
