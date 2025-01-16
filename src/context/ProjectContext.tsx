@@ -68,14 +68,18 @@ type ProjectContextType = {
   fetchListProjectByUser: () => Promise<void>;
   listProjects: IListProject[];
   setListProjects: React.Dispatch<React.SetStateAction<IListProject[]>>;
-  listProjectName?: string
-  setListProjectName: React.Dispatch<
-  React.SetStateAction<string | undefined>
->;
+  listProjectName?: string;
+  setListProjectName: React.Dispatch<React.SetStateAction<string | undefined>>;
   selectedListProjectAddProject?: string;
   setSelectedListProjectAddProject: React.Dispatch<
     React.SetStateAction<string | undefined>
   >;
+
+  fetchListProjectByCustomerAndDate: (
+    customerId: string,
+    startDate: string,
+    endDate: string
+  ) => void;
 };
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
@@ -144,7 +148,7 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     setSelectedProjectCreateProjectUpdate,
   ] = useState<IProject | undefined>();
 
-  const [listProjectName, setListProjectName] = useState<string>()
+  const [listProjectName, setListProjectName] = useState<string>();
 
   // async function fetchAllProjects() {
   //   try {
@@ -166,6 +170,24 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     try {
       const { fetchListProjectByCustomer } = await ListProjectsService();
       const response = await fetchListProjectByCustomer(customerId);
+      setListProjects(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function fetchListProjectByCustomerAndDate(
+    customerId: string,
+    startDate: string,
+    endDate: string
+  ) {
+    try {
+      const { fetchListProjectByCustomerAndDate } = await ListProjectsService();
+      const response = await fetchListProjectByCustomerAndDate(
+        customerId,
+        startDate,
+        endDate
+      );
       setListProjects(response);
     } catch (error) {
       console.log(error);
@@ -262,7 +284,8 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
     onCloseModalProjectDetails,
     onOpenModalProjectDetails,
     listProjectName,
-    setListProjectName
+    setListProjectName,
+    fetchListProjectByCustomerAndDate,
   };
 
   return (
@@ -276,7 +299,7 @@ export const useProjectContext = () => {
   const context = useContext(ProjectContext);
   if (!context) {
     throw new Error(
-      "useProjectContext deve ser usado dentro de um ProjectProvider",
+      "useProjectContext deve ser usado dentro de um ProjectProvider"
     );
   }
   return context;

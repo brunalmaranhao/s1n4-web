@@ -85,7 +85,8 @@ declare interface INewListProject {
 
 declare interface INewProject {
   name: string;
-  deadline?: Date;
+  start: Date;
+  deadline: Date;
   budget: number;
   shouldShowInformationsToCustomerUser: boolean;
   description: string;

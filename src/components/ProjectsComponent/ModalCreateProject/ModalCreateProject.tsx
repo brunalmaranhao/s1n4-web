@@ -61,6 +61,7 @@ export default function ModalCreateProject() {
           data.shouldShowInformationsToCustomerUser,
           data.description,
           data.deadline,
+          data.start
         );
         handleOnClose();
         reset();
@@ -143,6 +144,18 @@ export default function ModalCreateProject() {
                   )}
                 </div>
               )}
+            />
+
+            <Input
+              size="sm"
+              type="date"
+              label="Início"
+              className="text-black dark:text-white"
+              placeholder="DD/MM/YYYY"
+              errorMessage={errors.start?.message}
+              isInvalid={!!errors.start?.message}
+              {...register("start")}
+              variant="bordered"
             />
 
             <Input
