@@ -64,7 +64,7 @@ const ProcessingScreen = () => {
         const { createCustomer } = await CustomerService();
         const response = await createCustomer(
           newCustomer.name,
-          newCustomer.corporateName,
+          newCustomer.name,
           newCustomer.cnpj,
           newCustomer.contractDuration,
           newCustomer.contractValue,

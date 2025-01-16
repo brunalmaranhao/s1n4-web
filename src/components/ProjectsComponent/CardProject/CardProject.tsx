@@ -1,9 +1,8 @@
 import { MdVisibilityOff } from "react-icons/md";
 import ActionsCardProject from "./ActionsCardProject/ActionsCardProject";
-import { formatDistanceToNow } from "date-fns";
-import { ptBR } from "date-fns/locale";
 import { useProjectContext } from "@/context/ProjectContext";
 import { Tooltip } from "@nextui-org/react";
+import { formatTimeAgo } from "@/util/fomat-time-ago";
 
 type CardProjectProps = {
   handleDragStart: (project: IProject) => void;
@@ -14,16 +13,9 @@ export default function CardProject({
   handleDragStart,
   project,
 }: CardProjectProps) {
+  
   const { setSelectedProjectEdit, onOpenModalProjectDetails } =
     useProjectContext();
-  console.log(project);
-
-  function formatTimeAgo(date: Date): string {
-    return formatDistanceToNow(date, {
-      addSuffix: true,
-      locale: ptBR,
-    });
-  }
 
   function handleOpenModalDetails() {
     setSelectedProjectEdit(project);
@@ -55,7 +47,7 @@ export default function CardProject({
             ))}
           </div>
           <p className="text-xs text-[#000] dark:text-white">
-            {project.customer.corporateName}
+            {project.customer.name}
           </p>
         </div>
         <ActionsCardProject project={project} />

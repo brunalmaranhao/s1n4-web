@@ -16,6 +16,7 @@ type AuthContextType = {
   handleSignOut: () => void;
   isAuthenticated?: boolean;
   setIsAuthenticaded: React.Dispatch<React.SetStateAction<boolean>>;
+  loggedUser?: { id: string; role: string };
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -24,6 +25,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const { push, replace } = useRouter();
+  const [loggedUser, setLoggedUser] = useState<
+    { id: string; role: string } | undefined
+  >();
 
   const [isAuthenticated, setIsAuthenticaded] = useState(false);
   const { "sina:x-token": sessionKey } = parseCookies();
@@ -32,10 +36,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   useEffect(() => {
     if (sessionKey) {
       setIsAuthenticaded(true);
+      if (decoded?.sub && decoded.role)
+        setLoggedUser({
+          id: decoded?.sub,
+          role: decoded.role,
+        });
     } else {
       setIsAuthenticaded(false);
     }
-  }, [sessionKey, decoded]);
+  }, [sessionKey]);
 
   function handleAuthWithToken(acessToken: string) {
     setCookie(undefined, "sina:x-token", acessToken, {
@@ -64,6 +73,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     handleSignOut,
     isAuthenticated,
     setIsAuthenticaded,
+    loggedUser
   };
 
   return (

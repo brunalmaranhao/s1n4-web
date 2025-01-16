@@ -12,13 +12,15 @@ import {
   ModalContent,
   ModalHeader,
 } from "@nextui-org/react";
-import { IoChevronDownSharp, IoChevronUpSharp } from "react-icons/io5";
+import { useEffect, useState } from "react";
+import { IoChevronDownSharp } from "react-icons/io5";
 import {
   MdAttachMoney,
   MdOutlineTableChart,
   MdSpeakerNotes,
   MdSubject,
 } from "react-icons/md";
+import ProjectUpdateComponentCustomer from "../ProjectUpdateComponent/ProjectUpdateComponent";
 
 export default function ModalProjectDetails() {
   const {
@@ -71,7 +73,13 @@ export default function ModalProjectDetails() {
                 </div>
               </div>
             </ModalHeader>
-            <ModalBody className="flex flex-col gap-2 text-black dark:text-white">
+            <ModalBody
+              className="flex flex-col gap-2 text-black dark:text-white [&::-webkit-scrollbar]:w-2
+[&::-webkit-scrollbar-track]:bg-gray-100
+[&::-webkit-scrollbar-thumb]:bg-gray-300
+dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
+            >
               <Divider />
               <TagComponent isCustomerUser={true} />
               <Divider />
@@ -87,30 +95,39 @@ export default function ModalProjectDetails() {
               </div>
 
               <Divider />
-              {selectedProjectEdit?.description && (
-                <div
-                  className="flex pr-5 flex-col max-h-[250px] overflow-y-auto [&::-webkit-scrollbar]:w-2
+
+              <div
+                className={`flex pr-5 flex-col ${
+                  selectedProjectEdit?.description
+                    ? "min-h-[100px] max-h-[250px] h-full"
+                    : "h-[100px]"
+                }  overflow-y-auto [&::-webkit-scrollbar]:w-2
 [&::-webkit-scrollbar-track]:bg-gray-100
 [&::-webkit-scrollbar-thumb]:bg-gray-300
 dark:[&::-webkit-scrollbar-track]:bg-neutral-700
-dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 "
-                >
-                  <div className="flex gap-1 items-center">
-                    <MdSubject className="text-[#F57B00] text-[24px]" />
-                    <h2 className="text-[24px] font-bold">Descrição</h2>
-                  </div>
+dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 `}
+              >
+                <div className="flex gap-1 items-center">
+                  <MdSubject className="text-[#F57B00] text-[24px]" />
+                  <h2 className="text-[24px] font-bold">Descrição</h2>
+                </div>
+                {selectedProjectEdit?.description && (
                   <div className="ml-7 mt-2">
                     <RichTextViewer
                       content={selectedProjectEdit?.description}
                     />
                   </div>
-                </div>
-              )}
+                )}
+              </div>
+
               <Divider />
               <div className="flex flex-col">
                 <div className="flex gap-1 items-center">
                   <MdSpeakerNotes className="text-[#F57B00] text-[24px]" />
                   <h2 className="text-[24px] font-bold">Atividades</h2>
+                </div>
+                <div className="flex-col ml-7 mt-3">
+                  <ProjectUpdateComponentCustomer />
                 </div>
               </div>
             </ModalBody>

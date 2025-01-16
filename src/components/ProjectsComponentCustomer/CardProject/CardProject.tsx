@@ -38,7 +38,6 @@ export default function CardProject({ project }: CardProjectProps) {
               className="text-black dark:text-white"
             >
               <div
-                key={tag.id}
                 className="w-[40px] h-[8px] rounded-lg text-black dark:text-white"
                 style={{ backgroundColor: tag.color }}
               ></div>
@@ -46,7 +45,7 @@ export default function CardProject({ project }: CardProjectProps) {
           ))}
         </div>
         <p className="text-xs text-[#000] dark:text-white">
-          {project.customer.corporateName}
+          {project.customer.name}
         </p>
       </div>
 
