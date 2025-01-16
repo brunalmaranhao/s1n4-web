@@ -61,6 +61,17 @@ export default async function ListProjectsService() {
     return response.listProjects;
   }
 
+  async function fetchListProjectByCustomerAndDate(
+    customerId: string,
+    startDate: string,
+    endDate: string
+  ): Promise<IListProject[]> {
+    const response = await get<{ listProjects: IListProject[] }>(
+      `/list-project/customer/${customerId}/startDate/${startDate}/endDate/${endDate}`,
+    );
+    return response.listProjects;
+  }
+
   async function fetchListProjectByUser(): Promise<IListProject[]> {
     const response = await get<{ listProjects: IListProject[] }>(
       `/list-project`,
@@ -76,5 +87,6 @@ export default async function ListProjectsService() {
     remove,
     fetchListProjectByUser,
     updateOrder,
+    fetchListProjectByCustomerAndDate
   };
 }

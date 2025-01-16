@@ -65,7 +65,7 @@ export default function HeaderManagement() {
           </div>
         )}
         {label === "Projetos" && pathsWithTab.includes(pathname) && (
-          <div className="flex flex-row gap-3 items-center flex-wrap">
+          <div className="flex flex-row gap-3 items-center">
             <h1 className="text-nowrap font-medium text-black dark:text-white">
               Filtrar por
             </h1>

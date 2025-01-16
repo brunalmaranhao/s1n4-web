@@ -154,7 +154,7 @@ export default function FilterBudgetExpenseByCustomerOrProject() {
         </Dropdown>
       )}
 
-      {(filteredCustomerId || filteredCustomerId) && (
+      {(filteredCustomerId) && (
         <Button
           onClick={clearFilters}
           className="bg-red-500 text-white ml-2 flex items-center"

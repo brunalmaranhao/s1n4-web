@@ -66,7 +66,8 @@ export default async function ProjectsService() {
     listProjectsId: string,
     shouldShowInformationsToCustomerUser: boolean,
     description: string,
-    deadline?: Date
+    deadline: Date,
+    start: Date
   ): Promise<string> {
     const projectData = {
       name,
@@ -76,6 +77,7 @@ export default async function ProjectsService() {
       listProjectsId,
       shouldShowInformationsToCustomerUser,
       description,
+      start
     };
     const payload = JSON.stringify(
       Object.fromEntries(
@@ -131,6 +133,17 @@ export default async function ProjectsService() {
   ): Promise<IProject[]> {
     const response = await get<{ projects: IProject[] }>(
       `/customer/${customerId}/projects`
+    );
+    return response.projects;
+  }
+
+  async function fetchProjectsByCustomerAndDate(
+    customerId: string,
+    startDate: string,
+    endDate: string
+  ): Promise<IProject[]> {
+    const response = await get<{ projects: IProject[] }>(
+      `/projects/customer/${customerId}/startDate/${startDate}/endDate/${endDate}`
     );
     return response.projects;
   }

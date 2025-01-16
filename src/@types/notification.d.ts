@@ -4,4 +4,5 @@ declare interface INotification {
   content: string;
   readAt?: Date | null;
   createdAt: Date;
+  projectUpdates: IProjectUpdates
 }
