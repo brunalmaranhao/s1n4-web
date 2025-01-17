@@ -30,7 +30,7 @@ export default function FilterProjectsByCustomer() {
   const selectedValue = useMemo(() => {
     if (selectedCustomerFilter) {
       const selectedCustomer = customers.find(
-        (item) => item.id === selectedCustomerFilter
+        (item) => item.id === selectedCustomerFilter,
       );
       return selectedCustomer?.name || "Cliente";
     }
@@ -44,10 +44,9 @@ export default function FilterProjectsByCustomer() {
   }, [customers, fetchCustomer]);
 
   const handleSelectionChange = (keys: "all" | Set<React.Key>) => {
-    
     const selectedId = Array.from(keys)[0] as string | undefined;
     setSelectedCustomerFilter(selectedId);
-    setDateFilter(undefined)
+    setDateFilter(undefined);
   };
 
   function changeDate(value: RangeValue<DateValue>) {
@@ -60,9 +59,9 @@ export default function FilterProjectsByCustomer() {
     }
   }
   const clearFilters = () => {
-    setSelectedCustomerFilter(undefined)
-    setDateFilter(undefined)
-  }
+    setSelectedCustomerFilter(undefined);
+    setDateFilter(undefined);
+  };
 
   return (
     <div className="flex flex-row items-center gap-4">

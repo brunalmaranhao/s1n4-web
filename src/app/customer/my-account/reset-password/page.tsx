@@ -42,7 +42,7 @@ export default function UpdatePassword() {
   }
 
   return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-center p-24 gap-6 text-black">
+    <main className="flex min-h-screen w-full flex-col items-center justify-center p-24 gap-6 text-black dark:text-white">
       <h3>Alterar senha</h3>
       {hasPasswordChanged ? (
         <>

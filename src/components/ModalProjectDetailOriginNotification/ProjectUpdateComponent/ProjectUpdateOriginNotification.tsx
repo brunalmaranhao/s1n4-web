@@ -12,10 +12,11 @@ type ProjectUpdateOriginNotificationProps = {
   project: IProject;
 };
 
-export default function ProjectUpdateOriginNotification({ project }: ProjectUpdateOriginNotificationProps) {
+export default function ProjectUpdateOriginNotification({
+  project,
+}: ProjectUpdateOriginNotificationProps) {
   const [projectUpdates, setProjectUpdates] = useState<IProjectUpdates[]>([]);
   const [isLoadingProjectUpdates, setIsLoadingProjectUpdates] = useState(true);
-
 
   useEffect(() => {
     fetchProjectUpdates();
@@ -26,9 +27,7 @@ export default function ProjectUpdateOriginNotification({ project }: ProjectUpda
       setIsLoadingProjectUpdates(true);
       try {
         const { fetchProjectProjectUpdates } = await ProjectUpdatesService();
-        const response = await fetchProjectProjectUpdates(
-          project.id
-        );
+        const response = await fetchProjectProjectUpdates(project.id);
         setProjectUpdates(response.updates);
       } catch (error) {
         console.log(error);

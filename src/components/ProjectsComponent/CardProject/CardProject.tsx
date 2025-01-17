@@ -13,7 +13,6 @@ export default function CardProject({
   handleDragStart,
   project,
 }: CardProjectProps) {
-  
   const { setSelectedProjectEdit, onOpenModalProjectDetails } =
     useProjectContext();
 

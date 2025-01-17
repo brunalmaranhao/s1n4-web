@@ -16,7 +16,7 @@ export const schemaNewProject = yup
         (value) => {
           if (value) return isFuture(value) || isToday(value);
           return true;
-        }
+        },
       )
       .required("Campo Início obrigatório."),
     deadline: yup

@@ -4,13 +4,13 @@ import React, { createContext, useContext, ReactNode, useState } from "react";
 type ProjectUpdateContextType = {
   selectedProjectUpdate?: IProjectUpdates;
   handleSelectedProjectUpdate: (
-    projectUpdate: IProjectUpdates | undefined
+    projectUpdate: IProjectUpdates | undefined,
   ) => void;
   visibleModal?: "remove-comment" | "remove-project-update";
   selectedComment?: IComment;
   handleSelectedComment: (comment: IComment | undefined) => void;
   handleSetVisibleModal: (
-    value: "remove-comment" | "remove-project-update" | undefined
+    value: "remove-comment" | "remove-project-update" | undefined,
   ) => void;
 };
 
@@ -31,7 +31,7 @@ export const ProjectUpdateProvider: React.FC<{ children: ReactNode }> = ({
   >(undefined);
 
   function handleSelectedProjectUpdate(
-    projectUpdate: IProjectUpdates | undefined
+    projectUpdate: IProjectUpdates | undefined,
   ) {
     setSelectedProjectUpdate(projectUpdate);
   }
@@ -40,7 +40,9 @@ export const ProjectUpdateProvider: React.FC<{ children: ReactNode }> = ({
     setSelecteComment(comment);
   }
 
-  function handleSetVisibleModal(value: "remove-comment" | "remove-project-update" | undefined) {
+  function handleSetVisibleModal(
+    value: "remove-comment" | "remove-project-update" | undefined,
+  ) {
     setVisibleModal(value);
   }
 
@@ -64,7 +66,7 @@ export const useProjectUpdateContext = () => {
   const context = useContext(ProjectUpdateContext);
   if (!context) {
     throw new Error(
-      "useProjectUpdateContext deve ser usado dentro de um ProjectUpdateProvider"
+      "useProjectUpdateContext deve ser usado dentro de um ProjectUpdateProvider",
     );
   }
   return context;

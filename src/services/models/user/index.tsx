@@ -8,7 +8,11 @@ export default async function UserService() {
     token?: string,
   ): Promise<IGetUserResponse> {
     const payload = JSON.stringify(id);
-    return await get<IGetUserResponse>(`/user/id/${id}`);
+    return await get<IGetUserResponse>(`/user/id/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 
   async function fetchLoggedUser(): Promise<IGetUserResponse> {

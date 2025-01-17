@@ -247,11 +247,11 @@
   :root {
     --radius: 0.5rem;
   }
-  input{
+  input {
     border-width: 0px !important;
     box-shadow: none;
   }
-  input:focus{
+  input:focus {
     border-width: 0px !important;
     box-shadow: none !important;
   }

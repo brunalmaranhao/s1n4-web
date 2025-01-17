@@ -108,9 +108,7 @@ export default function OverviewTabContent({
                 key={index}
                 className="flex space-x-4 justify-between border-b border-[#878D9633] last:border-none py-3"
               >
-                <h1 className="text-black dark:text-white">
-                  {customer.name}
-                </h1>
+                <h1 className="text-black dark:text-white">{customer.name}</h1>
                 <h1 className="text-black dark:text-white">
                   {customer.users?.length ?? 0}
                 </h1>

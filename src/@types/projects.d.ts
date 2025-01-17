@@ -34,6 +34,23 @@ declare interface IProject {
   listProjects: IListProject;
 }
 
+declare interface IProjectsOverview {
+  id: string;
+  name: string;
+  customerId: string;
+  deadline: Date | null | undefined;
+  status?: StatusProject;
+  createdAt: Date;
+  updatedAt: Date | null | undefined;
+  customer: ICustomer;
+  budget: number;
+  description: string;
+  updatedListProjectAt: Date;
+  shouldShowInformationsToCustomerUser: boolean;
+  tags: ITag[];
+  listProjects: IListProject;
+}
+
 declare interface IProjectsForStatistics {
   projectsDone: IProject[];
   projectInProgress: IProject[];

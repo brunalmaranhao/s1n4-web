@@ -14,7 +14,10 @@ export async function getUserById(
 ): Promise<IUserResponse> {
   try {
     const { getUserById } = await UserService();
+    // console.log(id);
+    // console.log(token);
     const response = await getUserById(id, token);
+    // console.log(response);
     return {
       isError: false,
       user: response,

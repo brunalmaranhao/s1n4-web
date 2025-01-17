@@ -2,7 +2,7 @@ import { CircularProgress, Spinner } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 
 interface CustomerProjectsOverviewProps {
-  projects: IProject[];
+  projects: IProjectsOverview[];
 }
 
 export default function CustomerProjectsOverview({
@@ -14,7 +14,7 @@ export default function CustomerProjectsOverview({
   useEffect(() => {
     setIsLoading(true);
     const doneProjects = projects?.filter(
-      (project) => project.statusProject === "DONE",
+      (project) => project.status === "DONE",
     );
     handleProjectsPercentage(projects.length, doneProjects.length);
     setIsLoading(false);

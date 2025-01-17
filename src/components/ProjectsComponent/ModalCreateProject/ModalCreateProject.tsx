@@ -61,7 +61,7 @@ export default function ModalCreateProject() {
           data.shouldShowInformationsToCustomerUser,
           data.description,
           data.deadline,
-          data.start
+          data.start,
         );
         handleOnClose();
         reset();

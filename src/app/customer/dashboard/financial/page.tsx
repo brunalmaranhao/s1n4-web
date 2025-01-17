@@ -34,6 +34,7 @@ export default function CustomerFinancial() {
   };
 
   useEffect(() => {
+    console.log(sessionKey);
     setIsLoading(true);
     handleUserById(userId || "", sessionKey).then((data) => {
       setCustomerIdState(data?.user.customerId || "");
@@ -61,8 +62,8 @@ export default function CustomerFinancial() {
       customerBalance !== 0 &&
       customerExpenses &&
       availablePercentage !== 0 ? (
-        <div className="flex space-x-6">
-          <div className="bg-white dark:bg-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] p-4 w-[266px]">
+        <div className="flex flex-col justify-between space-y-4 lg:space-y-0 lg:flex-row lg:space-x-6">
+          <div className="w-full bg-white dark:bg-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] p-4">
             <h1 className="text-[#697077] dark:text-white text-[16px] font-normal">
               Budget
             </h1>
@@ -70,7 +71,7 @@ export default function CustomerFinancial() {
               {formatCurrency(customerBudget)}
             </span>
           </div>
-          <div className="bg-white dark:bg-[#1E1E1E] shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] rounded-lg p-4 w-[266px]">
+          <div className="w-full bg-white dark:bg-[#1E1E1E] shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] rounded-lg p-4">
             <h1 className="text-[#697077] dark:text-white text-[16px] font-normal">
               Saldo disponível
             </h1>
@@ -78,7 +79,7 @@ export default function CustomerFinancial() {
               {formatCurrency(customerBalance)}
             </span>
           </div>
-          <div className="bg-white dark:bg-[#1E1E1E] shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] p-4 w-[266px] rounded-lg">
+          <div className="w-full bg-white dark:bg-[#1E1E1E] shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] p-4 rounded-lg">
             <h1 className="text-[#697077] dark:text-white text-[16px] font-normal">
               Saldo gasto
             </h1>
@@ -86,7 +87,7 @@ export default function CustomerFinancial() {
               {formatCurrency(customerExpenses)}
             </span>
           </div>
-          <div className="bg-white dark:bg-[#1E1E1E] shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] rounded-lg p-4 w-[266px]">
+          <div className="w-full bg-white dark:bg-[#1E1E1E] shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] rounded-lg p-4">
             <h1 className="text-[#697077] dark:text-white text-[16px] font-normal">
               Percentual disponível
             </h1>

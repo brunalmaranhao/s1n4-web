@@ -26,7 +26,7 @@ export default function ModalProjectDetailOriginNotification() {
   const { isOpen, onClose, fetchNotifications, selectedNotification } =
     useNotificationContext();
 
-  console.log(selectedNotification);
+  // console.log(selectedNotification);
 
   useEffect(() => {
     handleReadNotification();
@@ -99,7 +99,7 @@ dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
                     <p className="text-[16px] font-normal ml-7">
                       {selectedNotification.projectUpdates?.project?.budget &&
                         formatter.format(
-                          selectedNotification.projectUpdates?.project?.budget
+                          selectedNotification.projectUpdates?.project?.budget,
                         )}
                     </p>
                   </div>

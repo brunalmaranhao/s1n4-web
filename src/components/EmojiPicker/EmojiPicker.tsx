@@ -4,8 +4,6 @@ import data from "@emoji-mart/data";
 import { MdAddReaction } from "react-icons/md";
 import { useTheme } from "next-themes";
 
-
-
 const EmojiPicker = ({
   onSelectEmoji,
 }: {
@@ -16,13 +14,11 @@ const EmojiPicker = ({
   const { theme } = useTheme();
 
   const handleEmojiSelect = (emoji: any) => {
-
     onSelectEmoji(emoji.unified);
     setIsPickerOpen(false);
-    console.log(emoji)
+    console.log(emoji);
   };
-  
-  
+
   const handleClickOutside = (event: MouseEvent) => {
     if (
       pickerRef.current &&

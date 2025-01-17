@@ -6,12 +6,11 @@ import { patch } from "@/services/methods/patch";
 export default async function CommentService() {
   async function createComment(
     projectUpdateId: string,
-    content: string
+    content: string,
   ): Promise<void> {
     const payload = JSON.stringify({ projectUpdateId, content });
     await post(`/comment`, payload);
   }
-
 
   async function remove(id: string): Promise<void> {
     await del<void>(`/comment/${id}`);

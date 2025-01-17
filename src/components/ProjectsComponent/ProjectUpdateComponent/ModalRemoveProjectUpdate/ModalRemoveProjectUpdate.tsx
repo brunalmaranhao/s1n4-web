@@ -13,7 +13,8 @@ type ModalRemoveProjectUpdatesProps = {
 export default function ModalRemoveProjectUpdates({
   fetchProjectUpdates,
 }: ModalRemoveProjectUpdatesProps) {
-  const { selectedProjectUpdate, handleSetVisibleModal } = useProjectUpdateContext();
+  const { selectedProjectUpdate, handleSetVisibleModal } =
+    useProjectUpdateContext();
   const [loading, setLoading] = useState(false);
 
   async function handleRemoveProjectUpdates() {
