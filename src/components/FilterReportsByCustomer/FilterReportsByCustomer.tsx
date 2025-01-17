@@ -27,12 +27,12 @@ export default function FilterReportsByCustomer() {
   useEffect(() => {
     const selectedId = Array.from(selectedKeys)[0];
     if (selectedId) {
-      fetchReportsByCustomerId(selectedId, page, rowsPerPage);
+      // fetchReportsByCustomerId(selectedId, page, rowsPerPage);
       setSelectedCustomer(selectedId);
       return;
     }
     setSelectedCustomer(undefined);
-    fetchReports(1, 4);
+    // fetchReports(1, 4);
   }, [selectedKeys]);
 
   const selectedValue = useMemo(() => {
@@ -56,7 +56,7 @@ export default function FilterReportsByCustomer() {
   const clearFilters = () => {
     setSelectedKeys(new Set());
     setSelectedCustomer(undefined);
-    fetchReports(page, 4);
+    // fetchReports(page, 4);
   };
 
   return (
