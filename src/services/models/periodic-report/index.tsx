@@ -38,6 +38,25 @@ export default async function PeriodicReportService() {
     return { periodicReports: response.periodicReports };
   }
 
+  async function fetchPeriodicReportsByCustomer(customerId: string): Promise<{
+    periodicReports: PeriodicReportDetailsResponse[];
+  }> {
+    const response = await get<{
+      periodicReports: PeriodicReportDetailsResponse[];
+    }>(`/periodic-report/customer/${customerId}`);
+
+    return { periodicReports: response.periodicReports };
+  }
+  async function fetchPeriodicReportsByCustomerAndYear(customerId: string, year: string): Promise<{
+    periodicReports: PeriodicReportDetailsResponse[];
+  }> {
+    const response = await get<{
+      periodicReports: PeriodicReportDetailsResponse[];
+    }>(`/periodic-report/customer/${customerId}/${year}`);
+
+    return { periodicReports: response.periodicReports };
+  }
+
   async function fetchPeriodicReportsByUserAndYear(year: string): Promise<{
     periodicReports: PeriodicReportDetailsResponse[];
   }> {
@@ -52,5 +71,7 @@ export default async function PeriodicReportService() {
     createPeriodicReport,
     fetchPeriodicReportsByUser,
     fetchPeriodicReportsByUserAndYear,
+    fetchPeriodicReportsByCustomerAndYear,
+    fetchPeriodicReportsByCustomer
   };
 }

@@ -8,70 +8,71 @@ import { VISUAL_SETTINGS } from "@/util/setting-pbi";
 import ModalRemoveReport from "./ModalRemove/ModalRemoveReport";
 
 export default function ReportTabContent() {
-  const {
-    reports,
-    fetchReports,
-    loading,
-    total,
-    rowsPerPage,
-    setPage,
-    page,
-    selectedCustomer,
-    fetchReportsByCustomerId,
-  } = useReportContext();
+  // const {
+  //   reports,
+  //   fetchReports,
+  //   loading,
+  //   total,
+  //   rowsPerPage,
+  //   setPage,
+  //   page,
+  //   selectedCustomer,
+  //   fetchReportsByCustomerId,
+  // } = useReportContext();
 
-  const [reportMap, setReportMap] = useState<Map<string, Report>>(new Map());
-  const [containerHeight, setContainerHeight] = useState(400);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [selectedReportRemove, setSelectedReportRemove] = useState<
-    ReportDetailsResponse | undefined
-  >();
+  // const [reportMap, setReportMap] = useState<Map<string, Report>>(new Map());
+  // const [containerHeight, setContainerHeight] = useState(400);
+  // const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  // const containerRef = useRef<HTMLDivElement>(null);
+  // const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  // const [selectedReportRemove, setSelectedReportRemove] = useState<
+  //   ReportDetailsResponse | undefined
+  // >();
 
-  useEffect(() => {
-    fetchData();
-  }, [page, selectedCustomer]);
+  // useEffect(() => {
+  //   fetchData();
+  // }, [page, selectedCustomer]);
 
-  async function fetchData() {
-    if (selectedCustomer) {
-      fetchReportsByCustomerId(selectedCustomer, page, rowsPerPage);
-    } else {
-      fetchReports(page, rowsPerPage);
-    }
-  }
+  // async function fetchData() {
+  //   if (selectedCustomer) {
+  //     fetchReportsByCustomerId(selectedCustomer, page, rowsPerPage);
+  //   } else {
+  //     fetchReports(page, rowsPerPage);
+  //   }
+  // }
 
-  const addReportToMap = (id: string, report: Report) => {
-    setReportMap((prevMap) => new Map(prevMap.set(id, report)));
-  };
+  // const addReportToMap = (id: string, report: Report) => {
+  //   setReportMap((prevMap) => new Map(prevMap.set(id, report)));
+  // };
 
-  const getReportById = (id: string) => {
-    return reportMap.get(id);
-  };
+  // const getReportById = (id: string) => {
+  //   return reportMap.get(id);
+  // };
 
-  const fullScreen = (id?: string) => {
-    if (!id) return;
-    const reportFullScreen = getReportById(id);
+  // const fullScreen = (id?: string) => {
+  //   if (!id) return;
+  //   const reportFullScreen = getReportById(id);
 
-    if (reportFullScreen) {
-      reportFullScreen.fullscreen();
-    } else {
-      console.error("Report not found.");
-    }
-  };
+  //   if (reportFullScreen) {
+  //     reportFullScreen.fullscreen();
+  //   } else {
+  //     console.error("Report not found.");
+  //   }
+  // };
 
-  const handleDelete = (item?: ReportDetailsResponse) => {
-    setSelectedReportRemove(item);
-    onOpen();
-  };
+  // const handleDelete = (item?: ReportDetailsResponse) => {
+  //   setSelectedReportRemove(item);
+  //   onOpen();
+  // };
 
-  const handlePageChange = (newPage: number) => {
-    setPage(newPage);
-  };
+  // const handlePageChange = (newPage: number) => {
+  //   setPage(newPage);
+  // };
 
   return (
     <div className="flex flex-col w-full gap-4 dark:text-white">
-      {loading ? (
+      <p>Não existe relatório do PowerBi cadastrado.</p>
+      {/* {loading ? (
         <Spinner />
       ) : (
         <>
@@ -179,7 +180,7 @@ export default function ReportTabContent() {
         isOpen={isOpen}
         report={selectedReportRemove}
         fetchData={fetchData}
-      />
+      /> */}
     </div>
   );
 }

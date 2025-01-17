@@ -255,4 +255,11 @@
     border-width: 0px !important;
     box-shadow: none !important;
   }
+
+  [data-editable="true"].text-foreground {
+    color: black !important;
+  }
+  .border-medium{
+    border-width: 0px !important;
+  }
 }

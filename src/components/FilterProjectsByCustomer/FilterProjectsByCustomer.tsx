@@ -98,20 +98,29 @@ export default function FilterProjectsByCustomer() {
           <I18nProvider locale="pt-BR">
             <DateRangePicker
               size="sm"
-              className="max-w-[260px]"
               label="Período"
+              variant="bordered"
+              className="max-w-[260px] bg-white rounded-xl text-black"
               visibleMonths={2}
               value={dateFilter}
               onChange={changeDate}
+              classNames={{
+                segment: 'text-black',
+                label: 'text-black',
+                selectorButton: 'text-black',
+                selectorIcon: 'text-black',
+              
+              }}
             />
-          </I18nProvider>
-
-          <Button
-            onClick={clearFilters}
-            className="bg-red-500 text-white ml-2 flex items-center w-full"
-          >
-            Limpar Filtros <AiOutlineClose className="ml-1" />
-          </Button>
+          </I18nProvider> 
+          <div className="w-[150px]">
+            <Button
+              onClick={clearFilters}
+              className="bg-red-500 text-white flex items-center w-full"
+            >
+              Limpar Filtros <AiOutlineClose className="ml-1" />
+            </Button>
+          </div>
         </>
       )}
     </div>

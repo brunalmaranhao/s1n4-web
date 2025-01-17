@@ -151,7 +151,7 @@ const config: Config = {
   plugins: [
     nextui(),
     require("tailwind-scrollbar"),
-    require("@tailwindcss/forms"),
+    // require("@tailwindcss/forms"),
     require("tailwindcss-animate"),
   ],
 };
