@@ -9,52 +9,53 @@ import { useReportContext } from "@/context/ReportContext";
 import ModalDownloadPeriodicReport from "../ModalDownloadPeriodicReport/ModalDownloadPeriodicReport";
 
 export default function ReportTabContentCustomer() {
-  const {
-    reports,
-    loading,
-    total,
-    rowsPerPage,
-    setPage,
-    page,
-    fetchReportsByUser,
-  } = useReportContext();
+  // const {
+  //   reports,
+  //   loading,
+  //   total,
+  //   rowsPerPage,
+  //   setPage,
+  //   page,
+  //   fetchReportsByUser,
+  // } = useReportContext();
 
-  const [reportMap, setReportMap] = useState<Map<string, Report>>(new Map());
+  // const [reportMap, setReportMap] = useState<Map<string, Report>>(new Map());
 
-  const [containerHeight, setContainerHeight] = useState(400);
-  const resizerRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  // const [containerHeight, setContainerHeight] = useState(400);
+  // const resizerRef = useRef<HTMLDivElement>(null);
+  // const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    fetchReportsByUser(page, rowsPerPage);
-  }, [page]);
+  // useEffect(() => {
+  //   fetchReportsByUser(page, rowsPerPage);
+  // }, [page]);
 
-  const addReportToMap = (id: string, report: Report) => {
-    setReportMap((prevMap) => new Map(prevMap.set(id, report)));
-  };
+  // const addReportToMap = (id: string, report: Report) => {
+  //   setReportMap((prevMap) => new Map(prevMap.set(id, report)));
+  // };
 
-  const getReportById = (id: string) => {
-    return reportMap.get(id);
-  };
+  // const getReportById = (id: string) => {
+  //   return reportMap.get(id);
+  // };
 
-  const fullScreen = (id?: string) => {
-    if (!id) return;
-    const reportFullScreen = getReportById(id);
+  // const fullScreen = (id?: string) => {
+  //   if (!id) return;
+  //   const reportFullScreen = getReportById(id);
 
-    if (reportFullScreen) {
-      reportFullScreen.fullscreen();
-    } else {
-      console.error("Report not found.");
-    }
-  };
+  //   if (reportFullScreen) {
+  //     reportFullScreen.fullscreen();
+  //   } else {
+  //     console.error("Report not found.");
+  //   }
+  // };
 
-  const handlePageChange = (newPage: number) => {
-    setPage(newPage);
-  };
+  // const handlePageChange = (newPage: number) => {
+  //   setPage(newPage);
+  // };
 
   return (
     <div className="flex flex-col w-full gap-4">
-      {loading ? (
+      <p>Não existe relatório do PowerBi cadastrado.</p>
+      {/* {loading ? (
         <Spinner />
       ) : (
         <>
@@ -148,7 +149,7 @@ export default function ReportTabContentCustomer() {
             ))}
           </div>
         </>
-      )}
+      )} */}
       <ModalDownloadPeriodicReport />
     </div>
   );

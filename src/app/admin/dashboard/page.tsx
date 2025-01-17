@@ -19,22 +19,24 @@ import DashboardBudgetChart from "@/components/DashboardBudgetChart/DashboardBud
 import { useCustomerContext } from "@/context/CustomerContext";
 import CustomerService from "@/services/models/customer";
 import toast from "react-hot-toast";
+import { RiFileDownloadLine } from "react-icons/ri";
+import ModalDownloadPeriodicReportWithCustomerFilter from "@/components/ModalDownloadPeriodicReportWithCustomerFilter/ModalDownloadPeriodicReportWithCustomerFilter";
 
 const ReportTabContent = dynamic(
   () => import("@/components/ReportTabContent/ReportTabContent"),
-  { ssr: false },
+  { ssr: false }
 );
 
 const ModalCreatePeriodicReport = dynamic(
   () =>
     import("@/components/ModalCreatePeriodicReport/ModalCreatePeriodicReport"),
-  { ssr: false },
+  { ssr: false }
 );
 
 export default function Dashboard() {
   const [selectedTab, setSelectedTab] = useState<Key>("");
 
-  const { onOpenModalCreatePeriodicReport } = useReportContext();
+  const { onOpenModalCreatePeriodicReport, onOpenModalDownloadPeriodicReport } = useReportContext();
   const { setSelectedCustomer, selectedCustomer } = useCustomerContext();
 
   const { theme, setTheme } = useTheme();
@@ -93,6 +95,13 @@ export default function Dashboard() {
           ) : (
             <div className="flex gap-3">
               <Button
+                startContent={<RiFileDownloadLine />}
+                className="pr-5 bg-transparent text-[#F57B00] border border-[#F57B00]"
+                onPress={() => onOpenModalDownloadPeriodicReport()}
+              >
+                Baixar relatório
+              </Button>
+              <Button
                 color="primary"
                 startContent={<GrAdd />}
                 className="pr-5 bg-transparent text-[#F57B00] border border-[#F57B00]"
@@ -128,6 +137,7 @@ export default function Dashboard() {
         </div>
       </div>
       <ModalCreatePeriodicReport />
+      <ModalDownloadPeriodicReportWithCustomerFilter />
     </div>
   );
 }

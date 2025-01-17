@@ -62,7 +62,7 @@ export default function FilterReportsByCustomer() {
   return (
     <div className="flex gap-3 items-center ">
       <h1 className="text-nowrap font-medium dark:text-white">Filtrar por </h1>
-      <Dropdown backdrop="blur" isDisabled={loading}>
+      <Dropdown backdrop="blur">
         <DropdownTrigger>
           <Button
             className="bg-white text-black text-[16px] font-medium"
