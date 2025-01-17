@@ -78,7 +78,7 @@ type ProjectContextType = {
   fetchListProjectByCustomerAndDate: (
     customerId: string,
     startDate: string,
-    endDate: string
+    endDate: string,
   ) => void;
 };
 
@@ -179,14 +179,14 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({
   async function fetchListProjectByCustomerAndDate(
     customerId: string,
     startDate: string,
-    endDate: string
+    endDate: string,
   ) {
     try {
       const { fetchListProjectByCustomerAndDate } = await ListProjectsService();
       const response = await fetchListProjectByCustomerAndDate(
         customerId,
         startDate,
-        endDate
+        endDate,
       );
       setListProjects(response);
     } catch (error) {
@@ -299,7 +299,7 @@ export const useProjectContext = () => {
   const context = useContext(ProjectContext);
   if (!context) {
     throw new Error(
-      "useProjectContext deve ser usado dentro de um ProjectProvider"
+      "useProjectContext deve ser usado dentro de um ProjectProvider",
     );
   }
   return context;

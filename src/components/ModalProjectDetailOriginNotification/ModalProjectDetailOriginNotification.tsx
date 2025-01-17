@@ -24,18 +24,16 @@ import ProjectUpdateOriginNotification from "./ProjectUpdateComponent/ProjectUpd
 
 type ModalProjectDetailOriginNotificationProps = {
   project: IProject;
-  isOpenModal: boolean
-  onClose: () => void
+  isOpenModal: boolean;
+  onClose: () => void;
 };
 
-export default function  ModalNotification({
+export default function ModalNotification({
   project,
   isOpenModal,
-  onClose
+  onClose,
 }: ModalProjectDetailOriginNotificationProps) {
   const { handleCleanTagsProject } = useTagContext();
-
- 
 
   return (
     <Modal
@@ -61,8 +59,7 @@ export default function  ModalNotification({
                 <div className="flex items-center gap-3 ml-7">
                   <p className="text-[16px] font-normal">Status:</p>
                   <Button className="bg-[#23CF5C] cursor-default p-0 px-4 h-7 text-[12px] dark:text-white">
-                    {project?.listProjects?.name}{" "}
-                    <IoChevronDownSharp />
+                    {project?.listProjects?.name} <IoChevronDownSharp />
                   </Button>
                 </div>
               </div>
@@ -83,8 +80,7 @@ dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
                   <h2 className="text-[24px] font-bold">Budget do projeto</h2>
                 </div>
                 <p className="text-[16px] font-normal ml-7">
-                  {project?.budget &&
-                    formatter.format(project?.budget)}
+                  {project?.budget && formatter.format(project?.budget)}
                 </p>
               </div>
 
@@ -107,9 +103,7 @@ dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 `}
                 </div>
                 {project?.description && (
                   <div className="ml-7 mt-2">
-                    <RichTextViewer
-                      content={project?.description}
-                    />
+                    <RichTextViewer content={project?.description} />
                   </div>
                 )}
               </div>

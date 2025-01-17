@@ -24,7 +24,7 @@ export default function ProjectUpdateComponentCustomer() {
       try {
         const { fetchProjectProjectUpdates } = await ProjectUpdatesService();
         const response = await fetchProjectProjectUpdates(
-          selectedProjectEdit.id
+          selectedProjectEdit.id,
         );
         setProjectUpdates(response.updates);
       } catch (error) {
@@ -82,7 +82,10 @@ export default function ProjectUpdateComponentCustomer() {
                 createReaction(emoji, projectUpdate.id);
               }}
             />
-            <Reactions reactions={projectUpdate.reactions} fetchProjectUpdates={fetchProjectUpdates} />
+            <Reactions
+              reactions={projectUpdate.reactions}
+              fetchProjectUpdates={fetchProjectUpdates}
+            />
           </div>
           {/* Comments */}
           <div className="my-2">

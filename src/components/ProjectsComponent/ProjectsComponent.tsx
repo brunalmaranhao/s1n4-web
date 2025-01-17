@@ -206,7 +206,7 @@ dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
         ) : (
           <div className="flex items-center gap-4">
             <p className="text-black dark:text-white">Selecione um cliente</p>
-            <FilterProjectsByCustomer   />
+            <FilterProjectsByCustomer />
           </div>
         )}
       </div>

@@ -40,7 +40,7 @@ export default function ProjectUpdatesCustomer({
     const fetchData = async () => {
       setIsLoading(true);
       const result = await handleCustomerProjectUpdates(sessionKey, customerId);
-
+      console.log(result);
       setProjectUpdatesState(result);
     };
     fetchData().finally(() => setIsLoading(false));

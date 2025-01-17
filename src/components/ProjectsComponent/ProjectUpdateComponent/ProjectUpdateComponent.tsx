@@ -48,7 +48,7 @@ export default function ProjectUpdateComponent() {
       try {
         const { fetchProjectProjectUpdates } = await ProjectUpdatesService();
         const response = await fetchProjectProjectUpdates(
-          selectedProjectEdit.id
+          selectedProjectEdit.id,
         );
         setProjectUpdates(response.updates);
       } catch (error) {
@@ -92,7 +92,7 @@ export default function ProjectUpdateComponent() {
         const { update } = await ProjectUpdatesService();
         await update(
           selectedProjectUpdateEdit.id,
-          projectUpdateContentEdit.trim()
+          projectUpdateContentEdit.trim(),
         );
         fetchProjectUpdates();
         setUpdateContent("");
@@ -188,11 +188,13 @@ export default function ProjectUpdateComponent() {
                 </div>
               </form>
             ) : (
-              <p className="text-[16px] font-normal my-1 w-full overflow-auto [&::-webkit-scrollbar]:h-2
+              <p
+                className="text-[16px] font-normal my-1 w-full overflow-auto [&::-webkit-scrollbar]:h-2
   [&::-webkit-scrollbar-track]:bg-gray-100
   [&::-webkit-scrollbar-thumb]:bg-gray-300
   dark:[&::-webkit-scrollbar-track]:bg-neutral-700
-  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
+  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
+              >
                 {projectUpdate.description}
               </p>
             )}
@@ -245,7 +247,10 @@ export default function ProjectUpdateComponent() {
                   </>
                 )}
 
-                <Reactions reactions={projectUpdate.reactions} fetchProjectUpdates={fetchProjectUpdates} />
+                <Reactions
+                  reactions={projectUpdate.reactions}
+                  fetchProjectUpdates={fetchProjectUpdates}
+                />
               </div>
             )}
           </div>

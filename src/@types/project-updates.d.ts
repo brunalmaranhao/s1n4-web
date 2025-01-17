@@ -55,8 +55,8 @@ declare interface IProjectUpdates {
     createdAt: Date;
     updatedAt: Date | null;
   };
-  comments: IComment[]
-  reactions: GroupedReactions
+  comments: IComment[];
+  reactions: GroupedReactions;
 }
 
 declare interface IComment {
@@ -70,5 +70,5 @@ declare interface IComment {
     email: string;
     role: string;
   };
-  reactions: GroupedReactions
+  reactions: GroupedReactions;
 }

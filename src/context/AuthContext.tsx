@@ -73,7 +73,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     handleSignOut,
     isAuthenticated,
     setIsAuthenticaded,
-    loggedUser
+    loggedUser,
   };
 
   return (

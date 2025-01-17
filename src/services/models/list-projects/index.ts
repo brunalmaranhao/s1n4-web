@@ -64,7 +64,7 @@ export default async function ListProjectsService() {
   async function fetchListProjectByCustomerAndDate(
     customerId: string,
     startDate: string,
-    endDate: string
+    endDate: string,
   ): Promise<IListProject[]> {
     const response = await get<{ listProjects: IListProject[] }>(
       `/list-project/customer/${customerId}/startDate/${startDate}/endDate/${endDate}`,
@@ -87,6 +87,6 @@ export default async function ListProjectsService() {
     remove,
     fetchListProjectByUser,
     updateOrder,
-    fetchListProjectByCustomerAndDate
+    fetchListProjectByCustomerAndDate,
   };
 }

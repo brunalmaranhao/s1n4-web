@@ -22,7 +22,7 @@ export default function MoveProject({
     setListProjectName,
   } = useProjectContext();
   const [targetList, setTargetList] = useState<Selection>(
-    new Set([listProject.id])
+    new Set([listProject.id]),
   );
 
   async function handleChangeProjectListProject() {
@@ -33,7 +33,7 @@ export default function MoveProject({
       if (selectedCustomerFilter) {
         fetchListProjectByCustomer(selectedCustomerFilter);
         const newList = listProjects.find(
-          (item) => item.id === Array.from(targetList)[0]?.toString()
+          (item) => item.id === Array.from(targetList)[0]?.toString(),
         );
         if (newList) setListProjectName(newList?.name);
       }

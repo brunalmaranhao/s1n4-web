@@ -13,7 +13,7 @@ declare interface ICustomer {
   zipCode?: string;
   actions?: string | null;
   users?: ICustomerUsers[];
-  projects?: IProject[];
+  projects?: IProject[] | IProjectsOverview[];
   expenditureProjection?: number;
 }
 

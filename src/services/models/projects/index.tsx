@@ -7,7 +7,7 @@ export default async function ProjectsService() {
   async function fetchAllProjects(
     token: string,
     page: number,
-    size: number
+    size: number,
   ): Promise<IFetchAllProjectsResponse> {
     return await get<IFetchAllProjectsResponse>(
       `/project?page=${page}&size=${size}`,
@@ -15,16 +15,16 @@ export default async function ProjectsService() {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }
+      },
     );
   }
 
   async function fetchProjects(
     page: number,
-    size: number
+    size: number,
   ): Promise<IProject[]> {
     const response = await get<{ projects: IProject[] }>(
-      `/project?page=${page}&size=${size}`
+      `/project?page=${page}&size=${size}`,
     );
     return response.projects;
   }
@@ -35,10 +35,10 @@ export default async function ProjectsService() {
   }
 
   async function fetchProjectsCustomerForStatistics(
-    customer: string
+    customer: string,
   ): Promise<IProjectsForStatistics> {
     const response = await get<IProjectsForStatistics>(
-      `/projects/${customer}/statistics`
+      `/projects/${customer}/statistics`,
     );
     return response;
   }
@@ -50,7 +50,7 @@ export default async function ProjectsService() {
 
   async function getProjectById(
     id: string,
-    token: string
+    token: string,
   ): Promise<IGetProjectByIdResponse> {
     return await get<IGetProjectByIdResponse>(`project/id/${id}`, {
       headers: {
@@ -67,7 +67,7 @@ export default async function ProjectsService() {
     shouldShowInformationsToCustomerUser: boolean,
     description: string,
     deadline: Date,
-    start: Date
+    start: Date,
   ): Promise<string> {
     const projectData = {
       name,
@@ -77,23 +77,23 @@ export default async function ProjectsService() {
       listProjectsId,
       shouldShowInformationsToCustomerUser,
       description,
-      start
+      start,
     };
     const payload = JSON.stringify(
       Object.fromEntries(
-        Object.entries(projectData).filter(([_, value]) => value)
-      )
+        Object.entries(projectData).filter(([_, value]) => value),
+      ),
     );
     const response = await post<{ projectId: string }, string>(
       `/project`,
-      payload
+      payload,
     );
     return response.projectId;
   }
 
   async function updateStatus(
     id: string,
-    statusProject: StatusProject
+    statusProject: StatusProject,
   ): Promise<void> {
     const payload = JSON.stringify({ statusProject });
     await put<{ projectId: string }, string>(`/project/update/${id}`, payload);
@@ -104,7 +104,7 @@ export default async function ProjectsService() {
     name: string,
     budget: number,
     shouldShowInformationsToCustomerUser: boolean,
-    deadline?: Date
+    deadline?: Date,
   ): Promise<void> {
     const payload = JSON.stringify({
       name,
@@ -121,7 +121,7 @@ export default async function ProjectsService() {
     });
     await put<{ projectId: string }, string>(
       `/project/update-name/${id}`,
-      payload
+      payload,
     );
   }
 
@@ -129,10 +129,10 @@ export default async function ProjectsService() {
     await del<void>(`/project/${id}`);
   }
   async function fetchProjectsByCustomer(
-    customerId: string
+    customerId: string,
   ): Promise<IProject[]> {
     const response = await get<{ projects: IProject[] }>(
-      `/customer/${customerId}/projects`
+      `/customer/${customerId}/projects`,
     );
     return response.projects;
   }
@@ -140,10 +140,10 @@ export default async function ProjectsService() {
   async function fetchProjectsByCustomerAndDate(
     customerId: string,
     startDate: string,
-    endDate: string
+    endDate: string,
   ): Promise<IProject[]> {
     const response = await get<{ projects: IProject[] }>(
-      `/projects/customer/${customerId}/startDate/${startDate}/endDate/${endDate}`
+      `/projects/customer/${customerId}/startDate/${startDate}/endDate/${endDate}`,
     );
     return response.projects;
   }

@@ -45,7 +45,7 @@ export default function Comments({
 
   async function handleAddComment(
     projectUpdateId: string,
-    commentContent: string
+    commentContent: string,
   ) {
     if (commentContent.trim()) {
       setLoading(true);

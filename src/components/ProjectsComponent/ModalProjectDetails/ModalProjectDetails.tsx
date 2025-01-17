@@ -127,7 +127,10 @@ export default function ModalProjectDetails() {
                     onOpenChange={setIsPopoverOpen}
                   >
                     <PopoverTrigger>
-                      <Button className="bg-[#23CF5C] p-0 px-4 h-7 text-[12px] dark:text-white" onClick={() => setIsPopoverOpen(true)}>
+                      <Button
+                        className="bg-[#23CF5C] p-0 px-4 h-7 text-[12px] dark:text-white"
+                        onClick={() => setIsPopoverOpen(true)}
+                      >
                         {listProjectName}
                         <IoChevronDownSharp />
                       </Button>

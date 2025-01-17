@@ -2,14 +2,8 @@ import { useProjectContext } from "@/context/ProjectContext";
 import { MdAdd, MdOutlineOutlinedFlag } from "react-icons/md";
 import { useNotificationContext } from "@/context/NotificationsContext";
 
-
 export default function Tags() {
-  const {
-    selectedNotification
-  } = useNotificationContext();
-
-
-
+  const { selectedNotification } = useNotificationContext();
 
   return (
     <div className="text-black dark:text-white flex flex-col gap-2">
@@ -19,7 +13,7 @@ export default function Tags() {
       </div>
       <div className="flex ml-7 items-center gap-2 flex-wrap">
         {selectedNotification?.projectUpdates.project?.tags.length === 0 && (
-         <small>Não existem etiquetas adicionadas.</small>
+          <small>Não existem etiquetas adicionadas.</small>
         )}
         {selectedNotification?.projectUpdates.project?.tags.map((tag) => (
           <div

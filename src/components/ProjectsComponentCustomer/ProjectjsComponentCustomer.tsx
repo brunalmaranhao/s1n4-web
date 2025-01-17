@@ -20,11 +20,13 @@ export default function ProjectsComponent() {
 
   return (
     <div className="w-full flex items-center justify-center mt-2">
-      <div className="flex md:flex-row flex-col gap-3 p-3 w-full max-w-[1200px] overflow-x-auto [&::-webkit-scrollbar]:h-3
+      <div
+        className="flex md:flex-row flex-col gap-3 p-3 w-full max-w-[1200px] overflow-x-auto [&::-webkit-scrollbar]:h-3
 [&::-webkit-scrollbar-track]:bg-gray-100
 [&::-webkit-scrollbar-thumb]:bg-gray-300
 dark:[&::-webkit-scrollbar-track]:bg-neutral-700
-dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
+dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
+      >
         {listProjects.length > 0 ? (
           <>
             {listProjects.map((listProject, index) => (

@@ -31,10 +31,7 @@ export default function UserHome() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const handleCustomerUser = async (id: string, token?: string) => {
-    const { customerUser, isError, error } = await fetchCustomerUser(id, token);
-
-    console.log(isError);
-    console.log(error);
+    const { customerUser } = await fetchCustomerUser(id, token);
 
     return customerUser;
   };
@@ -48,8 +45,8 @@ export default function UserHome() {
     const fetchData = async () => {
       if (customerUserId !== undefined) {
         const customerUser = await handleCustomerUser(
-          // sessionKey,
           customerUserId,
+          sessionKey,
         );
         setCustomerUserState(customerUser);
 
