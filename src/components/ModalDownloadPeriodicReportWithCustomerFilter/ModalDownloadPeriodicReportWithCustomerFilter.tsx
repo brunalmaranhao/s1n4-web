@@ -24,6 +24,7 @@ export default function ModalDownloadPeriodicReportWithCustomerFilter() {
     isOpenModalDownloadPeriodicReport,
     onCloseModalDownloadPeriodicReport,
     customers,
+    fetchCustomer,
     // setSelectedCustomer
   } = useReportContext();
   const [loading, setLoading] = useState(false);
@@ -35,6 +36,12 @@ export default function ModalDownloadPeriodicReportWithCustomerFilter() {
   const [selectedKeysCustomer, setSelectedKeysCustomer] = useState<Set<string>>(
     new Set()
   );
+
+  useEffect(() => {
+    if(customers.length === 0){
+      fetchCustomer()
+    }
+  } ,[customers])
 
   useEffect(() => {
     const selectedId = Array.from(selectedKeysCustomer)[0];
