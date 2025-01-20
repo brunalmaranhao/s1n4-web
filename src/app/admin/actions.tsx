@@ -42,19 +42,19 @@ export async function getUserById(
 //   }
 // }
 
-export async function fetchAllProjects(token: string) {
-  try {
-    const { fetchAllProjects } = await ProjectsService();
-    const { projects } = await fetchAllProjects(token, 1, 20);
-    return {
-      isError: false,
-      projects: projects,
-    };
-  } catch (error) {
-    const customError = handleAxiosError(error);
-    return { isError: true, error: customError.message };
-  }
-}
+// export async function fetchAllProjects(token: string) {
+//   try {
+//     const { fetchAllProjects } = await ProjectsService();
+//     const { projects } = await fetchAllProjects(token, 1, 20);
+//     return {
+//       isError: false,
+//       projects: projects,
+//     };
+//   } catch (error) {
+//     const customError = handleAxiosError(error);
+//     return { isError: true, error: customError.message };
+//   }
+// }
 
 export async function fetchAllProjectUpdates(token: string) {
   try {
