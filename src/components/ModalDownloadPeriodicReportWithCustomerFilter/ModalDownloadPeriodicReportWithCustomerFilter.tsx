@@ -74,7 +74,7 @@ export default function ModalDownloadPeriodicReportWithCustomerFilter() {
       );
       setPeriodicReports(response.periodicReports);
     } catch (error) {
-      toast.error("Não foi possível atualizar o status do projeto.");
+      console.log( console.log("Erro na consulta dos relatorios"))
     } finally {
       setLoading(false);
     }
@@ -87,7 +87,8 @@ export default function ModalDownloadPeriodicReportWithCustomerFilter() {
       const response = await fetchPeriodicReportsByCustomer(customerId);
       setPeriodicReports(response.periodicReports);
     } catch (error) {
-      toast.error("Não foi possível atualizar o status do projeto.");
+      console.log("Erro na consulta dos relatorios")
+      // toast.error("Não foi possível atualizar o status do projeto.");
     } finally {
       setLoading(false);
     }
