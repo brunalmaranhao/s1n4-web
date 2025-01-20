@@ -62,7 +62,7 @@ export default function ReportsTable() {
             Relatórios cadastrados
           </h1>
           {reports.length === 0 ? (
-            <p> Não existem relatórios cadastrados.</p>
+            <p className="text-[#21272A] dark:text-white"> Não existem relatórios cadastrados.</p>
           ) : (
             <Table aria-label="Example static collection table">
               <TableHeader>

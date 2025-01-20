@@ -36,7 +36,7 @@ export default function ResponsilbeParties() {
       </div>
       {!loadingFetchAllResponsibles && responsibles.length === 0 ? (
         <p className="text-[16px]">
-          Não existe partes responsáveis cadastradas.
+          Não existem partes responsáveis cadastradas.
         </p>
       ) : (
         <div className="flex flex-col mt-2">
