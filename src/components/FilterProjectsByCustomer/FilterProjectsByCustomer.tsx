@@ -12,7 +12,7 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import { SlArrowDown } from "react-icons/sl";
 import { I18nProvider } from "@react-aria/i18n";
-import { parseDate } from "@internationalized/date";
+// import { parseDate } from "@internationalized/date";
 import { AiOutlineClose } from "react-icons/ai";
 
 export default function FilterProjectsByCustomer() {

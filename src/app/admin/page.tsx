@@ -1,12 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { fetchBirthdaysOfTheMonth, getUserById } from "./actions";
-import { parseCookies } from "nookies";
-import { decodeToken } from "@/services/jwt-decode/decode";
 import ProjectsOverview from "@/components/ProjectsOverview/ProjectsOverview";
 import ProjectUpdatesAdmin from "@/components/ProjectUpdatesAdmin/ProjectUpdatesAdmin";
-import { format } from "date-fns";
 import Notification from "@/components/Notification/Notification";
 import { useTheme } from "next-themes";
 import { Switch } from "@nextui-org/switch";
@@ -15,41 +11,49 @@ import { MoonIcon } from "@/components/MoonIcon/MoonIcon";
 import SkeletonHome from "@/components/SkeletonHome/SkeletonHome";
 import UserService from "@/services/models/user";
 import { handleAxiosError } from "@/services/error";
+import ResponsiblePartiesService from "@/services/models/responsible-parties";
+import CustomerService from "@/services/models/customer";
+import { Button, Divider } from "@nextui-org/react";
+import { MdChevronRight } from "react-icons/md";
+import ResponsilbeParties from "@/components/ResponsilbeParties/ResponsilbeParties";
+import BirthdayOfTheMonth from "@/components/BirthdayOfTheMonth/BirthdayOfTheMonth";
+import ReportsTable from "@/components/ReportsTable/ReportsTable";
 
 export default function AdminHome() {
-  const [responsiblesState, setResponsiblesState] = useState<
-    IResponsibles[] | []
-  >([]);
-  const [userState, setUserState] = useState<IGetUserState | null>(null);
+  const [userState, setUserState] = useState<IGetUserResponse | null>(null);
   const [userIsLoading, setUserIsLoading] = useState<boolean>(true);
+  const [countCustomersAndUsers, setCountCustomersAndUusers] = useState<
+    { totalUsers: number; totalCustomers: number } | undefined
+  >();
+  const [loadingCountCustomersAndUsers, setLoadingCountCustomersAndUsers] =
+    useState(false);
 
-  const [responsiblesBrithdayIsLoading, setResponsiblesBirthdayIsLoading] =
-    useState<boolean>(true);
-
-  const { "sina:x-token": sessionKey } = parseCookies();
-
-  const decoded = decodeToken(sessionKey);
-  const userId = decoded?.sub;
-
-  // const handleUser = async (id: string, token: string) => {
-  //   const result = await getUserById(id, token);
-  //   return result.user;
-  // };
-
-  const handleUser = async (id: string) => {
+  const fetchUser = async () => {
     try {
-      const { getUserById } = await UserService();
-      const response = await getUserById(id);
-      return response.user;
+      setUserIsLoading(true);
+      const { fetchLoggedUser } = await UserService();
+      const response = await fetchLoggedUser();
+      setUserState(response);
     } catch (error) {
       const customError = handleAxiosError(error);
       return { isError: true, error: customError.message };
+    } finally {
+      setUserIsLoading(false);
     }
   };
 
-  const handleResponsibleBirthdaysOfTheMonth = async (token: string) => {
-    const result = await fetchBirthdaysOfTheMonth(token);
-    return result.responsibles;
+  const fetchCountCustomersAndUsers = async () => {
+    try {
+      setLoadingCountCustomersAndUsers(true);
+      const { countCustomersAndUsers } = await CustomerService();
+      const response = await countCustomersAndUsers();
+      setCountCustomersAndUusers(response);
+    } catch (error) {
+      const customError = handleAxiosError(error);
+      return { isError: true, error: customError.message };
+    } finally {
+      setLoadingCountCustomersAndUsers(false);
+    }
   };
 
   const roleTranslations: { [key: string]: string } = {
@@ -59,38 +63,14 @@ export default function AdminHome() {
   };
 
   useEffect(() => {
-    // if (userId !== undefined) {
-    //   setUserIsLoading(true);
-    //   handleUser(userId).then((data) => {
-    //     if (data?.user) {
-    //       setUserState(data?.user as IGetUserState);
-    //     }
-    //     setUserIsLoading(false);
-    //   });
-    // }
-    setUserIsLoading(true);
-    handleUser(userId || "")
-      .then((data) => {
-        console.log(data);
-        setUserState(data as IGetUserState);
-      })
-      .finally(() => {
-        setUserIsLoading(false);
-      });
-  }, []);
-
-  useEffect(() => {
-    setResponsiblesBirthdayIsLoading(true);
-    handleResponsibleBirthdaysOfTheMonth(sessionKey).then((data) => {
-      setResponsiblesState(data?.responsiblesBirthdayOfTheMonth || []);
-    });
-    setResponsiblesBirthdayIsLoading(false);
+    fetchUser();
+    fetchCountCustomersAndUsers();
   }, []);
 
   const { theme, setTheme } = useTheme();
 
   return (
-    <main className="flex items-center text-black w-full">
+    <main className="flex items-center text-black w-full pb-10">
       <div className="flex flex-col w-full min-h-screen gap-5 px-8">
         <div className="flex justify-between mt-4">
           <h1 className="text-[#21272A] dark:text-white text-[42px] font-bold">
@@ -111,49 +91,101 @@ export default function AdminHome() {
             <Notification />
           </div>
         </div>
-        {userIsLoading || responsiblesBrithdayIsLoading ? (
+        {userIsLoading ? (
           <SkeletonHome />
         ) : (
           <>
             <div className="flex flex-col bg-white dark:bg-[#1E1E1E] p-4 border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
               <h2 className="text-black dark:text-white text-[28px] font-bold">
-                {userState?.firstName} {userState?.lastName}
+                {userState?.user.firstName} {userState?.user.lastName}
               </h2>
               <h2 className="text-[#69707785] dark:text-white text-[16px] font-normal">
-                {roleTranslations[userState?.role || ""]}
+                {roleTranslations[userState?.user.role || ""]}
               </h2>
             </div>
-            <div className="flex justify-center items-center gap-4">
-              <ProjectsOverview />
-              <div className="flex flex-col w-full h-56 bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] p-4 space-y-4 rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] overflow-y-scroll">
-                <p className="text-[#21272A] dark:text-white text-[18px] font-bold">
-                  Próximos aniversariantes:
-                </p>
-                {responsiblesState.length === 0 ? (
-                  <h1 className="text-black dark:text-white">
-                    Não existem aniversariantes este mês.
-                  </h1>
-                ) : (
-                  responsiblesState.map((responsible, index) => (
-                    <div key={index} className="flex flex-col space-y-2">
-                      <h1 className="text-[16px] text-black dark:text-white font-normal">
-                        {responsible.firstName} {responsible.lastName}
-                      </h1>
-                      <h1 className="text-black dark:text-white pb-2">
-                        {format(responsible.birthdate, "dd/MM")}
-                      </h1>
-                      {index < responsiblesState.length - 1 && (
-                        <hr className="border-[#878D9633]" />
-                      )}
+            <div className="flex gap-6">
+              <div className="flex flex-col w-[345px] gap-6 h-full">
+                <div className="h-[275px]">
+                  <ProjectsOverview />
+                </div>
+                {/* Qtd Usuário */}
+                <div className=" flex text-black dark:text-white flex-col p-4 w-full  bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E]  rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
+                  <h3 className="text-[18px] font-bold">Clientes e Usuários</h3>
+                  <div className="flex w-full mt-4 ">
+                    <div className="flex w-full items-center">
+                      <div className="w-[60%] flex">
+                        <p className="w-[50px] h-[50px] text-[18px] rounded-full bg-[#F57B00] flex items-center justify-center">
+                          {countCustomersAndUsers?.totalCustomers}
+                        </p>
+                      </div>
+
+                      <div className="flex flex-wrap w-full">
+                        <h4 className="text-[16px]">Total de Clientes</h4>
+                      </div>
                     </div>
-                  ))
-                )}
+                    <div className="flex w-full items-center">
+                      <div className="w-[60%] flex">
+                        <p className="w-[50px] h-[50px] text-[18px] rounded-full bg-[#F57B00] flex items-center justify-center">
+                          {countCustomersAndUsers?.totalUsers}
+                        </p>
+                      </div>
+
+                      <div className="flex flex-wrap w-full">
+                        <h4 className="text-[16px]">Total de Usuários</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* Partes Responsáveis */}
+                <ResponsilbeParties />
+                {/* Aniversariantes do mes */}
+                <BirthdayOfTheMonth />
+              </div>
+              <div className="flex flex-col w-full gap-6">
+                <div className="rounded-xl">
+                  <ProjectUpdatesAdmin
+                    email={userState?.user.email || ""}
+                    role={userState?.user.role || ""}
+                  />
+                </div>
+                <ReportsTable />
               </div>
             </div>
-            <ProjectUpdatesAdmin
-              email={userState?.email || ""}
-              role={userState?.role || ""}
-            />
+
+            {/* <div className="flex justify-center items-center gap-4 w-full">
+              <div className="w-[345px]"></div>
+              <div
+                className="w-full h-[275px] overflow-auto [&::-webkit-scrollbar]:w-2
+  [&::-webkit-scrollbar-track]:bg-gray-100
+  [&::-webkit-scrollbar-thumb]:bg-gray-300
+  dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
+              ></div>
+            </div> */}
+            {/* <div className="flex flex-col w-full h-56 bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] p-4 space-y-4 rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] overflow-y-scroll">
+              <p className="text-[#21272A] dark:text-white text-[18px] font-bold">
+                Próximos aniversariantes:
+              </p>
+              {responsiblesState.length === 0 ? (
+                <h1 className="text-black dark:text-white">
+                  Não existem aniversariantes este mês.
+                </h1>
+              ) : (
+                responsiblesState.map((responsible, index) => (
+                  <div key={index} className="flex flex-col space-y-2">
+                    <h1 className="text-[16px] text-black dark:text-white font-normal">
+                      {responsible.firstName} {responsible.lastName}
+                    </h1>
+                    <h1 className="text-black dark:text-white pb-2">
+                      {format(responsible.birthdate, "dd/MM")}
+                    </h1>
+                    {index < responsiblesState.length - 1 && (
+                      <hr className="border-[#878D9633]" />
+                    )}
+                  </div>
+                ))
+              )}
+            </div> */}
           </>
         )}
       </div>

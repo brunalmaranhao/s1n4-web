@@ -75,8 +75,8 @@ export default function ProjectsOverview({
 
   return (
     <div
-      className={`flex ${
-        pathname === "/admin/dashboard" ? "w-[400px] h-[275px]" : "w-full"
+      className={`flex h-[275px] ${
+        pathname === "/admin/dashboard" ? "w-[400px]" : "w-full"
       }`}
     >
       {isLoading ? (
