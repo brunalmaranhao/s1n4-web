@@ -4,19 +4,30 @@ import { post } from "@/services/methods/post";
 import { put } from "@/services/methods/put";
 
 export default async function CustomerService() {
+  async function countCustomersAndUsers(): Promise<{
+    totalCustomers: number;
+    totalUsers: number;
+  }> {
+    const response = await get<{ totalCustomers: number; totalUsers: number }>(
+      `customer/count`
+    );
+
+    return response;
+  }
+
   async function findAll(
     page: number,
-    size: number,
+    size: number
   ): Promise<{ customers: ICustomer[]; total: number }> {
     const response = await get<{ customers: ICustomer[]; total: number }>(
-      `customer/active?page=${page}&size=${size}`,
+      `customer/active?page=${page}&size=${size}`
     );
 
     return { customers: response.customers, total: response.total };
   }
 
   async function findAllActiveCustomers(
-    token: string,
+    token: string
   ): Promise<{ customers: ICustomer[]; total: number }> {
     const response = await get<{ customers: ICustomer[]; total: number }>(
       `customer/all/active`,
@@ -24,7 +35,7 @@ export default async function CustomerService() {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      },
+      }
     );
 
     return { customers: response.customers, total: response.total };
@@ -35,7 +46,7 @@ export default async function CustomerService() {
     total: number;
   }> {
     const response = await get<{ customers: ICustomer[]; total: number }>(
-      `customer/all/active`,
+      `customer/all/active`
     );
     return { customers: response.customers, total: response.total };
   }
@@ -43,7 +54,7 @@ export default async function CustomerService() {
   async function validateCustomer(
     name: string,
     corporateName: string,
-    cnpj: string,
+    cnpj: string
   ): Promise<void> {
     const payload = JSON.stringify({ name, corporateName, cnpj });
     await post(`/validate-customer`, payload);
@@ -57,7 +68,7 @@ export default async function CustomerService() {
     contractValue?: number,
     accumulatedInvestment?: number,
     expenditureProjection?: number,
-    contractObjective?: string,
+    contractObjective?: string
   ): Promise<string> {
     const customerData = {
       name,
@@ -72,12 +83,12 @@ export default async function CustomerService() {
 
     const payload = JSON.stringify(
       Object.fromEntries(
-        Object.entries(customerData).filter(([_, value]) => value),
-      ),
+        Object.entries(customerData).filter(([_, value]) => value)
+      )
     );
     const response = await post<{ customerId: string }, string>(
       `/customer`,
-      payload,
+      payload
     );
     return response.customerId;
   }
@@ -91,7 +102,7 @@ export default async function CustomerService() {
     country: string,
     zipCode: string,
     customerId: string,
-    complement?: string,
+    complement?: string
   ): Promise<string> {
     const payload = JSON.stringify({
       street,
@@ -106,14 +117,14 @@ export default async function CustomerService() {
     });
     const response = await post<{ customerAddressId: string }, string>(
       `/customer-address`,
-      payload,
+      payload
     );
     return response.customerAddressId;
   }
 
   async function getCustomerById(
     id: string,
-    token: string,
+    token: string
   ): Promise<IGetCustomerByIdResponse> {
     return await get<IGetCustomerByIdResponse>(`/customer/id/${id}`, {
       headers: {
@@ -123,7 +134,7 @@ export default async function CustomerService() {
   }
 
   async function getAllCustomers(
-    token: string,
+    token: string
   ): Promise<{ customers: ICustomer[]; total: number }> {
     return await get<{
       customers: ICustomer[];
@@ -136,7 +147,7 @@ export default async function CustomerService() {
   }
 
   async function fetchCustomersWithUsers(
-    token: string,
+    token: string
   ): Promise<{ customersWithUsers: ICustomer[] }> {
     return await get<{ customersWithUsers: ICustomer[] }>(
       `/customer-with-users`,
@@ -144,7 +155,7 @@ export default async function CustomerService() {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      },
+      }
     );
   }
 
@@ -154,7 +165,7 @@ export default async function CustomerService() {
     contractValue?: number,
     accumulatedInvestment?: number,
     expenditureProjection?: number,
-    contractObjective?: string,
+    contractObjective?: string
   ): Promise<void> {
     const payload = JSON.stringify({
       contractDuration,
@@ -172,7 +183,7 @@ export default async function CustomerService() {
 
   async function fetchCustomerReports(
     token: string,
-    customerId: string,
+    customerId: string
   ): Promise<{ reports: ICustomerReports[] }> {
     return await get<{
       reports: ICustomerReports[];
@@ -196,5 +207,6 @@ export default async function CustomerService() {
     remove,
     fetchCustomerReports,
     findAllActiveCustomers,
+    countCustomersAndUsers,
   };
 }

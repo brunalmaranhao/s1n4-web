@@ -28,19 +28,19 @@ export async function getUserById(
   }
 }
 
-export async function fetchBirthdaysOfTheMonth(token: string) {
-  try {
-    const { fetchBirthdaysOfTheMonth } = await ResponsiblePartiesService();
-    const response = await fetchBirthdaysOfTheMonth(token);
-    return {
-      isError: false,
-      responsibles: response,
-    };
-  } catch (error) {
-    const customError = handleAxiosError(error);
-    return { isError: true, error: customError.message };
-  }
-}
+// export async function fetchBirthdaysOfTheMonth(token: string) {
+//   try {
+//     const { fetchBirthdaysOfTheMonth } = await ResponsiblePartiesService();
+//     const response = await fetchBirthdaysOfTheMonth(token);
+//     return {
+//       isError: false,
+//       responsibles: response,
+//     };
+//   } catch (error) {
+//     const customError = handleAxiosError(error);
+//     return { isError: true, error: customError.message };
+//   }
+// }
 
 export async function fetchAllProjects(token: string) {
   try {
