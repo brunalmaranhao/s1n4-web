@@ -42,33 +42,33 @@ export async function getUserById(
 //   }
 // }
 
-// export async function fetchAllProjects(token: string) {
-//   try {
-//     const { fetchAllProjects } = await ProjectsService();
-//     const { projects } = await fetchAllProjects(token, 1, 20);
-//     return {
-//       isError: false,
-//       projects: projects,
-//     };
-//   } catch (error) {
-//     const customError = handleAxiosError(error);
-//     return { isError: true, error: customError.message };
-//   }
-// }
-
-export async function fetchAllProjectUpdates(token: string) {
+export async function fetchAllProjects(token: string) {
   try {
-    const { fetchAllProjectUpdates } = await ProjectUpdatesService();
-    const response = await fetchAllProjectUpdates(token);
+    const { fetchAllProjects } = await ProjectsService();
+    const { projects } = await fetchAllProjects(token, 1, 20);
     return {
       isError: false,
-      updates: response.updates,
+      projects: projects,
     };
   } catch (error) {
     const customError = handleAxiosError(error);
     return { isError: true, error: customError.message };
   }
 }
+
+// export async function fetchAllProjectUpdates(token: string) {
+//   try {
+//     const { fetchAllProjectUpdates } = await ProjectUpdatesService();
+//     const response = await fetchAllProjectUpdates(token);
+//     return {
+//       isError: false,
+//       updates: response.updates,
+//     };
+//   } catch (error) {
+//     const customError = handleAxiosError(error);
+//     return { isError: true, error: customError.message };
+//   }
+// }
 
 export async function getProjectById(id: string, token: string) {
   try {
