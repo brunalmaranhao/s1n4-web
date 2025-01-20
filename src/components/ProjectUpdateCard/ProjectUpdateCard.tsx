@@ -5,7 +5,7 @@ import { ptBR } from "date-fns/locale";
 interface ProjectUpdateCardProps {
   email: string;
   role: string;
-  projectUpdate: IProjectUpdatesState;
+  projectUpdate: IProjectUpdates;
   key: number;
   isLast: boolean;
 }
@@ -43,7 +43,7 @@ export default function ProjectUpdateCard({
           </div>
 
           <h1 className="text-[16px] text-[#697077] dark:text-white font-normal">
-            {projectUpdate.project.name} - {projectUpdate.project.customer.name}
+            {projectUpdate.project?.name} - {projectUpdate.project?.customer?.name}
           </h1>
         </div>
         <div className="flex space-x-2">

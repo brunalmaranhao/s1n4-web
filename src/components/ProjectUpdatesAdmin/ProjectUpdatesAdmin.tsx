@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import ProjectUpdateCard from "../ProjectUpdateCard/ProjectUpdateCard";
 import { Spinner } from "@nextui-org/react";
 import { Roboto } from "next/font/google";
+import ProjectUpdatesService from "@/services/models/project-updates";
+import { handleAxiosError } from "@/services/error";
 
 const robotoBold = Roboto({
   weight: "700",
@@ -17,24 +19,24 @@ interface UserInfoprops {
 
 export default function ProjectUpdatesAdmin({ email, role }: UserInfoprops) {
   const [projectUpdatesState, setProjectUpdatesState] = useState<
-    IProjectUpdatesState[] | []
+  IProjectUpdates[] | []
   >([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { "sina:x-token": sessionKey } = parseCookies();
 
-  const handleProjectUpdates = async (token: string) => {
-    const result = await fetchAllProjectUpdates(token);
-    return result.updates;
+  const handleProjectUpdates = async () => {
+    try {
+      const { fetchAllProjectUpdates } = await ProjectUpdatesService();
+      const response = await fetchAllProjectUpdates();
+      setProjectUpdatesState(response.updates)
+    } catch (error) {
+      const customError = handleAxiosError(error);
+      return { isError: true, error: customError.message };
+    }
   };
 
   useEffect(() => {
-    setIsLoading(true);
-    handleProjectUpdates(sessionKey)
-      .then((data) => {
-        setProjectUpdatesState(data || []);
-      })
-      .finally(() => setIsLoading(false));
+    handleProjectUpdates()
   }, []);
 
   return (
@@ -55,7 +57,7 @@ export default function ProjectUpdatesAdmin({ email, role }: UserInfoprops) {
       ) : (
         projectUpdatesState.map((projectUpdate, index) => (
           <ProjectUpdateCard
-            email={email}
+            email={projectUpdate.user.email}
             role={role}
             projectUpdate={projectUpdate}
             key={index}
