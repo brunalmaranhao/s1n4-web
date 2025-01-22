@@ -1,6 +1,14 @@
 import { usePathname } from "next/navigation";
 import ProjectsService from "@/services/models/projects";
-import { Button, CircularProgress, Divider, Spinner } from "@nextui-org/react";
+import {
+  Button,
+  CircularProgress,
+  Divider,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Spinner,
+} from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { MdChevronRight } from "react-icons/md";
@@ -63,7 +71,7 @@ export default function ProjectsOverview({
 
   const calculateProjectsPercentage = (
     allProjectsLength: number,
-    doneProjects: number,
+    doneProjects: number
   ) => {
     if (allProjectsLength === 0) {
       setProjectsPercentage(0);
@@ -88,12 +96,43 @@ export default function ProjectsOverview({
               <h1 className="text-[18px] text-black dark:text-white font-bold">
                 Projetos
               </h1>
-              <Button
-                className="bg-transparent text-[#F57B00] p-0 h-6 text-[12px]"
-                onPress={() => push("/admin/management/projects")}
+              <Popover
+                shadow="lg"
+                offset={10}
+                placement="bottom"
+                shouldBlockScroll={false}
               >
-                {"Ver todos"} <MdChevronRight className="ml-[-3px]" />
-              </Button>
+                <PopoverTrigger>
+                  <Button className="bg-transparent text-[#F57B00] p-0 h-6 text-[12px]">
+                    {"Ver todos"} <MdChevronRight className="ml-[-3px]" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent
+                  className="max-h-[300px] p-4  overflow-auto [&::-webkit-scrollbar]:w-2
+  [&::-webkit-scrollbar-track]:bg-gray-100
+  [&::-webkit-scrollbar-thumb]:bg-gray-300
+  dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
+                >
+                  {(titleProps) => (
+                    <div className="flex flex-col gap-1 p-3">
+                      {allProjectsDone.map((item) => (
+                        <div
+                          key={item.id}
+                          className="text-black dark:text-white flex flex-col  "
+                        >
+                          <p className="text-[14px] truncate max-w-[150px]">
+                            {item.name}
+                          </p>
+                          <small className="text-[10px] truncate max-w-[120px]">
+                            {item.customer?.name}
+                          </small>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </PopoverContent>
+              </Popover>
             </div>
             {allProjectsDone.length > 0 ? (
               <div
@@ -103,7 +142,7 @@ export default function ProjectsOverview({
   dark:[&::-webkit-scrollbar-track]:bg-neutral-700
   dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 "
               >
-                {allProjectsDone.map((item) => (
+                {allProjectsDone.slice(0, 5).map((item) => (
                   <div
                     key={item.id}
                     className="text-black dark:text-white flex flex-col  "

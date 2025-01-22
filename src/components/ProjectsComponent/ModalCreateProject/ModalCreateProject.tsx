@@ -80,6 +80,8 @@ export default function ModalCreateProject() {
     onClose();
   }
 
+  console.log(errors)
+
   return (
     <Modal
       scrollBehavior="outside"

@@ -23,7 +23,7 @@ export default function UserHome() {
     ICustomerUser | undefined
   >(undefined);
   const [customerState, setCustomerState] = useState<ICustomer | undefined>(
-    undefined,
+    undefined
   );
 
   const { theme, setTheme } = useTheme();
@@ -46,14 +46,14 @@ export default function UserHome() {
       if (customerUserId !== undefined) {
         const customerUser = await handleCustomerUser(
           customerUserId,
-          sessionKey,
+          sessionKey
         );
         setCustomerUserState(customerUser);
 
         if (customerUser?.customerId !== undefined) {
           const customer = await handleCustomerById(
             customerUser.customerId,
-            sessionKey,
+            sessionKey
           );
 
           setCustomerState(customer);
@@ -105,9 +105,12 @@ export default function UserHome() {
               </h1>
             </div>
             <div className="flex gap-6">
-              <CustomerProjectsOverview
-                projects={customerState?.projects || []}
-              />
+              <div className="w-[345px]">
+                <CustomerProjectsOverview
+                  projects={customerState?.projects || []}
+                />
+              </div>
+
               <ProjectUpdatesCustomer
                 email={customerUserState?.email || ""}
                 role={customerUserState?.role || ""}

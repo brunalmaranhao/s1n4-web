@@ -99,11 +99,11 @@ export default function ModalProjectDetails() {
       <ModalContent className="text-black dark:text-white">
         {(onClose) => (
           <>
-            <ModalHeader className="mb-[-10px]">
-              <div className="flex flex-col gap-2">
+            <ModalHeader className="mb-[-10px] w-full">
+              <div className="flex flex-col gap-2 w-full">
                 <div className="flex w-full gap-1  items-start">
                   <MdOutlineTableChart className="text-[#F57B00] text-[24px] mt-[1px]" />
-                  {/* <p className="text-[24px] font-bold max-w-[250px] truncate">
+                  {/* <p className="text-[24px] font-bold max-w-[500px] truncate">
                     {selectedProjectEdit?.name}
                   </p> */}
                   <input

@@ -12,10 +12,10 @@ import { format, formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useEffect, useState } from "react";
 import { MdCheck, MdNotifications } from "react-icons/md";
-import ModalNotification from "./ModalNotification/ModalNotification";
 import { GoDotFill } from "react-icons/go";
 import { useNotificationContext } from "@/context/NotificationsContext";
 import { useTheme } from "next-themes";
+import ModalProjectDetailView from "../ModalProjectDetailView/ModalProjectDetailView";
 
 export default function Notification() {
   const {
@@ -101,7 +101,7 @@ export default function Notification() {
           ))}
         </DropdownMenu>
       </Dropdown>
-      <ModalNotification />
+      <ModalProjectDetailView />
     </>
   );
 }
