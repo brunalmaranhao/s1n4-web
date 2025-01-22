@@ -18,6 +18,7 @@ import { MdChevronRight } from "react-icons/md";
 import ResponsilbeParties from "@/components/ResponsilbeParties/ResponsilbeParties";
 import BirthdayOfTheMonth from "@/components/BirthdayOfTheMonth/BirthdayOfTheMonth";
 import ReportsTable from "@/components/ReportsTable/ReportsTable";
+import BalanceBudgetExpenses from "@/components/BalanceBudgetExpenses/BalanceBugdetExpenses";
 
 export default function AdminHome() {
   const [userState, setUserState] = useState<IGetUserResponse | null>(null);
@@ -123,6 +124,9 @@ export default function AdminHome() {
                         <h4 className="text-[16px]">Total de Clientes</h4>
                       </div>
                     </div>
+                    <div>
+                      <Divider />
+                    </div>
                     <div className="flex w-full items-center">
                       <div className="w-[60%] flex">
                         <p className="w-[50px] h-[50px] text-[18px] rounded-full bg-[#F57B00] flex items-center justify-center">
@@ -149,6 +153,7 @@ export default function AdminHome() {
                   />
                 </div>
                 <ReportsTable />
+                <BalanceBudgetExpenses />
               </div>
             </div>
 

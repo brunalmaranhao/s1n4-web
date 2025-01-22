@@ -24,7 +24,7 @@ export default function ProjectUpdateCard({
   };
 
   return (
-    <div key={key} className="flex flex-col space-y-2 mb-4">
+    <div key={key} className="flex flex-col space-y-2 mb-4 w-full">
       <div className={`flex space-x-2 items-center justify-between`}>
         <div className="flex">
           <h1 className="text-[16px] font-normal text-[#21272A] dark:text-white underline">
@@ -35,16 +35,21 @@ export default function ProjectUpdateCard({
             <Image src="/roleicon.svg" alt="role icon" />
           </div>
           <h1 className="text-[16px] text-[#697077] dark:text-white font-normal">
-            {roleTranslations[role]}
+            {role}
           </h1>
-          <div className="flex mx-4 space-x-4">
+          <div className="flex mx-4 space-x-4 items-center">
             <Image src="/rightarrow.svg" alt="right icon" />
             <Image src="/projecticon.svg" alt="project icon" />
           </div>
-
-          <h1 className="text-[16px] text-[#697077] dark:text-white font-normal">
-            {projectUpdate.project?.name} - {projectUpdate.project?.customer?.name}
+          <div className="flex gap-1 items-center">
+          <h1 className="text-[16px] text-[#697077] dark:text-white font-normal max-w-[180px] truncate">
+            {projectUpdate.project?.name}
           </h1>
+          <h1 className="text-[16px] text-[#697077] dark:text-white font-normal max-w-[110px] truncate">
+            - {projectUpdate.project?.customer?.name}
+          </h1>
+          </div>
+         
         </div>
         <div className="flex space-x-2">
           <Image src="/access_time.svg" alt="date icon" />

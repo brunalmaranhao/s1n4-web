@@ -19,10 +19,30 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import PeriodicReportService from "@/services/models/periodic-report";
 import { handleAxiosError } from "@/services/error";
+import { s3 } from "@/services/s3-service";
 
 export default function ReportsTable() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [reports, setReports] = useState<PeriodicReportDetailsResponse[]>([]);
+
+  const download = async (url: string) => {
+    const params = {
+      Bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME,
+      Key: url,
+    };
+    s3.getSignedUrl("getObject", params, async (err, signedUrl) => {
+      if (err) {
+        console.error("Erro ao obter URL assinada:", err);
+      } else if (signedUrl) {
+        const link = document.createElement("a");
+        link.href = signedUrl;
+        link.download = url.split("/").pop() || "download";
+        link.target = "_blank";
+        link.click();
+        link.remove();
+      }
+    });
+  };
 
   const fetchAll = async () => {
     try {
@@ -88,7 +108,7 @@ export default function ReportsTable() {
                             </Button>
                           </DropdownTrigger>
                           <DropdownMenu className="text-black dark:text-white">
-                            <DropdownItem>Baixar</DropdownItem>
+                            <DropdownItem onPress={() => download(report.url)}>Baixar</DropdownItem>
                           </DropdownMenu>
                         </Dropdown>
                       </div>

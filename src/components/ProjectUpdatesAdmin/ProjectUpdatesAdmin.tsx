@@ -36,6 +36,18 @@ export default function ProjectUpdatesAdmin({ email, role }: UserInfoprops) {
   useEffect(() => {
     handleProjectUpdates()
   }, []);
+  const roleTranslations: { [key: string]: string } = {
+    INTERNAL_MANAGEMENT: "Gestão Interna",
+    INTERNAL_PARTNERS: "Parceiros Internos",
+    INTERNAL_FINANCIAL_LEGAL: "Financeiro/Jurídico",
+  };
+
+  function getRoleName(value: string){
+    console.log(value)
+    return roleTranslations[value]
+  }
+
+  
 
   return (
     <div
@@ -56,7 +68,7 @@ export default function ProjectUpdatesAdmin({ email, role }: UserInfoprops) {
         projectUpdatesState.map((projectUpdate, index) => (
           <ProjectUpdateCard
             email={projectUpdate.user.email}
-            role={role}
+            role= {getRoleName(projectUpdate.user.role)}
             projectUpdate={projectUpdate}
             key={index}
             isLast={index === projectUpdatesState.length - 1}

@@ -60,7 +60,7 @@ export default function ModalProjectDetails() {
               <div className="flex flex-col gap-2">
                 <div className="flex w-full gap-1  items-start">
                   <MdOutlineTableChart className="text-[#F57B00] text-[24px] mt-[1px]" />
-                  <p className="text-[24px] font-bold max-w-[250px] truncate">
+                  <p className="text-[24px] font-bold max-w-[500px] truncate">
                     {selectedProjectEdit?.name}
                   </p>
                 </div>

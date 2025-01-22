@@ -49,8 +49,8 @@ export default function CardProject({ project }: CardProjectProps) {
         </p>
       </div>
 
-      <div className="flex justify-between items-center">
-        <p className="text-md text-[#000] dark:text-white truncate max-w-[120px]">
+      <div className="flex flex-col">
+        <p className="text-md text-[#000] dark:text-white truncate">
           {project.name}
         </p>
         <small className="text-[#697077] text-tiny">
