@@ -5,7 +5,7 @@ import { get } from "@/services/methods/get";
 export default async function BudgetExpenseService() {
   async function updateBudgetExpense(
     expenseId: string,
-    payload: IUpdateBudgetExpense
+    payload: IUpdateBudgetExpense,
   ): Promise<void> {
     const data = JSON.stringify({
       projectId: payload.projectId,
@@ -21,10 +21,10 @@ export default async function BudgetExpenseService() {
   }
 
   async function fetchCustomerExpenses(
-    customerId: string
+    customerId: string,
   ): Promise<ICustomerBudgetBalance> {
     const response = await get<ICustomerExpensesResponse>(
-      `/budget-expense/balance/customer/${customerId}`
+      `/budget-expense/balance/customer/${customerId}`,
     );
     return response.data;
   }
@@ -44,6 +44,6 @@ export default async function BudgetExpenseService() {
     updateBudgetExpense,
     removeBudgetExpense,
     fetchCustomerExpenses,
-    fetchBalanceAllCustomers
+    fetchBalanceAllCustomers,
   };
 }

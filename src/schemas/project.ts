@@ -13,8 +13,10 @@ export const schemaNewProject = yup
         "A data de início deve ser igual ou anterior à data de prazo final.",
         function (deadline) {
           const { start } = this.parent;
-          return start && deadline ? new Date(start) <= new Date(deadline) : true;
-        }
+          return start && deadline
+            ? new Date(start) <= new Date(deadline)
+            : true;
+        },
       ),
     budget: yup
       .number()

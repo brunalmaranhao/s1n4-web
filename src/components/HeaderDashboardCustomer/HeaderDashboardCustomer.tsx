@@ -10,11 +10,13 @@ import { SunIcon } from "../SunIcon/SunIcon";
 import { MoonIcon } from "../MoonIcon/MoonIcon";
 import { useTheme } from "next-themes";
 import CustomerFinancial from "@/app/customer/dashboard/financial/page";
+import OverviewUserCostumer from "../OverviewUserCosutmer/OverviewUserCostumer";
 
 export default function HeaderDashboardCustomer() {
   const { theme, setTheme } = useTheme();
   const { onOpenModalDownloadPeriodicReport } = useReportContext();
   const pathsWithTab = [
+    "/customer/dashboard/overview",
     "/customer/dashboard/reports",
     "/customer/dashboard/projects",
     "/customer/dashboard/financial",
@@ -24,7 +26,9 @@ export default function HeaderDashboardCustomer() {
     ? "Projetos"
     : pathname.startsWith("/customer/dashboard/reports")
       ? "Relatórios"
-      : "Financeiro";
+      : pathname.startsWith("/customer/dashboard/overview")
+        ? "Visão geral"
+        : "Financeiro";
 
   // console.log(label);
   return (

@@ -1,71 +1,37 @@
-import { usePathname } from "next/navigation";
+import { handleAxiosError } from "@/services/error";
 import ProjectsService from "@/services/models/projects";
 import {
-  Button,
-  CircularProgress,
-  Divider,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
   Spinner,
+  Popover,
+  PopoverTrigger,
+  Button,
+  PopoverContent,
+  Divider,
+  CircularProgress,
 } from "@nextui-org/react";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { MdChevronRight } from "react-icons/md";
-import { useCustomerContext } from "@/context/CustomerContext";
-import { handleAxiosError } from "@/services/error";
 import toast from "react-hot-toast";
+import { MdChevronRight } from "react-icons/md";
 
-interface ProjectsOverviewProps {
-  selectedClient?: ICustomer | undefined;
-}
-
-export default function ProjectsOverview({
-  selectedClient,
-}: ProjectsOverviewProps) {
-  const { push } = useRouter();
+export default function ProjectsOverviewUserCostumer() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [allProjectsDone, setAllProjectsDone] = useState<IProject[]>([]);
   const [projectsPercentage, setProjectsPercentage] = useState(0);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { isClientFilterActive } = useCustomerContext();
 
   const pathname = usePathname();
 
-  useEffect(() => {
-    if (isClientFilterActive && selectedClient) {
-      fetchProjectsCustomer(selectedClient.id);
-    } else {
-      fetchProjects();
-    }
-  }, [selectedClient, isClientFilterActive]);
-
-  const fetchProjects = async () => {
-    setIsLoading(true);
+  const handleCustomerProjects = async () => {
     try {
-      const { fetchProjectsForStatistics } = await ProjectsService();
-      const response = await fetchProjectsForStatistics();
-      setAllProjectsDone(response.projectsDone);
-      calculateProjectsPercentage(response.total, response.projectsDone.length);
+      const { fetchProjectsByCustomerUser } = await ProjectsService();
+      const response = await fetchProjectsByCustomerUser();
+      const doneProjects = response.filter((item) => item.status === "DONE");
+      setAllProjectsDone(doneProjects);
+      calculateProjectsPercentage(response.length, doneProjects.length);
+      return response;
     } catch (error) {
       const customError = handleAxiosError(error);
       toast.error(customError.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const fetchProjectsCustomer = async (customer: string) => {
-    setIsLoading(true);
-    try {
-      const { fetchProjectsCustomerForStatistics } = await ProjectsService();
-      const response = await fetchProjectsCustomerForStatistics(customer);
-      setAllProjectsDone(response.projectsDone);
-      calculateProjectsPercentage(response.total, response.projectsDone.length);
-    } catch (error) {
-      const customError = handleAxiosError(error);
-      toast.error(customError.message);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -80,6 +46,11 @@ export default function ProjectsOverview({
       setProjectsPercentage(percentage);
     }
   };
+
+  useEffect(() => {
+    setIsLoading(true);
+    handleCustomerProjects().finally(() => setIsLoading(false));
+  }, []);
 
   return (
     <div

@@ -28,7 +28,7 @@ type ReportContextType = {
   isOpenModalDownloadPeriodicReport: boolean;
   onCloseModalDownloadPeriodicReport: () => void;
   onOpenModalDownloadPeriodicReport: () => void;
-  fetchCustomer: () => void
+  fetchCustomer: () => void;
 };
 
 const ReportContext = createContext<ReportContextType | undefined>(undefined);
@@ -132,7 +132,7 @@ export const ReportProvider: React.FC<{ children: ReactNode }> = ({
     isOpenModalCreatePeriodicReport,
     onCloseModalCreatePeriodicReport,
     onOpenModalCreatePeriodicReport,
-    fetchCustomer
+    fetchCustomer,
   };
 
   return (

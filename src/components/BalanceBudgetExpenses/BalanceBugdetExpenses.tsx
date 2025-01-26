@@ -135,7 +135,7 @@ export default function BalanceBudgetExpenses() {
                                 <div className=" w-[32%]">
                                   <p className="text-[16px] font-normal text-[#21272A] dark:text-white">
                                     {formatter.format(
-                                      dataAllCustomers.amountBudgetExpense
+                                      dataAllCustomers.amountBudgetExpense,
                                     )}
                                   </p>
                                   <p className="text-[#697077] text-[14px] font-normal">
@@ -144,7 +144,7 @@ export default function BalanceBudgetExpenses() {
                                 </div>
                               </div>
                             </div>
-                          )
+                          ),
                         )}
                       </div>
                     )}
@@ -191,7 +191,7 @@ export default function BalanceBudgetExpenses() {
                         <div className=" w-[32%]">
                           <p className="text-[16px] font-normal text-[#21272A] dark:text-white">
                             {formatter.format(
-                              dataAllCustomers.amountBudgetExpense
+                              dataAllCustomers.amountBudgetExpense,
                             )}
                           </p>
                           <p className="text-[#697077] text-[14px] font-normal">
@@ -266,12 +266,12 @@ export default function BalanceBudgetExpenses() {
                                 <p>
                                   {format(
                                     new Date(dataLastExpenses.date),
-                                    "dd/MM/yyyy"
+                                    "dd/MM/yyyy",
                                   )}
                                 </p>
                               </div>
                             </div>
-                          )
+                          ),
                         )}
                       </div>
                     )}
@@ -308,7 +308,7 @@ export default function BalanceBudgetExpenses() {
                         <p>
                           {format(
                             new Date(dataLastExpenses.date),
-                            "dd/MM/yyyy"
+                            "dd/MM/yyyy",
                           )}
                         </p>
                       </div>

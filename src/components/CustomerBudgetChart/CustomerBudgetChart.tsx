@@ -1,52 +1,50 @@
-import { useEffect, useState } from "react";
-import { CustomersBudgetDonutChart } from "../CustomersBudgetDonutChart/CustomersBudgetDonutChart";
-import FinancialService from "@/services/models/financial";
-import { handleAxiosError } from "@/services/error";
 import { formatCurrency } from "@/util/formatter";
 import { Spinner } from "@nextui-org/react";
-import CustomerService from "@/services/models/customer";
-import BudgetExpenseService from "@/services/models/budget-expenses";
+import { useEffect, useState } from "react";
+import { CustomersBudgetDonutChart } from "../CustomersBudgetDonutChart/CustomersBudgetDonutChart";
+import { handleAxiosError } from "@/services/error";
 import toast from "react-hot-toast";
-import { useCustomerContext } from "@/context/CustomerContext";
+import BudgetExpenseService from "@/services/models/budget-expenses";
+import FinancialService from "@/services/models/financial";
 
-interface DashboardBudgetChartProps {
+interface CustomerBudgetChartProps {
   customerId: string;
+  customerName: string;
 }
 
-export default function DashboardBudgetChart({
+export default function CustomerBudgetChart({
   customerId,
-}: DashboardBudgetChartProps) {
+  customerName,
+}: CustomerBudgetChartProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [customerBudgetBalance, setCustomerBudgetBalance] =
+    useState<ICustomerBudgetBalance>();
   const [availableAmountPercentage, setAvailableAmountPercentage] =
     useState<number>(0);
-  const [customerExpenses, setCustomerExpenses] = useState<any[]>([]);
-  const { customerBudgetBalance, setCustomerBudgetBalance } =
-    useCustomerContext();
+  const [customerExpenses, setCustomerExpenses] = useState<IBudgetExpense[]>(
+    [],
+  );
 
-  const {
-    selectedCustomerName,
-    firstCustomerNameLoaded,
-    setFirstCustomerNameLoaded,
-  } = useCustomerContext();
-
-  const handleCustomerExpensesBalance = async (
-    id: string,
-  ): Promise<void | { isError: boolean; error: string }> => {
-    const { fetchCustomerExpenses } = await BudgetExpenseService();
-    const data = await fetchCustomerExpenses(id);
-    setCustomerBudgetBalance(data);
+  const handleCustomerBudgetBalance = async (customerId: string) => {
+    try {
+      const { fetchCustomerExpenses } = await BudgetExpenseService();
+      const data = await fetchCustomerExpenses(customerId);
+      setCustomerBudgetBalance(data);
+      calculateAvailablePercentage(data.balance, data.budget);
+    } catch (error) {
+      const customError = handleAxiosError(error);
+      toast.error(customError.message);
+    }
   };
 
-  const handleCustomerExpenses = async (
-    customerId: string,
-  ): Promise<void | { isError: boolean; error: string }> => {
+  const handleCustomerExpenses = async (customerId: string) => {
     try {
       const { fetchBudgetExpenseByCustomer } = await FinancialService();
       const { data } = await fetchBudgetExpenseByCustomer(customerId);
       setCustomerExpenses(data);
     } catch (error) {
       const customError = handleAxiosError(error);
-      return { isError: true, error: customError.message };
+      toast.error(customError.message);
     }
   };
 
@@ -58,41 +56,16 @@ export default function DashboardBudgetChart({
     setAvailableAmountPercentage(percentage);
   };
 
-  const getFirstActiveCustomer = async () => {
-    try {
-      const { findAllActives } = await CustomerService();
-      const { customers } = await findAllActives();
-      if (customers.length > 0) {
-        handleCustomerExpenses(customers[0].id);
-        setFirstCustomerNameLoaded(customers[0].name || "");
-      }
-    } catch (error) {
-      toast.error(error as string);
-    }
-  };
-
   useEffect(() => {
-    if (customerId) {
-      setIsLoading(true);
-      handleCustomerExpensesBalance(customerId);
-      handleCustomerExpenses(customerId).finally(() => setIsLoading(false));
-    } else {
-      setIsLoading(true);
-      getFirstActiveCustomer().finally(() => setIsLoading(false));
-    }
-  }, [customerId]);
-
-  useEffect(() => {
-    if (customerBudgetBalance) {
-      calculateAvailablePercentage(
-        customerBudgetBalance.balance,
-        customerBudgetBalance.budget,
-      );
-    }
-  }, [customerBudgetBalance]);
+    setIsLoading(true);
+    handleCustomerExpenses(customerId);
+    handleCustomerBudgetBalance(customerId).finally(() => {
+      setIsLoading(false);
+    });
+  }, []);
 
   return (
-    <div className="flex flex-col space-y-5">
+    <div className="flex flex-col space-y-4">
       {isLoading ? (
         <Spinner />
       ) : (
@@ -127,9 +100,7 @@ export default function DashboardBudgetChart({
               customerExpenses.length > 0 && (
                 <div className="flex flex-col w-full">
                   <h1 className="text-[#1E1E1E] dark:text-white text-[18px] font-bold self-start">
-                    {selectedCustomerName
-                      ? selectedCustomerName
-                      : firstCustomerNameLoaded}
+                    {customerName}
                   </h1>
                   <CustomersBudgetDonutChart
                     donutChartData={customerExpenses}

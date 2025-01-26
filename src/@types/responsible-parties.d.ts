@@ -8,7 +8,6 @@ declare interface IResponsibleBirthdaysOfTheMonthResponse {
     birthdate: Date;
     responsiblePartiesRole: "INFLUENCERS" | "CODE" | "RISKMANAGEMENT" | "OWNER";
     customerId: string;
-   
   }[];
 }
 
@@ -21,7 +20,7 @@ declare interface IResponsibles {
   birthdate: Date;
   responsiblePartiesRole: "INFLUENCERS" | "CODE" | "RISKMANAGEMENT" | "OWNER";
   customerId: string;
-  customer?: ICustomer
+  customer?: ICustomer;
 }
 
 enum RoleReponsibleEnum {

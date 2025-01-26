@@ -12,19 +12,18 @@ import { SunIcon } from "@/components/SunIcon/SunIcon";
 import { MoonIcon } from "@/components/MoonIcon/MoonIcon";
 import { useTheme } from "next-themes";
 import SkeletonHome from "@/components/SkeletonHome/SkeletonHome";
+import { useUserCustomerContext } from "@/context/UserCostumerContext";
 
 export default function UserHome() {
+  const {
+    customerUserState,
+    setCustomerUserState,
+    customerState,
+    setCustomerState,
+    customerUserId,
+  } = useUserCustomerContext();
+
   const { "sina:x-token": sessionKey } = parseCookies();
-
-  const decoded = decodeToken(sessionKey);
-  const customerUserId = decoded?.sub;
-
-  const [customerUserState, setCustomerUserState] = useState<
-    ICustomerUser | undefined
-  >(undefined);
-  const [customerState, setCustomerState] = useState<ICustomer | undefined>(
-    undefined
-  );
 
   const { theme, setTheme } = useTheme();
 
@@ -46,14 +45,14 @@ export default function UserHome() {
       if (customerUserId !== undefined) {
         const customerUser = await handleCustomerUser(
           customerUserId,
-          sessionKey
+          sessionKey,
         );
         setCustomerUserState(customerUser);
 
         if (customerUser?.customerId !== undefined) {
           const customer = await handleCustomerById(
             customerUser.customerId,
-            sessionKey
+            sessionKey,
           );
 
           setCustomerState(customer);

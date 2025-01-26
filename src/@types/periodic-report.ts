@@ -15,10 +15,10 @@ declare interface PeriodicReportDetailsResponse {
   url: string;
   project: {
     name: string;
-    customer:{
-      id: string,
-      name: string
-    }
+    customer: {
+      id: string;
+      name: string;
+    };
   };
   status: "ACTIVE" | "INACTIVE";
 }

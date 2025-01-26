@@ -7,6 +7,7 @@ export default function TabsDashboardCustomer() {
   const router = useRouter();
 
   const keyMapping = {
+    overview: "Visão geral",
     projects: "Projetos",
     reports: "Relatórios",
     financial: "Financeiro",
