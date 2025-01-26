@@ -4,13 +4,13 @@ import { get } from "../../methods/get";
 export default async function ResponsiblePartiesService() {
   async function fetchBirthdaysOfTheMonth(): Promise<IResponsibleBirthdaysOfTheMonthResponse> {
     return await get<IResponsibleBirthdaysOfTheMonthResponse>(
-      `responsible-parties/birthdays-of-the-month`
+      `responsible-parties/birthdays-of-the-month`,
     );
   }
 
-  async function fetchAll(): Promise<{responsibles: IResponsibles[]}> {
-    return await get<{responsibles: IResponsibles[]}>(
-      `responsible-parties/all`
+  async function fetchAll(): Promise<{ responsibles: IResponsibles[] }> {
+    return await get<{ responsibles: IResponsibles[] }>(
+      `responsible-parties/all`,
     );
   }
 
@@ -21,7 +21,7 @@ export default async function ResponsiblePartiesService() {
     phone: string,
     customerId: string,
     birthdate: Date,
-    role: RoleReponsibleEnum
+    role: RoleReponsibleEnum,
   ): Promise<string> {
     const payload = JSON.stringify({
       firstName,
@@ -34,7 +34,7 @@ export default async function ResponsiblePartiesService() {
     });
     const response = await post<{ responsibleId: string }, string>(
       `/responsible-parties`,
-      payload
+      payload,
     );
     return response.responsibleId;
   }
@@ -42,6 +42,6 @@ export default async function ResponsiblePartiesService() {
   return {
     fetchBirthdaysOfTheMonth,
     createResponsibleParties,
-    fetchAll
+    fetchAll,
   };
 }

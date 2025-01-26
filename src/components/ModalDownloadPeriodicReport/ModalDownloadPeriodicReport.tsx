@@ -51,7 +51,7 @@ export default function ModalDownloadPeriodicReport() {
       const response = await fetchPeriodicReportsByUserAndYear(year);
       setPeriodicReports(response.periodicReports);
     } catch (error) {
-      console.log("Erro na consulta dos relatorios")
+      console.log("Erro na consulta dos relatorios");
       // toast.error("Não foi possível atualizar o status do projeto.");
     } finally {
       setLoading(false);
@@ -65,7 +65,7 @@ export default function ModalDownloadPeriodicReport() {
       const response = await fetchPeriodicReportsByUser();
       setPeriodicReports(response.periodicReports);
     } catch (error) {
-      console.log("Erro na consulta dos relatorios")
+      console.log("Erro na consulta dos relatorios");
       // toast.error("Não foi possível atualizar o status do projeto.");
     } finally {
       setLoading(false);

@@ -80,7 +80,7 @@ export default function ModalCreateProject() {
     onClose();
   }
 
-  console.log(errors)
+  console.log(errors);
 
   return (
     <Modal

@@ -22,7 +22,7 @@ declare interface IProject {
   name: string;
   customerId: string;
   deadline: Date | null | undefined;
-  statusProject: StatusProject;
+  status: StatusProject;
   createdAt: Date;
   updatedAt: Date | null | undefined;
   customer: ICustomer;

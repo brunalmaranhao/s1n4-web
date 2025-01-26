@@ -34,14 +34,14 @@ export default function ModalDownloadPeriodicReportWithCustomerFilter() {
   const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
 
   const [selectedKeysCustomer, setSelectedKeysCustomer] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
 
   useEffect(() => {
-    if(customers.length === 0){
-      fetchCustomer()
+    if (customers.length === 0) {
+      fetchCustomer();
     }
-  } ,[customers])
+  }, [customers]);
 
   useEffect(() => {
     const selectedId = Array.from(selectedKeysCustomer)[0];
@@ -62,7 +62,7 @@ export default function ModalDownloadPeriodicReportWithCustomerFilter() {
 
   const fetchPeriodicReportsCustomerAndYear = async (
     customerId: string,
-    year: string
+    year: string,
   ) => {
     setLoading(true);
     try {
@@ -70,11 +70,11 @@ export default function ModalDownloadPeriodicReportWithCustomerFilter() {
         await PeriodicReportService();
       const response = await fetchPeriodicReportsByCustomerAndYear(
         customerId,
-        year
+        year,
       );
       setPeriodicReports(response.periodicReports);
     } catch (error) {
-      console.log( console.log("Erro na consulta dos relatorios"))
+      console.log(console.log("Erro na consulta dos relatorios"));
     } finally {
       setLoading(false);
     }
@@ -87,7 +87,7 @@ export default function ModalDownloadPeriodicReportWithCustomerFilter() {
       const response = await fetchPeriodicReportsByCustomer(customerId);
       setPeriodicReports(response.periodicReports);
     } catch (error) {
-      console.log("Erro na consulta dos relatorios")
+      console.log("Erro na consulta dos relatorios");
       // toast.error("Não foi possível atualizar o status do projeto.");
     } finally {
       setLoading(false);

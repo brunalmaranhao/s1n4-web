@@ -35,15 +35,14 @@ export default function ProjectUpdatesCustomer({
     INTERNAL_FINANCIAL_LEGAL: "Financeiro/Jurídico",
   };
 
-  function getRoleName(value: string){
-    console.log(value)
-    return roleTranslations[value]
+  function getRoleName(value: string) {
+    console.log(value);
+    return roleTranslations[value];
   }
-
 
   const handleCustomerProjectUpdates = async (
     token: string,
-    customerId: string
+    customerId: string,
   ) => {
     const { updates } = await fetchCustomerProjectUpdates(token, customerId);
     return updates;

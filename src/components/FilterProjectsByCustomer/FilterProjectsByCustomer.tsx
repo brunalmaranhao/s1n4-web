@@ -105,14 +105,13 @@ export default function FilterProjectsByCustomer() {
               value={dateFilter}
               onChange={changeDate}
               classNames={{
-                segment: 'text-black',
-                label: 'text-black',
-                selectorButton: 'text-black',
-                selectorIcon: 'text-black',
-              
+                segment: "text-black",
+                label: "text-black",
+                selectorButton: "text-black",
+                selectorIcon: "text-black",
               }}
             />
-          </I18nProvider> 
+          </I18nProvider>
           <div className="w-[150px]">
             <Button
               onClick={clearFilters}

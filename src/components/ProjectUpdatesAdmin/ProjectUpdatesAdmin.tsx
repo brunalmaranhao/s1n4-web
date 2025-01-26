@@ -17,16 +17,15 @@ interface UserInfoprops {
 
 export default function ProjectUpdatesAdmin({ email, role }: UserInfoprops) {
   const [projectUpdatesState, setProjectUpdatesState] = useState<
-  IProjectUpdates[] | []
+    IProjectUpdates[] | []
   >([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
 
   const handleProjectUpdates = async () => {
     try {
       const { fetchAllProjectUpdates } = await ProjectUpdatesService();
       const response = await fetchAllProjectUpdates();
-      setProjectUpdatesState(response.updates)
+      setProjectUpdatesState(response.updates);
     } catch (error) {
       const customError = handleAxiosError(error);
       return { isError: true, error: customError.message };
@@ -34,7 +33,7 @@ export default function ProjectUpdatesAdmin({ email, role }: UserInfoprops) {
   };
 
   useEffect(() => {
-    handleProjectUpdates()
+    handleProjectUpdates();
   }, []);
   const roleTranslations: { [key: string]: string } = {
     INTERNAL_MANAGEMENT: "Gestão Interna",
@@ -42,12 +41,10 @@ export default function ProjectUpdatesAdmin({ email, role }: UserInfoprops) {
     INTERNAL_FINANCIAL_LEGAL: "Financeiro/Jurídico",
   };
 
-  function getRoleName(value: string){
-    console.log(value)
-    return roleTranslations[value]
+  function getRoleName(value: string) {
+    console.log(value);
+    return roleTranslations[value];
   }
-
-  
 
   return (
     <div
@@ -68,7 +65,7 @@ export default function ProjectUpdatesAdmin({ email, role }: UserInfoprops) {
         projectUpdatesState.map((projectUpdate, index) => (
           <ProjectUpdateCard
             email={projectUpdate.user.email}
-            role= {getRoleName(projectUpdate.user.role)}
+            role={getRoleName(projectUpdate.user.role)}
             projectUpdate={projectUpdate}
             key={index}
             isLast={index === projectUpdatesState.length - 1}

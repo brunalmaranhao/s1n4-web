@@ -47,7 +47,10 @@ export default async function PeriodicReportService() {
 
     return { periodicReports: response.periodicReports };
   }
-  async function fetchPeriodicReportsByCustomerAndYear(customerId: string, year: string): Promise<{
+  async function fetchPeriodicReportsByCustomerAndYear(
+    customerId: string,
+    year: string,
+  ): Promise<{
     periodicReports: PeriodicReportDetailsResponse[];
   }> {
     const response = await get<{
@@ -83,6 +86,6 @@ export default async function PeriodicReportService() {
     fetchPeriodicReportsByUserAndYear,
     fetchPeriodicReportsByCustomerAndYear,
     fetchPeriodicReportsByCustomer,
-    fetchAll
+    fetchAll,
   };
 }

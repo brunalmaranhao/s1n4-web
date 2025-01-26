@@ -42,14 +42,13 @@ export default function ProjectUpdateCard({
             <Image src="/projecticon.svg" alt="project icon" />
           </div>
           <div className="flex gap-1 items-center">
-          <h1 className="text-[16px] text-[#697077] dark:text-white font-normal max-w-[180px] truncate">
-            {projectUpdate.project?.name}
-          </h1>
-          <h1 className="text-[16px] text-[#697077] dark:text-white font-normal max-w-[110px] truncate">
-            - {projectUpdate.project?.customer?.name}
-          </h1>
+            <h1 className="text-[16px] text-[#697077] dark:text-white font-normal max-w-[180px] truncate">
+              {projectUpdate.project?.name}
+            </h1>
+            <h1 className="text-[16px] text-[#697077] dark:text-white font-normal max-w-[110px] truncate">
+              - {projectUpdate.project?.customer?.name}
+            </h1>
           </div>
-         
         </div>
         <div className="flex space-x-2">
           <Image src="/access_time.svg" alt="date icon" />

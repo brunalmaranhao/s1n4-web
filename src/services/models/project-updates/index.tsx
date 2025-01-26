@@ -8,14 +8,14 @@ export default async function ProjectUpdatesService() {
     updates: IProjectUpdates[];
   }> {
     const response = await get<{ updates: IProjectUpdates[] }>(
-      `/project-updates`
+      `/project-updates`,
     );
     return response;
   }
 
   async function createProjectUpdate(
     description: string,
-    projectId: string
+    projectId: string,
   ): Promise<void> {
     const payload = JSON.stringify({ description, projectId });
     await post(`/project-updates`, payload);
@@ -23,7 +23,7 @@ export default async function ProjectUpdatesService() {
 
   async function fetchCustomerProjectUpdates(
     token: string,
-    customerId: string
+    customerId: string,
   ): Promise<ICustomerProjectUpdatesResponse> {
     return await get<ICustomerProjectUpdatesResponse>(
       `/project-updates/customer/${customerId}`,
@@ -31,15 +31,15 @@ export default async function ProjectUpdatesService() {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }
+      },
     );
   }
 
   async function fetchProjectProjectUpdates(
-    projectId: string
+    projectId: string,
   ): Promise<ICustomerProjectUpdatesResponse> {
     return await get<ICustomerProjectUpdatesResponse>(
-      `/project-updates/project/${projectId}`
+      `/project-updates/project/${projectId}`,
     );
   }
 

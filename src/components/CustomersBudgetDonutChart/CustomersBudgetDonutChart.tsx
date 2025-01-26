@@ -39,10 +39,10 @@ export const CustomersBudgetDonutChart = ({
                 className="w-3 h-3 rounded-full"
                 style={{ backgroundColor: expense.color }}
               />
-              <h1 className="text-[#1E1E1E] text-[16px] font-normal">
+              <h1 className="text-[#1E1E1E] dark:text-white text-[16px] font-normal">
                 {expense.name}
               </h1>
-              <h1 className="text-[#697077] text-[16px] font-normal">
+              <h1 className="text-[#697077] dark:text-white text-[16px] font-normal">
                 {`R$${Intl.NumberFormat("pt-BR")
                   .format(expense.amount)
                   .toString()}`}

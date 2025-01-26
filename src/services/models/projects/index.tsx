@@ -148,6 +148,11 @@ export default async function ProjectsService() {
     return response.projects;
   }
 
+  async function fetchProjectsByCustomerUser(): Promise<IProject[]> {
+    const response = await get<{ projects: IProject[] }>(`/projects/customer`);
+    return response.projects;
+  }
+
   return {
     fetchAllProjects,
     getProjectById,
@@ -161,5 +166,6 @@ export default async function ProjectsService() {
     fetchProjectsForStatistics,
     fetchProjectsCustomerForStatistics,
     updateName,
+    fetchProjectsByCustomerUser,
   };
 }

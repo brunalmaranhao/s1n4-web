@@ -82,7 +82,10 @@ export default function ReportsTable() {
             Relatórios cadastrados
           </h1>
           {reports.length === 0 ? (
-            <p className="text-[#21272A] dark:text-white"> Não existem relatórios cadastrados.</p>
+            <p className="text-[#21272A] dark:text-white">
+              {" "}
+              Não existem relatórios cadastrados.
+            </p>
           ) : (
             <Table aria-label="Example static collection table">
               <TableHeader>
@@ -108,7 +111,9 @@ export default function ReportsTable() {
                             </Button>
                           </DropdownTrigger>
                           <DropdownMenu className="text-black dark:text-white">
-                            <DropdownItem onPress={() => download(report.url)}>Baixar</DropdownItem>
+                            <DropdownItem onPress={() => download(report.url)}>
+                              Baixar
+                            </DropdownItem>
                           </DropdownMenu>
                         </Dropdown>
                       </div>

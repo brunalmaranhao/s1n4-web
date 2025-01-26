@@ -35,8 +35,10 @@ export default function Menu() {
       pathnames: [
         "/customer/dashboard/projects",
         "/customer/dashboard/reports",
+        "/customer/dashboard/overview",
+        "/customer/dashboard/financial",
       ],
-      link: "/customer/dashboard/projects",
+      link: "/customer/dashboard/overview",
       label: "Dashboard",
       iconSelected: "/selecteddashboard.svg",
       icon: "/dashboard.svg",

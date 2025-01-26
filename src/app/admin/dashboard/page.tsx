@@ -24,19 +24,20 @@ import ModalDownloadPeriodicReportWithCustomerFilter from "@/components/ModalDow
 
 const ReportTabContent = dynamic(
   () => import("@/components/ReportTabContent/ReportTabContent"),
-  { ssr: false }
+  { ssr: false },
 );
 
 const ModalCreatePeriodicReport = dynamic(
   () =>
     import("@/components/ModalCreatePeriodicReport/ModalCreatePeriodicReport"),
-  { ssr: false }
+  { ssr: false },
 );
 
 export default function Dashboard() {
   const [selectedTab, setSelectedTab] = useState<Key>("");
 
-  const { onOpenModalCreatePeriodicReport, onOpenModalDownloadPeriodicReport } = useReportContext();
+  const { onOpenModalCreatePeriodicReport, onOpenModalDownloadPeriodicReport } =
+    useReportContext();
   const { setSelectedCustomer, selectedCustomer } = useCustomerContext();
 
   const { theme, setTheme } = useTheme();
