@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import ProjectUpdateCard from "../ProjectUpdateCard/ProjectUpdateCard";
-import { Spinner } from "@nextui-org/react";
+import { Spinner, useDisclosure } from "@nextui-org/react";
 import { Roboto } from "next/font/google";
 import ProjectUpdatesService from "@/services/models/project-updates";
 import { handleAxiosError } from "@/services/error";
+import ModalProjectDetailView from "../ModalProjectDetailView/ModalProjectDetailView";
 
 const robotoBold = Roboto({
   weight: "700",
@@ -20,6 +21,9 @@ export default function ProjectUpdatesAdmin({ email, role }: UserInfoprops) {
     IProjectUpdates[] | []
   >([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [projectUpdateSelected, setProjectUpdateSelected] =
+    useState<IProjectUpdates>();
 
   const handleProjectUpdates = async () => {
     try {
@@ -46,6 +50,11 @@ export default function ProjectUpdatesAdmin({ email, role }: UserInfoprops) {
     return roleTranslations[value];
   }
 
+  function handleOpenModal(item: IProjectUpdates) {
+    setProjectUpdateSelected(item);
+    onOpen();
+  }
+
   return (
     <div
       className="bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] p-4 rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] h-[275px] overflow-auto [&::-webkit-scrollbar]:w-2
@@ -63,14 +72,28 @@ export default function ProjectUpdatesAdmin({ email, role }: UserInfoprops) {
         <Spinner />
       ) : (
         projectUpdatesState.map((projectUpdate, index) => (
-          <ProjectUpdateCard
-            email={projectUpdate.user.email}
-            role={getRoleName(projectUpdate.user.role)}
-            projectUpdate={projectUpdate}
+          <div
             key={index}
-            isLast={index === projectUpdatesState.length - 1}
-          />
+            onClick={() => handleOpenModal(projectUpdate)}
+            className="cursor-pointer"
+          >
+            <ProjectUpdateCard
+              email={projectUpdate.user.email}
+              role={getRoleName(projectUpdate.user.role)}
+              projectUpdate={projectUpdate}
+              key={index}
+              isLast={index === projectUpdatesState.length - 1}
+            />
+          </div>
         ))
+      )}
+      {projectUpdateSelected && (
+        <ModalProjectDetailView
+          isOpen={isOpen}
+          onClose={onOpenChange}
+          origin="table"
+          projectUpdates={projectUpdateSelected}
+        />
       )}
     </div>
   );

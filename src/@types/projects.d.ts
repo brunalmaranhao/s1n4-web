@@ -1,10 +1,12 @@
-type StatusProject =
-  | "APPROVED"
-  | "DISAPPROVED"
-  | "WAITING"
-  | "CANCELED"
-  | "DONE"
-  | "IN_PROGRESS";
+// type StatusProject =
+//   | "APPROVED"
+//   | "DISAPPROVED"
+//   | "WAITING"
+//   | "CANCELED"
+//   | "DONE"
+//   | "IN_PROGRESS";
+
+type StatusProject = "ACTIVE" | "INACTIVE" | "DONE";
 
 declare interface IListProject {
   id: string;
@@ -21,6 +23,7 @@ declare interface IProject {
   id: string;
   name: string;
   customerId: string;
+  start: Date | null | undefined;
   deadline: Date | null | undefined;
   status: StatusProject;
   createdAt: Date;
@@ -32,6 +35,7 @@ declare interface IProject {
   shouldShowInformationsToCustomerUser: boolean;
   tags: ITag[];
   listProjects: IListProject;
+  periodicReports: PeriodicReportDetailsResponse[]
 }
 
 declare interface IProjectsOverview {
@@ -49,6 +53,7 @@ declare interface IProjectsOverview {
   shouldShowInformationsToCustomerUser: boolean;
   tags: ITag[];
   listProjects: IListProject;
+  periodicReports: PeriodicReportDetailsResponse[]
 }
 
 declare interface IProjectsForStatistics {

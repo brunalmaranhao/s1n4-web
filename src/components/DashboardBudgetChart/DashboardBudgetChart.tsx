@@ -30,7 +30,7 @@ export default function DashboardBudgetChart({
   } = useCustomerContext();
 
   const handleCustomerExpensesBalance = async (
-    id: string,
+    id: string
   ): Promise<void | { isError: boolean; error: string }> => {
     const { fetchCustomerExpenses } = await BudgetExpenseService();
     const data = await fetchCustomerExpenses(id);
@@ -38,7 +38,7 @@ export default function DashboardBudgetChart({
   };
 
   const handleCustomerExpenses = async (
-    customerId: string,
+    customerId: string
   ): Promise<void | { isError: boolean; error: string }> => {
     try {
       const { fetchBudgetExpenseByCustomer } = await FinancialService();
@@ -52,7 +52,7 @@ export default function DashboardBudgetChart({
 
   const calculateAvailablePercentage = (
     availableAmount: number,
-    totalBudget: number,
+    totalBudget: number
   ) => {
     const percentage = (availableAmount / totalBudget) * 100;
     setAvailableAmountPercentage(percentage);
@@ -86,13 +86,13 @@ export default function DashboardBudgetChart({
     if (customerBudgetBalance) {
       calculateAvailablePercentage(
         customerBudgetBalance.balance,
-        customerBudgetBalance.budget,
+        customerBudgetBalance.budget
       );
     }
   }, [customerBudgetBalance]);
 
   return (
-    <div className="flex flex-col space-y-5">
+    <div className="flex flex-col gap-4">
       {isLoading ? (
         <Spinner />
       ) : (
@@ -116,15 +116,16 @@ export default function DashboardBudgetChart({
                 </h1>
               </div>
               <span className="bg-[#23CF5C] text-[#1E1E1E] rounded-xl px-3 text-[14px] font-normal">{`${availableAmountPercentage.toFixed(
-                2,
+                2
               )}%`}</span>
             </div>
           </div>
-          <div className="bg-white flex justify-start items-center dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] h-auto p-4">
-            {isLoading ? (
-              <Spinner />
-            ) : (
-              customerExpenses.length > 0 && (
+
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            customerExpenses.length > 0 && (
+              <div className="bg-white flex justify-start items-center dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] h-auto p-4">
                 <div className="flex flex-col w-full">
                   <h1 className="text-[#1E1E1E] dark:text-white text-[18px] font-bold self-start">
                     {selectedCustomerName
@@ -135,9 +136,9 @@ export default function DashboardBudgetChart({
                     donutChartData={customerExpenses}
                   />
                 </div>
-              )
-            )}
-          </div>
+              </div>
+            )
+          )}
         </>
       )}
     </div>

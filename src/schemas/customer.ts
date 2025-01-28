@@ -27,7 +27,7 @@ export const schemaNewCustomer = yup
           .test(
             "is-valid-cep",
             "CEP inválido",
-            (value) => !value || /^\d{5}-\d{3}$/.test(value),
+            (value) => !value || /^\d{5}-\d{3}$/.test(value)
           ),
       })
       .optional(),
@@ -68,5 +68,23 @@ export const schemaEditCustomer = yup
         !!values.expenditureProjection ||
         !!values.contractObjective
       );
-    },
+    }
   );
+
+export const schemaNewAddress = yup.object({
+  street: yup.string().required("Campo Rua é obrigatório."),
+  number: yup.string().required("Campo Número é obrigatório."),
+  complement: yup.string().optional(),
+  neighborhood: yup.string().required("Campo Bairro é obrigatório."),
+  city: yup.string().required("Campo Cidade é obrigatório."),
+  state: yup.string().required("Campo Estado é obrigatório."),
+  country: yup.string().required("Campo País é obrigatório."),
+  zipCode: yup
+    .string()
+    .required("Campo CEP é obrigatório.")
+    .test(
+      "is-valid-cep",
+      "CEP inválido",
+      (value) => !value || /^\d{5}-\d{3}$/.test(value)
+    ),
+});

@@ -14,11 +14,14 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  Tooltip,
 } from "@nextui-org/react";
 import debounce from "lodash.debounce";
 import { IoChevronDownSharp } from "react-icons/io5";
 import {
+  MdAccountCircle,
   MdAttachMoney,
+  MdCalendarMonth,
   MdOutlineTableChart,
   MdSpeakerNotes,
   MdSubject,
@@ -29,6 +32,9 @@ import ProjectsService from "@/services/models/projects";
 import { handleAxiosError } from "@/services/error";
 import toast from "react-hot-toast";
 import MoveProject from "./MoveProject/MoveProject";
+import { format } from "date-fns";
+import ProjectDateComponent from "@/components/ProjectDateComponent/ProjectDateComponent";
+import ResponsibleProjectComponent from "@/components/ReponsiblesProject/ResponsibleProject";
 
 export default function ModalProjectDetails() {
   const {
@@ -90,7 +96,7 @@ export default function ModalProjectDetails() {
     <Modal
       isOpen={isOpenModalProjectDetails}
       onOpenChange={onClose}
-      size="xl"
+      size="2xl"
       className="bg-[#F2F4F8] dark:bg-[#1e1e1e]"
       placement="top"
       scrollBehavior="inside"
@@ -107,7 +113,7 @@ export default function ModalProjectDetails() {
                     {selectedProjectEdit?.name}
                   </p> */}
                   <input
-                    className="text-black dark:text-white bg-transparent outline-none w-full"
+                    className="text-black dark:text-white text-[24px] bg-transparent outline-none w-full"
                     value={currentName}
                     onChange={(e) => setCurrentName(e.target.value)}
                   />
@@ -159,20 +165,52 @@ export default function ModalProjectDetails() {
 dark:[&::-webkit-scrollbar-track]:bg-neutral-700
 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
             >
-              {/* Tags */}
               <Divider />
-              <TagComponent />
-              {/* Budget */}
-              <Divider />
-              <div className="flex flex-col">
-                <div className="flex gap-1 items-center">
-                  <MdAttachMoney className="text-[#F57B00] text-[24px]" />
-                  <h2 className="text-[24px] font-bold">Budget do projeto</h2>
+              <div className="flex w-full">
+                {/* Tags */}
+                <div className="w-[49%]">
+                  <TagComponent />
                 </div>
-                <p className="text-[16px] font-normal ml-7">
-                  {selectedProjectEdit?.budget &&
-                    formatter.format(selectedProjectEdit?.budget)}
-                </p>
+
+                <div>
+                  <Divider orientation="vertical" />
+                </div>
+                {/* Inicio e fim do projeto */}
+                <div className="w-[49%] pl-6">
+                  {selectedProjectEdit?.start &&
+                    selectedProjectEdit?.deadline && (
+                      <ProjectDateComponent
+                        start={selectedProjectEdit?.start}
+                        deadline={selectedProjectEdit?.deadline}
+                      />
+                    )}
+                </div>
+              </div>
+
+              <Divider />
+              {/* Responsáveis */}
+              <div className="flex w-full">
+                <div className="w-[49%]">
+                  <ResponsibleProjectComponent
+                    responsibles={
+                      selectedProjectEdit?.customer?.responsibleParties
+                    }
+                  />
+                </div>
+                <div>
+                  <Divider orientation="vertical" />
+                </div>
+                {/* Budget */}
+                <div className="flex flex-col w-[49%] pl-6">
+                  <div className="flex gap-1 items-center">
+                    <MdAttachMoney className="text-[#F57B00] text-[24px]" />
+                    <h2 className="text-[24px] font-bold">Budget do projeto</h2>
+                  </div>
+                  <p className="text-[16px] font-normal ml-7">
+                    {selectedProjectEdit?.budget &&
+                      formatter.format(selectedProjectEdit?.budget)}
+                  </p>
+                </div>
               </div>
 
               {/* Description */}

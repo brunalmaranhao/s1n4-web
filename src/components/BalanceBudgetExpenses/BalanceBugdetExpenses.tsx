@@ -93,7 +93,7 @@ export default function BalanceBudgetExpenses() {
                       <div className="flex flex-col gap-2">
                         {balance?.dataBalanceAllCustomers.length === 0 && (
                           <p className="text-[#21272A] dark:text-white">
-                            Não existe informações disponpiveis.
+                            Não existem informações disponíveis.
                           </p>
                         )}
                         {balance?.dataBalanceAllCustomers.map(
@@ -155,7 +155,7 @@ export default function BalanceBudgetExpenses() {
               <div className="flex flex-col gap-2">
                 {balance?.dataBalanceAllCustomers.length === 0 && (
                   <p className="text-[#21272A] dark:text-white">
-                    Não existe informações disponpiveis.
+                    Não existem informações disponíveis.
                   </p>
                 )}
                 {balance?.dataBalanceAllCustomers
@@ -234,7 +234,7 @@ export default function BalanceBudgetExpenses() {
                         {!isLoading &&
                           balance?.dataLastBudgetExpenses.length === 0 && (
                             <p className="flex items-center text-[#697077] text-[14px] font-normal">
-                              Não existe lançamentos cadastrados.
+                              Não existem lançamentos cadastrados.
                             </p>
                           )}
                         {balance?.dataLastBudgetExpenses.map(
@@ -281,7 +281,7 @@ export default function BalanceBudgetExpenses() {
               <div>
                 {!isLoading && balance?.dataLastBudgetExpenses.length === 0 && (
                   <p className="flex items-center text-[#697077] text-[14px] font-normal">
-                    Não existe lançamentos cadastrados.
+                    Não existem lançamentos cadastrados.
                   </p>
                 )}
                 {balance?.dataLastBudgetExpenses

@@ -42,6 +42,7 @@ export default function TableCustomers() {
     onOpenModalAddReport,
     onOpenModalAddUser,
     onOpenModalAddResponsible,
+    onOpenModalAddress
   } = useCustomerContext();
 
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
@@ -101,11 +102,11 @@ export default function TableCustomers() {
                   </Button>
                 </DropdownTrigger>
                 <DropdownMenu className="text-black dark:text-white">
-                  <DropdownItem
+                  {/* <DropdownItem
                     startContent={<ViewIcon className={iconClasses} />}
                   >
                     Visualizar
-                  </DropdownItem>
+                  </DropdownItem> */}
 
                   <DropdownItem
                     startContent={<AddNoteIcon className={iconClasses} />}
@@ -124,6 +125,15 @@ export default function TableCustomers() {
                     }}
                   >
                     Adicionar Usuário
+                  </DropdownItem>
+                  <DropdownItem
+                    startContent={<AddNoteIcon className={iconClasses} />}
+                    onClick={() => {
+                      setSelectedCustomerEdit(customer);
+                      onOpenModalAddress();
+                    }}
+                  >
+                    Adicionar Endereço
                   </DropdownItem>
                   <DropdownItem
                     startContent={<AddNoteIcon className={iconClasses} />}

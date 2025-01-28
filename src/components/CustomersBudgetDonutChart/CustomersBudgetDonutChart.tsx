@@ -14,12 +14,14 @@ export const CustomersBudgetDonutChart = ({
 }) => {
   const formattedData = donutChartData.slice(-5).map((item, index) => ({
     name: item.title,
-    amount: item.amount,
+    amount: item.amount, 
     color: colors[index % colors.length],
   }));
 
+ console.log(formattedData)
+
   return (
-    <div className="flex w-full justify-around items-center">
+    <div className="flex w-full justify-around items-center h-[215px]">
       <DonutChart
         className=""
         data={formattedData}

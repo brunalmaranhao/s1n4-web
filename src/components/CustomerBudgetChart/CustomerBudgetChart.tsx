@@ -22,7 +22,7 @@ export default function CustomerBudgetChart({
   const [availableAmountPercentage, setAvailableAmountPercentage] =
     useState<number>(0);
   const [customerExpenses, setCustomerExpenses] = useState<IBudgetExpense[]>(
-    [],
+    []
   );
 
   const handleCustomerBudgetBalance = async (customerId: string) => {
@@ -50,7 +50,7 @@ export default function CustomerBudgetChart({
 
   const calculateAvailablePercentage = (
     availableAmount: number,
-    totalBudget: number,
+    totalBudget: number
   ) => {
     const percentage = (availableAmount / totalBudget) * 100;
     setAvailableAmountPercentage(percentage);
@@ -89,15 +89,16 @@ export default function CustomerBudgetChart({
                 </h1>
               </div>
               <span className="bg-[#23CF5C] text-[#1E1E1E] rounded-xl px-3 text-[14px] font-normal">{`${availableAmountPercentage.toFixed(
-                2,
+                2
               )}%`}</span>
             </div>
           </div>
-          <div className="bg-white flex justify-start items-center dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] h-auto p-4">
-            {isLoading ? (
-              <Spinner />
-            ) : (
-              customerExpenses.length > 0 && (
+
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            customerExpenses.length > 0 && (
+              <div className="bg-white flex justify-start items-center dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] h-auto p-4">
                 <div className="flex flex-col w-full">
                   <h1 className="text-[#1E1E1E] dark:text-white text-[18px] font-bold self-start">
                     {customerName}
@@ -106,9 +107,9 @@ export default function CustomerBudgetChart({
                     donutChartData={customerExpenses}
                   />
                 </div>
-              )
-            )}
-          </div>
+              </div>
+            )
+          )}
         </>
       )}
     </div>
