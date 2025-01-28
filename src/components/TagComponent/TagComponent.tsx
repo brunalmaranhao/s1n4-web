@@ -91,7 +91,8 @@ export default function TagComponent({ isCustomerUser }: TagComponentProps) {
           >
             <PopoverTrigger>
               <Button
-                className={`bg-transparent min-w-0 ${
+                size="sm"
+                className={`bg-transparent min-w-0  ${
                   tags.length > 0 && "w-8 h-7 p-0"
                 }  border-[#F57B00] border-1 text-[#F57B00] rounded-lg `}
               >

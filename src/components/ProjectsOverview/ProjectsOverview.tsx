@@ -45,7 +45,10 @@ export default function ProjectsOverview({
       const { fetchProjectsForStatistics } = await ProjectsService();
       const response = await fetchProjectsForStatistics();
       setAllProjectsDone(response.projectsDone);
-      calculateProjectsPercentage(response.total, response.projectsDone.length);
+      calculateProjectsPercentage(
+        response.projectInProgress.length + response.projectsDone.length,
+        response.projectsDone.length
+      );
     } catch (error) {
       const customError = handleAxiosError(error);
       toast.error(customError.message);
@@ -60,7 +63,11 @@ export default function ProjectsOverview({
       const { fetchProjectsCustomerForStatistics } = await ProjectsService();
       const response = await fetchProjectsCustomerForStatistics(customer);
       setAllProjectsDone(response.projectsDone);
-      calculateProjectsPercentage(response.total, response.projectsDone.length);
+      console.log(response)
+      calculateProjectsPercentage(
+        response.projectInProgress.length + response.projectsDone.length,
+        response.projectsDone.length
+      );
     } catch (error) {
       const customError = handleAxiosError(error);
       toast.error(customError.message);
@@ -71,7 +78,7 @@ export default function ProjectsOverview({
 
   const calculateProjectsPercentage = (
     allProjectsLength: number,
-    doneProjects: number,
+    doneProjects: number
   ) => {
     if (allProjectsLength === 0) {
       setProjectsPercentage(0);
@@ -84,17 +91,17 @@ export default function ProjectsOverview({
   return (
     <div
       className={`flex h-[275px] ${
-        pathname === "/admin/dashboard" ? "w-[400px]" : "w-full"
+        pathname === "/admin/dashboard" ? "w-full" : "w-full"
       }`}
     >
       {isLoading ? (
         <Spinner />
       ) : (
-        <div className="max-w-[360px] p-4 w-full flex justify-between  bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E]  rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
-          <div className="flex flex-col w-[49%]">
-            <div className="flex justify-between items-start">
+        <div className="p-4 w-full flex justify-between   bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E]  rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
+          <div className="flex flex-col w-[180px]">
+            <div className="flex justify-between items-center">
               <h1 className="text-[18px] text-black dark:text-white font-bold">
-                Projetos
+                Concluídos
               </h1>
               <Popover
                 shadow="lg"
@@ -166,7 +173,7 @@ export default function ProjectsOverview({
             <Divider className="" orientation="vertical" />
           </div>
 
-          <div className="flex flex-col gap-3  w-[49%]  px-2">
+          <div className="flex flex-col gap-3 px-2 w-[140px]">
             <div className="flex justify-between items-center">
               <h1 className="text-[18px] text-black dark:text-white font-bold">
                 Progresso

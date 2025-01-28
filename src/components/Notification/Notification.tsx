@@ -23,7 +23,9 @@ export default function Notification() {
     fetchNotifications,
     handleSelectedNotification,
     notifications,
+    selectedNotification,
   } = useNotificationContext();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const { theme } = useTheme();
 
@@ -53,6 +55,11 @@ export default function Notification() {
     return formattedDate;
   }
 
+  const handleOpenModal = (notification: INotification) => {
+    handleSelectedNotification(notification);
+    onOpen();
+  };
+
   return (
     <>
       <Dropdown>
@@ -81,7 +88,7 @@ export default function Notification() {
               showDivider
               key={item.id}
               className="text-black dark:text-white"
-              onPress={() => handleSelectedNotification(item)}
+              onPress={() => handleOpenModal(item)}
             >
               <div className="flex flex-row items-center gap-3">
                 {item.readAt ? (
@@ -101,7 +108,15 @@ export default function Notification() {
           ))}
         </DropdownMenu>
       </Dropdown>
-      <ModalProjectDetailView />
+      {selectedNotification?.projectUpdates && (
+        <ModalProjectDetailView
+          isOpen={isOpen}
+          onClose={onOpenChange}
+          origin="notication"
+          notification={selectedNotification}
+          projectUpdates={selectedNotification?.projectUpdates}
+        />
+      )}
     </>
   );
 }

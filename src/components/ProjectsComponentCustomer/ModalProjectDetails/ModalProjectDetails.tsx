@@ -21,6 +21,7 @@ import {
   MdSubject,
 } from "react-icons/md";
 import ProjectUpdateComponentCustomer from "../ProjectUpdateComponent/ProjectUpdateComponent";
+import ProjectDateComponent from "@/components/ProjectDateComponent/ProjectDateComponent";
 
 export default function ModalProjectDetails() {
   const {
@@ -43,11 +44,12 @@ export default function ModalProjectDetails() {
     }
   }
 
+
   return (
     <Modal
       isOpen={isOpenModalProjectDetails}
       onOpenChange={onClose}
-      size="xl"
+      size="2xl"
       className="bg-[#F2F4F8] dark:bg-[#1e1e1e]"
       placement="top"
       scrollBehavior="inside"
@@ -68,7 +70,6 @@ export default function ModalProjectDetails() {
                   <p className="text-[16px] font-normal">Status:</p>
                   <Button className="bg-[#23CF5C] cursor-default p-0 px-4 h-7 text-[12px] dark:text-white">
                     {selectedProjectEdit?.listProjects?.name}{" "}
-                    <IoChevronDownSharp />
                   </Button>
                 </div>
               </div>
@@ -81,7 +82,27 @@ dark:[&::-webkit-scrollbar-track]:bg-neutral-700
 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
             >
               <Divider />
-              <TagComponent isCustomerUser={true} />
+              <div className="flex w-full">
+                 {/* Tags */}
+                <div className="w-[49%]">
+                <TagComponent isCustomerUser={true} />
+                </div>
+
+                <div className="">
+                  <Divider orientation="vertical" />
+                </div>
+                {/* Inicio e fim do projeto */}
+                <div className="w-[49%] pl-6">
+                  {selectedProjectEdit?.start &&
+                    selectedProjectEdit?.deadline && (
+                      <ProjectDateComponent
+                        start={selectedProjectEdit?.start}
+                        deadline={selectedProjectEdit?.deadline}
+                      />
+                    )}
+                </div>
+              </div>
+              
               <Divider />
               <div className="flex flex-col">
                 <div className="flex gap-1 items-center">

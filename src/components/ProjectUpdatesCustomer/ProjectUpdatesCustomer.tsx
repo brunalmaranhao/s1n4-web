@@ -1,10 +1,11 @@
-import { Spinner } from "@nextui-org/react";
+import { Spinner, useDisclosure } from "@nextui-org/react";
 import { Roboto } from "next/font/google";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import CustomerProjectUpdatesCard from "../CustomerProjectUpdatesCard/CustomerProjectUpdatesCard";
 import { fetchCustomerProjectUpdates } from "@/app/customer/actions";
 import ProjectUpdateCard from "../ProjectUpdateCard/ProjectUpdateCard";
+import ModalProjectDetailView from "../ModalProjectDetailView/ModalProjectDetailView";
 
 const robotoBold = Roboto({
   weight: "700",
@@ -26,6 +27,10 @@ export default function ProjectUpdatesCustomer({
   const [projectUpdatesState, setProjectUpdatesState] = useState<
     IProjectUpdates[] | undefined
   >([]);
+  const [projectUpdateSelected, setProjectUpdateSelected] =
+    useState<IProjectUpdates>();
+
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const { "sina:x-token": sessionKey } = parseCookies();
 
@@ -47,6 +52,11 @@ export default function ProjectUpdatesCustomer({
     const { updates } = await fetchCustomerProjectUpdates(token, customerId);
     return updates;
   };
+
+  function handleOpenModal(item: IProjectUpdates) {
+    setProjectUpdateSelected(item);
+    onOpen();
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,20 +85,28 @@ dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
         <Spinner />
       ) : (
         projectUpdatesState?.map((projectUpdate, index) => (
-          // <CustomerProjectUpdatesCard
-          //   projectUpdate={projectUpdate}
-          //   key={index}
-          //   email={email}
-          //   role={role}
-          // />
-          <ProjectUpdateCard
-            email={projectUpdate.user.email}
-            role={getRoleName(projectUpdate.user.role)}
-            projectUpdate={projectUpdate}
+          <div
             key={index}
-            isLast={index === projectUpdatesState.length - 1}
-          />
+            onClick={() => handleOpenModal(projectUpdate)}
+            className="cursor-pointer"
+          >
+            <ProjectUpdateCard
+              email={projectUpdate.user.email}
+              role={getRoleName(projectUpdate.user.role)}
+              projectUpdate={projectUpdate}
+              key={index}
+              isLast={index === projectUpdatesState.length - 1}
+            />
+          </div>
         ))
+      )}
+      {projectUpdateSelected && (
+        <ModalProjectDetailView
+          isOpen={isOpen}
+          onClose={onOpenChange}
+          origin="table"
+          projectUpdates={projectUpdateSelected}
+        />
       )}
     </div>
   );

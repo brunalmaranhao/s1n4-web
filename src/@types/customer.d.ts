@@ -4,7 +4,7 @@ declare interface ICustomer {
   cnpj?: string;
   corporateName?: string;
   status?: "ACTIVE" | "INACTIVE";
-  address?: ICustomerAddress;
+  address?: ICustomerAddress[];
   accumulatedInvestment?: number;
   contractDuration?: string;
   contractObjective?: string;
@@ -15,6 +15,17 @@ declare interface ICustomer {
   users?: ICustomerUsers[];
   projects?: IProject[] | IProjectsOverview[];
   expenditureProjection?: number;
+  responsibleParties: IResponsiblePartiesCustomer[]
+}
+
+declare interface IResponsiblePartiesCustomer{
+  id: string,
+  firstName: string,
+  lastName: string,
+  phone: string,
+  email: string,
+  birthdate: string,
+  
 }
 
 declare interface INewCustomer {
@@ -74,6 +85,17 @@ declare interface ICustomerAddress {
   state?: string;
   country?: string;
   zipCode?: string;
+}
+
+declare interface INewCustomerAddress {
+  street: string;
+  number: string;
+  complement?: string;
+  neighborhood: string;
+  city: string;
+  state: string;
+  country: string;
+  zipCode: string;
 }
 
 declare interface ICustomerReports {

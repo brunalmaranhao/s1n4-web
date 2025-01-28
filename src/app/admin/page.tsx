@@ -134,7 +134,7 @@ export default function AdminHome() {
                         </p>
                       </div>
 
-                      <div className="flex flex-wrap w-full">
+                      <div  className="flex flex-wrap w-full">
                         <h4 className="text-[16px]">Total de Usuários</h4>
                       </div>
                     </div>
@@ -156,41 +156,6 @@ export default function AdminHome() {
                 <BalanceBudgetExpenses />
               </div>
             </div>
-
-            {/* <div className="flex justify-center items-center gap-4 w-full">
-              <div className="w-[345px]"></div>
-              <div
-                className="w-full h-[275px] overflow-auto [&::-webkit-scrollbar]:w-2
-  [&::-webkit-scrollbar-track]:bg-gray-100
-  [&::-webkit-scrollbar-thumb]:bg-gray-300
-  dark:[&::-webkit-scrollbar-track]:bg-neutral-700
-  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
-              ></div>
-            </div> */}
-            {/* <div className="flex flex-col w-full h-56 bg-white dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] p-4 space-y-4 rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] overflow-y-scroll">
-              <p className="text-[#21272A] dark:text-white text-[18px] font-bold">
-                Próximos aniversariantes:
-              </p>
-              {responsiblesState.length === 0 ? (
-                <h1 className="text-black dark:text-white">
-                  Não existem aniversariantes este mês.
-                </h1>
-              ) : (
-                responsiblesState.map((responsible, index) => (
-                  <div key={index} className="flex flex-col space-y-2">
-                    <h1 className="text-[16px] text-black dark:text-white font-normal">
-                      {responsible.firstName} {responsible.lastName}
-                    </h1>
-                    <h1 className="text-black dark:text-white pb-2">
-                      {format(responsible.birthdate, "dd/MM")}
-                    </h1>
-                    {index < responsiblesState.length - 1 && (
-                      <hr className="border-[#878D9633]" />
-                    )}
-                  </div>
-                ))
-              )}
-            </div> */}
           </>
         )}
       </div>

@@ -20,6 +20,7 @@ export default function CardProject({
     setSelectedProjectEdit(project);
     onOpenModalProjectDetails();
   }
+  console.log(project)
 
   return (
     <div

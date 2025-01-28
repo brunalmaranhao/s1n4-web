@@ -9,6 +9,9 @@ type CustomerContextType = {
   isOpenModalEdit: boolean;
   onOpenChangeModalEdit: () => void;
   onOpenModalEdit: () => void;
+  isOpenModalAddress: boolean;
+  onOpenChangeModalAddress: () => void;
+  onOpenModalAddress: () => void;
   isOpenModalRemove: boolean;
   onOpenChangeModalRemove: () => void;
   onOpenModalRemove: () => void;
@@ -79,6 +82,12 @@ export const CustomerProvider: React.FC<{ children: ReactNode }> = ({
     isOpen: isOpenModalEdit,
     onOpen: onOpenModalEdit,
     onOpenChange: onOpenChangeModalEdit,
+  } = useDisclosure();
+
+  const {
+    isOpen: isOpenModalAddress,
+    onOpen: onOpenModalAddress,
+    onOpenChange: onOpenChangeModalAddress,
   } = useDisclosure();
   const {
     isOpen: isOpenModalRemove,
@@ -176,6 +185,9 @@ export const CustomerProvider: React.FC<{ children: ReactNode }> = ({
     isOpenModalAddUser,
     onOpenModalAddUser,
     onOpenChangeModalAddUser,
+    isOpenModalAddress,
+    onOpenModalAddress,
+    onOpenChangeModalAddress,
     isOpenModalAddReport,
     onOpenModalAddReport,
     onOpenChangeModalAddReport,

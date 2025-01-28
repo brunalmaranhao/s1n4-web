@@ -1,5 +1,6 @@
 import ModalAddReport from "@/components/TableCustomers/ModalAddReport/ModalAddReport";
 import ModalAddResponsible from "@/components/TableCustomers/ModalAddResponsible/ModalAddResponsible";
+import ModalAddress from "@/components/TableCustomers/ModalAddress/ModalAddress";
 import ModalAddUser from "@/components/TableCustomers/ModalAddUser/ModalAddUser";
 import ModalEditCustomer from "@/components/TableCustomers/ModalEdit/ModalEditCustomer";
 import ModalRemoveCustomer from "@/components/TableCustomers/ModalRemove/ModalRemoveCustomer";
@@ -16,6 +17,7 @@ export default function Customers() {
       <ModalAddReport />
       <ModalAddUser />
       <ModalAddResponsible />
+      <ModalAddress />
     </main>
   );
 }

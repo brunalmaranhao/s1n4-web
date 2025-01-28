@@ -21,16 +21,21 @@ import CustomerService from "@/services/models/customer";
 import toast from "react-hot-toast";
 import { RiFileDownloadLine } from "react-icons/ri";
 import ModalDownloadPeriodicReportWithCustomerFilter from "@/components/ModalDownloadPeriodicReportWithCustomerFilter/ModalDownloadPeriodicReportWithCustomerFilter";
+import OverdueProjectsOverview from "@/components/OverdueProjectsOverview/OverdueProjectsOverview";
 
 const ReportTabContent = dynamic(
   () => import("@/components/ReportTabContent/ReportTabContent"),
-  { ssr: false },
+  { ssr: false }
 );
+
+const BrazilMap = dynamic(() => import("@/components/BrazilMap/BrazilMap"), {
+  ssr: false,
+});
 
 const ModalCreatePeriodicReport = dynamic(
   () =>
     import("@/components/ModalCreatePeriodicReport/ModalCreatePeriodicReport"),
-  { ssr: false },
+  { ssr: false }
 );
 
 export default function Dashboard() {
@@ -38,7 +43,9 @@ export default function Dashboard() {
 
   const { onOpenModalCreatePeriodicReport, onOpenModalDownloadPeriodicReport } =
     useReportContext();
-  const { setSelectedCustomer, selectedCustomer } = useCustomerContext();
+  const { setSelectedCustomer, selectedCustomer, isClientSelected } =
+    useCustomerContext();
+  const [customers, setCustomers] = useState<ICustomer[]>([]);
 
   const { theme, setTheme } = useTheme();
 
@@ -56,6 +63,7 @@ export default function Dashboard() {
       const { findAllActives } = await CustomerService();
       const { customers } = await findAllActives();
       setSelectedCustomer(customers[0]);
+      setCustomers(customers);
     } catch (error) {
       toast.error(error as string);
     }
@@ -114,13 +122,14 @@ export default function Dashboard() {
             </div>
           )}
         </div>
-        <div className="flex space-x-6">
-          <div className="flex flex-col w-[50%]">
+        <div className="flex w-full space-x-6">
+          <div className="flex flex-col w-[50%] h-full ">
             {selectedTab === "overview" && (
-              <div className="h-full ">
+              <div className="h-full w-full flex flex-col gap-4 ">
                 <OverviewTabContent selectedClient={selectedCustomer} />
-                <div className=" h-full mt-6 flex">
+                <div className=" h-full flex w-full space-x-4 ">
                   <ProjectsOverview selectedClient={selectedCustomer} />
+                  <OverdueProjectsOverview selectedClient={selectedCustomer} />
                 </div>
               </div>
             )}
@@ -130,9 +139,15 @@ export default function Dashboard() {
               </div>
             )}
           </div>
-          <div className="w-[50%]">
+          <div className="w-[50%] flex flex-col gap-4">
             {selectedTab === "overview" && (
-              <DashboardBudgetChart customerId={selectedCustomer?.id || ""} />
+              <>
+                {selectedCustomer?.id && (
+                  <DashboardBudgetChart customerId={selectedCustomer?.id} />
+                )}
+
+                {!isClientSelected && <BrazilMap customers={customers} />}
+              </>
             )}
           </div>
         </div>
