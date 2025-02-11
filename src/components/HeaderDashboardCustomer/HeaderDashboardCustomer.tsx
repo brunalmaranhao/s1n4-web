@@ -1,6 +1,5 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
-import FilterProjectsByCustomer from "../FilterProjectsByCustomer/FilterProjectsByCustomer";
 import Notification from "../Notification/Notification";
 import TabsDashboardCustomer from "./TabsDashboardCustomer/TabsDashboardCustomer";
 import { Button, Switch } from "@nextui-org/react";
@@ -9,12 +8,12 @@ import { useReportContext } from "@/context/ReportContext";
 import { SunIcon } from "../SunIcon/SunIcon";
 import { MoonIcon } from "../MoonIcon/MoonIcon";
 import { useTheme } from "next-themes";
-import CustomerFinancial from "@/app/customer/dashboard/financial/page";
-import OverviewUserCostumer from "../OverviewUserCosutmer/OverviewUserCostumer";
+import { useAuthContext } from "@/context/AuthContext";
 
 export default function HeaderDashboardCustomer() {
   const { theme, setTheme } = useTheme();
   const { onOpenModalDownloadPeriodicReport } = useReportContext();
+
   const pathsWithTab = [
     "/customer/dashboard/overview",
     "/customer/dashboard/reports",
