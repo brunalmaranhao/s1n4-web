@@ -47,7 +47,7 @@ export default function ProjectsOverview({
       setAllProjectsDone(response.projectsDone);
       calculateProjectsPercentage(
         response.projectInProgress.length + response.projectsDone.length,
-        response.projectsDone.length
+        response.projectsDone.length,
       );
     } catch (error) {
       const customError = handleAxiosError(error);
@@ -63,10 +63,10 @@ export default function ProjectsOverview({
       const { fetchProjectsCustomerForStatistics } = await ProjectsService();
       const response = await fetchProjectsCustomerForStatistics(customer);
       setAllProjectsDone(response.projectsDone);
-      console.log(response)
+      console.log(response);
       calculateProjectsPercentage(
         response.projectInProgress.length + response.projectsDone.length,
-        response.projectsDone.length
+        response.projectsDone.length,
       );
     } catch (error) {
       const customError = handleAxiosError(error);
@@ -78,7 +78,7 @@ export default function ProjectsOverview({
 
   const calculateProjectsPercentage = (
     allProjectsLength: number,
-    doneProjects: number
+    doneProjects: number,
   ) => {
     if (allProjectsLength === 0) {
       setProjectsPercentage(0);

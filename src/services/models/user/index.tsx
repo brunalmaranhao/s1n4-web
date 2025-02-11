@@ -26,6 +26,7 @@ export default async function UserService() {
     password: string,
     customerId: string,
     role: RoleEnum,
+    departmentId: string,
   ): Promise<string> {
     const payload = JSON.stringify({
       firstName,
@@ -34,6 +35,7 @@ export default async function UserService() {
       password,
       customerId,
       role,
+      departmentId,
     });
     const response = await post<{ userId: string }, string>(`/user`, payload);
     return response.userId;

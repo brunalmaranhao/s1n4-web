@@ -14,10 +14,10 @@ export default function CustomerProjectsOverview({
   useEffect(() => {
     setIsLoading(true);
     const doneProjects = projects?.filter(
-      (project) => project.status === "DONE"
+      (project) => project.status === "DONE",
     );
     const activeProjects = projects.filter(
-      (project) => project.status === "ACTIVE"
+      (project) => project.status === "ACTIVE",
     );
 
     handleProjectsPercentage(activeProjects.length, doneProjects.length);
@@ -26,7 +26,7 @@ export default function CustomerProjectsOverview({
 
   const handleProjectsPercentage = (
     allProjectsLength: number,
-    doneProjects: number
+    doneProjects: number,
   ) => {
     if (allProjectsLength === 0) {
       setProjectsPercentage(0);

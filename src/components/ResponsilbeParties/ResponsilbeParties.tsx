@@ -62,7 +62,9 @@ export default function ResponsilbeParties() {
                       <Divider className={`${index === 0 && "hidden"} my-2`} />
 
                       <p className="text-[16px]">
-                        {responsible.firstName + " " + responsible.lastName}{" "}
+                        {responsible.firstName +
+                          " " +
+                          responsible.lastName}{" "}
                       </p>
                       <p className="text-[#697077] text-[14px]">
                         {responsible.customer?.name}

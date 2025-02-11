@@ -2,6 +2,7 @@ import { EyeFilledIcon } from "@/components/EyeFilledIcon/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "@/components/EyeSlashFilledIcon/EyeSlashFilledIcon";
 import { useFormWizardContext } from "@/context/FormWizardCustomerContext";
 import { schemaNewUserCustomer } from "@/schemas/user";
+import DepartmentService from "@/services/models/department";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Button,
@@ -30,10 +31,25 @@ export default function ModalCreateUser({
   const { handleAddUser, users } = useFormWizardContext();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
+  const [departments, setDepartments] = useState<IDepartment[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (isOpen) reset();
   }, [isOpen]);
+
+  const handleFetchDepartments = async () => {
+    const { fetchAllDepartments } = await DepartmentService();
+    const response = await fetchAllDepartments();
+    setDepartments(response.departments);
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    handleFetchDepartments().finally(() => {
+      setLoading(false);
+    });
+  }, []);
 
   const inputVariant = "bordered";
 
@@ -184,6 +200,31 @@ export default function ModalCreateUser({
                       {roleOptions.map((role) => (
                         <SelectItem key={role.key} value={role.key}>
                           {role.label}
+                        </SelectItem>
+                      ))}
+                    </Select>
+                  )}
+                />
+                <Controller
+                  control={control}
+                  name={"departmentId"}
+                  render={({ field }) => (
+                    <Select
+                      isInvalid={!!errors.departmentId?.message}
+                      errorMessage={errors.departmentId?.message}
+                      label="Departamento"
+                      placeholder="Selecione um departamento"
+                      className="max-w-xs text-blac"
+                      variant={inputVariant}
+                      classNames={{
+                        popoverContent: "text-black dark:text-white",
+                        selectorIcon: "text-black dark:text-white",
+                      }}
+                      {...field}
+                    >
+                      {departments.map((department) => (
+                        <SelectItem key={department.id} value={department.id}>
+                          {department.name}
                         </SelectItem>
                       ))}
                     </Select>

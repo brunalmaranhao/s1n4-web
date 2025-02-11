@@ -30,7 +30,7 @@ export default function DashboardBudgetChart({
   } = useCustomerContext();
 
   const handleCustomerExpensesBalance = async (
-    id: string
+    id: string,
   ): Promise<void | { isError: boolean; error: string }> => {
     const { fetchCustomerExpenses } = await BudgetExpenseService();
     const data = await fetchCustomerExpenses(id);
@@ -38,7 +38,7 @@ export default function DashboardBudgetChart({
   };
 
   const handleCustomerExpenses = async (
-    customerId: string
+    customerId: string,
   ): Promise<void | { isError: boolean; error: string }> => {
     try {
       const { fetchBudgetExpenseByCustomer } = await FinancialService();
@@ -52,7 +52,7 @@ export default function DashboardBudgetChart({
 
   const calculateAvailablePercentage = (
     availableAmount: number,
-    totalBudget: number
+    totalBudget: number,
   ) => {
     const percentage = (availableAmount / totalBudget) * 100;
     setAvailableAmountPercentage(percentage);
@@ -86,7 +86,7 @@ export default function DashboardBudgetChart({
     if (customerBudgetBalance) {
       calculateAvailablePercentage(
         customerBudgetBalance.balance,
-        customerBudgetBalance.budget
+        customerBudgetBalance.budget,
       );
     }
   }, [customerBudgetBalance]);
@@ -116,7 +116,7 @@ export default function DashboardBudgetChart({
                 </h1>
               </div>
               <span className="bg-[#23CF5C] text-[#1E1E1E] rounded-xl px-3 text-[14px] font-normal">{`${availableAmountPercentage.toFixed(
-                2
+                2,
               )}%`}</span>
             </div>
           </div>

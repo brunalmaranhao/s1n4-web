@@ -63,6 +63,7 @@ declare interface INewUserCustomer {
   confirmPassword: string;
   role: RoleEnum;
   actions?: string | null;
+  departmentId: string;
 }
 
 declare interface IGetActiveUsers {

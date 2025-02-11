@@ -25,7 +25,7 @@ import OverdueProjectsOverview from "@/components/OverdueProjectsOverview/Overdu
 
 const ReportTabContent = dynamic(
   () => import("@/components/ReportTabContent/ReportTabContent"),
-  { ssr: false }
+  { ssr: false },
 );
 
 const BrazilMap = dynamic(() => import("@/components/BrazilMap/BrazilMap"), {
@@ -35,7 +35,7 @@ const BrazilMap = dynamic(() => import("@/components/BrazilMap/BrazilMap"), {
 const ModalCreatePeriodicReport = dynamic(
   () =>
     import("@/components/ModalCreatePeriodicReport/ModalCreatePeriodicReport"),
-  { ssr: false }
+  { ssr: false },
 );
 
 export default function Dashboard() {

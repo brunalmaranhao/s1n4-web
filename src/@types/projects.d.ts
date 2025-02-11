@@ -35,7 +35,7 @@ declare interface IProject {
   shouldShowInformationsToCustomerUser: boolean;
   tags: ITag[];
   listProjects: IListProject;
-  periodicReports: PeriodicReportDetailsResponse[]
+  periodicReports: PeriodicReportDetailsResponse[];
 }
 
 declare interface IProjectsOverview {
@@ -53,7 +53,7 @@ declare interface IProjectsOverview {
   shouldShowInformationsToCustomerUser: boolean;
   tags: ITag[];
   listProjects: IListProject;
-  periodicReports: PeriodicReportDetailsResponse[]
+  periodicReports: PeriodicReportDetailsResponse[];
 }
 
 declare interface IProjectsForStatistics {
