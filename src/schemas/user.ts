@@ -23,6 +23,7 @@ export const schemaNewUserCustomer = yup
       .string()
       .oneOf(Object.values(RoleEnum), "Função inválida.")
       .required("Campo Função é obrigatório."),
+    departmentId: yup.string().required("Campo Departamento é obrigatório."),
   })
   .required();
 

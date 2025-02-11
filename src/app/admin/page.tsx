@@ -134,7 +134,7 @@ export default function AdminHome() {
                         </p>
                       </div>
 
-                      <div  className="flex flex-wrap w-full">
+                      <div className="flex flex-wrap w-full">
                         <h4 className="text-[16px]">Total de Usuários</h4>
                       </div>
                     </div>

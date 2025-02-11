@@ -22,7 +22,7 @@ export default function CustomerBudgetChart({
   const [availableAmountPercentage, setAvailableAmountPercentage] =
     useState<number>(0);
   const [customerExpenses, setCustomerExpenses] = useState<IBudgetExpense[]>(
-    []
+    [],
   );
 
   const handleCustomerBudgetBalance = async (customerId: string) => {
@@ -50,7 +50,7 @@ export default function CustomerBudgetChart({
 
   const calculateAvailablePercentage = (
     availableAmount: number,
-    totalBudget: number
+    totalBudget: number,
   ) => {
     const percentage = (availableAmount / totalBudget) * 100;
     setAvailableAmountPercentage(percentage);
@@ -89,7 +89,7 @@ export default function CustomerBudgetChart({
                 </h1>
               </div>
               <span className="bg-[#23CF5C] text-[#1E1E1E] rounded-xl px-3 text-[14px] font-normal">{`${availableAmountPercentage.toFixed(
-                2
+                2,
               )}%`}</span>
             </div>
           </div>

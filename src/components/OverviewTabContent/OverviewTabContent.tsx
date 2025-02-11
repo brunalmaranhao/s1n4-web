@@ -42,7 +42,7 @@ export default function OverviewTabContent({
     const { customersWithUsers } = await fetchCustomersWithUsers(token);
     return customersWithUsers;
   };
-  console.log(customersState)
+  console.log(customersState);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,7 +54,7 @@ export default function OverviewTabContent({
       const customers = await handleFetchCustomersWithUsers(sessionKey);
       const sortedCustomers =
         customers?.sort(
-          (a, b) => (b.users?.length || 0) - (a.users?.length || 0)
+          (a, b) => (b.users?.length || 0) - (a.users?.length || 0),
         ) || [];
 
       setCustomersState(sortedCustomers || []);
@@ -69,7 +69,7 @@ export default function OverviewTabContent({
     }
   }, [selectedClient]);
 
-  console.log(selectedClient?.projects)
+  console.log(selectedClient?.projects);
 
   return (
     <div className="flex flex-col gap-4">
@@ -83,7 +83,7 @@ export default function OverviewTabContent({
             </h1>
             <h1 className="text-2xl font-bold text-[#21272A] dark:text-white">
               {shouldShowFirstCustomer
-                ? selectedClient?.users?.length ?? 0
+                ? (selectedClient?.users?.length ?? 0)
                 : activeUsersLength}
             </h1>
           </div>

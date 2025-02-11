@@ -146,9 +146,6 @@ export default async function CustomerService() {
     });
   }
 
-
-
-
   async function fetchCustomersWithUsers(
     token?: string,
   ): Promise<{ customersWithUsers: ICustomer[] }> {

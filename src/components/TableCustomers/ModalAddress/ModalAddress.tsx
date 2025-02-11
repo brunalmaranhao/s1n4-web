@@ -21,8 +21,13 @@ import { MdSearch } from "react-icons/md";
 import InputMask from "react-input-mask";
 
 export default function ModalAddress() {
-  const { selectedCustomerEdit,fetchCustomers, page, isOpenModalAddress, onOpenChangeModalAddress } =
-    useCustomerContext();
+  const {
+    selectedCustomerEdit,
+    fetchCustomers,
+    page,
+    isOpenModalAddress,
+    onOpenChangeModalAddress,
+  } = useCustomerContext();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
   const [loading, setLoading] = useState(false);
@@ -63,12 +68,12 @@ export default function ModalAddress() {
           data.country,
           data.zipCode,
           selectedCustomerEdit?.id,
-          data.complement
+          data.complement,
         );
 
         onOpenChangeModalAddress();
-        fetchCustomers(page)
-        resetAddressFields()
+        fetchCustomers(page);
+        resetAddressFields();
         toast.success("Endereço adicionado com sucesso.");
       } catch (error) {
         const customError = handleAxiosError(error);
@@ -88,8 +93,6 @@ export default function ModalAddress() {
     setValue("state", "");
     setValue("country", "");
   }
-
-  
 
   async function handleGetAddressFromCep() {
     const cep = getValues("zipCode");
@@ -153,22 +156,16 @@ export default function ModalAddress() {
                       control={control}
                       name={"zipCode"}
                       render={({ field }) => (
-                        <InputMask
-                          mask="99999-999"
-                          {...field}
-                          type="text"
-                        >
+                        <InputMask mask="99999-999" {...field} type="text">
                           <Input
                             placeholder={"99999-999"}
                             className="max-w-[220px]"
                             variant="bordered"
                             isInvalid={
-                              errors.zipCode &&
-                              !!errors.zipCode.message
+                              errors.zipCode && !!errors.zipCode.message
                             }
                             errorMessage={
-                              errors.zipCode &&
-                              errors.zipCode.message
+                              errors.zipCode && errors.zipCode.message
                             }
                             label="CEP"
                             size="sm"
@@ -207,12 +204,10 @@ export default function ModalAddress() {
                               isDisabled
                               variant="bordered"
                               isInvalid={
-                                errors.street &&
-                                !!errors.street.message
+                                errors.street && !!errors.street.message
                               }
                               errorMessage={
-                                errors.street &&
-                                errors.street.message
+                                errors.street && errors.street.message
                               }
                             />
                           )}
@@ -223,14 +218,8 @@ export default function ModalAddress() {
                           type="string"
                           {...register("number")}
                           size="sm"
-                          isInvalid={
-                            errors.number &&
-                            !!errors.number.message
-                          }
-                          errorMessage={
-                            errors.number &&
-                            errors.number.message
-                          }
+                          isInvalid={errors.number && !!errors.number.message}
+                          errorMessage={errors.number && errors.number.message}
                           variant="bordered"
                         />
                         <Input
@@ -277,14 +266,8 @@ export default function ModalAddress() {
                               {...field}
                               isDisabled
                               variant="bordered"
-                              isInvalid={
-                                errors.city &&
-                                !!errors.city.message
-                              }
-                              errorMessage={
-                                errors.city &&
-                                errors.city.message
-                              }
+                              isInvalid={errors.city && !!errors.city.message}
+                              errorMessage={errors.city && errors.city.message}
                             />
                           )}
                         />
@@ -301,12 +284,10 @@ export default function ModalAddress() {
                               isDisabled
                               variant="bordered"
                               isInvalid={
-                                errors.country &&
-                                !!errors.country.message
+                                errors.country && !!errors.country.message
                               }
                               errorMessage={
-                                errors.country &&
-                                errors.country.message
+                                errors.country && errors.country.message
                               }
                             />
                           )}

@@ -42,7 +42,7 @@ export default function TableCustomers() {
     onOpenModalAddReport,
     onOpenModalAddUser,
     onOpenModalAddResponsible,
-    onOpenModalAddress
+    onOpenModalAddress,
   } = useCustomerContext();
 
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({

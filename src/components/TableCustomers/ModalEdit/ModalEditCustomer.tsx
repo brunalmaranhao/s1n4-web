@@ -48,8 +48,6 @@ export default function ModalEditCustomer() {
     },
   });
 
-  console.log(errors);
-
   useEffect(() => {
     if (selectedCustomerEdit) {
       setValue(

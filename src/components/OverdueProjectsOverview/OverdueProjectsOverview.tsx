@@ -45,10 +45,10 @@ export default function OverdueProjectsOverview({
       const { fetchOverdueProjects } = await ProjectsService();
       const response = await fetchOverdueProjects(customerId);
       setAllOverdueProjects(response.projects);
-      console.log(response.totalProjects)
+      console.log(response.totalProjects);
       calculateProjectsPercentage(
         response.totalProjects,
-        response.projects.length
+        response.projects.length,
       );
     } catch (error) {
       const customError = handleAxiosError(error);
@@ -60,7 +60,7 @@ export default function OverdueProjectsOverview({
 
   const calculateProjectsPercentage = (
     allProjectsLength: number,
-    doneProjects: number
+    doneProjects: number,
   ) => {
     if (allProjectsLength === 0) {
       setProjectsPercentage(0);
@@ -213,8 +213,7 @@ export default function OverdueProjectsOverview({
                   svg: "w-24 h-24 drop-shadow-md",
                   indicator: "stroke-[#F57B00]",
                   track: "stroke-[#DDE1E6] dark:stroke-white",
-                  value:
-                    "text-xl font-semibold text-[#697077] dark:text-white",
+                  value: "text-xl font-semibold text-[#697077] dark:text-white",
                 }}
               />
             </div>

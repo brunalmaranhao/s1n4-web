@@ -15,17 +15,16 @@ declare interface ICustomer {
   users?: ICustomerUsers[];
   projects?: IProject[] | IProjectsOverview[];
   expenditureProjection?: number;
-  responsibleParties: IResponsiblePartiesCustomer[]
+  responsibleParties: IResponsiblePartiesCustomer[];
 }
 
-declare interface IResponsiblePartiesCustomer{
-  id: string,
-  firstName: string,
-  lastName: string,
-  phone: string,
-  email: string,
-  birthdate: string,
-  
+declare interface IResponsiblePartiesCustomer {
+  id: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  birthdate: string;
 }
 
 declare interface INewCustomer {

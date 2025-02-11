@@ -44,7 +44,6 @@ export default function ModalProjectDetails() {
     }
   }
 
-
   return (
     <Modal
       isOpen={isOpenModalProjectDetails}
@@ -83,9 +82,9 @@ dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
             >
               <Divider />
               <div className="flex w-full">
-                 {/* Tags */}
+                {/* Tags */}
                 <div className="w-[49%]">
-                <TagComponent isCustomerUser={true} />
+                  <TagComponent isCustomerUser={true} />
                 </div>
 
                 <div className="">
@@ -102,7 +101,7 @@ dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
                     )}
                 </div>
               </div>
-              
+
               <Divider />
               <div className="flex flex-col">
                 <div className="flex gap-1 items-center">

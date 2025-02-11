@@ -4,6 +4,7 @@ import { EyeSlashFilledIcon } from "@/components/EyeSlashFilledIcon/EyeSlashFill
 import { useCustomerContext } from "@/context/CustomerContext";
 import { schemaNewUserCustomer } from "@/schemas/user";
 import { handleAxiosError } from "@/services/error";
+import DepartmentService from "@/services/models/department";
 import UserService from "@/services/models/user";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
@@ -28,6 +29,20 @@ export default function ModalAddUser() {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
   const [loading, setLoading] = useState(false);
+  const [departments, setDepartments] = useState<IDepartment[]>([]);
+
+  const handleFetchDepartments = async () => {
+    const { fetchAllDepartments } = await DepartmentService();
+    const response = await fetchAllDepartments();
+    setDepartments(response.departments);
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    handleFetchDepartments().finally(() => {
+      setLoading(false);
+    });
+  }, []);
 
   useEffect(() => {
     if (!isOpenModalAddUser) reset();
@@ -74,6 +89,7 @@ export default function ModalAddUser() {
           data.password,
           selectedCustomerEdit?.id,
           data.role,
+          data.departmentId,
         );
 
         onOpenChangeModalAddUser();
@@ -104,108 +120,143 @@ export default function ModalAddUser() {
             </ModalHeader>
             <form onSubmit={handleSubmit(createUsers)}>
               <ModalBody className="flex flex-col gap-2 text-black dark:text-white">
-                <div className="flex flex-row gap-2 flex-wrap w-full">
-                  <Input
-                    label="Nome"
-                    {...register("firstName")}
-                    isInvalid={!!errors.firstName?.message}
-                    errorMessage={errors.firstName?.message}
-                    size="sm"
-                    className="max-w-[260px]"
-                    variant={inputVariant}
-                  />
-                  <Input
-                    label="Sobrenome"
-                    {...register("lastName")}
-                    isInvalid={!!errors.lastName?.message}
-                    errorMessage={errors.lastName?.message}
-                    size="sm"
-                    className="max-w-[260px]"
-                    variant={inputVariant}
-                  />
-                </div>
-                <Input
-                  label="Email"
-                  type="email"
-                  {...register("email")}
-                  isInvalid={!!errors.email?.message}
-                  errorMessage={errors.email?.message}
-                  size="sm"
-                  variant={inputVariant}
-                />
-                <Input
-                  label="Senha"
-                  type={!isVisible ? "password" : "text"}
-                  {...register("password")}
-                  isInvalid={!!errors.password?.message}
-                  errorMessage={errors.password?.message}
-                  size="sm"
-                  variant={inputVariant}
-                  endContent={
-                    <button
-                      className="focus:outline-none"
-                      type="button"
-                      onClick={toggleVisibility}
-                    >
-                      {isVisible ? (
-                        <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                      ) : (
-                        <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                      )}
-                    </button>
-                  }
-                />
-                <Input
-                  label="Confirmar Senha"
-                  {...register("confirmPassword")}
-                  type={!isVisible ? "password" : "text"}
-                  isInvalid={!!errors.confirmPassword?.message}
-                  errorMessage={errors.confirmPassword?.message}
-                  size="sm"
-                  variant={inputVariant}
-                  endContent={
-                    <button
-                      className="focus:outline-none"
-                      type="button"
-                      onClick={toggleVisibility}
-                    >
-                      {isVisible ? (
-                        <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                      ) : (
-                        <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                      )}
-                    </button>
-                  }
-                />
-                <Controller
-                  control={control}
-                  name={"role"}
-                  render={({ field }) => (
-                    <Select
-                      isInvalid={!!errors.role?.message}
-                      errorMessage={errors.role?.message}
-                      label="Função"
-                      placeholder="Selecione uma função"
-                      className="max-w-xs"
+                {loading ? (
+                  <Spinner />
+                ) : (
+                  <>
+                    <div className="flex flex-row gap-2 flex-wrap w-full">
+                      <Input
+                        label="Nome"
+                        {...register("firstName")}
+                        isInvalid={!!errors.firstName?.message}
+                        errorMessage={errors.firstName?.message}
+                        size="sm"
+                        className="max-w-[260px]"
+                        variant={inputVariant}
+                      />
+                      <Input
+                        label="Sobrenome"
+                        {...register("lastName")}
+                        isInvalid={!!errors.lastName?.message}
+                        errorMessage={errors.lastName?.message}
+                        size="sm"
+                        className="max-w-[260px]"
+                        variant={inputVariant}
+                      />
+                    </div>
+                    <Input
+                      label="Email"
+                      type="email"
+                      {...register("email")}
+                      isInvalid={!!errors.email?.message}
+                      errorMessage={errors.email?.message}
+                      size="sm"
                       variant={inputVariant}
-                      classNames={{
-                        popoverContent: "text-black",
-                        selectorIcon: "text-black",
-                      }}
-                      {...field}
-                    >
-                      {roleOptions.map((role) => (
-                        <SelectItem
-                          key={role.key}
-                          value={role.key}
-                          className="text-black dark:text-white"
+                    />
+                    <Input
+                      label="Senha"
+                      type={!isVisible ? "password" : "text"}
+                      {...register("password")}
+                      isInvalid={!!errors.password?.message}
+                      errorMessage={errors.password?.message}
+                      size="sm"
+                      variant={inputVariant}
+                      endContent={
+                        <button
+                          className="focus:outline-none"
+                          type="button"
+                          onClick={toggleVisibility}
                         >
-                          {role.label}
-                        </SelectItem>
-                      ))}
-                    </Select>
-                  )}
-                />
+                          {isVisible ? (
+                            <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                          ) : (
+                            <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                          )}
+                        </button>
+                      }
+                    />
+                    <Input
+                      label="Confirmar Senha"
+                      {...register("confirmPassword")}
+                      type={!isVisible ? "password" : "text"}
+                      isInvalid={!!errors.confirmPassword?.message}
+                      errorMessage={errors.confirmPassword?.message}
+                      size="sm"
+                      variant={inputVariant}
+                      endContent={
+                        <button
+                          className="focus:outline-none"
+                          type="button"
+                          onClick={toggleVisibility}
+                        >
+                          {isVisible ? (
+                            <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                          ) : (
+                            <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                          )}
+                        </button>
+                      }
+                    />
+                    <Controller
+                      control={control}
+                      name={"role"}
+                      render={({ field }) => (
+                        <Select
+                          isInvalid={!!errors.role?.message}
+                          errorMessage={errors.role?.message}
+                          label="Função"
+                          placeholder="Selecione uma função"
+                          className="max-w-xs"
+                          variant={inputVariant}
+                          classNames={{
+                            popoverContent: "text-black",
+                            selectorIcon: "text-black",
+                          }}
+                          {...field}
+                        >
+                          {roleOptions.map((role) => (
+                            <SelectItem
+                              key={role.key}
+                              value={role.key}
+                              className="text-black dark:text-white"
+                            >
+                              {role.label}
+                            </SelectItem>
+                          ))}
+                        </Select>
+                      )}
+                    />
+                    <Controller
+                      control={control}
+                      name={"departmentId"}
+                      render={({ field }) => (
+                        <Select
+                          isInvalid={!!errors.departmentId?.message}
+                          errorMessage={errors.departmentId?.message}
+                          label="Departamento"
+                          placeholder="Selecione um departamento"
+                          className="max-w-xs"
+                          variant={inputVariant}
+                          classNames={{
+                            popoverContent: "text-black",
+                            selectorIcon: "text-black",
+                          }}
+                          {...field}
+                        >
+                          {departments.map((department) => (
+                            <SelectItem
+                              key={department.id}
+                              value={department.id}
+                              className="text-black dark:text-white"
+                            >
+                              {department.name}
+                            </SelectItem>
+                          ))}
+                        </Select>
+                      )}
+                    />
+                  </>
+                )}
               </ModalBody>
               <ModalFooter>
                 <Button
