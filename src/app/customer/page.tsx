@@ -13,6 +13,7 @@ import { MoonIcon } from "@/components/MoonIcon/MoonIcon";
 import { useTheme } from "next-themes";
 import SkeletonHome from "@/components/SkeletonHome/SkeletonHome";
 import { useUserCustomerContext } from "@/context/UserCostumerContext";
+import { useAuthContext } from "@/context/AuthContext";
 
 export default function UserHome() {
   const {
@@ -23,6 +24,7 @@ export default function UserHome() {
     customerUserId,
   } = useUserCustomerContext();
 
+  const { loggedUser } = useAuthContext();
   const { "sina:x-token": sessionKey } = parseCookies();
 
   const { theme, setTheme } = useTheme();
@@ -45,14 +47,14 @@ export default function UserHome() {
       if (customerUserId !== undefined) {
         const customerUser = await handleCustomerUser(
           customerUserId,
-          sessionKey,
+          sessionKey
         );
         setCustomerUserState(customerUser);
 
         if (customerUser?.customerId !== undefined) {
           const customer = await handleCustomerById(
             customerUser.customerId,
-            sessionKey,
+            sessionKey
           );
 
           setCustomerState(customer);
@@ -105,9 +107,11 @@ export default function UserHome() {
             </div>
             <div className="flex gap-6">
               <div className="w-[345px]">
-                <CustomerProjectsOverview
-                  projects={customerState?.projects || []}
-                />
+                {loggedUser?.permissions.includes("VIEW_REPORT") && (
+                  <CustomerProjectsOverview
+                    projects={customerState?.projects || []}
+                  />
+                )}
               </div>
 
               <ProjectUpdatesCustomer
@@ -116,9 +120,11 @@ export default function UserHome() {
                 customerId={customerUserState?.customerId || ""}
               />
             </div>
-            <CustomerReportsTable
-              customerId={customerUserState?.customerId || ""}
-            />
+            {loggedUser?.permissions.includes("VIEW_REPORT") && (
+              <CustomerReportsTable
+                customerId={customerUserState?.customerId || ""}
+              />
+            )}
           </div>
         )}
       </div>

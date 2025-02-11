@@ -2,6 +2,7 @@
 
 import CustomerBudgetChart from "@/components/CustomerBudgetChart/CustomerBudgetChart";
 import ProjectsOverviewUserCostumer from "@/components/OverviewUserCosutmer/OverviewUserCostumer";
+import { useAuthContext } from "@/context/AuthContext";
 import { useUserCustomerContext } from "@/context/UserCostumerContext";
 import { handleAxiosError } from "@/services/error";
 import CustomerService from "@/services/models/customer";
@@ -12,6 +13,7 @@ import toast from "react-hot-toast";
 
 export default function Overview() {
   const { customerUserId } = useUserCustomerContext();
+  const { loggedUser } = useAuthContext();
 
   const { "sina:x-token": sessionKey } = parseCookies();
 
@@ -24,7 +26,7 @@ export default function Overview() {
       const { fetchCustomerUser } = await UserService();
       const response = await fetchCustomerUser(
         customerUserId || "",
-        sessionKey,
+        sessionKey
       );
       handleClient(response.user?.customerId || "");
       setCustomerId(response.user?.customerId || "");
@@ -62,17 +64,21 @@ export default function Overview() {
               {amoutOfUsers}
             </h1>
           </div>
-          <ProjectsOverviewUserCostumer />
-        </div>
-
-        <div className="w-full">
-          {customerId && customerName && (
-            <CustomerBudgetChart
-              customerName={customerName}
-              customerId={customerId}
-            />
+          {loggedUser?.permissions.includes("VIEW_PROJECT") && (
+            <ProjectsOverviewUserCostumer />
           )}
         </div>
+        <div className="w-full"></div>
+        {loggedUser?.permissions.includes("VIEW_FINANCIAL") && (
+          <>
+            {customerId && customerName && (
+              <CustomerBudgetChart
+                customerName={customerName}
+                customerId={customerId}
+              />
+            )}
+          </>
+        )}
       </div>
     </div>
   );
