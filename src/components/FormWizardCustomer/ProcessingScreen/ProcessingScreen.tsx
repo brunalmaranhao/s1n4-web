@@ -125,6 +125,7 @@ const ProcessingScreen = () => {
             user.password,
             customerId,
             user.role,
+            user.departmentId,
           ),
         ),
       );
