@@ -70,11 +70,11 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    getFirstCustomerId();
+    // getFirstCustomerId();
   }, []);
 
   return (
-    <div className="bg-[#F2F4F8] dark:bg-[#000] flex text-black w-full">
+    <div className="bg-[#F2F4F8] dark:bg-[#000] flex text-black w-full ">
       <div className="p-6 w-full">
         <div className="flex justify-between">
           <h1 className="text-[42px] text-[#21272A] dark:text-white font-bold">

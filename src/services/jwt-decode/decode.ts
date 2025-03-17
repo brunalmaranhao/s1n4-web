@@ -10,7 +10,7 @@ type TokenProps = {
     | "CLIENT_OWNER"
     | "CLIENT_USER";
   iat: number;
-  permissions: string[]
+  permissions: string[];
 };
 
 export function decodeToken(token: string): TokenProps | null {

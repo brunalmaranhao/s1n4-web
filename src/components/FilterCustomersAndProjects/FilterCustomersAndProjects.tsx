@@ -60,11 +60,11 @@ export default function FilterCustomersAndProjects({
     setIsClientSelected(false);
     setIsClientFilterActive(false);
     const customersList = await handleClientList(sessionKey);
-    const firstActiveCustomer = customersList?.[0];
-    if (firstActiveCustomer) {
-      onClientSelect(firstActiveCustomer);
-      setSelectedCustomerName(firstActiveCustomer.corporateName || "");
-    }
+    // const firstActiveCustomer = customersList?.[0];
+    // if (firstActiveCustomer) {
+    //   onClientSelect(firstActiveCustomer);
+    //   setSelectedCustomerName(firstActiveCustomer.corporateName || "");
+    // }
   };
 
   useEffect(() => {

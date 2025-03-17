@@ -47,14 +47,14 @@ export default function UserHome() {
       if (customerUserId !== undefined) {
         const customerUser = await handleCustomerUser(
           customerUserId,
-          sessionKey
+          sessionKey,
         );
         setCustomerUserState(customerUser);
 
         if (customerUser?.customerId !== undefined) {
           const customer = await handleCustomerById(
             customerUser.customerId,
-            sessionKey
+            sessionKey,
           );
 
           setCustomerState(customer);

@@ -27,6 +27,7 @@ export default function DashboardBudgetChart({
     selectedCustomerName,
     firstCustomerNameLoaded,
     setFirstCustomerNameLoaded,
+    selectedCustomer,
   } = useCustomerContext();
 
   const handleCustomerExpensesBalance = async (
@@ -72,6 +73,8 @@ export default function DashboardBudgetChart({
   };
 
   useEffect(() => {
+    console.log(selectedCustomer);
+    console.log(availableAmountPercentage);
     if (customerId) {
       setIsLoading(true);
       handleCustomerExpensesBalance(customerId);
@@ -96,35 +99,39 @@ export default function DashboardBudgetChart({
       {isLoading ? (
         <Spinner />
       ) : (
-        <>
-          <div className="flex space-x-4">
-            <div className="bg-white flex flex-col p-4 w-full justify-start items-center dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
-              <h1 className="text-[#697077] dark:text-white text-[16px] font-normal self-start">
-                Budget mensal
-              </h1>
-              <h1 className="text-[22px] text-[#1E1E1E] dark:text-white font-bold self-start">
-                {formatCurrency(customerBudgetBalance?.budget || 0)}
-              </h1>
-            </div>
-            <div className="bg-white flex p-4 w-full justify-between items-center dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
-              <div className="flex flex-col">
+        selectedCustomer && (
+          <>
+            <div className="flex space-x-4">
+              <div className="bg-white flex flex-col p-4 w-full justify-start items-center dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
                 <h1 className="text-[#697077] dark:text-white text-[16px] font-normal self-start">
-                  Saldo disponível
+                  Budget mensal
                 </h1>
                 <h1 className="text-[22px] text-[#1E1E1E] dark:text-white font-bold self-start">
-                  {formatCurrency(customerBudgetBalance?.balance || 0)}
+                  {formatCurrency(customerBudgetBalance?.budget || 0)}
                 </h1>
               </div>
-              <span className="bg-[#23CF5C] text-[#1E1E1E] rounded-xl px-3 text-[14px] font-normal">{`${availableAmountPercentage.toFixed(
-                2,
-              )}%`}</span>
+              <div className="bg-white flex p-4 w-full justify-between items-center dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)]">
+                <div className="flex flex-col">
+                  <h1 className="text-[#697077] dark:text-white text-[16px] font-normal self-start">
+                    Saldo disponível
+                  </h1>
+                  <h1 className="text-[22px] text-[#1E1E1E] dark:text-white font-bold self-start">
+                    {formatCurrency(customerBudgetBalance?.balance || 0)}
+                  </h1>
+                </div>
+                <span className="bg-[#23CF5C] text-[#1E1E1E] rounded-xl px-3 text-[14px] font-normal">
+                  {availableAmountPercentage ? (
+                    `${availableAmountPercentage.toFixed(2)}%`
+                  ) : (
+                    <h1>0.00%</h1>
+                  )}
+                </span>
+              </div>
             </div>
-          </div>
 
-          {isLoading ? (
-            <Spinner />
-          ) : (
-            customerExpenses.length > 0 && (
+            {isLoading ? (
+              <Spinner />
+            ) : customerExpenses.length > 0 ? (
               <div className="bg-white flex justify-start items-center dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] h-auto p-4">
                 <div className="flex flex-col w-full">
                   <h1 className="text-[#1E1E1E] dark:text-white text-[18px] font-bold self-start">
@@ -137,9 +144,17 @@ export default function DashboardBudgetChart({
                   />
                 </div>
               </div>
-            )
-          )}
-        </>
+            ) : (
+              <div className="bg-white flex justify-start items-center dark:bg-[#1E1E1E] border-solid border-[1px] border-[#F2F4F8] dark:border-[#1E1E1E] rounded-lg shadow-[0_0_48px_0_rgba(0,0,0,0.05)] dark:shadow-[0_0_48px_0_rgba(0,0,0,0.02)] h-auto p-4">
+                <div className="flex flex-col w-full">
+                  <h1 className="text-[#1E1E1E] dark:text-white text-[14px] self-start">
+                    Este cliente não possui lançamentos.
+                  </h1>
+                </div>
+              </div>
+            )}
+          </>
+        )
       )}
     </div>
   );

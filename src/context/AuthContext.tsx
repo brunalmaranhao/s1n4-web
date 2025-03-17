@@ -26,7 +26,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const { push, replace } = useRouter();
   const [loggedUser, setLoggedUser] = useState<
-    { id: string; role: string, permissions: string[] } | undefined
+    { id: string; role: string; permissions: string[] } | undefined
   >();
 
   const [isAuthenticated, setIsAuthenticaded] = useState(false);
@@ -35,19 +35,18 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   useEffect(() => {
     if (sessionKey) {
-     
       setIsAuthenticaded(true);
       if (decoded?.sub && decoded.role)
         setLoggedUser({
           id: decoded?.sub,
           role: decoded.role,
-          permissions: decoded.permissions
+          permissions: decoded.permissions,
         });
     } else {
       setIsAuthenticaded(false);
     }
   }, [sessionKey]);
-  console.log(loggedUser)
+  console.log(loggedUser);
 
   function handleAuthWithToken(acessToken: string) {
     setCookie(undefined, "sina:x-token", acessToken, {

@@ -6,13 +6,19 @@ import { Key, useState } from "react";
 
 export default function TabsDashboardCustomer() {
   const router = useRouter();
-  const {loggedUser} = useAuthContext()
+  const { loggedUser } = useAuthContext();
 
   const keyMapping = {
     overview: "Visão geral",
-    ...(loggedUser?.permissions.includes("VIEW_PROJECT") && { projects: "Projetos" }),
-    ...(loggedUser?.permissions.includes("VIEW_REPORT") && { reports: "Relatórios" }),
-    ...(loggedUser?.permissions.includes("VIEW_FINANCIAL") && { financial: "Financeiro" }),
+    ...(loggedUser?.permissions.includes("VIEW_PROJECT") && {
+      projects: "Projetos",
+    }),
+    ...(loggedUser?.permissions.includes("VIEW_REPORT") && {
+      reports: "Relatórios",
+    }),
+    ...(loggedUser?.permissions.includes("VIEW_FINANCIAL") && {
+      financial: "Financeiro",
+    }),
   };
   const pathname = usePathname();
   const handleTabChange = (key: Key) => {

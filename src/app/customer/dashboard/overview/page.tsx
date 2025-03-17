@@ -26,7 +26,7 @@ export default function Overview() {
       const { fetchCustomerUser } = await UserService();
       const response = await fetchCustomerUser(
         customerUserId || "",
-        sessionKey
+        sessionKey,
       );
       handleClient(response.user?.customerId || "");
       setCustomerId(response.user?.customerId || "");
